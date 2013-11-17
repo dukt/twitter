@@ -6,7 +6,7 @@ use Guzzle\Http\Client;
 
 class TwitterService extends BaseApplicationComponent
 {
-	public function get($url, $opts = array())
+	public function get($api, $params = array(), $opts = array())
 	{
 		$client = new Client('https://api.twitter.com/1.1');
 
@@ -33,13 +33,26 @@ class TwitterService extends BaseApplicationComponent
 
 		$client->addSubscriber($oauth);
 
-		$key = 'twitter.'.md5($url.serialize($opts));
+		$key = 'twitter.'.md5($api.serialize($params).serialize($opts));
 
 		$response = craft()->fileCache->get($key);
 
 		if(!$response) {
 
-			$response = $client->get($url.'.json', $opts)->send();
+			$url = $api.'.json';
+
+			if ($params)
+			{
+				$i = 0;
+
+				foreach ($params as $paramKey => $paramValue)
+				{
+					$url .= ($i == 0 ? '?' : '&') . $paramKey.'='.$paramValue;
+					$i++;
+				}
+			}
+
+			$response = $client->get($url, $opts)->send();
 
 			$response = $response->json();
 
