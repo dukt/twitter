@@ -68,4 +68,30 @@ class TwitterService extends BaseApplicationComponent
 
 		return $response;
 	}
+
+	/**
+	 * Returns a tweet by its ID.
+	 *
+	 * @param int $tweetId
+	 * @param array $params
+	 * @return array|null
+	 */
+	public function getTweetById($tweetId, $params = array())
+	{
+		$params = array_merge($params, array('id' => $tweetId));
+		return $this->get('statuses/show', $params);
+	}
+
+	/**
+	 * Returns a user by their ID.
+	 *
+	 * @param int $userId
+	 * @param array $params
+	 * @return array|null
+	 */
+	public function getUserById($userId, $params = array())
+	{
+		$params = array_merge($params, array('user_id' => $userId));
+		return $this->get('users/show', $params);
+	}
 }
