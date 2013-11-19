@@ -52,9 +52,16 @@ class TwitterService extends BaseApplicationComponent
 				}
 			}
 
-			$response = $client->get($url, $opts)->send();
+			try
+			{
+				$response = $client->get($url, $opts)->send();
 
-			$response = $response->json();
+				$response = $response->json();
+			}
+			catch(\Guzzle\Http\Exception\ClientErrorResponseException $e)
+			{
+				$response = '';
+			}
 
 			craft()->fileCache->set($key, $response);
 		}
