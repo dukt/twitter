@@ -14,21 +14,15 @@ class TwitterService extends BaseApplicationComponent
 
 		$token = craft()->oauth->getSystemToken('twitter', 'twitter.system');
 
-		if(!$token){
+		if(!$provider || !$token){
 			return null;
 		}
-
-		if(!$token->token) {
-			return null;
-		}
-
-		$realToken = $token->getRealToken();
 
 		$oauth = new \Guzzle\Plugin\Oauth\OauthPlugin(array(
 		    'consumer_key'    => $provider->clientId,
 		    'consumer_secret' => $provider->clientSecret,
-		    'token'           => $realToken->access_token,
-		    'token_secret'    => $realToken->secret
+		    'token'           => $token->accessToken,
+		    'token_secret'    => $token->secret
 		));
 
 		$client->addSubscriber($oauth);
