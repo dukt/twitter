@@ -1,0 +1,23 @@
+{% extends "twitter/_layout" %}
+
+
+{% block main %}
+
+    <div class="col-md-12">
+        {% set tweets = craft.twitter.get('statuses/user_timeline') %}
+
+        {% if tweets %}
+
+            <h2>Recent Tweets</h2>
+
+            <ul>
+                {% for tweet in tweets %}
+                    <li>{{tweet.text}}</li>
+                {% endfor %}
+            </ul>
+
+            <hr />
+        {% endif %}
+    </div>
+
+{% endblock main %}
