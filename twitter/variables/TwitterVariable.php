@@ -4,9 +4,9 @@ namespace Craft;
 
 class TwitterVariable
 {
-	public function get($url, $params = array(), $opts = array())
+	public function get($url, $params = array(), $opts = array(), $mode = 'get', $type = 'system')
 	{
-		return craft()->twitter->get($url, $params, $opts);
+		return craft()->twitter->get($url, $params, $opts, $mode, $type);
 	}
 
 	public function getTweetById($tweetId, $params = array())
