@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Craft Twitter by Dukt
+ * Twitter plugin for Craft CMS
  *
- * @package   Craft Twitter
+ * @package   Twitter
  * @author    Benjamin David
- * @copyright Copyright (c) 2013, Dukt
- * @license   http://dukt.net/craft/twitter/docs#license
- * @link      http://dukt.net/craft/twitter/
+ * @copyright Copyright (c) 2014, Dukt
+ * @link      https://dukt.net/craft/twitter/
+ * @license   https://dukt.net/craft/twitter/docs/license
  */
 
 namespace Craft;
@@ -22,8 +22,6 @@ class TwitterPlugin extends BasePlugin
         return Craft::t('Twitter');
     }
 
-    // --------------------------------------------------------------------
-
     /**
      * Get Version
      */
@@ -31,8 +29,6 @@ class TwitterPlugin extends BasePlugin
     {
         return '0.9.3';
     }
-
-    // --------------------------------------------------------------------
 
     /**
      * Get Developer
@@ -42,17 +38,13 @@ class TwitterPlugin extends BasePlugin
         return 'Dukt';
     }
 
-    // --------------------------------------------------------------------
-
     /**
      * Get Developer URL
      */
     function getDeveloperUrl()
     {
-        return 'http://dukt.net/';
+        return 'https://dukt.net/';
     }
-
-    // --------------------------------------------------------------------
 
     /**
      * Defines the settings.
@@ -80,8 +72,6 @@ class TwitterPlugin extends BasePlugin
             'settings' => $this->getSettings()
         ));
     }
-
-    // --------------------------------------------------------------------
 
     /**
      * Adds support for Twitter user photo resource paths.
@@ -220,8 +210,6 @@ class TwitterPlugin extends BasePlugin
             }
         }
     }
-
-    // --------------------------------------------------------------------
 
     /**
      * Adds craft/storage/runtime/twitter/ to the list of things the Clear Caches tool can delete.

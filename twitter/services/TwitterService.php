@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Twitter plugin for Craft CMS
+ *
+ * @package   Twitter
+ * @author    Benjamin David
+ * @copyright Copyright (c) 2014, Dukt
+ * @link      https://dukt.net/craft/twitter/
+ * @license   https://dukt.net/craft/twitter/docs/license
+ */
+
 namespace Craft;
 
 use Guzzle\Http\Client;
@@ -9,6 +19,16 @@ class TwitterService extends BaseApplicationComponent
 	public function get($api, $params = array(), $opts = array())
 	{
 		$client = new Client('https://api.twitter.com/1.1');
+	/**
+	 * Performs a get request on the Twitter API
+	 *
+	 * @param string $uri
+	 * @param array $params
+	 * @param array $headers
+	 * @param array $postFields
+	 * @param bool $enableCache
+	 * @return array|null
+	 */
 
 		$provider = craft()->oauth->getProvider('twitter');
 
@@ -38,6 +58,16 @@ class TwitterService extends BaseApplicationComponent
 			if ($params)
 			{
 				$i = 0;
+	/**
+	 * Performs a request on the Twitter API
+	 *
+	 * @param string $method
+	 * @param string $uri
+	 * @param array $params
+	 * @param array $headers
+	 * @param array $postFields
+	 * @return array|null
+	 */
 
 				foreach ($params as $paramKey => $paramValue)
 				{
