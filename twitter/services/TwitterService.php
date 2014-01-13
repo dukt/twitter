@@ -68,30 +68,52 @@ class TwitterService extends BaseApplicationComponent
 	 * @param array $postFields
 	 * @return array|null
 	 */
+    public function api($method = 'get', $uri, $params = null, $headers = null, $postFields = null)
+    {
+        // client
 
-				foreach ($params as $paramKey => $paramValue)
-				{
-					$url .= ($i == 0 ? '?' : '&') . $paramKey.'='.$paramValue;
-					$i++;
-				}
-			}
+        $client = new Client('https://api.twitter.com/1.1');
 
-			try
-			{
-				$response = $client->get($url, $opts)->send();
+        $provider = craft()->oauth->getProvider('twitter');
 
-				$response = $response->json();
-			}
-			catch(\Guzzle\Http\Exception\ClientErrorResponseException $e)
-			{
-				$response = '';
-			}
+        $token = craft()->oauth->getSystemToken('twitter', 'twitter.system');
 
-			craft()->fileCache->set($key, $response);
-		}
+        if(!$provider || !$token){
+            return null;
+        }
 
-		return $response;
-	}
+        $oauth = new \Guzzle\Plugin\Oauth\OauthPlugin(array(
+            'consumer_key'    => $provider->clientId,
+            'consumer_secret' => $provider->clientSecret,
+            'token'           => $token->accessToken,
+            'token_secret'    => $token->secret
+        ));
+
+        $client->addSubscriber($oauth);
+
+
+        // request
+
+        $format = 'json';
+
+        $query = '';
+
+        if($params) {
+            $query = http_build_query($params);
+
+            if($query) {
+                $query = '?'.$query;
+            }
+        }
+
+        $url = $uri.'.'.$format.$query;
+
+        $response = $client->get($url, $headers, $postFields)->send();
+
+        $response = $response->json();
+
+        return $response;
+    }
 
 	/**
 	 * Returns a tweet by its ID.
