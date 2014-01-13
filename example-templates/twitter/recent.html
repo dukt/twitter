@@ -4,11 +4,14 @@
 {% block main %}
 
     <div class="col-md-12">
+
+        <h1>Recent Tweets</h1>
+
+        <hr />
+
         {% set tweets = craft.twitter.get('statuses/user_timeline') %}
 
         {% if tweets %}
-
-            <h2>Recent Tweets</h2>
 
             <ul>
                 {% for tweet in tweets %}
@@ -16,7 +19,6 @@
                 {% endfor %}
             </ul>
 
-            <hr />
         {% endif %}
     </div>
 
