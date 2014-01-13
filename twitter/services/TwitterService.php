@@ -16,9 +16,6 @@ use Guzzle\Http\Client;
 
 class TwitterService extends BaseApplicationComponent
 {
-	public function get($api, $params = array(), $opts = array())
-	{
-		$client = new Client('https://api.twitter.com/1.1');
 	/**
 	 * Performs a get request on the Twitter API
 	 *
@@ -29,35 +26,43 @@ class TwitterService extends BaseApplicationComponent
 	 * @param bool $enableCache
 	 * @return array|null
 	 */
+    public function get($uri, $params = array(), $headers = array(), $enableCache = true, $cacheExpire = 0)
+    {
+        // get from cache
 
-		$provider = craft()->oauth->getProvider('twitter');
+        if($enableCache) {
 
-		$token = craft()->oauth->getSystemToken('twitter', 'twitter.system');
+            $key = 'twitter.'.md5($uri.serialize($params));
 
-		if(!$provider || !$token){
-			return null;
-		}
+            $response = craft()->fileCache->get($key);
 
-		$oauth = new \Guzzle\Plugin\Oauth\OauthPlugin(array(
-		    'consumer_key'    => $provider->clientId,
-		    'consumer_secret' => $provider->clientSecret,
-		    'token'           => $token->accessToken,
-		    'token_secret'    => $token->secret
-		));
+            if($response) {
+                return $response;
+            }
+        }
 
-		$client->addSubscriber($oauth);
 
-		$key = 'twitter.'.md5($api.serialize($params).serialize($opts));
+        // run request
 
-		$response = craft()->fileCache->get($key);
+        try
+        {
+            $response = $this->api('get', $uri, $params, $headers);
 
-		if(!$response) {
 
-			$url = $api.'.json';
+            // cache response
 
-			if ($params)
-			{
-				$i = 0;
+            if($enableCache) {
+                craft()->fileCache->set($key, $response, $cacheExpire);
+            }
+
+            return $response;
+        }
+        catch(\Guzzle\Http\Exception\ClientErrorResponseException $e)
+        {
+            Craft::log(__METHOD__." Couldn't get twitter response", LogLevel::Info, true);
+        }
+    }
+
 	/**
 	 * Performs a request on the Twitter API
 	 *
