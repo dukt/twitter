@@ -14,6 +14,11 @@ class TwitterVariable
 		return craft()->twitter->getTweetById($tweetId, $params);
 	}
 
+	public function getUserById($userId, $params = array())
+	{
+		return craft()->twitter->getUserById($userId, $params);
+	}
+
 	public function getUserImageUrl($userId, $size = 48)
 	{
 		return UrlHelper::getResourceUrl('twitteruserimages/'.$userId.'/'.$size);
