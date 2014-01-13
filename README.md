@@ -1,10 +1,10 @@
-# Analytics <small>_for Craft CMS_</small>
+# Twitter <small>_for Craft CMS_</small>
 
-Google Analytics charts for your Craft dashboard.
+Get the most of Twitter on your Craft website.
 
-- [Analytics Overview](http://dukt.net/craft/analytics/)
-- [Analytics Docs](http://dukt.net/craft/analytics/docs)
-- [Analytics License](http://dukt.net/craft/analytics/docs/license)
+- [Twitter Overview](https://dukt.net/craft/twitter/)
+- [Twitter Docs](https://dukt.net/craft/twitter/docs)
+- [Twitter License](https://dukt.net/craft/twitter/docs/license)
 
 
-[Dukt.net](http://dukt.net/) © 2013 - All rights reserved
+[Dukt.net](https://dukt.net/) © 2014 - All rights reserved

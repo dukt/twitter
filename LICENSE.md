@@ -20,7 +20,7 @@ All copyright and proprietary notices and logos displayed by the Software or wit
 
 ## Technical Support
 
-User Guides and support are available at http://dukt.net/. No representations or guarantees are made regarding the response time for support requests. Dukt reserves to right to terminate official technical support at any time and for any reason with or without notice.
+User Guides and support are available at https://dukt.net/. No representations or guarantees are made regarding the response time for support requests. Dukt reserves to right to terminate official technical support at any time and for any reason with or without notice.
 
 ## Refunds
 
