@@ -63,7 +63,7 @@ TweetInput = Garnish.Base.extend({
 							'<div class="tweet-image" style="background-image: url('+profileImageUrl+');" /> ' +
 							'<div class="tweet-user">' +
 								'<span class="tweet-user-name">'+response.user.name+'</span> ' +
-								'<a class="tweet-user-screenname" href="http://twitter.com/'+response.user.screen_name+'" target="_blank">@'+response.user.screen_name+'</a>' +
+								'<a class="tweet-user-screenname light" href="http://twitter.com/'+response.user.screen_name+'" target="_blank">@'+response.user.screen_name+'</a>' +
 							'</div>' +
 							'<div class="tweet-text">' +
 								response.text +
