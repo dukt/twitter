@@ -76,13 +76,31 @@ class Twitter_TweetFieldType extends BaseFieldType
 			craft()->templates->render('_includes/forms/text', array(
 				'id'    => $id,
 				'name'  => $name,
-				'value' => $tweet['rawValue'],
+				'value' => $url,
 				'placeholder' => Craft::t('Enter a tweet URL or ID'),
 			)) .
 			'<div class="spinner hidden"></div>' .
 			$preview .
 			'</div>';
 	}
+
+	public function prepValueFromPost($value)
+	{
+		if (preg_match('/^\d+$/', $value))
+		{
+			$id = $value;
+		}
+		else if (preg_match('/\/status(es)?\/(\d+)\/?$/', $value, $matches))
+		{
+			$id = $matches[2];
+		}
+
+		if(isset($id))
+		{
+			return $id;
+		}
+	}
+
 
 	/**
 	 * Preps the field value for use.
@@ -92,32 +110,9 @@ class Twitter_TweetFieldType extends BaseFieldType
 	 */
 	public function prepValue($value)
 	{
-		if($value)
+		if($value && is_numeric($value))
 		{
-			$tweet = array();
-
-			if (preg_match('/^\d+$/', $value))
-			{
-				$id = $value;
-			}
-			else if (preg_match('/\/status(es)?\/(\d+)\/?$/', $value, $matches))
-			{
-				$id = $matches[2];
-			}
-
-			if(isset($id))
-			{
-				$tweet = craft()->twitter->getTweetById($id);
-			}
-
-			$tweet['rawValue'] = $value;
-
-			if(is_numeric($tweet['rawValue']))
-			{
-				$tweet['rawValue'] = 'https://twitter.com/'.$tweet['user']['screen_name'].'/status/'.$tweet['id'];
-			}
-
-			return $tweet;
+			return craft()->twitter->getTweetById($value);
 		}
 	}
 }
