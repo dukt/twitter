@@ -9,34 +9,33 @@
 
     </div>
 
-
-
     {% for mention in homepage.mentions %}
 
         {% set mentionId = 'mention-' ~ mention.id %}
-
-        <div id="{{ mentionId }}" class="col-md-4 mention {{ mention.type }}">
-            {% spaceless %}
+        {% if mention %}
+            <div id="{{ mentionId }}" class="col-md-4 mention {{ mention.type }}">
                 {% if mention.type == 'tweet' %}
                     {% set tweet = mention.tweet %}
-                    {% set user = tweet.user %}
 
-                    {% set url = 'https://twitter.com/' ~ user.screen_name ~ '/status/' ~ tweet.id %}
-                    {% set imageUrl = craft.twitter.getUserImageUrl(user.id, 73) %}
-                    {% set author = user.name ~ ' (@' ~ user.screen_name ~ ') on Twitter' %}
-                    {% set quote = tweet.text %}
+                    {% if tweet %}
+                        {% set user = tweet.user %}
+
+                        {% set url = 'https://twitter.com/' ~ user.screen_name ~ '/status/' ~ tweet.id %}
+                        {% set imageUrl = craft.twitter.getUserImageUrl(user.id, 73) %}
+                        {% set author = user.name ~ ' (@' ~ user.screen_name ~ ') on Twitter' %}
+                        {% set quote = tweet.text %}
+
+                        <img src="{{imageUrl}}" />
+
+                        <p><cite><a href="{{ url }}" title="{{ author }}">{{ author }}</a></cite></p>
+
+                        <blockquote>{{ quote }}</blockquote>
+                    {% endif %}
                 {% else %}
                     ...
                 {% endif %}
-            {% endspaceless -%}
-
-            <img src="{{imageUrl}}" />
-
-            <p><cite><a href="{{ url }}" title="{{ author }}">{{ author }}</a></cite></p>
-
-            <blockquote>{{ quote }}</blockquote>
-
-        </div>
+            </div>
+        {% endif %}
 
         {% if loop.index is divisible by(3) %}
             <div class="clearfix"></div>
