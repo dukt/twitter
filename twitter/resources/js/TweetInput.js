@@ -22,18 +22,25 @@ TweetInput = Garnish.Base.extend({
 	{
 		var val = this.$input.val();
 
+		var tweetId = false;
 		var idMatch = val.match(/^(\d+)$/);
+
+		if(idMatch)
+		{
+			tweetId = idMatch[1];
+		}
 
 		if (!idMatch)
 		{
-			idMatch = val.match(/\/status\/(\d+)\/?$/);
+			idMatch = val.match(/\/status(es)?\/(\d+)\/?$/);
+			tweetId = idMatch[2];
 		}
 
-		if (idMatch)
+		if (tweetId)
 		{
 			this.$spinner.removeClass('hidden');
 
-			Craft.postActionRequest('twitter/lookupTweet', { id: idMatch[1] }, $.proxy(function(response, textStatus)
+			Craft.postActionRequest('twitter/lookupTweet', { id: tweetId }, $.proxy(function(response, textStatus)
 			{
 				this.$spinner.addClass('hidden');
 
