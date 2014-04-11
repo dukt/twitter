@@ -68,7 +68,7 @@ class Twitter_TweetFieldType extends BaseFieldType
 		}
 		else
 		{
-			$url = '';
+			$url = $value;
 			$preview = '';
 		}
 
@@ -99,6 +99,10 @@ class Twitter_TweetFieldType extends BaseFieldType
 		{
 			return $id;
 		}
+		else
+		{
+			return $value;
+		}
 	}
 
 
@@ -110,9 +114,25 @@ class Twitter_TweetFieldType extends BaseFieldType
 	 */
 	public function prepValue($value)
 	{
-		if($value && is_numeric($value))
+		if($value)
 		{
-			return craft()->twitter->getTweetById($value);
+			if(is_numeric($value))
+			{
+				$tweet = craft()->twitter->getTweetById($value);
+
+				if($tweet)
+				{
+					return $tweet;
+				}
+				else
+				{
+					return $value;
+				}
+			}
+			elseif (is_string($value))
+			{
+				return $value;
+			}
 		}
 	}
 }

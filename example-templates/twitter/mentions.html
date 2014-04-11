@@ -17,7 +17,7 @@
                 {% if mention.type == 'tweet' %}
                     {% set tweet = mention.tweet %}
 
-                    {% if tweet %}
+                    {% if tweet.id is defined %}
                         {% set user = tweet.user %}
 
                         {% set url = 'https://twitter.com/' ~ user.screen_name ~ '/status/' ~ tweet.id %}

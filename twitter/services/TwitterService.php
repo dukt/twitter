@@ -61,6 +61,10 @@ class TwitterService extends BaseApplicationComponent
         {
             Craft::log(__METHOD__." Couldn't get twitter response", LogLevel::Info, true);
         }
+        catch(\Guzzle\Http\Exception\CurlException $e)
+        {
+            Craft::log(__METHOD__." ".$e->getMessage(), LogLevel::Info, true);
+        }
     }
 
 	/**

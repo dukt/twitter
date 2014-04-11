@@ -63,18 +63,20 @@
 
 			{% set account = craft.oauth.getAccount('twitter', 'twitter.system') %}
 
-			<img src="{{account.image}}" alt="">
-			<ul>
-				<li><strong>UID : </strong> {{account.uid}}</li>
-				<li><strong>Screen Name : </strong> {{account.name}}</li>
-				<li><strong>Name : </strong> {{account.name}}</li>
-				<li><strong>Location : </strong> {{account.location}}</li>
-				<li><strong>Description : </strong> {{account.description}}</li>
-			</ul>
-
+			{% if account %}
+				<img src="{{account.image}}" alt="">
+				<ul>
+					<li><strong>UID : </strong> {{account.uid}}</li>
+					<li><strong>Screen Name : </strong> {{account.name}}</li>
+					<li><strong>Name : </strong> {{account.name}}</li>
+					<li><strong>Location : </strong> {{account.location}}</li>
+					<li><strong>Description : </strong> {{account.description}}</li>
+				</ul>
+			{% endif %}
 			<div class="buttons">
 				<a class="btn" href="{{craft.oauth.disconnect('twitter', 'twitter.system')}}">Disconnect from Twitter</a>
 			</div>
+
 
 		{% else %}
 			<h2 class="first">Connect to Twitter</h2>

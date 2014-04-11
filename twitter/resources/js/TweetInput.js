@@ -33,7 +33,11 @@ TweetInput = Garnish.Base.extend({
 		if (!idMatch)
 		{
 			idMatch = val.match(/\/status(es)?\/(\d+)\/?$/);
-			tweetId = idMatch[2];
+
+			if(idMatch)
+			{
+				tweetId = idMatch[2];
+			}
 		}
 
 		if (tweetId)
