@@ -9,7 +9,7 @@
 
         <hr />
 
-        {% set tweets = craft.twitter.get('statuses/user_timeline') %}
+        {% set tweets = craft.twitter.get('statuses/user_timeline', {count:10}) %}
 
         {% if tweets %}
 
@@ -18,7 +18,8 @@
                     <li>{{tweet.text}}</li>
                 {% endfor %}
             </ul>
-
+        {% else %}
+            <p>No tweets</p>
         {% endif %}
     </div>
 
