@@ -16,6 +16,34 @@ use Guzzle\Http\Client;
 
 class TwitterService extends BaseApplicationComponent
 {
+    private $oauthHandle = 'twitter';
+
+    public function getToken()
+    {
+        $plugin = craft()->plugins->getPlugin('twitter');
+        $settings = $plugin->getSettings();
+
+        if(!empty($settings['token']))
+        {
+            // get token from settings
+            $token = unserialize(base64_decode($settings['token']));
+
+
+            // will refresh token if needed
+            $token = craft()->oauth->refreshToken($this->oauthHandle, $token);
+
+            if($token)
+            {
+                // save token
+                $plugin = craft()->plugins->getPlugin('twitter');
+                $settings = array('token' => base64_encode(serialize($token)));
+                craft()->plugins->savePluginSettings($plugin, $settings);
+
+                return $token;
+            }
+        }
+    }
+
 	/**
 	 * Performs a get request on the Twitter API
 	 *
@@ -77,6 +105,7 @@ class TwitterService extends BaseApplicationComponent
 	 * @param array $postFields
 	 * @return array|null
 	 */
+
     public function api($method = 'get', $uri, $params = null, $headers = null, $postFields = null)
     {
         // client
@@ -85,7 +114,7 @@ class TwitterService extends BaseApplicationComponent
 
         $provider = craft()->oauth->getProvider('twitter');
 
-        $token = craft()->oauth->getSystemToken('twitter', 'twitter.system');
+        $token = craft()->twitter->getToken();
 
         if(!$provider || !$token){
             return null;
@@ -94,8 +123,8 @@ class TwitterService extends BaseApplicationComponent
         $oauth = new \Guzzle\Plugin\Oauth\OauthPlugin(array(
             'consumer_key'    => $provider->clientId,
             'consumer_secret' => $provider->clientSecret,
-            'token'           => $token->accessToken,
-            'token_secret'    => $token->secret
+            'token'           => $token->getAccessToken(),
+            'token_secret'    => $token->getAccessTokenSecret()
         ));
 
         $client->addSubscriber($oauth);

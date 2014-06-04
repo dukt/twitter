@@ -1,0 +1,15 @@
+{% import "_includes/forms" as forms %}
+
+{% includeCssResource 'twitter/css/disableSave.css' %}
+
+{% if craft.oauth is not defined %}
+
+    {# OAuth plugin not installed, let's install it #}
+    {% include 'twitter/settings/_oauth' %}
+
+{% else %}
+
+    {# Plugin Settings #}
+    {% include 'twitter/settings/_plugin' %}
+
+{% endif %}

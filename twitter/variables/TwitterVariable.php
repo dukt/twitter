@@ -14,6 +14,11 @@ namespace Craft;
 
 class TwitterVariable
 {
+    public function getToken()
+    {
+        return craft()->twitter->getToken();
+    }
+
 	public function get($uri, $params = array(), $headers = array(), $enableCache = true, $cacheExpire = 0)
 	{
 		return craft()->twitter->get($uri, $params, $headers, $enableCache, $cacheExpire);

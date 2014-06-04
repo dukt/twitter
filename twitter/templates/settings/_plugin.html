@@ -1,0 +1,58 @@
+{% set providerHandle = 'twitter' %}
+{% set providerName = 'Twitter' %}
+
+{% set connectUrl = actionUrl('twitter/connect') %}
+{% set disconnectUrl = actionUrl('twitter/disconnect') %}
+{% set settingsUrl = url('oauth/provider/'~providerHandle) %}
+
+{% set provider = craft.oauth.getProvider(providerHandle) %}
+
+{% if provider.isConfigured %}
+
+    {% set token = craft.twitter.token %}
+
+    {% if token %}
+
+        {# Connected #}
+
+        {% set void = provider.setRealToken(token) %}
+        {% set account = provider.getAccount() %}
+
+        <input type="hidden" name="token" value="{{ craft.oauth.encodeToken(token) }}" />
+
+        <h2 class="first">{{ '{provider} Account'|t({ provider: providerName }) }}</h2>
+        <p>{{ 'You are authenticated to {provider} with the following account'|t({ provider: providerName }) }} :</p>
+
+        <ul>
+            <li><strong>{{ 'UID'|t }} : </strong> {{account.uid}}</li>
+            <li><strong>{{ 'Name'|t }} : </strong> {{account.name}}</li>
+        </ul>
+
+
+         <p><a class="btn small" href="{{ disconnectUrl }}">{{ 'Disconnect'|t }}</a></p>
+
+    {% else %}
+
+        {# Not Connected #}
+
+        <h2 class="first">{{ '{provider} Account'|t({ provider: providerName })}}</h2>
+
+        <p>{{ 'You need to connect Craft to a {provider} account in order to get started.'|t({ provider: providerName })}}</p>
+
+        <p>{{"Getting errors trying to connect ?"|t }} <a href="{{ settingsUrl }}">{{"Check {provider} API key & secret in OAuth settings"|t({ provider: providerName })}}</a>.</p>
+
+        <p>
+            <a class="btn submit" href="{{ connectUrl }}">{{"Connect to {provider}"|t({provider: providerName})}}</a>
+        </p>
+
+    {% endif %}
+
+{% else %}
+
+    {# OAuth provider not configured #}
+
+    <h2 class="first">{{ '{provider} provider not configured'|t({ provider: providerName })}}</h2>
+    <p>{{ 'Please fill API client id & secret for {provider} provider.'|t({ provider: providerName })}}</p>
+    <p><a class="btn" href="{{ settingsUrl }}">{{ '{provider} OAuth settings'|t({ provider: providerName })}}</a></p>
+
+{% endif %}

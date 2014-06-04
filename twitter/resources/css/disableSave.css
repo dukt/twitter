@@ -1,3 +1,7 @@
-#content input.submit {
-	display: none;
+#content div.buttons {
+    display: none;
+}
+
+.force {
+    display: inline !important;
 }
