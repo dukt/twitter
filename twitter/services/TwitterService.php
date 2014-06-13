@@ -18,6 +18,17 @@ class TwitterService extends BaseApplicationComponent
 {
     private $oauthHandle = 'twitter';
 
+    public function saveToken($token)
+    {
+        // get plugin settings
+        $plugin = craft()->plugins->getPlugin('twitter');
+        $settings = $plugin->getSettings();
+
+        // save token to plugin settings
+        $settings['token'] = base64_encode(serialize($token));
+        craft()->plugins->savePluginSettings($plugin, $settings);
+    }
+
     public function getToken()
     {
         $plugin = craft()->plugins->getPlugin('twitter');
@@ -28,16 +39,13 @@ class TwitterService extends BaseApplicationComponent
             // get token from settings
             $token = unserialize(base64_decode($settings['token']));
 
-
             // will refresh token if needed
             $token = craft()->oauth->refreshToken($this->oauthHandle, $token);
 
             if($token)
             {
                 // save token
-                $plugin = craft()->plugins->getPlugin('twitter');
-                $settings = array('token' => base64_encode(serialize($token)));
-                craft()->plugins->savePluginSettings($plugin, $settings);
+                $this->saveToken($token);
 
                 return $token;
             }

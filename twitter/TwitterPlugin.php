@@ -14,27 +14,16 @@ namespace Craft;
 
 class TwitterPlugin extends BasePlugin
 {
-    public function init()
+    public function registerOauthConnect($variables)
     {
-        craft()->on('oauth.connect', function(Event $event) {
+        // token
+        $token = $variables['token'];
 
-            if(craft()->httpSession->get('oauth.plugin') == 'twitter')
-            {
-                // token
-                $token = $event->params['token'];
+        // save token
+        craft()->twitter->saveToken($token);
 
-                // get plugin settings
-                $plugin = craft()->plugins->getPlugin('twitter');
-                $settings = $plugin->getSettings();
-
-                // save token to plugin settings
-                $settings['token'] = base64_encode(serialize($token));
-                craft()->plugins->savePluginSettings($plugin, $settings);
-
-                // session notice
-                craft()->userSession->setNotice(Craft::t("Connected to Twitter."));
-            }
-        });
+        // session notice
+        craft()->userSession->setNotice(Craft::t("Connected to Twitter."));
     }
 
     /**
