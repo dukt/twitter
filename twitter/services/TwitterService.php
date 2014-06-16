@@ -16,63 +16,75 @@ use Guzzle\Http\Client;
 
 class TwitterService extends BaseApplicationComponent
 {
-    private $oauthHandle = 'twitter';
-
+    /**
+     * Save OAuth Token
+     */
     public function saveToken($token)
     {
-        // get plugin settings
+        // get plugin
         $plugin = craft()->plugins->getPlugin('twitter');
+
+        // get settings
         $settings = $plugin->getSettings();
 
+        // encode token
+        $settings['token'] = craft()->oauth->encodeToken($token);
+
         // save token to plugin settings
-        $settings['token'] = base64_encode(serialize($token));
         craft()->plugins->savePluginSettings($plugin, $settings);
     }
 
+    /**
+     * Get OAuth Token
+     */
     public function getToken()
     {
+        // get plugin
         $plugin = craft()->plugins->getPlugin('twitter');
+
+        // get settings
         $settings = $plugin->getSettings();
 
         if(!empty($settings['token']))
         {
             // get token from settings
-            $token = unserialize(base64_decode($settings['token']));
+            $token = craft()->oauth->decodeToken($settings['token']);
 
-            // will refresh token if needed
-            $token = craft()->oauth->refreshToken($this->oauthHandle, $token);
-
-            if($token)
+            // refresh token if needed
+            if(craft()->oauth->refreshToken('twitter', $token))
             {
                 // save token
                 $this->saveToken($token);
-
-                return $token;
             }
+
+            // return token
+            return $token;
         }
     }
 
-	/**
-	 * Performs a get request on the Twitter API
-	 *
-	 * @param string $uri
-	 * @param array $params
-	 * @param array $headers
-	 * @param array $postFields
-	 * @param bool $enableCache
-	 * @return array|null
-	 */
+    /**
+     * Performs a get request on the Twitter API
+     *
+     * @param string $uri
+     * @param array $params
+     * @param array $headers
+     * @param array $postFields
+     * @param bool $enableCache
+     * @return array|null
+     */
     public function get($uri, $params = array(), $headers = array(), $enableCache = true, $cacheExpire = 0)
     {
         // get from cache
 
-        if($enableCache) {
+        if($enableCache)
+        {
 
             $key = 'twitter.'.md5($uri.serialize($params));
 
             $response = craft()->fileCache->get($key);
 
-            if($response) {
+            if($response)
+            {
                 return $response;
             }
         }
@@ -87,7 +99,8 @@ class TwitterService extends BaseApplicationComponent
 
             // cache response
 
-            if($enableCache) {
+            if($enableCache)
+            {
                 craft()->fileCache->set($key, $response, $cacheExpire);
             }
 
@@ -103,16 +116,16 @@ class TwitterService extends BaseApplicationComponent
         }
     }
 
-	/**
-	 * Performs a request on the Twitter API
-	 *
-	 * @param string $method
-	 * @param string $uri
-	 * @param array $params
-	 * @param array $headers
-	 * @param array $postFields
-	 * @return array|null
-	 */
+    /**
+     * Performs a request on the Twitter API
+     *
+     * @param string $method
+     * @param string $uri
+     * @param array $params
+     * @param array $headers
+     * @param array $postFields
+     * @return array|null
+     */
 
     public function api($method = 'get', $uri, $params = null, $headers = null, $postFields = null)
     {
@@ -124,7 +137,8 @@ class TwitterService extends BaseApplicationComponent
 
         $token = craft()->twitter->getToken();
 
-        if(!$provider || !$token){
+        if(!$provider || !$token)
+        {
             return null;
         }
 
@@ -144,10 +158,12 @@ class TwitterService extends BaseApplicationComponent
 
         $query = '';
 
-        if($params) {
+        if($params)
+        {
             $query = http_build_query($params);
 
-            if($query) {
+            if($query)
+            {
                 $query = '?'.$query;
             }
         }
@@ -161,29 +177,29 @@ class TwitterService extends BaseApplicationComponent
         return $response;
     }
 
-	/**
-	 * Returns a tweet by its ID.
-	 *
-	 * @param int $tweetId
-	 * @param array $params
-	 * @return array|null
-	 */
-	public function getTweetById($tweetId, $params = array())
-	{
-		$params = array_merge($params, array('id' => $tweetId));
-		return $this->get('statuses/show', $params);
-	}
+    /**
+     * Returns a tweet by its ID.
+     *
+     * @param int $tweetId
+     * @param array $params
+     * @return array|null
+     */
+    public function getTweetById($tweetId, $params = array())
+    {
+        $params = array_merge($params, array('id' => $tweetId));
+        return $this->get('statuses/show', $params);
+    }
 
-	/**
-	 * Returns a user by their ID.
-	 *
-	 * @param int $userId
-	 * @param array $params
-	 * @return array|null
-	 */
-	public function getUserById($userId, $params = array())
-	{
-		$params = array_merge($params, array('user_id' => $userId));
-		return $this->get('users/show', $params);
-	}
+    /**
+     * Returns a user by their ID.
+     *
+     * @param int $userId
+     * @param array $params
+     * @return array|null
+     */
+    public function getUserById($userId, $params = array())
+    {
+        $params = array_merge($params, array('user_id' => $userId));
+        return $this->get('users/show', $params);
+    }
 }

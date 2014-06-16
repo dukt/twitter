@@ -15,8 +15,8 @@
 
         {# Connected #}
 
-        {% set void = provider.setRealToken(token) %}
-        {% set account = provider.getAccount() %}
+        {% set void = provider.source.setToken(token) %}
+        {% set account = provider.source.account %}
 
         <input type="hidden" name="token" value="{{ craft.oauth.encodeToken(token) }}" />
 
