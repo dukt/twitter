@@ -2,7 +2,7 @@
 {% set disconnectUrl = actionUrl('twitter/disconnect') %}
 {% set settingsUrl = url('oauth/provider/twitter') %}
 
-{% set provider = craft.oauth.getProvider('twitter') %}
+{% set provider = craft.oauth.getProvider('twitter', false) %}
 
 {% if provider.isConfigured %}
 
