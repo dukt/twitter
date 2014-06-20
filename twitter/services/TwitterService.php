@@ -73,7 +73,6 @@ class TwitterService extends BaseApplicationComponent
                 // return token
                 $this->token = $token;
 
-                var_dump($token);
                 return $token;
             }
         }
