@@ -24,14 +24,33 @@ class TwitterController extends BaseController
     /**
      * Connect
      */
-    public function actionConnect()
+    public function actionConnect(array $variables = array())
     {
-        craft()->oauth->connect(array(
+        if($response = craft()->oauth->connect(array(
             'plugin' => 'twitter',
             'provider' => 'twitter',
             'scopes' => $this->scopes,
             'params' => $this->params
-        ));
+        )))
+        {
+            if($response['success'])
+            {
+                // token
+                $token = $response['token'];
+
+                // save token
+                craft()->twitter->saveToken($token);
+
+                // session notice
+                craft()->userSession->setNotice(Craft::t("Connected to Twitter."));
+            }
+            else
+            {
+                craft()->userSession->setError(Craft::t($response['errorMsg']));
+            }
+
+            $this->redirect($response['redirect']);
+        }
     }
 
     /**

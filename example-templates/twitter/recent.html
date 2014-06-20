@@ -9,6 +9,10 @@
 
         <hr />
 
+{#         {% set socialUser = craft.social.getUserByProvider('twitter') %}
+        {% set token = socialUser.token %}
+
+        {% set void = craft.twitter.setToken(token) %} #}
         {% set tweets = craft.twitter.get('statuses/user_timeline', {count:10}) %}
 
         {% if tweets %}

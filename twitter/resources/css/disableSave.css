@@ -3,5 +3,5 @@
 }
 
 .force {
-    display: inline !important;
+    display: inherit !important;
 }

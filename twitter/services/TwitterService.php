@@ -16,6 +16,13 @@ use Guzzle\Http\Client;
 
 class TwitterService extends BaseApplicationComponent
 {
+    private $token;
+
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
+
     /**
      * Save OAuth Token
      */
@@ -39,26 +46,36 @@ class TwitterService extends BaseApplicationComponent
      */
     public function getToken()
     {
-        // get plugin
-        $plugin = craft()->plugins->getPlugin('twitter');
-
-        // get settings
-        $settings = $plugin->getSettings();
-
-        if(!empty($settings['token']))
+        if($this->token)
         {
-            // get token from settings
-            $token = craft()->oauth->decodeToken($settings['token']);
+            return $this->token;
+        }
+        else
+        {
+            // get plugin
+            $plugin = craft()->plugins->getPlugin('twitter');
 
-            // refresh token if needed
-            if(craft()->oauth->refreshToken('twitter', $token))
+            // get settings
+            $settings = $plugin->getSettings();
+
+            if(!empty($settings['token']))
             {
-                // save token
-                $this->saveToken($token);
-            }
+                // get token from settings
+                $token = craft()->oauth->decodeToken($settings['token']);
 
-            // return token
-            return $token;
+                // refresh token if needed
+                if(craft()->oauth->refreshToken('twitter', $token))
+                {
+                    // save token
+                    $this->saveToken($token);
+                }
+
+                // return token
+                $this->token = $token;
+
+                var_dump($token);
+                return $token;
+            }
         }
     }
 
@@ -76,10 +93,15 @@ class TwitterService extends BaseApplicationComponent
     {
         // get from cache
 
+        if(craft()->config->get('disableCache', 'twitter') == true)
+        {
+            $enableCache = false;
+        }
+
         if($enableCache)
         {
 
-            $key = 'twitter.'.md5($uri.serialize($params));
+            $key = 'twitter.'.md5($uri.serialize($this->token, $params));
 
             $response = craft()->fileCache->get($key);
 
@@ -134,8 +156,7 @@ class TwitterService extends BaseApplicationComponent
         $client = new Client('https://api.twitter.com/1.1');
 
         $provider = craft()->oauth->getProvider('twitter');
-
-        $token = craft()->twitter->getToken();
+        $token = $this->getToken();
 
         if(!$provider || !$token)
         {

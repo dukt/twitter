@@ -14,18 +14,6 @@ namespace Craft;
 
 class TwitterPlugin extends BasePlugin
 {
-    public function registerOauthConnect($variables)
-    {
-        // token
-        $token = $variables['token'];
-
-        // save token
-        craft()->twitter->saveToken($token);
-
-        // session notice
-        craft()->userSession->setNotice(Craft::t("Connected to Twitter."));
-    }
-
     /**
      * Get Name
      */
