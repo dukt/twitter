@@ -12,6 +12,7 @@
     {% for mention in homepage.mentions %}
 
         {% set mentionId = 'mention-' ~ mention.id %}
+
         {% if mention %}
             <div id="{{ mentionId }}" class="col-md-4 mention {{ mention.type }}">
                 {% if mention.type == 'tweet' %}

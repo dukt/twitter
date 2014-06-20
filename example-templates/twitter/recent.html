@@ -1,5 +1,6 @@
 {% extends "twitter/_layout" %}
 
+{% includeJsResource '../twitter/timeline/js/modernizr.custom.js' %}
 
 {% block main %}
 
@@ -9,15 +10,20 @@
 
         <hr />
 
-        {% set tweets = craft.twitter.get('statuses/user_timeline', {count:10}) %}
+        {% set tweets = craft.twitter.get('statuses/user_timeline', {
+            count:100,
+            exclude_replies: false,
+            include_rts: true,
+            screen_name: 'autumndev'
+        }) %}
 
         {% if tweets %}
 
-            <ul>
+            <div class="twitter-timeline">
                 {% for tweet in tweets %}
-                    <li>{{tweet.text}}</li>
+                    <div class="text">{{tweet.text|raw}}</div class="text">
                 {% endfor %}
-            </ul>
+            </div>
         {% else %}
             <p>No tweets</p>
         {% endif %}
