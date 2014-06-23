@@ -18,29 +18,6 @@ class TwitterService extends BaseApplicationComponent
 {
     private $token;
 
-    public function setToken($token)
-    {
-        $this->token = $token;
-    }
-
-    /**
-     * Save OAuth Token
-     */
-    public function saveToken($token)
-    {
-        // get plugin
-        $plugin = craft()->plugins->getPlugin('twitter');
-
-        // get settings
-        $settings = $plugin->getSettings();
-
-        // encode token
-        $settings['token'] = craft()->oauth->encodeToken($token);
-
-        // save token to plugin settings
-        craft()->plugins->savePluginSettings($plugin, $settings);
-    }
-
     /**
      * Get OAuth Token
      */
@@ -58,24 +35,65 @@ class TwitterService extends BaseApplicationComponent
             // get settings
             $settings = $plugin->getSettings();
 
-            if(!empty($settings['token']))
+            // get tokenId
+            $tokenId = $settings->tokenId;
+
+            // get token
+            $token = craft()->oauth->getTokenById($tokenId);
+
+            if($token && $token->token)
             {
-                // get token from settings
-                $token = craft()->oauth->decodeToken($settings['token']);
-
-                // refresh token if needed
-                if(craft()->oauth->refreshToken('twitter', $token))
-                {
-                    // save token
-                    $this->saveToken($token);
-                }
-
-                // return token
                 $this->token = $token;
-
-                return $token;
+                return $this->token;
             }
         }
+    }
+
+    /**
+     * Save OAuth Token
+     */
+    public function saveToken($token)
+    {
+        // get plugin
+        $plugin = craft()->plugins->getPlugin('twitter');
+
+        // get settings
+        $settings = $plugin->getSettings();
+
+        // get tokenId
+        $tokenId = $settings->tokenId;
+
+        // get token
+        $model = craft()->oauth->getTokenById($tokenId);
+
+
+        // populate token model
+
+        if(!$model)
+        {
+            $model = new Oauth_TokenModel;
+        }
+
+        $model->providerHandle = 'twitter';
+        $model->pluginHandle = 'twitter';
+        $model->encodedToken = craft()->oauth->encodeToken($token);
+
+        // save token
+        craft()->oauth->saveToken($model);
+
+        // set token ID
+        $settings->tokenId = $model->id;
+
+        // save plugin settings
+        craft()->plugins->savePluginSettings($plugin, $settings);
+    }
+
+    /**
+     * Set OAuth Token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
     }
 
     /**

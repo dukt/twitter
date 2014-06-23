@@ -55,7 +55,7 @@ class TwitterPlugin extends BasePlugin
     protected function defineSettings()
     {
         return array(
-            'token' => array(AttributeType::String),
+            'tokenId' => array(AttributeType::Number),
         );
     }
 

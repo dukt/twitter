@@ -12,7 +12,7 @@
 
         {# Connected #}
 
-        {% set void = provider.source.setToken(token) %}
+        {% set void = provider.setToken(token) %}
 
         <input type="hidden" name="token" value="{{ craft.oauth.encodeToken(token) }}" />
 
