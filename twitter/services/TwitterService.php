@@ -43,7 +43,7 @@ class TwitterService extends BaseApplicationComponent
 
             if($token && $token->token)
             {
-                $this->token = $token->token;
+                $this->token = $token;
                 return $this->token;
             }
         }
@@ -173,7 +173,14 @@ class TwitterService extends BaseApplicationComponent
         $client = new Client('https://api.twitter.com/1.1');
 
         $provider = craft()->oauth->getProvider('twitter');
-        $token = $this->getToken();
+        $tokenModel = $this->getToken();
+
+        if(!$tokenModel)
+        {
+            return null;
+        }
+
+        $token = $tokenModel->token;
 
         if(!$provider || !$token)
         {
