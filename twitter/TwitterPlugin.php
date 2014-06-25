@@ -27,7 +27,7 @@ class TwitterPlugin extends BasePlugin
      */
     function getVersion()
     {
-        return '0.9.5';
+        return '0.9.7';
     }
 
     /**
@@ -54,7 +54,9 @@ class TwitterPlugin extends BasePlugin
      */
     protected function defineSettings()
     {
-        return array();
+        return array(
+            'tokenId' => array(AttributeType::Number),
+        );
     }
 
     /**
@@ -221,5 +223,13 @@ class TwitterPlugin extends BasePlugin
         return array(
             craft()->path->getRuntimePath().'twitter/' => Craft::t('Twitter resources'),
         );
+    }
+
+    /**
+     * On Before Uninstall
+     */
+    public function onBeforeUninstall()
+    {
+        craft()->oauth->deleteTokensByPlugin('twitter');
     }
 }
