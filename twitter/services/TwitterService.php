@@ -43,7 +43,7 @@ class TwitterService extends BaseApplicationComponent
 
             if($token && $token->token)
             {
-                $this->token = $token;
+                $this->token = $token->token;
                 return $this->token;
             }
         }
