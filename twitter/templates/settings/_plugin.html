@@ -13,15 +13,13 @@
         {# Connected #}
 
         {% set void = provider.setToken(token) %}
-
-        <input type="hidden" name="token" value="{{ craft.oauth.encodeToken(token) }}" />
-
-
-        {% set account = provider.source.account %}
+        {% set account = provider.account %}
 
         <h2 class="first">{{ '{provider} Account'|t({ provider: provider.name }) }}</h2>
 
         {% if account %}
+
+            <input type="hidden" name="token" value="{{ craft.oauth.encodeToken(token) }}" />
 
             <p>{{ 'You are authenticated to {provider} with the following account'|t({ provider: provider.name }) }} :</p>
 
