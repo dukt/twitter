@@ -230,6 +230,9 @@ class TwitterPlugin extends BasePlugin
      */
     public function onBeforeUninstall()
     {
-        craft()->oauth->deleteTokensByPlugin('twitter');
+        if(isset(craft()->oauth))
+        {
+            craft()->oauth->deleteTokensByPlugin('twitter');
+        }
     }
 }
