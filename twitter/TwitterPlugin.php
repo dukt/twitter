@@ -226,7 +226,7 @@ class TwitterPlugin extends BasePlugin
     }
 
     /**
-     * On Before Uninstall
+     * Remove all tokens related to this plugin when uninstalled
      */
     public function onBeforeUninstall()
     {
