@@ -90,7 +90,6 @@ class TwitterService extends BaseApplicationComponent
 
 
             return $html;
-
         }
     }
 
@@ -194,7 +193,7 @@ class TwitterService extends BaseApplicationComponent
         if($enableCache)
         {
 
-            $key = 'twitter.'.md5($uri.serialize($this->token, $params));
+            $key = 'twitter.'.md5($uri.serialize(array($this->token, $params)));
 
             $response = craft()->fileCache->get($key);
 
@@ -210,7 +209,6 @@ class TwitterService extends BaseApplicationComponent
         try
         {
             $response = $this->api('get', $uri, $params, $headers);
-
 
             // cache response
 
