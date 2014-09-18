@@ -1,5 +1,5 @@
 <?php
 
 return array(
-    'disableCache' => true
+    'disableCache' => false
 );
