@@ -235,4 +235,10 @@ class TwitterPlugin extends BasePlugin
             craft()->oauth->deleteTokensByPlugin('twitter');
         }
     }
+
+    function addTwigExtension()
+    {
+        Craft::import('plugins.twitter.twigextensions.TwitterTwigExtension');
+        return new TwitterTwigExtension();
+    }
 }

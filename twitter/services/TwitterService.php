@@ -12,11 +12,87 @@
 
 namespace Craft;
 
+require_once(CRAFT_PLUGINS_PATH.'twitter/vendor/autoload.php');
+
 use Guzzle\Http\Client;
 
 class TwitterService extends BaseApplicationComponent
 {
     private $token;
+
+    public function autoLinkTweet($text, $options = array())
+    {
+        $twitter = \Twitter\AutoLink::create();
+
+        $aliases = array(
+            'urlClass' => 'setURLClass',
+            'usernameClass' => 'setUsernameClass',
+            'listClass' => 'setListClass',
+            'hashtagClass' => 'setHashtagClass',
+            'cashtagClass' => 'setCashtagClass',
+            'noFollow' => 'setNoFollow',
+            'external' => 'setExternal',
+            'target' => 'setTarget'
+        );
+
+        foreach($options as $k => $v)
+        {
+            if(isset($aliases[$k]))
+            {
+                $twitter->{$aliases[$k]}($v);
+            }
+        }
+
+        $html = $twitter->autoLink($text);
+
+        return $html;
+    }
+    public function embedTweet($id, $params = array())
+    {
+        // params
+
+        $opts = array();
+
+        $aliases = array(
+            'conversations' => 'data-conversations',
+            'cards' => 'data-cards',
+            'linkColor' => 'data-link-color',
+            'theme' => 'data-theme'
+        );
+
+        foreach($aliases as $aliasKey => $alias)
+        {
+            if(!empty($params[$aliasKey]))
+            {
+                $opts[$alias] = $params[$aliasKey];
+                unset($params[$alias]);
+            }
+        }
+
+        $params = array_merge($opts, $params);
+        $paramsString = '';
+
+        foreach($params as $paramKey => $paramValue)
+        {
+            $paramsString .= ' '.$paramKey.'="'.$paramValue.'"';
+        }
+
+
+        // oembed
+
+        $response = $this->get('statuses/oembed', array('id' => $id));
+
+        if($response)
+        {
+            $html = $response['html'];
+
+            $html = str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"'.$paramsString.'>', $html);
+
+
+            return $html;
+
+        }
+    }
 
     /**
      * Get OAuth Token
