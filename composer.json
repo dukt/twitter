@@ -1,0 +1,12 @@
+{
+    "autoload": {
+        "psr-0": {"Twitter": "twitter/src/"}
+    },
+
+    "config": {
+        "vendor-dir": "twitter/vendor/"
+    },
+    "require": {
+        "nojimage/twitter-text-php": "dev-master"
+    }
+}
