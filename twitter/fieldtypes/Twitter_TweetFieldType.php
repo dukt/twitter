@@ -118,7 +118,7 @@ class Twitter_TweetFieldType extends BaseFieldType
 		{
 			if(is_numeric($value))
 			{
-				$tweet = craft()->twitter->getTweetById($value);
+				$tweet = craft()->twitter->getTweetById($value, array(), true);
 
 				if($tweet)
 				{

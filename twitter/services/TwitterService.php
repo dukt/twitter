@@ -181,7 +181,7 @@ class TwitterService extends BaseApplicationComponent
      * @param bool $enableCache
      * @return array|null
      */
-    public function get($uri, $params = array(), $headers = array(), $enableCache = true, $cacheExpire = 0)
+    public function get($uri, $params = array(), $headers = array(), $enableCache = false, $cacheExpire = 0)
     {
         // get from cache
 
@@ -303,10 +303,10 @@ class TwitterService extends BaseApplicationComponent
      * @param array $params
      * @return array|null
      */
-    public function getTweetById($tweetId, $params = array())
+    public function getTweetById($tweetId, $params = array(), $enableCache = false)
     {
         $params = array_merge($params, array('id' => $tweetId));
-        return $this->get('statuses/show', $params);
+        return $this->get('statuses/show', $params, array(), $enableCache);
     }
 
     /**
