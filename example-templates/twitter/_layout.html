@@ -38,8 +38,13 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
 
             <ul class="nav navbar-nav">
-                <li><a href="{{url('twitter/mentions')}}">Mentions</a></li>
-                <li><a href="{{url('twitter/recent')}}">Recent Tweets</a></li>
+                <li{{ (craft.request.segment(2) == 'auto-linking-tweets' ? ' class="active"') }}><a href="{{url('twitter/auto-linking-tweets')}}">Auto Linking Tweets</a></li>
+
+                <li{{ (craft.request.segment(2) == 'embedded-tweets' ? ' class="active"') }}><a href="{{url('twitter/embedded-tweets')}}">Embedded Tweets</a></li>
+
+                <li{{ (craft.request.segment(2) == 'recent' ? ' class="active"') }}><a href="{{url('twitter/recent')}}">Recent Tweets</a></li>
+
+                <li{{ (craft.request.segment(2) == 'mentions' ? ' class="active"') }}><a href="{{url('twitter/mentions')}}">Mentions</a></li>
             </ul>
 
         </div>

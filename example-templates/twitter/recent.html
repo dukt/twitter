@@ -8,35 +8,44 @@
 
         <h1>Recent Tweets</h1>
 
-        <hr />
+        <p>Display recent tweets by requesting twitter API from your templates.</p>
 
-        {#
-            {% set tweets = craft.twitter.get('statuses/user_timeline', {
-                count:100,
-                exclude_replies: false,
-                include_rts: true,
-                screen_name: 'autumndev'
-            }) %}
-        #}
-        {#      
-            {% set socialUser = craft.social.getUserByProvider('twitter') %}
-            {% set token = socialUser.token %}
+        <h3>Preview</h3>
 
-            {% set void = craft.twitter.setToken(token) %}
-        #}
-
-        {% set tweets = craft.twitter.get('statuses/user_timeline', {count:10}) %}
+        {% set tweets = craft.twitter.get("statuses/user_timeline", {count:10}) %}
 
         {% if tweets %}
 
-            <div class="twitter-timeline">
+            <ul>
                 {% for tweet in tweets %}
-                    <div class="text">{{tweet.text|raw}}</div class="text">
+                    <li>
+                        {{ tweet.text|autoLinkTweet }}
+                    </li>
                 {% endfor %}
-            </div>
+            </ul>
+
         {% else %}
             <p>No tweets</p>
         {% endif %}
+
+        <h3>Template</h3>
+        <pre>{{ '{% set tweets = craft.twitter.get("statuses/user_timeline", {count:10}) %}
+
+{% if tweets %}
+
+    <ul>
+        {% for tweet in tweets %}
+            <li>
+                {{ tweet.text|autoLinkTweet }}
+            </li>
+        {% endfor %}
+    </ul>
+
+{% else %}
+    <p>No tweets</p>
+{% endif %}'|e('html') }}</pre>
+
+        <p>See <a href="https://dukt.net/craft/twitter/docs/templating/request-api">Requesting Twitter API</a> for more.</p>
     </div>
 
 {% endblock main %}
