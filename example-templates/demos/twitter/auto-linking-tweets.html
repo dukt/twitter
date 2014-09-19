@@ -1,0 +1,63 @@
+{% extends "demos/twitter/_layout" %}
+
+{% includeJsResource '../twitter/timeline/js/modernizr.custom.js' %}
+
+
+{% set title = "Auto Linking Tweets" %}
+
+{% set extraPageHeaderHtml %}
+    <p>Auto link a tweet's text using a twig filter.</p>
+{% endset %}
+
+{% block main %}
+
+    <div class="col-md-12">
+
+        <h3>Preview</h3>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {% set tweets = craft.twitter.get("statuses/user_timeline", {count:5}) %}
+
+                {% for tweet in tweets %}
+
+                    <div class="tweet">
+
+                        {{ tweet.text|autoLinkTweet({
+                            urlClass: 'twitter-url',
+                            usernameClass: 'twitter-username',
+                            listClass: 'twitter-list',
+                            hashtagClass: 'twitter-hashtag',
+                            cashtagClass: 'twitter-cashtag',
+                            noFollow: false,
+                            external: false,
+                            target: '_blank'
+                        }) }}
+
+                        {% if not loop.last %}
+                            <hr>
+                        {% endif %}
+
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+        </div>
+
+
+        <h3>Template</h3>
+        <pre>{{ '{% set tweets = craft.twitter.get("statuses/user_timeline", {count:5}) %}
+
+{% for tweet in tweets %}
+
+    {{ tweet.text|autoLinkTweet }}
+
+{% endfor %}'|e('html') }}</pre>
+
+
+        <p>See <a href="https://dukt.net/craft/twitter/docs/templating/auto-linking-tweets">Auto Linking Tweets Documentation</a> for usage and options.</p>
+    </div>
+
+{% endblock main %}
