@@ -12,34 +12,43 @@
 
         <h3>Preview</h3>
 
-        {% set tweets = craft.twitter.get("statuses/user_timeline", {count:10}) %}
+        <div class="panel panel-default">
+            <div class="panel-body">
 
-        {% if tweets %}
+                {% set tweets = craft.twitter.get("statuses/user_timeline", {count:5}) %}
 
-            <ul>
-                {% for tweet in tweets %}
-                    <li>
-                        {{ tweet.text|autoLinkTweet }}
-                    </li>
-                {% endfor %}
-            </ul>
+                {% if tweets %}
 
-        {% else %}
-            <p>No tweets</p>
-        {% endif %}
+                    {% for tweet in tweets %}
+                        <div class="tweet">
+
+                            {{ tweet.text|autoLinkTweet }}
+
+                            {% if not loop.last %}
+                                <hr>
+                            {% endif %}
+
+
+                        </div>
+                    {% endfor %}
+
+                {% else %}
+                    <p>No tweets</p>
+                {% endif %}
+
+            </div>
+        </div>
 
         <h3>Template</h3>
         <pre>{{ '{% set tweets = craft.twitter.get("statuses/user_timeline", {count:10}) %}
 
 {% if tweets %}
 
-    <ul>
-        {% for tweet in tweets %}
-            <li>
-                {{ tweet.text|autoLinkTweet }}
-            </li>
-        {% endfor %}
-    </ul>
+    {% for tweet in tweets %}
+
+        {{ tweet.text|autoLinkTweet }}
+
+    {% endfor %}
 
 {% else %}
     <p>No tweets</p>
