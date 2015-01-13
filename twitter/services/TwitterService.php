@@ -116,7 +116,7 @@ class TwitterService extends BaseApplicationComponent
             // get token
             $token = craft()->oauth->getTokenById($tokenId);
 
-            if($token && $token->token)
+            if($token)
             {
                 $this->token = $token;
                 return $this->token;
@@ -247,26 +247,15 @@ class TwitterService extends BaseApplicationComponent
         $client = new Client('https://api.twitter.com/1.1');
 
         $provider = craft()->oauth->getProvider('twitter');
-        $tokenModel = $this->getToken();
 
-        if(!$tokenModel)
-        {
-            return null;
-        }
+        $providerSource = craft()->oauth->getProviderSource('twitter');
 
-        $token = $tokenModel->token;
+        $providerSource->setProvider($provider);
 
-        if(!$provider || !$token)
-        {
-            return null;
-        }
+        $token = $this->getToken();
+        $providerSource->setToken($token);
 
-        $oauth = new \Guzzle\Plugin\Oauth\OauthPlugin(array(
-            'consumer_key'    => $provider->clientId,
-            'consumer_secret' => $provider->clientSecret,
-            'token'           => $token->getAccessToken(),
-            'token_secret'    => $token->getAccessTokenSecret()
-        ));
+        $oauth = $providerSource->getSubscriber();
 
         $client->addSubscriber($oauth);
 
