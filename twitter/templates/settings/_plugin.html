@@ -19,8 +19,6 @@
 
         {% if account %}
 
-            <input type="hidden" name="token" value="{{ craft.oauth.encodeToken(token) }}" />
-
             <p>{{ 'You are authenticated to {provider} with the following account'|t({ provider: provider.name }) }} :</p>
 
             <ul>
