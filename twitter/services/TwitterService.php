@@ -94,6 +94,37 @@ class TwitterService extends BaseApplicationComponent
     }
 
     /**
+     * Delete Token
+     */
+    public function deleteToken()
+    {
+        // get plugin
+        $plugin = craft()->plugins->getPlugin('twitter');
+
+        // get settings
+        $settings = $plugin->getSettings();
+
+        if($settings->tokenId)
+        {
+            $token = craft()->oauth->getTokenById($settings->tokenId);
+
+            if($token)
+            {
+                if(craft()->oauth->deleteToken($token))
+                {
+                    $settings->tokenId = null;
+
+                    craft()->plugins->savePluginSettings($plugin, $settings);
+
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Get OAuth Token
      */
     public function getToken()
@@ -127,7 +158,7 @@ class TwitterService extends BaseApplicationComponent
     /**
      * Save OAuth Token
      */
-    public function saveToken($token)
+    public function saveToken(Oauth_TokenModel $token)
     {
         // get plugin
         $plugin = craft()->plugins->getPlugin('twitter');
@@ -135,29 +166,26 @@ class TwitterService extends BaseApplicationComponent
         // get settings
         $settings = $plugin->getSettings();
 
-        // get tokenId
-        $tokenId = $settings->tokenId;
+        // do we have an existing token ?
 
-        // get token
-        $model = craft()->oauth->getTokenById($tokenId);
+        $existingToken = craft()->oauth->getTokenById($settings->tokenId);
 
-
-        // populate token model
-
-        if(!$model)
+        if($existingToken)
         {
-            $model = new Oauth_TokenModel;
+            $token->id = $existingToken->id;
         }
 
-        $model->providerHandle = 'twitter';
-        $model->pluginHandle = 'twitter';
-        $model->encodedToken = craft()->oauth->encodeToken($token);
+        // populate token model
+        // todo: token should already be populated with providerHandle and pluginHandle
+
+        $token->providerHandle = 'twitter';
+        $token->pluginHandle = 'twitter';
 
         // save token
-        craft()->oauth->saveToken($model);
+        craft()->oauth->saveToken($token);
 
         // set token ID
-        $settings->tokenId = $model->id;
+        $settings->tokenId = $token->id;
 
         // save plugin settings
         craft()->plugins->savePluginSettings($plugin, $settings);

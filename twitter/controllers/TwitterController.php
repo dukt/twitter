@@ -58,11 +58,14 @@ class TwitterController extends BaseController
      */
     public function actionDisconnect()
     {
-        // reset token
-        craft()->twitter->saveToken(null);
-
-        // set notice
-        craft()->userSession->setNotice(Craft::t("Disconnected from Twitter."));
+        if(craft()->twitter->deleteToken())
+        {
+            craft()->userSession->setNotice(Craft::t("Disconnected from Twitter."));
+        }
+        else
+        {
+            craft()->userSession->setNotice(Craft::t("Couldn’t disconnect from Twitter."));
+        }
 
         // redirect
         $redirect = craft()->request->getUrlReferrer();
