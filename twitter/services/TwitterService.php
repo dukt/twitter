@@ -276,14 +276,11 @@ class TwitterService extends BaseApplicationComponent
 
         $provider = craft()->oauth->getProvider('twitter');
 
-        $providerSource = craft()->oauth->getProviderSource('twitter');
-
-        $providerSource->setProvider($provider);
-
         $token = $this->getToken();
-        $providerSource->setToken($token);
 
-        $oauth = $providerSource->getSubscriber();
+        $provider->setToken($token);
+
+        $oauth = $provider->getSubscriber();
 
         $client->addSubscriber($oauth);
 
