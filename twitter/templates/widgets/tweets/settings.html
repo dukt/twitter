@@ -1,0 +1,28 @@
+{% import "_includes/forms" as forms %}
+
+{% set colspanOptions = { 1:1, 2:2, 3:3, 4:4 } %}
+
+{{ forms.selectField({
+    first: true,
+    label: "Columns"|t,
+    options: colspanOptions,
+    name: 'colspan',
+    value: (settings.colspan is not null ? settings.colspan : 2)
+}) }}
+
+{{ forms.textField({
+    first: true,
+    label: "Search Query"|t,
+    instructions: "Enter keywords as well as AND, OR operators",
+    name: 'query',
+    value: (settings.query is not null ? settings.query : '')
+}) }}
+
+{{ forms.textField({
+    first: true,
+    label: "Count"|t,
+    instructions: "Number of tweets that will be displayed by the widget",
+    name: 'count',
+    size: 4,
+    value: (settings.count is not null ? settings.count : 10)
+}) }}
