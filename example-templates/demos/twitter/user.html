@@ -1,0 +1,6 @@
+{% set twitterUser = craft.twitter.get('users/show',{screen_name: 'bendukt' }) %}
+{% set userImage = craft.twitter.getUserImageUrl(twitterUser.id, 50) %}
+
+<img src="{{ twitterUser.profile_image_url }}" />
+
+<pre>{{dump(twitterUser)}}</pre>
