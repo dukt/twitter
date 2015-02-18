@@ -26,6 +26,20 @@ class TwitterController extends BaseController
      */
     public function actionConnect(array $variables = array())
     {
+        // referer
+
+        $referer = craft()->httpSession->get('twitter.referer');
+
+        if(!$referer)
+        {
+            $referer = craft()->request->getUrlReferrer();
+
+            craft()->httpSession->add('twitter.referer', $referer);
+        }
+
+
+        // connect
+
         if($response = craft()->oauth->connect(array(
             'plugin' => 'twitter',
             'provider' => 'twitter',
@@ -48,9 +62,19 @@ class TwitterController extends BaseController
             {
                 craft()->userSession->setError(Craft::t($response['errorMsg']));
             }
-
-            $this->redirect($response['redirect']);
         }
+        else
+        {
+            craft()->userSession->setError(Craft::t("Couldn’t connect"));
+        }
+
+
+
+        // redirect
+
+        craft()->httpSession->remove('twitter.referer');
+
+        $this->redirect($referer);
     }
 
     /**
