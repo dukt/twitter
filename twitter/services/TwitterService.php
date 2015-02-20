@@ -175,12 +175,6 @@ class TwitterService extends BaseApplicationComponent
             $token->id = $existingToken->id;
         }
 
-        // populate token model
-        // todo: token should already be populated with providerHandle and pluginHandle
-
-        $token->providerHandle = 'twitter';
-        $token->pluginHandle = 'twitter';
-
         // save token
         craft()->oauth->saveToken($token);
 
