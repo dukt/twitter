@@ -166,7 +166,7 @@ class TwitterService extends BaseApplicationComponent
         // get settings
         $settings = $plugin->getSettings();
 
-        // do we have an existing token ?
+        // existing token
 
         $existingToken = craft()->oauth->getTokenById($settings->tokenId);
 
