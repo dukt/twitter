@@ -2,14 +2,13 @@
 
 {% includeCssResource 'twitter/css/disableSave.css' %}
 
-{% if craft.oauth is not defined %}
 
-    {# OAuth plugin not installed, let's install it #}
-    {% include 'twitter/settings/_oauth' %}
+{% if pluginDependencies|length > 0 %}
+
+    {% include 'twitter/settings/_dependencies' %}
 
 {% else %}
 
-    {# Plugin Settings #}
     {% include 'twitter/settings/_plugin' %}
 
 {% endif %}

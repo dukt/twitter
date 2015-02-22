@@ -26,7 +26,14 @@ class TwitterVariable
 
 	public function get($uri, $params = array(), $headers = array(), $enableCache = false, $cacheExpire = 0)
 	{
-		return craft()->twitter->get($uri, $params, $headers, $enableCache, $cacheExpire);
+        try
+        {
+		     return craft()->twitter->get($uri, $params, $headers, $enableCache, $cacheExpire);
+        }
+        catch(\Exception $e)
+        {
+            return false;
+        }
 	}
 
 	public function getTweetById($tweetId, $params = array())
