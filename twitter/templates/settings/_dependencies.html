@@ -13,7 +13,7 @@
 
             <p>{{ "{name} is installed but disabled."|t({ name: dependency.name }) }}</p>
 
-            <p>{{ "Please enable {name} in {url} to continue."|t({name: dependency.name, url: '<a href="'~url('settings/plugins')~'" target="_blank">{title}</a>'|t({title: 'plugin settings'})})|raw }}</p>
+            <p>{{ "Please enable {name} plugin in {url} to continue."|t({name: dependency.name, url: '<a href="'~url('settings/plugins')~'" target="_blank">{title}</a>'|t({title: 'plugin settings'})})|raw }}</p>
 
         {% else %}
 

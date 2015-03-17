@@ -262,6 +262,7 @@ class TwitterPlugin extends BasePlugin
 
         $plugins = $this->getRequiredPlugins();
 
+
         foreach($plugins as $key => $plugin)
         {
             $dependency = $this->getPluginDependency($plugin);

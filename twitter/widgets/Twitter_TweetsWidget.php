@@ -59,32 +59,43 @@ class Twitter_TweetsWidget extends BaseWidget
 
     public function getBodyHtml()
     {
-        $settings = $this->getSettings();
+        $plugin = craft()->plugins->getPlugin('twitter');
 
-        $query = $settings->query;
-        $count = $settings->count;
+        $pluginDependencies = $plugin->getPluginDependencies();
 
-        $params = array('q' => $query, 'count' => $count);
-
-        try
+        if(count($pluginDependencies) == 0)
         {
-            $response = craft()->twitter->api('get', 'search/tweets', $params);
+            $settings = $this->getSettings();
 
-            $tweets = $response['statuses'];
+            $query = $settings->query;
+            $count = $settings->count;
 
-            $variables['tweets'] = $tweets;
+            $params = array('q' => $query, 'count' => $count);
 
-            craft()->templates->includeCssResource('twitter/css/widget.css');
+            try
+            {
+                $response = craft()->twitter->api('get', 'search/tweets', $params);
 
-            return craft()->templates->render('twitter/widgets/tweets', $variables);
+                $tweets = $response['statuses'];
+
+                $variables['tweets'] = $tweets;
+
+                craft()->templates->includeCssResource('twitter/css/widget.css');
+
+                return craft()->templates->render('twitter/widgets/tweets', $variables);
+            }
+            catch(\Exception $e)
+            {
+                Craft::log("Twitter error: ".__METHOD__." ".$e->getMessage(), LogLevel::Error, true);
+
+                $variables['errorMsg'] = $e->getMessage();
+
+                return craft()->templates->render('twitter/widgets/tweets/error', $variables);
+            }
         }
-        catch(\Exception $e)
+        else
         {
-            Craft::log("Twitter error: ".__METHOD__." ".$e->getMessage(), LogLevel::Error, true);
-
-            $variables['errorMsg'] = $e->getMessage();
-
-            return craft()->templates->render('twitter/widgets/tweets/error', $variables);
+            return craft()->templates->render('twitter/_requirements');
         }
     }
 
