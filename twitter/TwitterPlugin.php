@@ -27,7 +27,7 @@ class TwitterPlugin extends BasePlugin
      */
     function getVersion()
     {
-        return '0.9.12';
+        return '0.9.13';
     }
 
     function getRequiredPlugins()
@@ -37,7 +37,7 @@ class TwitterPlugin extends BasePlugin
                 'name' => "OAuth",
                 'handle' => 'oauth',
                 'url' => 'https://dukt.net/craft/oauth',
-                'version' => '0.9.62'
+                'version' => '0.9.63'
             )
         );
     }
