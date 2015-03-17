@@ -1,0 +1,28 @@
+.widget.twitter_tweets {
+    padding-bottom: 12px;
+}
+
+.widget.twitter_tweets small {
+    font-size: 0.9em;
+}
+
+.widget.twitter_tweets .tweet {
+    border-top: 1px dotted rgba(115, 127, 140, 0.15);
+    margin: 0;
+    padding: 12px 24px;
+    position: relative;
+    padding-left: 62px;
+}
+
+.widget.twitter_tweets .tweet-image {
+    position: absolute;
+    margin-left: -62px;
+}
+
+.widget.twitter_tweets .tweet-image img {
+    border-radius: 3px;
+}
+
+.widget.twitter_tweets .tweet-date {
+    opacity: .5;
+}
