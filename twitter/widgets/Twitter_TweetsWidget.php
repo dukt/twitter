@@ -35,7 +35,7 @@ class Twitter_TweetsWidget extends BaseWidget
 
         if(!empty($settings->query))
         {
-            return Craft::t("{query} tweets", array('query' => $settings->query));
+            return Craft::t("Tweets for “{query}”", array('query' => $settings->query));
         }
 
         return Craft::t("Tweets");
@@ -66,15 +66,26 @@ class Twitter_TweetsWidget extends BaseWidget
 
         $params = array('q' => $query, 'count' => $count);
 
-        $response = craft()->twitter->api('get', 'search/tweets', $params);
+        try
+        {
+            $response = craft()->twitter->api('get', 'search/tweets', $params);
 
-        $tweets = $response['statuses'];
+            $tweets = $response['statuses'];
 
-        $variables = array(
-            'tweets' => $tweets
-        );
+            $variables['tweets'] = $tweets;
 
-        return craft()->templates->render('twitter/widgets/tweets', $variables);
+            craft()->templates->includeCssResource('twitter/css/widget.css');
+
+            return craft()->templates->render('twitter/widgets/tweets', $variables);
+        }
+        catch(\Exception $e)
+        {
+            Craft::log("Twitter error: ".__METHOD__." ".$e->getMessage(), LogLevel::Error, true);
+
+            $variables['errorMsg'] = $e->getMessage();
+
+            return craft()->templates->render('twitter/widgets/tweets/error', $variables);
+        }
     }
 
     public function getColspan()

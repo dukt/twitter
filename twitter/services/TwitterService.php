@@ -47,6 +47,7 @@ class TwitterService extends BaseApplicationComponent
 
         return $html;
     }
+
     public function embedTweet($id, $params = array())
     {
         try {
