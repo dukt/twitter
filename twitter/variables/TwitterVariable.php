@@ -5,7 +5,7 @@
  *
  * @package   Twitter
  * @author    Benjamin David
- * @copyright Copyright (c) 2014, Dukt
+ * @copyright Copyright (c) 2015, Dukt
  * @link      https://dukt.net/craft/twitter/
  * @license   https://dukt.net/craft/twitter/docs/license
  */
@@ -26,7 +26,14 @@ class TwitterVariable
 
 	public function get($uri, $params = array(), $headers = array(), $enableCache = false, $cacheExpire = 0)
 	{
-		return craft()->twitter->get($uri, $params, $headers, $enableCache, $cacheExpire);
+        try
+        {
+		     return craft()->twitter->get($uri, $params, $headers, $enableCache, $cacheExpire);
+        }
+        catch(\Exception $e)
+        {
+            return false;
+        }
 	}
 
 	public function getTweetById($tweetId, $params = array())

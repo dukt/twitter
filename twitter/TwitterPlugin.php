@@ -5,7 +5,7 @@
  *
  * @package   Twitter
  * @author    Benjamin David
- * @copyright Copyright (c) 2014, Dukt
+ * @copyright Copyright (c) 2015, Dukt
  * @link      https://dukt.net/craft/twitter/
  * @license   https://dukt.net/craft/twitter/docs/license
  */
@@ -27,20 +27,26 @@ class TwitterPlugin extends BasePlugin
      */
     function getVersion()
     {
-        return '0.9.10';
+        return '0.9.11';
     }
 
-    /**
-     * Get Developer
-     */
+    function getRequiredPlugins()
+    {
+        return array(
+            array(
+                'name' => "OAuth",
+                'handle' => 'oauth',
+                'url' => 'https://dukt.net/craft/oauth',
+                'version' => '0.9.62'
+            )
+        );
+    }
+
     function getDeveloper()
     {
         return 'Dukt';
     }
 
-    /**
-     * Get Developer URL
-     */
     function getDeveloperUrl()
     {
         return 'https://dukt.net/';
@@ -70,8 +76,11 @@ class TwitterPlugin extends BasePlugin
             return true;
         }
 
+        $pluginDependencies = $this->getPluginDependencies();
+
         return craft()->templates->render('twitter/settings', array(
-            'settings' => $this->getSettings()
+            'settings' => $this->getSettings(),
+            'pluginDependencies' => $pluginDependencies
         ));
     }
 
@@ -240,5 +249,78 @@ class TwitterPlugin extends BasePlugin
     {
         Craft::import('plugins.twitter.twigextensions.TwitterTwigExtension');
         return new TwitterTwigExtension();
+    }
+
+    /* ------------------------------------------------------------------------- */
+
+    /**
+     * Get Plugin Dependencies
+     */
+    public function getPluginDependencies($missingOnly = true)
+    {
+        $dependencies = array();
+
+        $plugins = $this->getRequiredPlugins();
+
+        foreach($plugins as $key => $plugin)
+        {
+            $dependency = $this->getPluginDependency($plugin);
+
+            if($missingOnly)
+            {
+                if($dependency['isMissing'])
+                {
+                    $dependencies[] = $dependency;
+                }
+            }
+            else
+            {
+                $dependencies[] = $dependency;
+            }
+        }
+
+        return $dependencies;
+    }
+
+    /**
+     * Get Plugin Dependency
+     */
+    private function getPluginDependency($dependency)
+    {
+        $isMissing = true;
+        $isInstalled = true;
+
+        $plugin = craft()->plugins->getPlugin($dependency['handle'], false);
+
+        if($plugin)
+        {
+            $currentVersion = $plugin->version;
+
+
+            // requires update ?
+
+            if(version_compare($currentVersion, $dependency['version']) >= 0)
+            {
+                // no (requirements OK)
+
+                if($plugin->isInstalled && $plugin->isEnabled)
+                {
+                    $isMissing = false;
+                }
+            }
+            else
+            {
+                // yes (requirement not OK)
+            }
+        }
+        else
+        {
+            // not installed
+        }
+
+        $dependency['isMissing'] = $isMissing;
+        $dependency['plugin'] = $plugin;
+
+        return $dependency;
     }
 }

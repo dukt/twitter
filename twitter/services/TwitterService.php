@@ -5,7 +5,7 @@
  *
  * @package   Twitter
  * @author    Benjamin David
- * @copyright Copyright (c) 2014, Dukt
+ * @copyright Copyright (c) 2015, Dukt
  * @link      https://dukt.net/craft/twitter/
  * @license   https://dukt.net/craft/twitter/docs/license
  */
@@ -49,47 +49,53 @@ class TwitterService extends BaseApplicationComponent
     }
     public function embedTweet($id, $params = array())
     {
-        // params
+        try {
+            // params
 
-        $opts = array();
+            $opts = array();
 
-        $aliases = array(
-            'conversations' => 'data-conversations',
-            'cards' => 'data-cards',
-            'linkColor' => 'data-link-color',
-            'theme' => 'data-theme'
-        );
+            $aliases = array(
+                'conversations' => 'data-conversations',
+                'cards' => 'data-cards',
+                'linkColor' => 'data-link-color',
+                'theme' => 'data-theme'
+            );
 
-        foreach($aliases as $aliasKey => $alias)
-        {
-            if(!empty($params[$aliasKey]))
+            foreach($aliases as $aliasKey => $alias)
             {
-                $opts[$alias] = $params[$aliasKey];
-                unset($params[$alias]);
+                if(!empty($params[$aliasKey]))
+                {
+                    $opts[$alias] = $params[$aliasKey];
+                    unset($params[$alias]);
+                }
+            }
+
+            $params = array_merge($opts, $params);
+            $paramsString = '';
+
+            foreach($params as $paramKey => $paramValue)
+            {
+                $paramsString .= ' '.$paramKey.'="'.$paramValue.'"';
+            }
+
+
+            // oembed
+
+            $response = $this->get('statuses/oembed', array('id' => $id));
+
+            if($response)
+            {
+                $html = $response['html'];
+
+                $html = str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"'.$paramsString.'>', $html);
+
+
+                return $html;
             }
         }
-
-        $params = array_merge($opts, $params);
-        $paramsString = '';
-
-        foreach($params as $paramKey => $paramValue)
+        catch(\Exception $e)
         {
-            $paramsString .= ' '.$paramKey.'="'.$paramValue.'"';
-        }
-
-
-        // oembed
-
-        $response = $this->get('statuses/oembed', array('id' => $id));
-
-        if($response)
-        {
-            $html = $response['html'];
-
-            $html = str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"'.$paramsString.'>', $html);
-
-
-            return $html;
+            return false;
         }
     }
 
@@ -166,7 +172,7 @@ class TwitterService extends BaseApplicationComponent
         // get settings
         $settings = $plugin->getSettings();
 
-        // do we have an existing token ?
+        // existing token
 
         $existingToken = craft()->oauth->getTokenById($settings->tokenId);
 
@@ -174,12 +180,6 @@ class TwitterService extends BaseApplicationComponent
         {
             $token->id = $existingToken->id;
         }
-
-        // populate token model
-        // todo: token should already be populated with providerHandle and pluginHandle
-
-        $token->providerHandle = 'twitter';
-        $token->pluginHandle = 'twitter';
 
         // save token
         craft()->oauth->saveToken($token);
@@ -199,6 +199,18 @@ class TwitterService extends BaseApplicationComponent
         $this->token = $token;
     }
 
+    public function checkDependencies()
+    {
+        $plugin = craft()->plugins->getPlugin('twitter');
+        $pluginDependencies = $plugin->getPluginDependencies();
+
+        if(count($pluginDependencies) > 0)
+        {
+            return false;
+        }
+
+        return true;
+    }
     /**
      * Performs a get request on the Twitter API
      *
@@ -211,6 +223,11 @@ class TwitterService extends BaseApplicationComponent
      */
     public function get($uri, $params = array(), $headers = array(), $enableCache = false, $cacheExpire = 0)
     {
+        if(!$this->checkDependencies())
+        {
+            throw new Exception("Twitter plugin dependencies are not met");
+        }
+
         // get from cache
 
         if(craft()->config->get('disableCache', 'twitter') == true)
@@ -278,36 +295,40 @@ class TwitterService extends BaseApplicationComponent
 
         $token = $this->getToken();
 
-        $provider->setToken($token);
-
-        $oauth = $provider->getSubscriber();
-
-        $client->addSubscriber($oauth);
-
-
-        // request
-
-        $format = 'json';
-
-        $query = '';
-
-        if($params)
+        if($token)
         {
-            $query = http_build_query($params);
+            $provider->setToken($token);
 
-            if($query)
+            $oauth = $provider->getSubscriber();
+
+            $client->addSubscriber($oauth);
+
+
+            // request
+
+            $format = 'json';
+
+            $query = '';
+
+            if($params)
             {
-                $query = '?'.$query;
+                $query = http_build_query($params);
+
+                if($query)
+                {
+                    $query = '?'.$query;
+                }
             }
+
+            $url = $uri.'.'.$format.$query;
+
+            $response = $client->get($url, $headers, $postFields)->send();
+
+            $response = $response->json();
+
+            return $response;
         }
 
-        $url = $uri.'.'.$format.$query;
-
-        $response = $client->get($url, $headers, $postFields)->send();
-
-        $response = $response->json();
-
-        return $response;
     }
 
     /**

@@ -7,4 +7,4 @@ Get the most of Twitter on your Craft website.
 - [Twitter License](https://dukt.net/craft/twitter/docs/license)
 
 
-[Dukt.net](https://dukt.net/) © 2014 - All rights reserved
+[Dukt.net](https://dukt.net/) © 2015 - All rights reserved

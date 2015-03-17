@@ -5,7 +5,7 @@
  *
  * @package   Twitter
  * @author    Benjamin David
- * @copyright Copyright (c) 2014, Dukt
+ * @copyright Copyright (c) 2015, Dukt
  * @link      https://dukt.net/craft/twitter/
  * @license   https://dukt.net/craft/twitter/docs/license
  */
@@ -26,6 +26,20 @@ class TwitterController extends BaseController
      */
     public function actionConnect(array $variables = array())
     {
+        // referer
+
+        $referer = craft()->httpSession->get('twitter.referer');
+
+        if(!$referer)
+        {
+            $referer = craft()->request->getUrlReferrer();
+
+            craft()->httpSession->add('twitter.referer', $referer);
+        }
+
+
+        // connect
+
         if($response = craft()->oauth->connect(array(
             'plugin' => 'twitter',
             'provider' => 'twitter',
@@ -48,9 +62,19 @@ class TwitterController extends BaseController
             {
                 craft()->userSession->setError(Craft::t($response['errorMsg']));
             }
-
-            $this->redirect($response['redirect']);
         }
+        else
+        {
+            craft()->userSession->setError(Craft::t("Couldn’t connect"));
+        }
+
+
+
+        // redirect
+
+        craft()->httpSession->remove('twitter.referer');
+
+        $this->redirect($referer);
     }
 
     /**
