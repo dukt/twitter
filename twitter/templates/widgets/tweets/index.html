@@ -1,20 +1,24 @@
-{% for tweet in tweets %}
+{% if tweets %}
+    {% for tweet in tweets %}
 
-    <div class="tweet">
-        <div class="tweet-image">
-            <img src="{{tweet.user.profile_image_url}}">
-        </div>
-        <div class="tweet-user">
-            <strong class="tweet-user-name">{{ tweet.user.name }}</strong>
-            <a class="tweet-user-screenname light" target="_blank" href="{{ tweet.user.url }}">@{{ tweet.user.screen_name }}</a>
-        </div>
-        <div class="tweet-text">
-            {{ tweet.text|autoLinkTweet }}
+        <div class="tweet">
+            <div class="tweet-image">
+                <img src="{{tweet.user.profile_image_url}}">
+            </div>
+            <div class="tweet-user">
+                <strong class="tweet-user-name">{{ tweet.user.name }}</strong>
+                <a class="tweet-user-screenname light" target="_blank" href="{{ tweet.user.url }}">@{{ tweet.user.screen_name }}</a>
+            </div>
+            <div class="tweet-text">
+                {{ tweet.text|autoLinkTweet }}
 
-            <div class="tweet-date">
-                <small class="light">{{ tweet.created_at|date('M j, Y') }}</small>
+                <div class="tweet-date">
+                    <small class="light">{{ tweet.created_at|date('M j, Y') }}</small>
+                </div>
             </div>
         </div>
-    </div>
 
-{% endfor %}
+    {% endfor %}
+{% else %}
+    <p class="light">{{ "No tweets"|t }}</p>
+{% endif %}
