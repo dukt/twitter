@@ -13,7 +13,7 @@
         {# Connected #}
 
         {% set void = provider.setToken(token) %}
-        {% set account = provider.account %}
+        {% set account = provider.getAccount() %}
 
         <h2 class="first">{{ '{provider} Account'|t({ provider: provider.name }) }}</h2>
 
