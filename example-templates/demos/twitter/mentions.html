@@ -56,7 +56,8 @@
 
                                 {% set tweet = mention.tweet %}
 
-                                {% if tweet.id is defined %}
+
+                                {% if tweet is iterable %}
                                     <div id="{{ mentionId }}" class="col-md-4 mention {{ mention.type }}">
 
                                             {% set user = tweet.user %}
