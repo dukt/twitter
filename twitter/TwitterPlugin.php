@@ -27,7 +27,7 @@ class TwitterPlugin extends BasePlugin
      */
     function getVersion()
     {
-        return '0.9.13';
+        return '0.9.14';
     }
 
     function getRequiredPlugins()
