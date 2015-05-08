@@ -12,6 +12,8 @@
 
 namespace Craft;
 
+require_once(CRAFT_PLUGINS_PATH.'twitter/Info.php');
+
 class TwitterPlugin extends BasePlugin
 {
     /**
@@ -27,7 +29,7 @@ class TwitterPlugin extends BasePlugin
      */
     function getVersion()
     {
-        return '0.9.14';
+        return TWITTER_VERSION;
     }
 
     function getRequiredPlugins()
