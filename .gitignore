@@ -1,6 +1,4 @@
 *.log
 .DS_Store
-/twitter/vendor
-composer.lock
-composer.phar
-phpunit.xml
+Source/twitter/vendor
+Source/composer.lock
