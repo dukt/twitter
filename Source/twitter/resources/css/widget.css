@@ -1,12 +1,12 @@
-.widget.twitter_tweets {
+.widget.twitter_search {
     padding-bottom: 12px;
 }
 
-.widget.twitter_tweets small {
+.widget.twitter_search small {
     font-size: 0.9em;
 }
 
-.widget.twitter_tweets .tweet {
+.widget.twitter_search .tweet {
     border-top: 1px dotted rgba(115, 127, 140, 0.15);
     margin: 0;
     padding: 12px 24px;
@@ -14,15 +14,15 @@
     padding-left: 62px;
 }
 
-.widget.twitter_tweets .tweet-image {
+.widget.twitter_search .tweet-image {
     position: absolute;
     margin-left: -62px;
 }
 
-.widget.twitter_tweets .tweet-image img {
+.widget.twitter_search .tweet-image img {
     border-radius: 3px;
 }
 
-.widget.twitter_tweets .tweet-date {
+.widget.twitter_search .tweet-date {
     opacity: .5;
 }

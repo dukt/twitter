@@ -12,7 +12,7 @@
 
 namespace Craft;
 
-class Twitter_TweetsWidget extends BaseWidget
+class Twitter_SearchWidget extends BaseWidget
 {
     /**
      * @inheritDoc IComponentType::getName()
@@ -21,7 +21,7 @@ class Twitter_TweetsWidget extends BaseWidget
      */
     public function getName()
     {
-        return Craft::t('Tweets');
+        return Craft::t('Twitter Search');
     }
 
     /**
@@ -38,7 +38,7 @@ class Twitter_TweetsWidget extends BaseWidget
             return Craft::t("Tweets for “{query}”", array('query' => $settings->query));
         }
 
-        return Craft::t("Tweets");
+        return Craft::t("Twitter Search");
     }
 
     protected function defineSettings()
@@ -52,7 +52,7 @@ class Twitter_TweetsWidget extends BaseWidget
 
     public function getSettingsHtml()
     {
-        return craft()->templates->render('twitter/widgets/tweets/settings', array(
+        return craft()->templates->render('twitter/widgets/search/settings', array(
            'settings' => $this->getSettings()
         ));
     }
@@ -82,7 +82,7 @@ class Twitter_TweetsWidget extends BaseWidget
 
                 craft()->templates->includeCssResource('twitter/css/widget.css');
 
-                return craft()->templates->render('twitter/widgets/tweets', $variables);
+                return craft()->templates->render('twitter/widgets/search', $variables);
             }
             catch(\Exception $e)
             {
@@ -90,7 +90,7 @@ class Twitter_TweetsWidget extends BaseWidget
 
                 $variables['errorMsg'] = $e->getMessage();
 
-                return craft()->templates->render('twitter/widgets/tweets/error', $variables);
+                return craft()->templates->render('twitter/widgets/search/error', $variables);
             }
         }
         else
