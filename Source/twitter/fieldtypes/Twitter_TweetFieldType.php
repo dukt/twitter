@@ -43,9 +43,9 @@ class Twitter_TweetFieldType extends BaseFieldType
 
         $html = "";
 
-        if ($tweet && isset($tweet['id']))
+        if ($tweet && isset($tweet['id_str']))
         {
-            $url = 'https://twitter.com/'.$tweet['user']['screen_name'].'/status/'.$tweet['id'];
+            $url = 'https://twitter.com/'.$tweet['user']['screen_name'].'/status/'.$tweet['id_str'];
 
             if (craft()->request->isSecureConnection())
             {
