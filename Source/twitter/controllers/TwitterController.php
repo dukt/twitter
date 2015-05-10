@@ -153,13 +153,14 @@ class TwitterController extends BaseController
 
                             if ($account)
                             {
-
                                 $variables['account'] = $account;
                                 $variables['settings'] = $plugin->getSettings();
                             }
                         }
                         catch(\Exception $e)
                         {
+                            Craft::log('Couldn’t get account. '.$e->getMessage(), LogLevel::Error);
+
                             $variables['error'] = $e->getMessage();
                         }
                     }
