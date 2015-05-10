@@ -1,0 +1,40 @@
+{% extends "twitter/settings/_layout" %}
+
+{% import "_includes/forms" as forms %}
+
+{% set content %}
+
+    <h2 class="first">{{'OAuth Not Installed'|t}}</h2>
+
+    {% set oauth = craft.plugins.getPlugin('oauth', false) %}
+
+    {% if oauth %}
+
+        <form method="post" accept-charset="UTF-8">
+            <input type="hidden" name="pluginClass" value="{{ oauth.classHandle }}">
+            {{ getCsrfInput() }}
+
+            {% if not oauth.isInstalled %}
+                <p>{{ 'OAuth plugin is present but not installed. Please install it.'|t }}</p>
+
+                <div class="btn small formsubmit" data-action="plugins/installPlugin">{{ 'Install OAuth plugin'|t }}</div>
+
+            {% elseif not oauth.isEnabled %}
+                <p>{{ 'OAuth is installed but is disabled. Please enable it.'|t }}</p>
+
+                <input type="button" value="{{ 'Enable OAuth plugin'|t }}" class="btn small formsubmit" data-action="plugins/enablePlugin">
+
+            {% endif %}
+
+        </form>
+
+    {% else %}
+
+        <p>{{'Twitter plugin requires OAuth plugin for Craft.'|t}}</p>
+        <p><a class="btn small" href="{{actionUrl('twitter/plugin/download', {plugin:'oauth'})}}">{{'Download OAuth plugin'|t}}</a></p>
+
+    {% endif %}
+
+{% endset %}
+
+

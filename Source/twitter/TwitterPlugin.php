@@ -74,18 +74,25 @@ class TwitterPlugin extends BasePlugin
      */
     public function getSettingsHtml()
     {
-        if(craft()->request->getPath() == 'settings/plugins') {
+        if(craft()->request->getPath() == 'settings/plugins')
+        {
             return true;
         }
 
-        $pluginDependencies = $this->getPluginDependencies();
-
-        return craft()->templates->render('twitter/settings', array(
-            'settings' => $this->getSettings(),
-            'pluginDependencies' => $pluginDependencies
+        return craft()->templates->render('twitter/settings/_redirect', array(
+            'settings' => $this->getSettings()
         ));
     }
 
+    /**
+     * Hook Register CP Routes
+     */
+    public function registerCpRoutes()
+    {
+        return array(
+            'twitter\/settings' => array('action' => "twitter/settings"),
+        );
+    }
     /**
      * Adds support for Twitter user photo resource paths.
      *

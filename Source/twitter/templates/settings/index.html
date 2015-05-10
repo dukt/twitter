@@ -1,14 +1,50 @@
+{% extends "twitter/settings/_layout" %}
+
 {% import "_includes/forms" as forms %}
 
-{% includeCssResource 'twitter/css/disableSave.css' %}
+{% set content %}
 
+    {% if not error %}
+        {% if provider %}
+            {% if account %}
 
-{% if pluginDependencies|length > 0 %}
+                <h2 class="first">{{'Twitter Account'|t}}</h2>
+                <p>{{'You are authenticated to Twitter with the following account'|t}} :</p>
 
-    {% include 'twitter/settings/_dependencies' %}
+                <ul>
+                    <li><strong>{{ 'UID'|t }} : </strong> {{ account.uid }}</li>
+                    <li><strong>{{ 'Name'|t }} : </strong> {{ account.name }}</li>
+                </ul>
 
-{% else %}
+                <p><a class="btn small" href="{{ actionUrl('twitter/disconnect') }}">{{'Disconnect'|t}}</a></p>
 
-    {% include 'twitter/settings/_plugin' %}
+            {% else %}
 
-{% endif %}
+                <h2 class="first">{{'Twitter Account'|t}}</h2>
+                <p>{{'You need to connect Craft to a Twitter account in order to get started.'|t}}</p>
+                <p>{{"Getting errors trying to connect ?"|t}} <a href="{{url('oauth/twitter')}}">{{"Check Twitter API key & secret in OAuth settings"|t}}</a>.</p>
+                <p><a class="btn submit" href="{{ actionUrl('twitter/connect') }}">{{"Connect to Twitter"|t}}</a></p>
+
+            {% endif %}
+
+        {% else %}
+
+            <h2 class="first">{{'Twitter provider not configured'|t}}</h2>
+            <p>{{'Please fill API client id & secret for Twitter provider.'|t}}</p>
+            <p><a class="btn" href="{{url('oauth/twitter')}}">{{'Twitter OAuth settings'|t}}</a></p>
+
+        {% endif %}
+    {% else %}
+
+        <h2 class="first">{{'Twitter Account'|t}}</h2>
+
+        <p class="error">{{ error }}</p>
+
+        {% if token %}
+            <p><a class="btn small" href="{{ actionUrl('twitter/disconnect') }}">{{'Disconnect'|t}}</a></p>
+        {% endif %}
+
+    {% endif %}
+
+{% endset %}
+

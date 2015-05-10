@@ -96,7 +96,6 @@ class TwitterController extends BaseController
         $this->redirect($redirect);
     }
 
-
 	/**
 	 * Looks up a tweet by its ID.
 	 */
@@ -108,4 +107,76 @@ class TwitterController extends BaseController
 		$tweet = craft()->twitter->getTweetById($tweetId);
 		$this->returnJson($tweet);
 	}
+
+
+    /**
+     * Settings
+     *
+     * @return null
+     */
+    public function actionSettings()
+    {
+        $plugin = craft()->plugins->getPlugin('twitter');
+        $pluginDependencies = $plugin->getPluginDependencies();
+
+        if (count($pluginDependencies) > 0)
+        {
+            $this->renderTemplate('twitter/settings/_dependencies', ['pluginDependencies' => $pluginDependencies]);
+        }
+        else
+        {
+            if (isset(craft()->oauth))
+            {
+
+                // ----------------------------------------------------------
+
+                $variables = array(
+                    'provider' => false,
+                    'account' => false,
+                    'token' => false,
+                    'error' => false
+                );
+
+                $provider = craft()->oauth->getProvider('twitter');
+
+                if ($provider && $provider->isConfigured())
+                {
+                    $token = craft()->twitter->getToken();
+
+                    if ($token)
+                    {
+                        $provider->setToken($token);
+
+                        try
+                        {
+                            $account = $provider->getAccount();
+
+                            if ($account)
+                            {
+
+                                $variables['account'] = $account;
+                                $variables['settings'] = $plugin->getSettings();
+                            }
+                        }
+                        catch(\Exception $e)
+                        {
+                            $variables['error'] = $e->getMessage();
+                        }
+                    }
+
+                    $variables['token'] = $token;
+                }
+
+                $variables['provider'] = $provider;
+
+                $this->renderTemplate('twitter/settings', $variables);
+
+                // ----------------------------------------------------------
+            }
+            else
+            {
+                $this->renderTemplate('twitter/settings/_oauthNotInstalled');
+            }
+        }
+    }
 }
