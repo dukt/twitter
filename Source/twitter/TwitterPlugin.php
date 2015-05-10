@@ -37,7 +37,7 @@ class TwitterPlugin extends BasePlugin
                 'name' => "OAuth",
                 'handle' => 'oauth',
                 'url' => 'https://dukt.net/craft/oauth',
-                'version' => '0.9.68'
+                'version' => '0.9.69'
             )
         );
     }
