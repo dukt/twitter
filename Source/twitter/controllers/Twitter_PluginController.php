@@ -1,19 +1,17 @@
 <?php
-
 /**
- * Craft Twitter by Dukt
- *
- * @package   Craft Twitter
- * @author    Benjamin David
+ * @link      https://dukt.net/craft/twitter/
  * @copyright Copyright (c) 2015, Dukt
  * @license   https://dukt.net/craft/twitter/docs/license
- * @link      https://dukt.net/craft/twitter/
  */
 
 namespace Craft;
 
 class Twitter_PluginController extends BaseController
 {
+    // Properties
+    // =========================================================================
+
     private $pluginHandle = 'twitter';
     private $pluginService;
 

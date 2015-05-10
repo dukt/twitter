@@ -1,12 +1,7 @@
 <?php
-
 /**
- * Twitter plugin for Craft CMS
- *
- * @package   Twitter
- * @author    Benjamin David
- * @copyright Copyright (c) 2015, Dukt
  * @link      https://dukt.net/craft/twitter/
+ * @copyright Copyright (c) 2015, Dukt
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
@@ -16,10 +11,13 @@ require_once(CRAFT_PLUGINS_PATH.'twitter/Info.php');
 
 class TwitterPlugin extends BasePlugin
 {
+    // Public Methods
+    // =========================================================================
+
     /**
      * Get Name
      */
-    function getName()
+    public function getName()
     {
         return Craft::t('Twitter');
     }
@@ -27,12 +25,12 @@ class TwitterPlugin extends BasePlugin
     /**
      * Get Version
      */
-    function getVersion()
+    public function getVersion()
     {
         return TWITTER_VERSION;
     }
 
-    function getRequiredPlugins()
+    public function getRequiredPlugins()
     {
         return array(
             array(
@@ -44,27 +42,14 @@ class TwitterPlugin extends BasePlugin
         );
     }
 
-    function getDeveloper()
+    public function getDeveloper()
     {
         return 'Dukt';
     }
 
-    function getDeveloperUrl()
+    public function getDeveloperUrl()
     {
         return 'https://dukt.net/';
-    }
-
-    /**
-     * Defines the settings.
-     *
-     * @access protected
-     * @return array
-     */
-    protected function defineSettings()
-    {
-        return array(
-            'tokenId' => array(AttributeType::Number),
-        );
     }
 
     /**
@@ -254,13 +239,11 @@ class TwitterPlugin extends BasePlugin
         }
     }
 
-    function addTwigExtension()
+    public function addTwigExtension()
     {
         Craft::import('plugins.twitter.twigextensions.TwitterTwigExtension');
         return new TwitterTwigExtension();
     }
-
-    /* ------------------------------------------------------------------------- */
 
     /**
      * Get Plugin Dependencies
@@ -291,6 +274,25 @@ class TwitterPlugin extends BasePlugin
 
         return $dependencies;
     }
+
+    // Protected Methods
+    // =========================================================================
+
+    /**
+     * Defines the settings.
+     *
+     * @access protected
+     * @return array
+     */
+    protected function defineSettings()
+    {
+        return array(
+            'tokenId' => array(AttributeType::Number),
+        );
+    }
+
+    // Private Methods
+    // =========================================================================
 
     /**
      * Get Plugin Dependency

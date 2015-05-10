@@ -1,8 +1,16 @@
 <?php
+/**
+ * @link      https://dukt.net/craft/twitter/
+ * @copyright Copyright (c) 2015, Dukt
+ * @license   https://dukt.net/craft/twitter/docs/license
+ */
 
 namespace Twitter;
 
-class AutoLink extends \Twitter_Autolink {
+class AutoLink extends \Twitter_Autolink
+{
+    // Public Methods
+    // =========================================================================
 
     /**
      * Provides fluent method chaining.

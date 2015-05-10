@@ -1,12 +1,7 @@
 <?php
-
 /**
- * Twitter plugin for Craft CMS
- *
- * @package   Twitter
- * @author    Benjamin David
- * @copyright Copyright (c) 2015, Dukt
  * @link      https://dukt.net/craft/twitter/
+ * @copyright Copyright (c) 2015, Dukt
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
@@ -14,6 +9,9 @@ namespace Craft;
 
 class Twitter_TweetFieldType extends BaseFieldType
 {
+    // Public Methods
+    // =========================================================================
+
     /**
      * Returns the type of field this is.
      *

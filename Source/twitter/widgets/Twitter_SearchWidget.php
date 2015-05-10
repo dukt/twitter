@@ -1,19 +1,17 @@
 <?php
-
 /**
- * Craft Analytics by Dukt
- *
- * @package   Craft Analytics
- * @author    Benjamin David
+ * @link      https://dukt.net/craft/twitter/
  * @copyright Copyright (c) 2015, Dukt
- * @license   https://dukt.net/craft/analytics/docs/license
- * @link      https://dukt.net/craft/analytics/
+ * @license   https://dukt.net/craft/twitter/docs/license
  */
 
 namespace Craft;
 
 class Twitter_SearchWidget extends BaseWidget
 {
+    // Public Methods
+    // =========================================================================
+
     /**
      * @inheritDoc IComponentType::getName()
      *
@@ -39,15 +37,6 @@ class Twitter_SearchWidget extends BaseWidget
         }
 
         return Craft::t("Twitter Search");
-    }
-
-    protected function defineSettings()
-    {
-        return array(
-           'query' => array(AttributeType::String),
-           'colspan' => array(AttributeType::Number, 'default' => 2),
-           'count' => array(AttributeType::Number, 'default' => 10)
-        );
     }
 
     public function getSettingsHtml()
@@ -123,5 +112,17 @@ class Twitter_SearchWidget extends BaseWidget
         }
 
         return 1;
+    }
+
+    // Protected
+    // =========================================================================
+
+    protected function defineSettings()
+    {
+        return array(
+           'query' => array(AttributeType::String),
+           'colspan' => array(AttributeType::Number, 'default' => 2),
+           'count' => array(AttributeType::Number, 'default' => 10)
+        );
     }
 }

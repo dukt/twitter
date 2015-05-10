@@ -1,9 +1,17 @@
 <?php
+/**
+ * @link      https://dukt.net/craft/twitter/
+ * @copyright Copyright (c) 2015, Dukt
+ * @license   https://dukt.net/craft/twitter/docs/license
+ */
 
 namespace Craft;
 
 class TwitterTwigExtension extends \Twig_Extension
 {
+    // Public Methods
+    // =========================================================================
+
     public function getName()
     {
         return 'Twitter';
@@ -32,5 +40,4 @@ class TwitterTwigExtension extends \Twig_Extension
 
         return TemplateHelper::getRaw($html);
     }
-
 }
