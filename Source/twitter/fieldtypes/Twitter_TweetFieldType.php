@@ -92,6 +92,13 @@ class Twitter_TweetFieldType extends BaseFieldType
         '</div>';
     }
 
+    /**
+     * @inheritDoc IFieldType::prepValueFromPost()
+     *
+     * @param mixed $data
+     *
+     * @return mixed
+     */
     public function prepValueFromPost($value)
     {
         if (preg_match('/^\d+$/', $value))
@@ -112,7 +119,6 @@ class Twitter_TweetFieldType extends BaseFieldType
             return $value;
         }
     }
-
 
     /**
      * Preps the field value for use.

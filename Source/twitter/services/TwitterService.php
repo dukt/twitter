@@ -16,11 +16,17 @@ class TwitterService extends BaseApplicationComponent
     // Properties
     // =========================================================================
 
+    /**
+     * @var Oauth_TokenModel|null
+     */
     private $token;
 
     // Public Methods
     // =========================================================================
 
+    /**
+     * Auto Link Tweet
+     */
     public function autoLinkTweet($text, $options = array())
     {
         $twitter = \Twitter\AutoLink::create();
@@ -49,6 +55,9 @@ class TwitterService extends BaseApplicationComponent
         return $html;
     }
 
+    /**
+     * Embed Tweet
+     */
     public function embedTweet($id, $params = array())
     {
         try {
@@ -201,6 +210,9 @@ class TwitterService extends BaseApplicationComponent
         $this->token = $token;
     }
 
+    /**
+     * Check Dependencies
+     */
     public function checkDependencies()
     {
         $plugin = craft()->plugins->getPlugin('twitter');
@@ -213,6 +225,7 @@ class TwitterService extends BaseApplicationComponent
 
         return true;
     }
+
     /**
      * Performs a get request on the Twitter API
      *

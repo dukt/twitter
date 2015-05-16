@@ -15,7 +15,9 @@ class TwitterPlugin extends BasePlugin
     // =========================================================================
 
     /**
-     * Get Name
+     * Returns the plugin’s name
+     *
+     * @return string The plugin’s name.
      */
     public function getName()
     {
@@ -23,13 +25,20 @@ class TwitterPlugin extends BasePlugin
     }
 
     /**
-     * Get Version
+     * Returns the plugin’s version
+     *
+     * @return string The plugin’s version.
      */
     public function getVersion()
     {
         return TWITTER_VERSION;
     }
 
+    /**
+     * Returns required plugins
+     *
+     * @return array Required plugins
+     */
     public function getRequiredPlugins()
     {
         return array(
@@ -42,11 +51,21 @@ class TwitterPlugin extends BasePlugin
         );
     }
 
+    /**
+     * Returns the developer’s name
+     *
+     * @ return string The developer’s name
+     */
     public function getDeveloper()
     {
         return 'Dukt';
     }
 
+    /**
+     * Returns the developer’s URL
+     *
+     * @return string The developer’s URL
+     */
     public function getDeveloperUrl()
     {
         return 'https://dukt.net/';
@@ -69,6 +88,7 @@ class TwitterPlugin extends BasePlugin
             'twitter\/settings' => array('action' => "twitter/settings"),
         );
     }
+
     /**
      * Adds support for Twitter user photo resource paths.
      *
@@ -104,7 +124,7 @@ class TwitterPlugin extends BasePlugin
             $baseUserImagePath = craft()->path->getRuntimePath().'twitter/userimages/'.$userId.'/';
             $sizedFolderPath = $baseUserImagePath.$size.'/';
 
-            // Have we already downloaded this user's image at this size?
+            // Have we already downloaded this user’s image at this size?
             $contents = IOHelper::getFolderContents($sizedFolderPath, false);
 
             if ($contents)
@@ -149,7 +169,7 @@ class TwitterPlugin extends BasePlugin
                 }
                 else
                 {
-                    // OK, let's fetch it then
+                    // OK, let’s fetch it then
                     $user = craft()->twitter->getUserById($userId);
 
                     if (!$user || empty($user['profile_image_url']))
@@ -230,6 +250,9 @@ class TwitterPlugin extends BasePlugin
         }
     }
 
+    /**
+     * Add Twig Extension
+     */
     public function addTwigExtension()
     {
         Craft::import('plugins.twitter.twigextensions.TwitterTwigExtension');
@@ -244,7 +267,6 @@ class TwitterPlugin extends BasePlugin
         $dependencies = array();
 
         $plugins = $this->getRequiredPlugins();
-
 
         foreach($plugins as $key => $plugin)
         {

@@ -14,6 +14,9 @@ class Twitter_PluginService extends BaseApplicationComponent
     // Public Methods
     // =========================================================================
 
+    /**
+     * Download
+     */
     public function download($pluginHandle)
     {
         Craft::log(__METHOD__, LogLevel::Info, true);
@@ -139,6 +142,9 @@ class Twitter_PluginService extends BaseApplicationComponent
         return $return;
     }
 
+    /**
+     * Enable
+     */
     public function enable($pluginHandle)
     {
         Craft::log(__METHOD__, LogLevel::Info, true);
@@ -165,6 +171,9 @@ class Twitter_PluginService extends BaseApplicationComponent
         }
     }
 
+    /**
+     * Install
+     */
     public function install($pluginHandle)
     {
         Craft::log(__METHOD__, LogLevel::Info, true);
@@ -204,6 +213,9 @@ class Twitter_PluginService extends BaseApplicationComponent
     // Private Methods
     // =========================================================================
 
+    /**
+     * Get Remote Plugin
+     */
     private function _getRemotePlugin($pluginHandle)
     {
         Craft::log(__METHOD__, LogLevel::Info, true);
@@ -239,4 +251,3 @@ class Twitter_PluginService extends BaseApplicationComponent
         }
     }
 }
-

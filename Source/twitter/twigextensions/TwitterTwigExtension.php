@@ -12,21 +12,33 @@ class TwitterTwigExtension extends \Twig_Extension
     // Public Methods
     // =========================================================================
 
+    /**
+     * Get Name
+     */
     public function getName()
     {
         return 'Twitter';
     }
 
+    /**
+     * Get Filters
+     */
     public function getFilters()
     {
         return array('autoLinkTweet' => new \Twig_Filter_Method($this, 'autoLinkTweet'));
     }
 
+    /**
+     * Get Functions
+     */
     public function getFunctions()
     {
         return array('embedTweet' => new \Twig_Function_Method($this, 'embedTweet'));
     }
 
+    /**
+     * Get Embed Tweet
+     */
     public function embedTweet($id, $options = array())
     {
         $html = craft()->twitter->embedTweet($id, $options);
@@ -34,6 +46,9 @@ class TwitterTwigExtension extends \Twig_Extension
         return TemplateHelper::getRaw($html);
     }
 
+    /**
+     * Auto Link Tweet
+     */
     public function autoLinkTweet($text, $options = array())
     {
         $html = craft()->twitter->autoLinkTweet($text, $options);

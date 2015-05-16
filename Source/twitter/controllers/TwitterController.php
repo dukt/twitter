@@ -15,8 +15,19 @@ class TwitterController extends BaseController
     // Properties
     // =========================================================================
 
+    /**
+     * @var string
+     */
 	private $handle = 'twitter';
+
+    /**
+     * @var array
+     */
     private $scopes = array();
+
+    /**
+     * @var array
+     */
     private $params = array();
 
     // Public Methods
@@ -24,6 +35,8 @@ class TwitterController extends BaseController
 
     /**
      * Connect
+     *
+     * @return null
      */
     public function actionConnect(array $variables = array())
     {
@@ -80,6 +93,8 @@ class TwitterController extends BaseController
 
     /**
      * Disconnect
+     *
+     * @return null
      */
     public function actionDisconnect()
     {
@@ -99,6 +114,8 @@ class TwitterController extends BaseController
 
 	/**
 	 * Looks up a tweet by its ID.
+     *
+     * @return null
 	 */
 	public function actionLookupTweet()
 	{
@@ -128,9 +145,6 @@ class TwitterController extends BaseController
         {
             if (isset(craft()->oauth))
             {
-
-                // ----------------------------------------------------------
-
                 $variables = array(
                     'provider' => false,
                     'account' => false,
@@ -172,8 +186,6 @@ class TwitterController extends BaseController
                 $variables['provider'] = $provider;
 
                 $this->renderTemplate('twitter/settings', $variables);
-
-                // ----------------------------------------------------------
             }
             else
             {

@@ -12,17 +12,34 @@ class Twitter_PluginController extends BaseController
     // Properties
     // =========================================================================
 
+    /**
+     * @var string
+     */
     private $pluginHandle = 'twitter';
+
+    /**
+     * @var object
+     */
     private $pluginService;
 
     // Public Methods
     // =========================================================================
 
+    /**
+     * Constructor
+     *
+     * @return null
+     */
     public function __construct()
     {
         $this->pluginService = craft()->{$this->pluginHandle.'_plugin'};
     }
 
+    /**
+     * Download
+     *
+     * @return null
+     */
     public function actionDownload()
     {
         Craft::log(__METHOD__, LogLevel::Info, true);
@@ -63,6 +80,11 @@ class Twitter_PluginController extends BaseController
         $this->redirect(craft()->request->getUrlReferrer());
     }
 
+    /**
+     * Enable
+     *
+     * @return null
+     */
     public function actionEnable()
     {
         Craft::log(__METHOD__, LogLevel::Info, true);
@@ -74,6 +96,11 @@ class Twitter_PluginController extends BaseController
         $this->redirect(craft()->request->getUrlReferrer());
     }
 
+    /**
+     * Install
+     *
+     * @return null
+     */
     public function actionInstall()
     {
         Craft::log(__METHOD__, LogLevel::Info, true);
