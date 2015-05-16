@@ -53,20 +53,11 @@ class TwitterPlugin extends BasePlugin
     }
 
     /**
-     * Returns the component's settings HTML.
-     *
-     * @return string|null
+     * Get Settings URL
      */
-    public function getSettingsHtml()
+    public function getSettingsUrl()
     {
-        if(craft()->request->getPath() == 'settings/plugins')
-        {
-            return true;
-        }
-
-        return craft()->templates->render('twitter/settings/_redirect', array(
-            'settings' => $this->getSettings()
-        ));
+        return 'twitter/settings';
     }
 
     /**
