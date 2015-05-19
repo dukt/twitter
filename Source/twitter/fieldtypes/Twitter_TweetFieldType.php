@@ -77,7 +77,7 @@ class Twitter_TweetFieldType extends BaseFieldType
 
         if(!craft()->twitter->checkDependencies())
         {
-            $html .= '<p class="error">'.Craft::t("Twitter plugin is not configured properly. Please check {url} for more informations.", array('url' => Craft::t('<a href="'.UrlHelper::getUrl('twitter/settings').'">{title}</a>', array('title' => 'Twitter plugin settings')))).'</p>';
+            $html .= '<p class="light">'.Craft::t("Twitter plugin is not configured properly. Please check {url} for more informations.", array('url' => Craft::t('<a href="'.UrlHelper::getUrl('twitter/settings').'">{title}</a>', array('title' => 'Twitter plugin settings')))).'</p>';
         }
 
         return '<div class="tweet">' .
