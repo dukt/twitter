@@ -59,43 +59,63 @@ class Twitter_SearchWidget extends BaseWidget
             $query = $settings->query;
             $count = $settings->count;
 
-            if(!empty($query))
+
+            $provider = craft()->oauth->getProvider('twitter');
+
+            $token = craft()->twitter->getToken();
+
+            if($token)
             {
-                $params = array('q' => $query, 'count' => $count);
-
-                try
+                if(!empty($query))
                 {
-                    $response = craft()->twitter->api('get', 'search/tweets', $params);
+                    $params = array('q' => $query, 'count' => $count);
 
-                    $tweets = $response['statuses'];
+                    try
+                    {
+                        $response = craft()->twitter->api('get', 'search/tweets', $params);
 
-                    $variables['tweets'] = $tweets;
+                        $tweets = $response['statuses'];
 
-                    craft()->templates->includeCssResource('twitter/css/widget.css');
+                        $variables['tweets'] = $tweets;
 
-                    return craft()->templates->render('twitter/widgets/search', $variables);
+                        craft()->templates->includeCssResource('twitter/css/widget.css');
+
+                        return craft()->templates->render('twitter/widgets/search', $variables);
+                    }
+                    catch(\Exception $e)
+                    {
+                        Craft::log("Twitter error: ".__METHOD__." ".$e->getMessage(), LogLevel::Error, true);
+
+                        $variables['errorMsg'] = $e->getMessage();
+
+                        return craft()->templates->render('twitter/widgets/search/_error', $variables);
+                    }
                 }
-                catch(\Exception $e)
+                else
                 {
-                    Craft::log("Twitter error: ".__METHOD__." ".$e->getMessage(), LogLevel::Error, true);
+                    $variables['infoMsg'] = Craft::t('Please enter a search query in the <a href="{url}">widget’s settings</a>.', array(
+                        'url' => UrlHelper::getUrl('dashboard/settings/'.$this->model->id)
+                    ));
 
-                    $variables['errorMsg'] = $e->getMessage();
-
-                    return craft()->templates->render('twitter/widgets/search/error', $variables);
+                    return craft()->templates->render('twitter/widgets/search/_error', $variables);
                 }
             }
             else
             {
-                $variables['infoMsg'] = Craft::t('Please enter a search query in the <a href="{url}">widget’s settings</a>.', array(
-                    'url' => UrlHelper::getUrl('dashboard/settings/'.$this->model->id)
+                $variables['infoMsg'] = Craft::t('Twitter is not configured, please check the <a href="{url}">plugin’s settings</a>.', array(
+                    'url' => UrlHelper::getUrl('twitter/settings')
                 ));
 
-                return craft()->templates->render('twitter/widgets/search/error', $variables);
+                return craft()->templates->render('twitter/widgets/search/_error', $variables);
             }
         }
         else
         {
-            return craft()->templates->render('twitter/_requirements');
+            $variables['infoMsg'] = Craft::t('Twitter is not configured, please check the <a href="{url}">plugin’s settings</a>.', array(
+                'url' => UrlHelper::getUrl('twitter/settings')
+            ));
+
+            return craft()->templates->render('twitter/widgets/search/_error', $variables);
         }
     }
 
