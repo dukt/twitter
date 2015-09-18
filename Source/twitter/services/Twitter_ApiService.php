@@ -28,12 +28,11 @@ class Twitter_ApiService extends BaseApplicationComponent
     public function request($method = 'get', $uri, $params = null, $headers = null, $postFields = null)
     {
         // client
-
         $client = new Client('https://api.twitter.com/1.1');
 
         $provider = craft()->oauth->getProvider('twitter');
 
-        $token = $this->getToken();
+        $token = craft()->twitter_oauth->getToken();
 
         if($token)
         {
@@ -113,8 +112,7 @@ class Twitter_ApiService extends BaseApplicationComponent
 
         try
         {
-            $response = $this->api('get', $uri, $params, $headers);
-
+            $response = $this->request('get', $uri, $params, $headers);
             // cache response
 
             if($enableCache)
@@ -126,11 +124,11 @@ class Twitter_ApiService extends BaseApplicationComponent
         }
         catch(\Guzzle\Http\Exception\ClientErrorResponseException $e)
         {
-            Craft::log(__METHOD__." Couldn't get twitter response", LogLevel::Info, true);
+            Craft::log('Twitter API Error: '.__METHOD__." Couldn't get twitter response", LogLevel::Info, true);
         }
         catch(\Guzzle\Http\Exception\CurlException $e)
         {
-            Craft::log(__METHOD__." ".$e->getMessage(), LogLevel::Info, true);
+            Craft::log('Twitter API Error: '.__METHOD__." ".$e->getMessage(), LogLevel::Info, true);
         }
     }
 }

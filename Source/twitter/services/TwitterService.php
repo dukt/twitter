@@ -7,6 +7,8 @@
 
 namespace Craft;
 
+require_once(CRAFT_PLUGINS_PATH.'twitter/vendor/autoload.php');
+
 class TwitterService extends BaseApplicationComponent
 {
     // Properties
@@ -88,7 +90,7 @@ class TwitterService extends BaseApplicationComponent
 
             // oembed
 
-            $response = $this->get('statuses/oembed', array('id' => $id));
+            $response = craft()->twitter_api->get('statuses/oembed', array('id' => $id));
 
             if($response)
             {
@@ -116,7 +118,7 @@ class TwitterService extends BaseApplicationComponent
     public function getTweetById($tweetId, $params = array(), $enableCache = false)
     {
         $params = array_merge($params, array('id' => $tweetId));
-        return $this->get('statuses/show', $params, array(), $enableCache);
+        return craft()->twitter_api->get('statuses/show', $params, array(), $enableCache);
     }
 
     /**
@@ -129,6 +131,6 @@ class TwitterService extends BaseApplicationComponent
     public function getUserById($userId, $params = array())
     {
         $params = array_merge($params, array('user_id' => $userId));
-        return $this->get('users/show', $params);
+        return craft()->twitter_api->get('users/show', $params);
     }
 }
