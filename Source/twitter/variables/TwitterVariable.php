@@ -24,11 +24,25 @@ class TwitterVariable
         }
 	}
 
+    /**
+     * Returns a tweet by its ID.
+     *
+     * @param int $tweetId
+     * @param array $params
+     * @return array|null
+     */
 	public function getTweetById($tweetId, $params = array())
 	{
 		return craft()->twitter->getTweetById($tweetId, $params);
 	}
 
+    /**
+     * Returns a user by their ID.
+     *
+     * @param int $userId
+     * @param array $params
+     * @return array|null
+     */
 	public function getUserById($userId, $params = array())
 	{
 		return craft()->twitter->getUserById($userId, $params);

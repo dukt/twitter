@@ -25,6 +25,14 @@ class TwitterService extends BaseApplicationComponent
     /**
      * Auto Link Tweet
      */
+
+    /**
+     * Returns the tweet with URLs transformed into HTML links
+     *
+     * @param int $tweetId
+     * @param array $options
+     * @return string
+     */
     public function autoLinkTweet($text, $options = array())
     {
         $twitter = \Twitter\AutoLink::create();
@@ -54,7 +62,11 @@ class TwitterService extends BaseApplicationComponent
     }
 
     /**
-     * Embed Tweet
+     * Returns the HTML embed of a Tweet from its ID
+     *
+     * @param int $tweetId
+     * @param array $params
+     * @return string|null HTML embed of the Tweet
      */
     public function embedTweet($id, $params = array())
     {
@@ -104,7 +116,7 @@ class TwitterService extends BaseApplicationComponent
         }
         catch(\Exception $e)
         {
-            return false;
+            return;
         }
     }
 

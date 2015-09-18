@@ -8,7 +8,7 @@
 namespace Craft;
 
 /**
- * Twitter controller
+ * Twitter OAuth controller
  */
 class Twitter_OauthController extends BaseController
 {

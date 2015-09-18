@@ -7,6 +7,9 @@
 
 namespace Craft;
 
+/**
+ * Twitter Plugin controller
+ */
 class Twitter_PluginController extends BaseController
 {
     // Properties
