@@ -14,6 +14,39 @@ class Twitter_PluginService extends BaseApplicationComponent
     // Public Methods
     // =========================================================================
 
+    public function requireDependencies()
+    {
+        $plugin = craft()->plugins->getPlugin('twitter');
+        $pluginDependencies = $plugin->getPluginDependencies();
+
+        if (count($pluginDependencies) > 0)
+        {
+            $url = UrlHelper::getUrl('twitter/_special/dependencies');
+            craft()->request->redirect($url);
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    /**
+     * Check Dependencies
+     */
+    public function checkDependencies()
+    {
+        $plugin = craft()->plugins->getPlugin('twitter');
+        $pluginDependencies = $plugin->getPluginDependencies();
+
+        if(count($pluginDependencies) > 0)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Download
      */
@@ -58,7 +91,7 @@ class Twitter_PluginService extends BaseApplicationComponent
 
             // download remotePluginZipUrl to pluginZipPath
 
-            $client = new \Guzzle\Http\Client();
+            $client = new Client();
             $request = $client->get($remotePluginZipUrl);
             $response = $request->send();
             $body = $response->getBody();

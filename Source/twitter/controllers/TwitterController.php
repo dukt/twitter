@@ -12,105 +12,8 @@ namespace Craft;
  */
 class TwitterController extends BaseController
 {
-    // Properties
-    // =========================================================================
-
-    /**
-     * @var string
-     */
-	private $handle = 'twitter';
-
-    /**
-     * @var array
-     */
-    private $scopes = array();
-
-    /**
-     * @var array
-     */
-    private $params = array();
-
     // Public Methods
     // =========================================================================
-
-    /**
-     * Connect
-     *
-     * @return null
-     */
-    public function actionConnect(array $variables = array())
-    {
-        // referer
-
-        $referer = craft()->httpSession->get('twitter.referer');
-
-        if(!$referer)
-        {
-            $referer = craft()->request->getUrlReferrer();
-
-            craft()->httpSession->add('twitter.referer', $referer);
-        }
-
-
-        // connect
-
-        if($response = craft()->oauth->connect(array(
-            'plugin' => 'twitter',
-            'provider' => 'twitter',
-            'scopes' => $this->scopes,
-            'params' => $this->params
-        )))
-        {
-            if($response['success'])
-            {
-                // token
-                $token = $response['token'];
-
-                // save token
-                craft()->twitter->saveToken($token);
-
-                // session notice
-                craft()->userSession->setNotice(Craft::t("Connected to Twitter."));
-            }
-            else
-            {
-                craft()->userSession->setError(Craft::t($response['errorMsg']));
-            }
-        }
-        else
-        {
-            craft()->userSession->setError(Craft::t("Couldn’t connect"));
-        }
-
-
-
-        // redirect
-
-        craft()->httpSession->remove('twitter.referer');
-
-        $this->redirect($referer);
-    }
-
-    /**
-     * Disconnect
-     *
-     * @return null
-     */
-    public function actionDisconnect()
-    {
-        if(craft()->twitter->deleteToken())
-        {
-            craft()->userSession->setNotice(Craft::t("Disconnected from Twitter."));
-        }
-        else
-        {
-            craft()->userSession->setNotice(Craft::t("Couldn’t disconnect from Twitter."));
-        }
-
-        // redirect
-        $redirect = craft()->request->getUrlReferrer();
-        $this->redirect($redirect);
-    }
 
 	/**
 	 * Looks up a tweet by its ID.
@@ -126,7 +29,6 @@ class TwitterController extends BaseController
 		$this->returnJson($tweet);
 	}
 
-
     /**
      * Settings
      *
@@ -134,63 +36,66 @@ class TwitterController extends BaseController
      */
     public function actionSettings()
     {
+        craft()->twitter_plugin->requireDependencies();
+        craft()->twitter_oauth->requireOauth();
+
         $plugin = craft()->plugins->getPlugin('twitter');
-        $pluginDependencies = $plugin->getPluginDependencies();
 
-        if (count($pluginDependencies) > 0)
+        $variables = array(
+            'provider' => false,
+            'account' => false,
+            'token' => false,
+            'error' => false
+        );
+
+        $provider = craft()->oauth->getProvider('twitter');
+
+        if ($provider && $provider->isConfigured())
         {
-            $this->renderTemplate('twitter/settings/_dependencies', ['pluginDependencies' => $pluginDependencies]);
-        }
-        else
-        {
-            if (isset(craft()->oauth))
+            $token = craft()->twitter_oauth->getToken();
+
+            if ($token)
             {
-                $variables = array(
-                    'provider' => false,
-                    'account' => false,
-                    'token' => false,
-                    'error' => false
-                );
+                $provider->setToken($token);
 
-                $provider = craft()->oauth->getProvider('twitter');
-
-                if ($provider && $provider->isConfigured())
+                try
                 {
-                    $token = craft()->twitter->getToken();
+                    $account = craft()->twitter_cache->get(['getAccount', $token]);
 
-                    if ($token)
+                    if(!$account)
                     {
-                        $provider->setToken($token);
-
-                        try
-                        {
-                            $account = $provider->getAccount();
-
-                            if ($account)
-                            {
-                                $variables['account'] = $account;
-                                $variables['settings'] = $plugin->getSettings();
-                            }
-                        }
-                        catch(\Exception $e)
-                        {
-                            Craft::log('Couldn’t get account. '.$e->getMessage(), LogLevel::Error);
-
-                            $variables['error'] = $e->getMessage();
-                        }
+                        $account = $provider->getAccount();
+                        craft()->twitter_cache->set(['getAccount', $token], $account);
                     }
 
-                    $variables['token'] = $token;
+                    if ($account)
+                    {
+                        Craft::log("Twitter OAuth Account:\r\n".print_r($account, true), LogLevel::Info);
+
+                        $variables['account'] = $account;
+                        $variables['settings'] = $plugin->getSettings();
+                    }
                 }
+                catch(\Exception $e)
+                {
+                    if(method_exists($e, 'getResponse'))
+                    {
+                            Craft::log("Couldn’t get account: ".$e->getResponse(), LogLevel::Error);
+                    }
+                    else
+                    {
+                        Craft::log("Couldn’t get account: ".$e->getMessage(), LogLevel::Error);
+                    }
 
-                $variables['provider'] = $provider;
+                    $variables['error'] = $e->getMessage();
+                }
+            }
 
-                $this->renderTemplate('twitter/settings', $variables);
-            }
-            else
-            {
-                $this->renderTemplate('twitter/settings/_oauthNotInstalled');
-            }
+            $variables['token'] = $token;
+
+            $variables['provider'] = $provider;
         }
+
+        $this->renderTemplate('twitter/settings', $variables);
     }
 }

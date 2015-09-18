@@ -62,7 +62,7 @@ class Twitter_SearchWidget extends BaseWidget
 
             $provider = craft()->oauth->getProvider('twitter');
 
-            $token = craft()->twitter->getToken();
+            $token = craft()->twitter_oauth->getToken();
 
             if($token)
             {
@@ -72,7 +72,7 @@ class Twitter_SearchWidget extends BaseWidget
 
                     try
                     {
-                        $response = craft()->twitter->api('get', 'search/tweets', $params);
+                        $response = craft()->twitter_api->request('get', 'search/tweets', $params);
 
                         $tweets = $response['statuses'];
 

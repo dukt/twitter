@@ -12,21 +12,11 @@ class TwitterVariable
     // Public Methods
     // =========================================================================
 
-    public function setToken($token)
-    {
-        return craft()->twitter->setToken($token);
-    }
-
-    public function getToken()
-    {
-        return craft()->twitter->getToken();
-    }
-
 	public function get($uri, $params = array(), $headers = array(), $enableCache = false, $cacheExpire = 0)
 	{
         try
         {
-		     return craft()->twitter->get($uri, $params, $headers, $enableCache, $cacheExpire);
+		     return craft()->twitter_api->get($uri, $params, $headers, $enableCache, $cacheExpire);
         }
         catch(\Exception $e)
         {

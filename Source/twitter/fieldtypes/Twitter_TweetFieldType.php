@@ -54,7 +54,7 @@ class Twitter_TweetFieldType extends BaseFieldType
                 $profileImageUrl = $tweet['user']['profile_image_url'];
             }
 
-            if(craft()->twitter->checkDependencies())
+            if(craft()->twitter_plugin->checkDependencies())
             {
                 $html .=
                     '<div class="tweet-preview">' .
@@ -75,7 +75,7 @@ class Twitter_TweetFieldType extends BaseFieldType
             $preview = '';
         }
 
-        if(!craft()->twitter->checkDependencies())
+        if(!craft()->twitter_plugin->checkDependencies())
         {
             $html .= '<p class="light">'.Craft::t("Twitter plugin is not configured properly. Please check {url} for more informations.", array('url' => Craft::t('<a href="'.UrlHelper::getUrl('twitter/settings').'">{title}</a>', array('title' => 'Twitter plugin settings')))).'</p>';
         }
