@@ -23,14 +23,11 @@ class TwitterService extends BaseApplicationComponent
     // =========================================================================
 
     /**
-     * Auto Link Tweet
-     */
-
-    /**
      * Returns the tweet with URLs transformed into HTML links
      *
-     * @param int $tweetId
-     * @param array $options
+     * @param int $text      The tweet's text.
+     * @param array $options Options to pass to AutoLink.
+     *
      * @return string
      */
     public function autoLinkTweet($text, $options = array())
@@ -68,7 +65,7 @@ class TwitterService extends BaseApplicationComponent
      * @param array $params
      * @return string|null HTML embed of the Tweet
      */
-    public function embedTweet($id, $params = array())
+    public function embedTweet($tweetId, $params = array())
     {
         try {
             // params
@@ -102,7 +99,7 @@ class TwitterService extends BaseApplicationComponent
 
             // oembed
 
-            $response = craft()->twitter_api->get('statuses/oembed', array('id' => $id));
+            $response = craft()->twitter_api->get('statuses/oembed', array('id' => $tweetId));
 
             if($response)
             {
@@ -125,6 +122,8 @@ class TwitterService extends BaseApplicationComponent
      *
      * @param int $tweetId
      * @param array $params
+     * @param bool $enableCache
+     *
      * @return array|null
      */
     public function getTweetById($tweetId, $params = array(), $enableCache = false)

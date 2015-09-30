@@ -20,7 +20,7 @@ $iterator = Finder::create()
 
 $options = array(
     'theme'                => 'dukt',
-    'title'                => 'Analytics Plugin for Craft CMS',
+    'title'                => 'Twitter Plugin for Craft CMS',
     'build_dir'            => __DIR__.'/build',
     'cache_dir'            => __DIR__.'/cache',
     'template_dirs'        => array(__DIR__.'/themes/'),
@@ -29,8 +29,8 @@ $options = array(
 
 $sami = new Sami($iterator, $options);
 
-$sami['filter'] = function () {
-    return new TrueFilter();
-};
+// $sami['filter'] = function () {
+//     return new TrueFilter();
+// };
 
 return $sami;
