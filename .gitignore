@@ -1,5 +1,3 @@
 *.log
 .DS_Store
-Source/twitter/Info.php
-Source/twitter/vendor
-Source/composer.lock
+composer.lock

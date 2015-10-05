@@ -1,0 +1,13 @@
+{
+    "autoload": {
+        "psr-0": {"Twitter": "src/"}
+    },
+
+    "require": {
+        "nojimage/twitter-text-php": "dev-master"
+    },
+    "scripts": {
+        "post-update-cmd": ["echo [WARNING] Delete all .git dirs", "rm -rf vendor/**/**/.git"],
+        "post-install-cmd": ["echo [WARNING] Delete all .git dirs", "rm -rf vendor/**/**/.git"]
+    }
+}
