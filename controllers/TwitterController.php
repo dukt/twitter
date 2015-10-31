@@ -56,15 +56,13 @@ class TwitterController extends BaseController
 
             if ($token)
             {
-                $provider->setToken($token);
-
                 try
                 {
                     $account = craft()->twitter_cache->get(['getAccount', $token]);
 
                     if(!$account)
                     {
-                        $account = $provider->getAccount();
+                        $account = $provider->getAccount($token);
                         craft()->twitter_cache->set(['getAccount', $token], $account);
                     }
 
