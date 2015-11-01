@@ -36,9 +36,7 @@ class Twitter_ApiService extends BaseApplicationComponent
 
         if($token)
         {
-            $provider->setToken($token);
-
-            $oauth = $provider->getSubscriber();
+            $oauth = $provider->getSubscriber($token);
 
             $client->addSubscriber($oauth);
 
