@@ -20,16 +20,6 @@ class Twitter_OauthController extends BaseController
      */
     private $handle = 'twitter';
 
-    /**
-     * @var array
-     */
-    private $scopes = array();
-
-    /**
-     * @var array
-     */
-    private $params = array();
-
     // Public Methods
     // =========================================================================
 
@@ -40,12 +30,6 @@ class Twitter_OauthController extends BaseController
      */
     public function actionConnect()
     {
-        // craft()->oauth->sessionClean();
-        // craft()->httpSession->remove('twitter.referer');
-        // unset($_SESSION['token_credentials']);
-        // unset($_SESSION['temporary_credentials']);
-        // unset($_SESSION['token_credentials']);
-
         // referer
 
         $referer = craft()->httpSession->get('twitter.referer');
@@ -64,9 +48,7 @@ class Twitter_OauthController extends BaseController
 
         if ($response = craft()->oauth->connect(array(
             'plugin'   => 'twitter',
-            'provider' => $this->handle,
-            'scopes'   => $this->scopes,
-            'params'   => $this->params
+            'provider' => $this->handle
         )))
         {
             // var_dump($response);
