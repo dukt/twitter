@@ -39,6 +39,16 @@ class Twitter_SearchWidget extends BaseWidget
         return Craft::t("Twitter Search");
     }
 
+    /**
+     * @inheritDoc IWidget::getIconPath()
+     *
+     * @return string
+     */
+    public function getIconPath()
+    {
+        return craft()->resources->getResourcePath('twitter/images/widgets/search.svg');
+    }
+
     public function getSettingsHtml()
     {
         return craft()->templates->render('twitter/widgets/search/settings', array(
