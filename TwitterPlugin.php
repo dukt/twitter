@@ -29,7 +29,7 @@ class TwitterPlugin extends BasePlugin
      */
     public function getVersion()
     {
-        return '1.0.27';
+        return '1.0.28';
     }
 
     /**
