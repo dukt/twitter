@@ -83,7 +83,8 @@ class TwitterPlugin extends BasePlugin
     public function registerCpRoutes()
     {
         return array(
-            'twitter\/settings' => array('action' => "twitter/settings"),
+            'twitter/settings' => array('action' => "twitter/settings"),
+            'twitter/install' => array('action' => "twitter/plugin/install"),
         );
     }
 
@@ -343,6 +344,7 @@ class TwitterPlugin extends BasePlugin
 
         $dependency['isMissing'] = $isMissing;
         $dependency['plugin'] = $plugin;
+        $dependency['pluginLink'] = 'https://dukt.net/craft/'.$dependency['handle'];
 
         return $dependency;
     }

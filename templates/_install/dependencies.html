@@ -1,6 +1,4 @@
-{% extends "twitter/settings/_layout" %}
-
-{% import "_includes/forms" as forms %}
+{% extends "twitter/_layouts/settings" %}
 
 {% set content %}
 
@@ -27,24 +25,22 @@
 
                 <ul class="light">
                     {% if dependency.plugin %}
-                        <li>Current: {{ dependency.name }} {{ dependency.plugin.version }}</li>
+                        <li>{{ "Current: {name} {version}"|t({ name: dependency.name, version: dependency.plugin.version  }) }}</li>
                     {% endif %}
-                    <li>Required: {{ dependency.name }} {{ dependency.version }} or above required</li>
+                    <li>{{ "Required: {name} {version} or above required"|t({ name: dependency.name, version: dependency.version  }) }}</li>
                 </ul>
 
 
-                <p><a class="btn small" href="{{ actionUrl('twitter/plugin/download', { plugin: dependency.handle }) }}">{{ "Download & Install {name} plugin"|t({ name: dependency.name }) }}</a></p>
+                <p><a class="btn" href="{{ dependency.pluginLink }}" target="_blank">{{ "Download Latest {name} plugin"|t({ name: dependency.name }) }}</a></p>
 
             {% endif %}
         {% else %}
 
             <p>{{ "{name} plugin is required to continue."|t({ name: dependency.name }) }}</p>
 
-            <p><a class="btn small" href="{{ actionUrl('twitter/plugin/download', { plugin: dependency.handle }) }}">{{ "Download & Install {name} plugin"|t({ name: dependency.name }) }}</a></p>
+            <p><a class="btn" href="{{ dependency.pluginLink }}" target="_blank">{{ "Download Latest {name} plugin"|t({ name: dependency.name }) }}</a></p>
 
         {% endif %}
-
-
 
         {% if not loop.last %}
             <hr />

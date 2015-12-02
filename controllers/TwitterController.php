@@ -37,7 +37,6 @@ class TwitterController extends BaseController
     public function actionSettings()
     {
         craft()->twitter_plugin->requireDependencies();
-        craft()->twitter_oauth->requireOauth();
 
         $plugin = craft()->plugins->getPlugin('twitter');
 
