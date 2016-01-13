@@ -40,7 +40,7 @@ class Twitter_OauthController extends BaseController
 
             craft()->httpSession->add('twitter.referer', $referer);
 
-            TwitterHelper::log('Twitter OAuth Connect Step 1: '."\r\n".print_r(['referer' => $referer], true), LogLevel::Info);
+            TwitterPlugin::log('Twitter OAuth Connect Step 1: '."\r\n".print_r(['referer' => $referer], true), LogLevel::Info);
         }
 
 
@@ -61,7 +61,7 @@ class Twitter_OauthController extends BaseController
                 // save token
                 craft()->twitter_oauth->saveToken($token);
 
-                TwitterHelper::log('Twitter OAuth Connect Step 2: '."\r\n".print_r(['token' => $token], true), LogLevel::Info);
+                TwitterPlugin::log('Twitter OAuth Connect Step 2: '."\r\n".print_r(['token' => $token], true), LogLevel::Info);
 
                 // session notice
                 craft()->userSession->setNotice(Craft::t("Connected to Twitter."));

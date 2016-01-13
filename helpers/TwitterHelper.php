@@ -13,17 +13,6 @@ class TwitterHelper
     // =========================================================================
 
     /**
-     * Log messages only if `duktDeveMode` is set to true
-     */
-    public static function log($message, $level = 'info', $force = true, $category = 'application', $plugin = null)
-    {
-        if(craft()->config->get('duktDevMode'))
-        {
-            TwitterPlugin::log($message, $level, $force, $category, $plugin);
-        }
-    }
-
-    /**
      * Format a duration in PHP Date Interval format (to seconds by default)
      */
     public static function formatDuration($cacheDuration, $format='%s')
