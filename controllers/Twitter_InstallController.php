@@ -10,40 +10,17 @@ namespace Craft;
 /**
  * Twitter Plugin controller
  */
-class Twitter_PluginController extends BaseController
+class Twitter_InstallController extends BaseController
 {
-    // Properties
-    // =========================================================================
-
-    /**
-     * @var string
-     */
-    private $pluginHandle = 'twitter';
-
-    /**
-     * @var object
-     */
-    private $pluginService;
-
     // Public Methods
     // =========================================================================
-
-    /**
-     * Constructor
-     *
-     * @return null
-     */
-    public function __construct()
-    {
-        $this->pluginService = craft()->{$this->pluginHandle.'_plugin'};
-    }
 
     /**
      * Dependencies
      *
      * @return null
      */
-    public function actionInstall()
+    public function actionIndex()
     {
         $plugin = craft()->plugins->getPlugin('twitter');
         $pluginDependencies = $plugin->getPluginDependencies();

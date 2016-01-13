@@ -84,7 +84,7 @@ class TwitterPlugin extends BasePlugin
     {
         return array(
             'twitter/settings' => array('action' => "twitter/settings"),
-            'twitter/install' => array('action' => "twitter/plugin/install"),
+            'twitter/install' => array('action' => "twitter/install/index"),
         );
     }
 
