@@ -78,6 +78,14 @@ class TwitterPlugin extends BasePlugin
     }
 
     /**
+     * Get Documentation URL
+     */
+    public function getDocumentationUrl()
+    {
+        return 'https://dukt.net/craft/twitter/docs/';
+    }
+
+    /**
      * Hook Register CP Routes
      */
     public function registerCpRoutes()
