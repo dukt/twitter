@@ -67,7 +67,7 @@ class TwitterController extends BaseController
 
                     if ($account)
                     {
-                        Craft::log("Twitter OAuth Account:\r\n".print_r($account, true), LogLevel::Info);
+                        TwitterPlugin::log("Twitter OAuth Account:\r\n".print_r($account, true), LogLevel::Info);
 
                         $variables['account'] = $account;
                         $variables['settings'] = $plugin->getSettings();
@@ -77,11 +77,11 @@ class TwitterController extends BaseController
                 {
                     if(method_exists($e, 'getResponse'))
                     {
-                            Craft::log("Couldn’t get account: ".$e->getResponse(), LogLevel::Error);
+                            TwitterPlugin::log("Couldn’t get account: ".$e->getResponse(), LogLevel::Error);
                     }
                     else
                     {
-                        Craft::log("Couldn’t get account: ".$e->getMessage(), LogLevel::Error);
+                        TwitterPlugin::log("Couldn’t get account: ".$e->getMessage(), LogLevel::Error);
                     }
 
                     $variables['error'] = $e->getMessage();

@@ -94,7 +94,7 @@ class Twitter_SearchWidget extends BaseWidget
                     }
                     catch(\Exception $e)
                     {
-                        Craft::log("Twitter error: ".__METHOD__." ".$e->getMessage(), LogLevel::Error, true);
+                        TwitterPlugin::log("Twitter error: ".__METHOD__." ".$e->getMessage(), LogLevel::Error, true);
 
                         $variables['errorMsg'] = $e->getMessage();
 

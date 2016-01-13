@@ -122,11 +122,11 @@ class Twitter_ApiService extends BaseApplicationComponent
         }
         catch(\Guzzle\Http\Exception\ClientErrorResponseException $e)
         {
-            Craft::log('Twitter API Error: '.__METHOD__." Couldn't get twitter response", LogLevel::Info, true);
+            TwitterPlugin::log('Twitter API Error: '.__METHOD__." Couldn't get twitter response", LogLevel::Info, true);
         }
         catch(\Guzzle\Http\Exception\CurlException $e)
         {
-            Craft::log('Twitter API Error: '.__METHOD__." ".$e->getMessage(), LogLevel::Info, true);
+            TwitterPlugin::log('Twitter API Error: '.__METHOD__." ".$e->getMessage(), LogLevel::Info, true);
         }
     }
 }

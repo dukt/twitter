@@ -19,7 +19,7 @@ class TwitterHelper
     {
         if(craft()->config->get('duktDevMode'))
         {
-            Craft::log($message, $level, $force, $category, $plugin);
+            TwitterPlugin::log($message, $level, $force, $category, $plugin);
         }
     }
 
