@@ -32,7 +32,9 @@ class TwitterService extends BaseApplicationComponent
      */
     public function autoLinkTweet($text, $options = array())
     {
-        $twitter = \Twitter\AutoLink::create();
+	    require_once(CRAFT_PLUGINS_PATH.'twitter/src/Twitter/AutoLink.php');
+
+	    $twitter = \Twitter\AutoLink::create();
 
         $aliases = array(
             'urlClass' => 'setURLClass',
