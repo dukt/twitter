@@ -22,7 +22,7 @@
 
                 <h2 class="first">{{'Twitter Account'|t}}</h2>
                 <p>{{'You need to connect Craft to a Twitter account in order to get started.'|t}}</p>
-                <p>{{"Getting errors trying to connect ?"|t}} <a href="{{url('oauth/twitter')}}">{{"Check Twitter API key & secret in OAuth settings"|t}}</a>.</p>
+                <p>{{"Getting errors trying to connect ?"|t}} <a href="{{url('oauth/providers/twitter')}}">{{"Check Twitter API key & secret in OAuth settings"|t}}</a>.</p>
                 <p><a class="btn submit" href="{{ actionUrl('twitter/oauth/connect') }}">{{"Connect to Twitter"|t}}</a></p>
 
             {% endif %}
@@ -47,4 +47,3 @@
     {% endif %}
 
 {% endset %}
-
