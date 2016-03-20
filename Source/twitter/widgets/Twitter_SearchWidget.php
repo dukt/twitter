@@ -136,7 +136,6 @@ class Twitter_SearchWidget extends BaseWidget
     {
         return array(
            'query' => array(AttributeType::String),
-           'colspan' => array(AttributeType::Number, 'default' => 2),
            'count' => array(AttributeType::Number, 'default' => 10)
         );
     }

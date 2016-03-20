@@ -1,15 +1,5 @@
 {% import "_includes/forms" as forms %}
 
-{% set colspanOptions = { 1:1, 2:2, 3:3, 4:4 } %}
-
-{{ forms.selectField({
-    first: true,
-    label: "Columns"|t,
-    options: colspanOptions,
-    name: 'colspan',
-    value: (settings.colspan is not null ? settings.colspan : 2)
-}) }}
-
 {{ forms.textField({
     first: true,
     label: "Search Query"|t,
