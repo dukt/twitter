@@ -129,21 +129,6 @@ class Twitter_SearchWidget extends BaseWidget
         }
     }
 
-    public function getColspan()
-    {
-        $settings = $this->getSettings();
-
-        if(isset($settings->colspan))
-        {
-            if($settings->colspan > 0)
-            {
-                return $settings->colspan;
-            }
-        }
-
-        return 1;
-    }
-
     // Protected
     // =========================================================================
 
