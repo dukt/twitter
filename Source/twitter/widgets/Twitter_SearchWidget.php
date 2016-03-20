@@ -49,13 +49,6 @@ class Twitter_SearchWidget extends BaseWidget
         return craft()->resources->getResourcePath('twitter/images/widgets/search.svg');
     }
 
-    public function getSettingsHtml()
-    {
-        return craft()->templates->render('twitter/widgets/search/settings', array(
-           'settings' => $this->getSettings()
-        ));
-    }
-
     public function getBodyHtml()
     {
         $plugin = craft()->plugins->getPlugin('twitter');
@@ -90,7 +83,7 @@ class Twitter_SearchWidget extends BaseWidget
 
                         craft()->templates->includeCssResource('twitter/css/widget.css');
 
-                        return craft()->templates->render('twitter/widgets/search', $variables);
+                        return craft()->templates->render('twitter/_components/widgets/Search/body', $variables);
                     }
                     catch(\Exception $e)
                     {
@@ -98,7 +91,7 @@ class Twitter_SearchWidget extends BaseWidget
 
                         $variables['errorMsg'] = $e->getMessage();
 
-                        return craft()->templates->render('twitter/widgets/search/_error', $variables);
+                        return craft()->templates->render('twitter/_components/widgets/Search/_error', $variables);
                     }
                 }
                 else
@@ -107,7 +100,7 @@ class Twitter_SearchWidget extends BaseWidget
                         'url' => UrlHelper::getUrl('dashboard/settings/'.$this->model->id)
                     ));
 
-                    return craft()->templates->render('twitter/widgets/search/_error', $variables);
+                    return craft()->templates->render('twitter/_components/widgets/Search/_error', $variables);
                 }
             }
             else
@@ -116,7 +109,7 @@ class Twitter_SearchWidget extends BaseWidget
                     'url' => UrlHelper::getUrl('twitter/settings')
                 ));
 
-                return craft()->templates->render('twitter/widgets/search/_error', $variables);
+                return craft()->templates->render('twitter/_components/widgets/Search/_error', $variables);
             }
         }
         else
@@ -125,10 +118,17 @@ class Twitter_SearchWidget extends BaseWidget
                 'url' => UrlHelper::getUrl('twitter/settings')
             ));
 
-            return craft()->templates->render('twitter/widgets/search/_error', $variables);
+            return craft()->templates->render('twitter/_components/widgets/Search/_error', $variables);
         }
     }
 
+    public function getSettingsHtml()
+    {
+        return craft()->templates->render('twitter/_components/widgets/Search/settings', array(
+           'settings' => $this->getSettings()
+        ));
+    }
+    
     // Protected
     // =========================================================================
 
