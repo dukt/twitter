@@ -91,7 +91,7 @@ class TwitterPlugin extends BasePlugin
     public function registerCpRoutes()
     {
         return array(
-            'twitter/settings' => array('action' => "twitter/settings"),
+            'twitter/settings' => array('action' => "twitter/settings/index"),
             'twitter/install' => array('action' => "twitter/install/index"),
         );
     }
