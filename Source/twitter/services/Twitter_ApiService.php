@@ -79,7 +79,7 @@ class Twitter_ApiService extends BaseApplicationComponent
      */
     public function get($uri, $params = array(), $headers = array(), $enableCache = false, $cacheExpire = 0)
     {
-        if(!craft()->twitter_plugin->checkDependencies())
+        if(!craft()->twitter->checkDependencies())
         {
             throw new Exception("Twitter plugin dependencies are not met");
         }

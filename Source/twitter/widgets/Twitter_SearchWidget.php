@@ -48,14 +48,15 @@ class Twitter_SearchWidget extends BaseWidget
     {
         return craft()->resources->getResourcePath('twitter/images/widgets/search.svg');
     }
-
+    
+	/**
+	 * @inheritDoc IWidget::getBodyHtml()
+	 *
+	 * @return string|false
+	 */
     public function getBodyHtml()
     {
-        $plugin = craft()->plugins->getPlugin('twitter');
-
-        $pluginDependencies = $plugin->getPluginDependencies();
-
-        if(count($pluginDependencies) == 0)
+        if(craft()->twitter->checkDependencies())
         {
             $settings = $this->getSettings();
 
@@ -122,6 +123,11 @@ class Twitter_SearchWidget extends BaseWidget
         }
     }
 
+	/**
+	 * @inheritDoc ISavableComponentType::getSettingsHtml()
+	 *
+	 * @return string
+	 */
     public function getSettingsHtml()
     {
         return craft()->templates->render('twitter/_components/widgets/Search/settings', array(
@@ -131,7 +137,12 @@ class Twitter_SearchWidget extends BaseWidget
     
     // Protected
     // =========================================================================
-
+    
+	/**
+	 * @inheritDoc BaseSavableComponentType::defineSettings()
+	 *
+	 * @return array
+	 */
     protected function defineSettings()
     {
         return array(

@@ -22,6 +22,14 @@ class TwitterService extends BaseApplicationComponent
     // Public Methods
     // =========================================================================
 
+    public function init()
+    {
+        parent::init();
+
+        require_once(CRAFT_PLUGINS_PATH.'twitter/behaviors/TwitterBehavior.php');
+        $this->attachBehavior('TwitterBehavior', new TwitterBehavior());
+    }
+    
     /**
      * Returns the tweet with URLs transformed into HTML links
      *

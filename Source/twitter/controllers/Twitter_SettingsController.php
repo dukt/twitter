@@ -22,7 +22,7 @@ class Twitter_SettingsController extends BaseController
      */
     public function actionIndex()
     {
-        craft()->twitter_plugin->requireDependencies();
+        craft()->twitter->requireDependencies();
 
         $plugin = craft()->plugins->getPlugin('twitter');
 

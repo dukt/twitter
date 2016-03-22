@@ -266,35 +266,6 @@ class TwitterPlugin extends BasePlugin
         return new TwitterTwigExtension();
     }
 
-    /**
-     * Get Plugin Dependencies
-     */
-    public function getPluginDependencies($missingOnly = true)
-    {
-        $dependencies = array();
-
-        $plugins = $this->getRequiredPlugins();
-
-        foreach($plugins as $key => $plugin)
-        {
-            $dependency = $this->getPluginDependency($plugin);
-
-            if($missingOnly)
-            {
-                if($dependency['isMissing'])
-                {
-                    $dependencies[] = $dependency;
-                }
-            }
-            else
-            {
-                $dependencies[] = $dependency;
-            }
-        }
-
-        return $dependencies;
-    }
-
     // Protected Methods
     // =========================================================================
 
@@ -309,51 +280,5 @@ class TwitterPlugin extends BasePlugin
         return array(
             'tokenId' => array(AttributeType::Number),
         );
-    }
-
-    // Private Methods
-    // =========================================================================
-
-    /**
-     * Get Plugin Dependency
-     */
-    private function getPluginDependency($dependency)
-    {
-        $isMissing = true;
-        $isInstalled = true;
-
-        $plugin = craft()->plugins->getPlugin($dependency['handle'], false);
-
-        if($plugin)
-        {
-            $currentVersion = $plugin->version;
-
-
-            // requires update ?
-
-            if(version_compare($currentVersion, $dependency['version']) >= 0)
-            {
-                // no (requirements OK)
-
-                if($plugin->isInstalled && $plugin->isEnabled)
-                {
-                    $isMissing = false;
-                }
-            }
-            else
-            {
-                // yes (requirement not OK)
-            }
-        }
-        else
-        {
-            // not installed
-        }
-
-        $dependency['isMissing'] = $isMissing;
-        $dependency['plugin'] = $plugin;
-        $dependency['pluginLink'] = 'https://dukt.net/craft/'.$dependency['handle'];
-
-        return $dependency;
     }
 }

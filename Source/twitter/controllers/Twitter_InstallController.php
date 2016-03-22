@@ -16,18 +16,18 @@ class Twitter_InstallController extends BaseController
     // =========================================================================
 
     /**
-     * Dependencies
+     * Install Index
      *
      * @return null
      */
     public function actionIndex()
     {
-        $plugin = craft()->plugins->getPlugin('twitter');
-        $pluginDependencies = $plugin->getPluginDependencies();
-
-        if (count($pluginDependencies) > 0)
+        if(!craft()->twitter->checkDependencies())
         {
-            $this->renderTemplate('twitter/_install/dependencies', ['pluginDependencies' => $pluginDependencies]);
+            $missingDependencies = craft()->twitter->getMissingDependencies();
+            $this->renderTemplate('twitter/_special/install/index', [
+                'missingDependencies' => $missingDependencies,
+            ]);
         }
         else
         {
