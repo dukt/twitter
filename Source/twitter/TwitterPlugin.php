@@ -85,6 +85,14 @@ class TwitterPlugin extends BasePlugin
         return 'https://dukt.net/craft/twitter/docs/';
     }
 
+	/**
+	 * Get Release Feed URL
+	 */
+	public function getReleaseFeedUrl()
+	{
+		return 'https://dukt.net/craft/twitter/updates.json';
+	}
+
     /**
      * Hook Register CP Routes
      */
