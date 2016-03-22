@@ -24,7 +24,6 @@ class Twitter_ApiService extends BaseApplicationComponent
      * @param array $postFields
      * @return array|null
      */
-
     public function request($method = 'get', $uri, $params = null, $headers = null, $postFields = null)
     {
         // client

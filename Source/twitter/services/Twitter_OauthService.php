@@ -53,10 +53,12 @@ class Twitter_OauthService extends BaseApplicationComponent
         craft()->plugins->savePluginSettings($plugin, $settings);
     }
 
-    /**
-     * Get OAuth Token
-     */
-    public function getToken()
+	/**
+	 * Get OAuth Token
+	 *
+	 * @return Oauth_TokenModel|null
+	 */
+	public function getToken()
     {
         if($this->token)
         {
@@ -80,10 +82,12 @@ class Twitter_OauthService extends BaseApplicationComponent
         }
     }
 
-    /**
-     * Delete Token
-     */
-    public function deleteToken()
+	/**
+	 * Delete Token
+	 *
+	 * @return bool
+	 */
+	public function deleteToken()
     {
         // get plugin
         $plugin = craft()->plugins->getPlugin('twitter');

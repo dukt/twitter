@@ -12,44 +12,60 @@ class TwitterTwigExtension extends \Twig_Extension
     // Public Methods
     // =========================================================================
 
-    /**
-     * Get Name
-     */
-    public function getName()
+	/**
+	 * Get Name
+	 *
+	 * @return string
+	 */
+	public function getName()
     {
         return 'Twitter';
     }
 
-    /**
-     * Get Filters
-     */
-    public function getFilters()
+	/**
+	 * Get Filters
+	 *
+	 * @return array
+	 */
+	public function getFilters()
     {
         return array('autoLinkTweet' => new \Twig_Filter_Method($this, 'autoLinkTweet'));
     }
 
-    /**
-     * Get Functions
-     */
-    public function getFunctions()
+	/**
+	 * Get Functions
+	 *
+	 * @return array
+	 */
+	public function getFunctions()
     {
         return array('embedTweet' => new \Twig_Function_Method($this, 'embedTweet'));
     }
 
-    /**
-     * Get Embed Tweet
-     */
-    public function embedTweet($id, $options = array())
+	/**
+	 * Get Embed Tweet
+	 *
+	 * @param       $id
+	 * @param array $options
+	 *
+	 * @return \Twig_Markup
+	 */
+	public function embedTweet($id, $options = array())
     {
         $html = craft()->twitter->embedTweet($id, $options);
 
         return TemplateHelper::getRaw($html);
     }
 
-    /**
-     * Auto Link Tweet
-     */
-    public function autoLinkTweet($text, $options = array())
+	/**
+	 * Auto Link Tweet
+	 *
+	 * @param       $text
+	 * @param array $options
+	 *
+	 * @return \Twig_Markup
+	 */
+	public function autoLinkTweet($text, $options = array())
     {
         $html = craft()->twitter->autoLinkTweet($text, $options);
 

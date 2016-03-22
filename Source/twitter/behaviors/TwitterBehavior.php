@@ -1,10 +1,19 @@
 <?php
+/**
+ * @link      https://dukt.net/craft/twitter/
+ * @copyright Copyright (c) 2016, Dukt
+ * @license   https://dukt.net/craft/twitter/docs/license
+ */
+ 
 namespace Craft;
 
 class TwitterBehavior extends BaseBehavior
 {
+    // Public Methods
+    // =========================================================================
+
     /**
-     * Require dependencies
+     * Checks dependencies and redirects to install if one or more are missing
      */
     public function requireDependencies()
     {
@@ -21,7 +30,7 @@ class TwitterBehavior extends BaseBehavior
     }
 
     /**
-     * Check Dependencies
+     * Checks dependencies
      */
     public function checkDependencies()
     {
