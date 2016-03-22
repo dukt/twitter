@@ -22,15 +22,22 @@ class TwitterPlugin extends BasePlugin
         return Craft::t('Twitter');
     }
 
-    /**
-     * Returns the plugin’s version
-     *
-     * @return string The plugin’s version.
-     */
-    public function getVersion()
-    {
-        return '1.0.30';
-    }
+	/**
+	 * Get Version
+	 */
+	public function getVersion()
+	{
+		$path = CRAFT_PLUGINS_PATH.'twitter/Info.php';
+
+		if(IOHelper::fileExists($path))
+		{
+			require_once($path);
+
+			return TWITTER_VERSION;
+		}
+
+		return '1.0.0';
+	}
 
     /**
      * Returns required plugins
