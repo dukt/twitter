@@ -81,7 +81,7 @@ class Twitter_SearchWidget extends BaseWidget
                         $tweets = $response['statuses'];
 
                         $variables['tweets'] = $tweets;
-
+	                    
                         craft()->templates->includeCssResource('twitter/css/widget.css');
 
                         return craft()->templates->render('twitter/_components/widgets/Search/body', $variables);

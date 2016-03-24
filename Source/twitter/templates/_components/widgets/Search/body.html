@@ -13,7 +13,7 @@
                 {{ tweet.text|autoLinkTweet }}
 
                 <div class="tweet-date">
-                    <small class="light">{{ tweet.created_at|date('M j, Y') }}</small>
+                    <small class="light">{{ tweet.created_at|twitterTimeAgo }}</small>
                 </div>
             </div>
         </div>
