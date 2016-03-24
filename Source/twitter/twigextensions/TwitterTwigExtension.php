@@ -29,7 +29,10 @@ class TwitterTwigExtension extends \Twig_Extension
 	 */
 	public function getFilters()
     {
-        return array('autoLinkTweet' => new \Twig_Filter_Method($this, 'autoLinkTweet'));
+        return array(
+	        'autoLinkTweet' => new \Twig_Filter_Method($this, 'autoLinkTweet'),
+	        'twitterTimeAgo' => new \Twig_Filter_Method($this, 'timeAgo')
+        );
     }
 
 	/**
@@ -66,9 +69,16 @@ class TwitterTwigExtension extends \Twig_Extension
 	 * @return \Twig_Markup
 	 */
 	public function autoLinkTweet($text, $options = array())
-    {
-        $html = craft()->twitter->autoLinkTweet($text, $options);
+	{
+		$html = craft()->twitter->autoLinkTweet($text, $options);
 
-        return TemplateHelper::getRaw($html);
-    }
+		return TemplateHelper::getRaw($html);
+	}
+
+	public function timeAgo($date)
+	{
+		$html = TwitterHelper::timeAgo($date);
+
+		return TemplateHelper::getRaw($html);
+	}
 }
