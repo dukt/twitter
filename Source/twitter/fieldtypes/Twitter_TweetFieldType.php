@@ -63,9 +63,8 @@ class Twitter_TweetFieldType extends BaseFieldType
                             '<span class="tweet-user-name">'.$tweet['user']['name'].'</span> ' .
                             '<a class="tweet-user-screenname light" href="http://twitter.com/'.$tweet['user']['screen_name'].'" target="_blank">@'.$tweet['user']['screen_name'].'</a>' .
                         '</div>' .
-                        '<div class="tweet-text">' .
-                            $tweet['text'] .
-                        '</div>' .
+                        '<div class="tweet-text">'. $tweet['text'] .'</div>'.
+                        '<div class="tweet-date light">'.TwitterHelper::timeAgo($tweet['created_at']).'</div>'.
                     '</div>';
             }
         }
