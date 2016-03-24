@@ -32,4 +32,20 @@ class TwitterHelper
     {
         return gmdate("H:i:s", $seconds);
     }
+
+	public static function timeAgo($date)
+	{
+		if(is_string($date))
+		{
+			$date = new DateTime($date);
+		}
+
+		$now = new DateTime();
+
+		$difference = $now->getTimestamp() - $date->getTimestamp();
+
+		$duration = DateTimeHelper::secondsToHumanTimeDuration($difference);
+
+		return $duration;
+	}
 }
