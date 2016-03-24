@@ -8,9 +8,15 @@
 namespace Craft;
 
 require_once(CRAFT_PLUGINS_PATH.'twitter/vendor/autoload.php');
+require_once(CRAFT_PLUGINS_PATH.'twitter/base/TwitterTrait.php');
 
 class TwitterService extends BaseApplicationComponent
 {
+	// Traits
+	// =========================================================================
+
+	use TwitterTrait;
+
     // Properties
     // =========================================================================
 
@@ -22,14 +28,6 @@ class TwitterService extends BaseApplicationComponent
     // Public Methods
     // =========================================================================
 
-    public function init()
-    {
-        parent::init();
-
-        require_once(CRAFT_PLUGINS_PATH.'twitter/behaviors/TwitterBehavior.php');
-        $this->attachBehavior('TwitterBehavior', new TwitterBehavior());
-    }
-    
     /**
      * Returns the tweet with URLs transformed into HTML links
      *

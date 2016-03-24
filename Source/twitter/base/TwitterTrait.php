@@ -7,7 +7,7 @@
  
 namespace Craft;
 
-class TwitterBehavior extends BaseBehavior
+trait TwitterTrait
 {
     // Public Methods
     // =========================================================================
