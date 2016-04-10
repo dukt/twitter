@@ -22,6 +22,16 @@ class TwitterPlugin extends BasePlugin
         return Craft::t('Twitter');
     }
 
+    /**
+     * Returns the plugin’s description
+     *
+     * @return string The plugin’s description.
+     */
+    public function getDescription()
+    {
+        return Craft::t('Tweet Field, Twitter Search Widget and authenticated Twitter API requests.');
+    }
+
 	/**
 	 * Get Version
 	 */
