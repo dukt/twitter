@@ -1,0 +1,25 @@
+# Backup and Swap Files
+.*.sw?
+.swp
+*.bak
+*~
+
+# Windows Metadata Files
+Desktop.ini
+Thumbs.db
+
+# Mac OS X Metadata Files
+.DS_Store
+__MACOSX
+
+# Other SCM Tool Files
+CVS
+.bzr
+.bzrignore
+.hg
+.hgignore
+.hgtags
+.svn
+
+# Project-specific Files
+build
