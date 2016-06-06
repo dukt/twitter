@@ -37,16 +37,7 @@ class TwitterPlugin extends BasePlugin
 	 */
 	public function getVersion()
 	{
-		$path = CRAFT_PLUGINS_PATH.'twitter/Info.php';
-
-		if(IOHelper::fileExists($path))
-		{
-			require_once($path);
-
-			return TWITTER_VERSION;
-		}
-
-		return '1.0.0';
+		return '1.0.31';
 	}
 
     /**
