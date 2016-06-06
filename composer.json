@@ -1,7 +1,4 @@
 {
-  "config": {
-    "vendor-dir": "Source/twitter/vendor/"
-  },
   "require": {
     "nojimage/twitter-text-php": "dev-master"
   }
