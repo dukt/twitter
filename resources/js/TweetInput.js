@@ -61,14 +61,7 @@ TweetInput = Garnish.Base.extend({
 							this.$preview.show();
 						}
 
-						if (document.location.protocol == 'https:')
-						{
-							var profileImageUrl = response.user.profile_image_url_https;
-						}
-						else
-						{
-							var profileImageUrl = response.user.profile_image_url;
-						}
+						var profileImageUrl = response.user.profile_image_url_https;
 
 						this.$preview.html(
 							'<div class="tweet-image" style="background-image: url('+profileImageUrl+');" /> ' +
