@@ -48,7 +48,7 @@ class Twitter_SearchWidget extends BaseWidget
     {
         return craft()->resources->getResourcePath('twitter/images/widgets/search.svg');
     }
-    
+
 	/**
 	 * @inheritDoc IWidget::getBodyHtml()
 	 *
@@ -81,8 +81,10 @@ class Twitter_SearchWidget extends BaseWidget
                         $tweets = $response['statuses'];
 
                         $variables['tweets'] = $tweets;
-	                    
+
                         craft()->templates->includeCssResource('twitter/css/widget.css');
+                        craft()->templates->includeJsResource('twitter/js/SearchWidget.js');
+                        craft()->templates->includeJs("new Craft.Twitter_SearchWidget('".$this->model->id."');");
 
                         return craft()->templates->render('twitter/_components/widgets/Search/body', $variables);
                     }
@@ -134,10 +136,10 @@ class Twitter_SearchWidget extends BaseWidget
            'settings' => $this->getSettings()
         ));
     }
-    
+
     // Protected
     // =========================================================================
-    
+
 	/**
 	 * @inheritDoc BaseSavableComponentType::defineSettings()
 	 *

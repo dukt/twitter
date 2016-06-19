@@ -7,11 +7,15 @@
 }
 
 .widget.twitter_search .tweet {
-    border-top: 1px dotted rgba(115, 127, 140, 0.15);
-    margin: 0;
-    padding: 12px 24px;
+    border-top: 1px solid rgba(235, 237, 239, .5);
+    margin: 0 -24px;
     position: relative;
-    padding-left: 62px;
+    padding: 12px 24px 12px 86px;
+}
+
+.widget.twitter_search .tweet:hover {
+    cursor: pointer;
+    background: rgba(235, 237, 239, .3);
 }
 
 .widget.twitter_search .tweet-image {

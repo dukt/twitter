@@ -1,7 +1,9 @@
 {% if tweets %}
     {% for tweet in tweets %}
 
-        <div class="tweet">
+        {% set url = 'https://twitter.com/'~tweet.user.screen_name~'/status/'~tweet.id_str %}
+
+        <div class="tweet" data-tweet-url="{{url}}">
             <div class="tweet-image">
                 <img src="{{tweet.user.profile_image_url_https}}">
             </div>
@@ -10,6 +12,7 @@
                 <a class="tweet-user-screenname light" target="_blank" href="{{ tweet.user.url }}">@{{ tweet.user.screen_name }}</a>
             </div>
             <div class="tweet-text">
+
                 {{ tweet.text|autoLinkTweet }}
 
                 <div class="tweet-date">
