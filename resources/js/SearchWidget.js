@@ -13,10 +13,11 @@ Craft.Twitter_SearchWidget = Garnish.Base.extend(
 
     handleTweetClick: function(ev)
     {
-    	var $tweet = $(ev.currentTarget);
-    	var tweetUrl = $tweet.data('tweet-url');
+    	var $tweet = $(ev.currentTarget),
+    		$target = $(ev.target),
+    		tweetUrl = $tweet.data('tweet-url');
 
-    	if(ev.target.tagName != 'A')
+    	if($target.prop('tagName') != 'A' && $target.parent('a').length == 0)
     	{
 	    	if (Garnish.isCtrlKeyPressed(ev))
 	    	{

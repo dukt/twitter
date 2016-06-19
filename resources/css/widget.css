@@ -27,6 +27,10 @@
     border-radius: 3px;
 }
 
+.widget.twitter_search .tweet-user a.tweet-user-name {
+    color: rgb(41, 50, 61);
+}
+
 .widget.twitter_search .tweet-date {
     opacity: .5;
 }
