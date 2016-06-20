@@ -33,7 +33,7 @@ class Twitter_TweetFieldType extends BaseFieldType
     {
         $id = craft()->templates->formatInputId($name);
 
-        craft()->templates->includeCssResource('twitter/css/tweet.css');
+        craft()->templates->includeCssResource('twitter/css/twitter.css');
         craft()->templates->includeJsResource('twitter/js/TweetInput.js');
         craft()->templates->includeJs('new TweetInput("'.craft()->templates->namespaceInputId($id).'");');
 
