@@ -14,12 +14,12 @@
                 <a class="tweet-user-screenname light" target="_blank" href="{{ userProfileUrl }}">@{{ tweet.user.screen_name }}</a>
             </div>
             <div class="tweet-text">
-
                 {{ tweet.text|autoLinkTweet }}
 
-                <div class="tweet-date">
-                    <small class="light">{{ tweet.created_at|twitterTimeAgo }}</small>
-                </div>
+                <ul class="tweet-actions light">
+                    <li class="tweet-date">{{ tweet.created_at|twitterTimeAgo }}</li>
+                    <li><a href="{{ url }}">Permalink</a></li>
+                </ul>
             </div>
         </div>
 

@@ -50,14 +50,17 @@ class Twitter_TweetFieldType extends BaseFieldType
             if(craft()->twitter->checkDependencies())
             {
                 $html .=
-                    '<div class="tweet-preview">' .
+                    '<div class="tweet">' .
                         '<div class="tweet-image" style="background-image: url('.$profileImageUrl.');"></div> ' .
                         '<div class="tweet-user">' .
                             '<span class="tweet-user-name">'.$tweet['user']['name'].'</span> ' .
                             '<a class="tweet-user-screenname light" href="http://twitter.com/'.$tweet['user']['screen_name'].'" target="_blank">@'.$tweet['user']['screen_name'].'</a>' .
                         '</div>' .
                         '<div class="tweet-text">'. $tweet['text'] .'</div>'.
-                        '<div class="tweet-date light">'.TwitterHelper::timeAgo($tweet['created_at']).'</div>'.
+                        '<ul class="tweet-actions light">' .
+                            '<li class="tweet-date">'.TwitterHelper::timeAgo($tweet['created_at']).'</li>' .
+                            '<li><a href="'.$url.'">Permalink</a></li>' .
+                        '</ul>' .
                     '</div>';
             }
         }
@@ -72,7 +75,7 @@ class Twitter_TweetFieldType extends BaseFieldType
             $html .= '<p class="light">'.Craft::t("Twitter plugin is not configured properly. Please check {url} for more informations.", array('url' => Craft::t('<a href="'.UrlHelper::getUrl('twitter/settings').'">{title}</a>', array('title' => 'Twitter plugin settings')))).'</p>';
         }
 
-        return '<div class="tweet">' .
+        return '<div class="tweet-field">' .
             craft()->templates->render('_includes/forms/text', array(
                 'id'    => $id,
                 'name'  => $name,

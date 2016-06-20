@@ -1,36 +1,8 @@
-.widget.twitter_search {
-    padding-bottom: 12px;
-}
-
-.widget.twitter_search small {
-    font-size: 0.9em;
-}
-
-.widget.twitter_search .tweet {
-    border-top: 1px solid rgba(235, 237, 239, .5);
-    margin: 0 -24px;
-    position: relative;
-    padding: 12px 24px 12px 86px;
-}
-
-.widget.twitter_search .tweet:hover {
-    cursor: pointer;
-    background: rgba(235, 237, 239, .3);
-}
-
-.widget.twitter_search .tweet-image {
-    position: absolute;
-    margin-left: -62px;
-}
-
-.widget.twitter_search .tweet-image img {
-    border-radius: 3px;
-}
-
-.widget.twitter_search .tweet-user a.tweet-user-name {
-    color: rgb(41, 50, 61);
-}
-
-.widget.twitter_search .tweet-date {
-    opacity: .5;
-}
+.widget.twitter_search { padding-bottom: 12px; }
+.widget.twitter_search small { font-size: 0.9em; }
+.widget.twitter_search .tweet { border-top: 1px solid rgba(235, 237, 239, .5); margin: 0 -24px; position: relative; padding: 12px 24px 12px 86px; }
+.widget.twitter_search .tweet:hover { cursor: pointer; background: rgba(235, 237, 239, .3); }
+.widget.twitter_search .tweet .tweet-image { margin-left: -62px; }
+.widget.twitter_search .tweet .tweet-permalink { visibility: hidden; }
+.widget.twitter_search .tweet:hover .tweet-permalink { visibility: visible;  }
+.widget.twitter_search .tweet:last-child { margin-bottom: -24px;  }

@@ -82,6 +82,7 @@ class Twitter_SearchWidget extends BaseWidget
 
                         $variables['tweets'] = $tweets;
 
+                        craft()->templates->includeCssResource('twitter/css/tweet.css');
                         craft()->templates->includeCssResource('twitter/css/widget.css');
                         craft()->templates->includeJsResource('twitter/js/SearchWidget.js');
                         craft()->templates->includeJs("new Craft.Twitter_SearchWidget('".$this->model->id."');");

@@ -54,12 +54,15 @@ TweetInput = Garnish.Base.extend({
 					{
 						if (!this.$preview.length)
 						{
-							this.$preview = $('<div class="tweet-preview"/>').insertAfter(this.$spinner);
+							this.$preview = $('<div class="tweet"/>').insertAfter(this.$spinner);
 						}
 						else
 						{
 							this.$preview.show();
 						}
+
+						var tweetUrl = 'http://twitter.com/'+response.user.screen_name+'/status/'+response.id_str;
+						var userProfileUrl = 'http://twitter.com/'+response.user.screen_name;
 
 						var profileImageUrl = response.user.profile_image_url_https.replace("_normal.", "_bigger.");
 
@@ -68,11 +71,14 @@ TweetInput = Garnish.Base.extend({
 								'<a href="'+userProfileUrl+'"><img src="'+profileImageUrl+'"></a>'+
 							'</div> ' +
 							'<div class="tweet-user">' +
-								'<span class="tweet-user-name">'+response.user.name+'</span> ' +
-								'<a class="tweet-user-screenname light" href="http://twitter.com/'+response.user.screen_name+'" target="_blank">@'+response.user.screen_name+'</a>' +
+								'<a class="tweet-user-name" href="'+userProfileUrl+'"><strong>'+response.user.name+'</strong></a> ' +
+								'<a class="tweet-user-screenname light" href="'+userProfileUrl+'">@'+response.user.screen_name+'</a>' +
 							'</div>' +
 							'<div class="tweet-text">' +
 								response.text +
+				                '<ul class="tweet-actions light">' +
+				                    '<li><a href="'+ tweetUrl +'">Permalink</a></li>' +
+				                '</ul>' +
 							'</div>'
 						);
 					}
