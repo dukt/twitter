@@ -3,10 +3,11 @@
 
         {% set url = 'https://twitter.com/' ~ tweet.user.screen_name ~ '/status/' ~ tweet.id_str %}
         {% set userProfileUrl = 'https://twitter.com/' ~ tweet.user.screen_name %}
+        {% set profileImageUrl = tweet.user.profile_image_url_https|replace({"_normal.": "_bigger."}) %}
 
         <div class="tweet" data-tweet-url="{{ url }}">
             <div class="tweet-image">
-                <a href="{{ userProfileUrl }}"><img src="{{ tweet.user.profile_image_url_https }}"></a>
+                <a href="{{ userProfileUrl }}"><img src="{{ profileImageUrl }}"></a>
             </div>
             <div class="tweet-user">
                 <a class="tweet-user-name" href="{{ userProfileUrl }}"><strong>{{ tweet.user.name }}</strong></a>

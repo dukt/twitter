@@ -45,7 +45,7 @@ class Twitter_TweetFieldType extends BaseFieldType
         {
             $url = 'https://twitter.com/'.$tweet['user']['screen_name'].'/status/'.$tweet['id_str'];
 
-            $profileImageUrl = $tweet['user']['profile_image_url_https'];
+            $profileImageUrl = str_replace("_normal.", "_bigger.", $tweet['user']['profile_image_url_https']);
 
             if(craft()->twitter->checkDependencies())
             {

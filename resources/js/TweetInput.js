@@ -61,10 +61,12 @@ TweetInput = Garnish.Base.extend({
 							this.$preview.show();
 						}
 
-						var profileImageUrl = response.user.profile_image_url_https;
+						var profileImageUrl = response.user.profile_image_url_https.replace("_normal.", "_bigger.");
 
 						this.$preview.html(
-							'<div class="tweet-image" style="background-image: url('+profileImageUrl+');" /> ' +
+							'<div class="tweet-image"> ' +
+								'<a href="'+userProfileUrl+'"><img src="'+profileImageUrl+'"></a>'+
+							'</div> ' +
 							'<div class="tweet-user">' +
 								'<span class="tweet-user-name">'+response.user.name+'</span> ' +
 								'<a class="tweet-user-screenname light" href="http://twitter.com/'+response.user.screen_name+'" target="_blank">@'+response.user.screen_name+'</a>' +
