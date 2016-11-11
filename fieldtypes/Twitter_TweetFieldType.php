@@ -54,9 +54,9 @@ class Twitter_TweetFieldType extends BaseFieldType
                 {
                     $profileImageUrl = $tweet['user']['profile_image_url'];
                 }
-
+                
                 $profileImageUrl = str_replace("_normal.", "_bigger.", $profileImageUrl);
-                $permalink = 'http://twitter.com/'.$tweet['user']['screen_name'];
+                $permalink = 'https://twitter.com/'.$tweet['user']['screen_name'].'/status/'.$tweet['id_str'];
 
                 $html .=
                     '<div class="tweet">' .
