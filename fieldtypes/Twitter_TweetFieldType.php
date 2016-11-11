@@ -95,34 +95,6 @@ class Twitter_TweetFieldType extends BaseFieldType
     }
 
     /**
-     * @inheritDoc IFieldType::prepValueFromPost()
-     *
-     * @param mixed $data
-     *
-     * @return mixed
-     */
-    public function prepValueFromPost($value)
-    {
-        if (preg_match('/^\d+$/', $value))
-        {
-            $id = $value;
-        }
-        else if (preg_match('/\/status(es)?\/(\d+)\/?$/', $value, $matches))
-        {
-            $id = $matches[2];
-        }
-
-        if(isset($id))
-        {
-            return $id;
-        }
-        else
-        {
-            return $value;
-        }
-    }
-
-    /**
      * Preps the field value for use.
      *
      * @param mixed $value
