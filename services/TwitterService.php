@@ -137,7 +137,41 @@ class TwitterService extends BaseApplicationComponent
     public function getTweetById($tweetId, $params = array(), $enableCache = false)
     {
         $params = array_merge($params, array('id' => $tweetId));
-        return craft()->twitter_api->get('statuses/show', $params, array(), $enableCache);
+
+        $tweet = craft()->twitter_api->get('statuses/show', $params, array(), $enableCache);
+
+        if(is_array($tweet))
+        {
+            return $tweet;
+        }
+    }
+
+    /**
+     * Returns a tweet by its URL or ID.
+     *
+     * @param string $urlOrId
+     * @return array|null
+     */
+    public function getTweetByUrl($urlOrId)
+    {
+        // Extract tweet id from a tweet URL
+
+        if (preg_match('/^\d+$/', $urlOrId))
+        {
+            $id = $urlOrId;
+        }
+        else if (preg_match('/\/status(es)?\/(\d+)\/?$/', $urlOrId, $matches))
+        {
+            $id = $matches[2];
+        }
+
+
+        // Retrieve the tweet from its ID
+
+        if(isset($id))
+        {
+            return $this->getTweetById($id);
+        }
     }
 
     /**

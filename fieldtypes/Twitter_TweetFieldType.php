@@ -31,55 +31,62 @@ class Twitter_TweetFieldType extends BaseFieldType
      */
     public function getInputHtml($name, $value)
     {
-        $id = craft()->templates->formatInputId($name);
-
-        craft()->templates->includeCssResource('twitter/css/twitter.css');
-        craft()->templates->includeJsResource('twitter/js/TweetInput.js');
-        craft()->templates->includeJs('new TweetInput("'.craft()->templates->namespaceInputId($id).'");');
-
+        // Tweet
         $tweet = $value;
 
-        $html = "";
+        // Input ID
+        $id = craft()->templates->formatInputId($name);
 
-        if ($tweet && isset($tweet['id_str']))
+        // Field raw value
+        $fieldValue = $this->element->getContent()->{$name};
+
+        $html = '';
+
+        if(craft()->twitter->checkDependencies())
         {
-            $url = 'https://twitter.com/'.$tweet['user']['screen_name'].'/status/'.$tweet['id_str'];
-
-            $profileImageUrl = str_replace("_normal.", "_bigger.", $tweet['user']['profile_image_url_https']);
-
-            if(craft()->twitter->checkDependencies())
+            if ($tweet)
             {
+                if (craft()->request->isSecureConnection())
+                {
+                    $profileImageUrl = $tweet['user']['profile_image_url_https'];
+                }
+                else
+                {
+                    $profileImageUrl = $tweet['user']['profile_image_url'];
+                }
+
+                $profileImageUrl = str_replace("_normal.", "_bigger.", $profileImageUrl);
+                $permalink = 'http://twitter.com/'.$tweet['user']['screen_name'];
+
                 $html .=
                     '<div class="tweet">' .
                         '<div class="tweet-image" style="background-image: url('.$profileImageUrl.');"></div> ' .
                         '<div class="tweet-user">' .
-                            '<span class="tweet-user-name">'.$tweet['user']['name'].'</span> ' .
-                            '<a class="tweet-user-screenname light" href="http://twitter.com/'.$tweet['user']['screen_name'].'" target="_blank">@'.$tweet['user']['screen_name'].'</a>' .
-                        '</div>' .
-                        '<div class="tweet-text">'. $tweet['text'] .'</div>'.
+                        '<span class="tweet-user-name">'.$tweet['user']['name'].'</span> ' .
+                        '<a class="tweet-user-screenname light" href="'.$permalink.'" target="_blank">@'.$tweet['user']['screen_name'].'</a>' .
+                    '</div>' .
+                    '<div class="tweet-text">'. $tweet['text'] .'</div>'.
                         '<ul class="tweet-actions light">' .
                             '<li class="tweet-date">'.TwitterHelper::timeAgo($tweet['created_at']).'</li>' .
-                            '<li><a href="'.$url.'">Permalink</a></li>' .
+                            '<li><a href="'.$permalink.'">Permalink</a></li>' .
                         '</ul>' .
                     '</div>';
             }
         }
         else
         {
-            $url = $value;
-            $preview = '';
-        }
-
-        if(!craft()->twitter->checkDependencies())
-        {
             $html .= '<p class="light">'.Craft::t("Twitter plugin is not configured properly. Please check {url} for more informations.", array('url' => Craft::t('<a href="'.UrlHelper::getUrl('twitter/settings').'">{title}</a>', array('title' => 'Twitter plugin settings')))).'</p>';
         }
+
+        craft()->templates->includeCssResource('twitter/css/twitter.css');
+        craft()->templates->includeJsResource('twitter/js/TweetInput.js');
+        craft()->templates->includeJs('new TweetInput("'.craft()->templates->namespaceInputId($id).'");');
 
         return '<div class="tweet-field">' .
             craft()->templates->render('_includes/forms/text', array(
                 'id'    => $id,
                 'name'  => $name,
-                'value' => $url,
+                'value' => $fieldValue,
                 'placeholder' => Craft::t('Enter a tweet URL or ID'),
             )) .
             '<div class="spinner hidden"></div>' .
@@ -125,9 +132,9 @@ class Twitter_TweetFieldType extends BaseFieldType
     {
         if($value)
         {
-            if(is_numeric($value))
+            try
             {
-                try
+                if(is_numeric($value))
                 {
                     $tweet = craft()->twitter->getTweetById($value, array(), true);
 
@@ -140,12 +147,13 @@ class Twitter_TweetFieldType extends BaseFieldType
                         return $value;
                     }
                 }
-                catch(\Exception $e)
+                elseif (is_string($value))
                 {
-                    return $value;
+
+                    return craft()->twitter->getTweetByUrl($value);
                 }
             }
-            elseif (is_string($value))
+            catch(\Exception $e)
             {
                 return $value;
             }
