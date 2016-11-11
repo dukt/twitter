@@ -127,6 +127,7 @@ class Twitter_TweetFieldType extends BaseFieldType
             }
             catch(\Exception $e)
             {
+                // Todo: log error
                 return $value;
             }
         }
