@@ -48,21 +48,40 @@ class TwitterTwigExtension extends \Twig_Extension
             'twitterTimeline' => new \Twig_Function_Method($this, 'twitterTimeline'),
             'twitterTweet' => new \Twig_Function_Method($this, 'twitterTweet'),
             'twitterVideo' => new \Twig_Function_Method($this, 'twitterVideo'),
+            'twitterMoment' => new \Twig_Function_Method($this, 'twitterMoment'),
             'twitterOEmbed' => new \Twig_Function_Method($this, 'twitterOEmbed'),
+            'twitterFollowButton' => new \Twig_Function_Method($this, 'twitterFollowButton'),
+            'twitterMessageButton' => new \Twig_Function_Method($this, 'twitterMessageButton'),
+            'twitterTweetButton' => new \Twig_Function_Method($this, 'twitterTweetButton'),
         ];
     }
 
-	/**
-	 * Twitter Grid
-	 *
-	 * @param       $url
-	 * @param array $options
-	 *
-	 * @return \Twig_Markup
-	 */
-	public function twitterGrid($url, $options = array())
+    /**
+     * Twitter Grid
+     *
+     * @param       $url
+     * @param array $options
+     *
+     * @return \Twig_Markup
+     */
+    public function twitterGrid($url, $options = [])
     {
         $html = craft()->twitter_publish->grid($url, $options);
+
+        return TemplateHelper::getRaw($html);
+    }
+
+    /**
+     * Twitter Moment
+     *
+     * @param       $url
+     * @param array $options
+     *
+     * @return \Twig_Markup
+     */
+    public function twitterMoment($url, $options = [])
+    {
+        $html = craft()->twitter_publish->moment($url, $options);
 
         return TemplateHelper::getRaw($html);
     }
@@ -75,7 +94,7 @@ class TwitterTwigExtension extends \Twig_Extension
 	 *
 	 * @return \Twig_Markup
 	 */
-	public function twitterOEmbed($url, $options = array())
+	public function twitterOEmbed($url, $options = [])
     {
         return craft()->twitter_publish->oEmbed($url, $options);
     }
@@ -88,7 +107,7 @@ class TwitterTwigExtension extends \Twig_Extension
 	 *
 	 * @return \Twig_Markup
 	 */
-	public function twitterTimeline($url, $options = array())
+	public function twitterTimeline($url, $options = [])
     {
         $html = craft()->twitter_publish->timeline($url, $options);
 
@@ -103,7 +122,7 @@ class TwitterTwigExtension extends \Twig_Extension
 	 *
 	 * @return \Twig_Markup
 	 */
-	public function twitterTweet($url, $options = array())
+	public function twitterTweet($url, $options = [])
     {
         $html = craft()->twitter_publish->tweet($url, $options);
 
@@ -118,9 +137,30 @@ class TwitterTwigExtension extends \Twig_Extension
 	 *
 	 * @return \Twig_Markup
 	 */
-	public function twitterVideo($url, $options = array())
+	public function twitterVideo($url, $options = [])
     {
-        $html = craft()->twitter_publish->twitterVideo($url, $options);
+        $html = craft()->twitter_publish->video($url, $options);
+
+        return TemplateHelper::getRaw($html);
+    }
+
+    public function twitterFollowButton($username, $options = [])
+    {
+        $html = craft()->twitter_publish->followButton($username, $options);
+
+        return TemplateHelper::getRaw($html);
+    }
+
+    public function twitterMessageButton($recipientId, $screenName, $text = null, $options = [])
+    {
+        $html = craft()->twitter_publish->messageButton($recipientId, $screenName, $text, $options);
+
+        return TemplateHelper::getRaw($html);
+    }
+
+    public function twitterTweetButton($options = [])
+    {
+        $html = craft()->twitter_publish->tweetButton($options);
 
         return TemplateHelper::getRaw($html);
     }
@@ -133,13 +173,20 @@ class TwitterTwigExtension extends \Twig_Extension
 	 *
 	 * @return \Twig_Markup
 	 */
-	public function autoLinkTweet($text, $options = array())
+	public function autoLinkTweet($text, $options = [])
 	{
 		$html = craft()->twitter->autoLinkTweet($text, $options);
 
 		return TemplateHelper::getRaw($html);
 	}
 
+    /**
+     * Time Ago
+     *
+     * @param       $date
+     *
+     * @return \Twig_Markup
+     */
 	public function timeAgo($date)
 	{
 		$html = TwitterHelper::timeAgo($date);

@@ -14,6 +14,36 @@ class Twitter_PublishService extends BaseApplicationComponent
     // Public Methods
     // =========================================================================
 
+    public function grid($url, $options = [])
+    {
+        $dataAttributes = $this->getOptionsAsDataAttributes($options);
+
+        $response = $this->oEmbed($url, ['omit_script' => true]);
+
+        if($response)
+        {
+            $html = $response['html'];
+            $html = str_replace('<a class="twitter-timeline"', '<a class="twitter-grid"'.$dataAttributes, $html);
+
+            return $html;
+        }
+    }
+
+    public function moment($url, $options = [])
+    {
+        $dataAttributes = $this->getOptionsAsDataAttributes($options);
+
+        $response = $this->oEmbed($url, ['omit_script' => true]);
+
+        if($response)
+        {
+            $html = $response['html'];
+            $html = str_replace('<a class="twitter-moment"', '<a class="twitter-moment"'.$dataAttributes, $html);
+
+            return $html;
+        }
+    }
+
     public function oEmbed($url, $options = [])
     {
         $query  = array_merge(['url' => $url], $options);
@@ -24,16 +54,31 @@ class Twitter_PublishService extends BaseApplicationComponent
         return $response->json();
     }
 
-    public function tweet($url, $options = [])
+    public function timeline($url, $options = [])
     {
-        $htmlAttributes = $this->getOptionsAsHtmlAttributes($options);
+        $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
         $response = $this->oEmbed($url, ['omit_script' => true]);
 
         if($response)
         {
             $html = $response['html'];
-            $html = str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"'.$htmlAttributes.'>', $html);
+            $html = str_replace('<a class="twitter-timeline"', '<a class="twitter-timeline"'.$dataAttributes, $html);
+
+            return $html;
+        }
+    }
+
+    public function tweet($url, $options = [])
+    {
+        $dataAttributes = $this->getOptionsAsDataAttributes($options);
+
+        $response = $this->oEmbed($url, ['omit_script' => true]);
+
+        if($response)
+        {
+            $html = $response['html'];
+            $html = str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"'.$dataAttributes.'>', $html);
 
             return $html;
         }
@@ -41,59 +86,64 @@ class Twitter_PublishService extends BaseApplicationComponent
 
     public function video($url, $options = array())
     {
-        $htmlAttributes = $this->getOptionsAsHtmlAttributes($options);
+        $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
         $response = $this->oEmbed($url, ['omit_script' => true, 'widget_type' => 'video']);
 
         if($response)
         {
             $html = $response['html'];
-            $html = str_replace('<blockquote class="twitter-video">', '<blockquote class="twitter-video"'.$htmlAttributes.'>', $html);
+            $html = str_replace('<blockquote class="twitter-video">', '<blockquote class="twitter-video"'.$dataAttributes.'>', $html);
 
             return $html;
         }
     }
 
-    public function grid($url, $options = [])
+    public function followButton($username, $options = [])
     {
-        $htmlAttributes = $this->getOptionsAsHtmlAttributes($options);
+        $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
-        $response = $this->oEmbed($url, ['omit_script' => true]);
+        $html = '<a class="twitter-follow-button" href="https://twitter.com/'.$username.'"'.$dataAttributes.'>Follow @'.$username.'</a>';
 
-        if($response)
-        {
-            $html = $response['html'];
-            $html = str_replace('<a class="twitter-timeline"', '<a class="twitter-grid"'.$htmlAttributes, $html);
-
-            return $html;
-        }
+        return $html;
     }
 
-    public function timeline($url, $options = [])
+    public function messageButton($recipientId, $screenName, $text = null, $options = [])
     {
-        $htmlAttributes = $this->getOptionsAsHtmlAttributes($options);
+        $options['screenName'] = $screenName;
 
-        $response = $this->oEmbed($url, ['omit_script' => true]);
+        $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
-        if($response)
-        {
-            $html = $response['html'];
-            $html = str_replace('<a class="twitter-timeline"', '<a class="twitter-timeline"'.$htmlAttributes, $html);
+        $html = '<a class="twitter-dm-button" href="https://twitter.com/messages/compose?recipient_id='.$recipientId.'&text='.rawurlencode($text).'"'.$dataAttributes.'>Message @'.$screenName.'</a>';
 
-            return $html;
-        }
+        return $html;
+    }
+
+    public function tweetButton($options = [])
+    {
+        $dataAttributes = $this->getOptionsAsDataAttributes($options);
+
+        $html = '<a class="twitter-share-button" href="https://twitter.com/share"'.$dataAttributes.'>Tweet</a>';
+
+        return $html;
     }
 
     // Private Methods
     // =========================================================================
 
-    private function getOptionsAsHtmlAttributes($options)
+    private function getOptionsAsDataAttributes($options)
     {
         // Options Aliases (camel to kebab case)
 
         $aliases = array(
             'linkColor' => 'link-color',
             'tweetLimit' => 'tweet-limit',
+            'showReplies' => 'show-replies',
+            'borderColor' => 'border-color',
+            'ariaPolite' => 'aria-polite',
+            'screenName' => 'screen-name',
+            'showScreenName' => 'show-screen-name',
+            'showCount' => 'show-count',
         );
 
         foreach($aliases as $key => $alias)
@@ -108,13 +158,13 @@ class Twitter_PublishService extends BaseApplicationComponent
 
         // HTML Attributes
 
-        $htmlAttributes = '';
+        $dataAttributes = '';
 
         foreach($options as $key => $value)
         {
-            $htmlAttributes .= ' data-'.$key.'="'.$value.'"';
+            $dataAttributes .= ' data-'.$key.'="'.$value.'"';
         }
 
-        return $htmlAttributes;
+        return $dataAttributes;
     }
 }
