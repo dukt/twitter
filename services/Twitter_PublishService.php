@@ -245,11 +245,20 @@ class Twitter_PublishService extends BaseApplicationComponent
             $options['omit_script'] = true;
         }
 
-        $query = array_merge(['url' => $url], $options);
+        $oembed = craft()->twitter_cache->get(['twitter.publish.oEmbed', $url, $options]);
 
-        $client = new Client();
-        $response = $client->get('https://publish.twitter.com/oembed', [], ['query' => $query])->send();
+        if(!$oembed)
+        {
+            $query = array_merge(['url' => $url], $options);
 
-        return $response->json();
+            $client = new Client();
+            $response = $client->get('https://publish.twitter.com/oembed', [], ['query' => $query])->send();
+
+            $oembed = $response->json();
+
+            craft()->twitter_cache->set(['twitter.publish.oEmbed', $url, $options], $oembed);
+        }
+
+        return $oembed;
     }
 }
