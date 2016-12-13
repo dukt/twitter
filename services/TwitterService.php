@@ -121,4 +121,32 @@ class TwitterService extends BaseApplicationComponent
         $params = array_merge($params, array('user_id' => $userId));
         return craft()->twitter_api->get('users/show', $params);
     }
+
+
+    /**
+     * Embedded Tweet
+     *
+     * @param       $tweetId
+     * @param array $options
+     *
+     * @deprecated Deprecated in 1.1. Use craft()->twitter_publish->tweet() instead.
+     * @return string
+     */
+    public function embedTweet($tweetId, $options = array())
+    {
+        craft()->deprecator->log('craft()->twitter->embedTweet()', 'craft()->twitter->embedTweet() has been deprecated. Use craft()->twitter_publish->tweet() instead.');
+
+        $dataAttributes = craft()->twitter_publish->getOptionsAsDataAttributes($options);
+
+        $response = craft()->twitter_api->get('statuses/oembed', array('id' => $tweetId));
+
+        if($response)
+        {
+            $html = $response['html'];
+
+            $html = str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"'.$dataAttributes.'>', $html);
+
+            return $html;
+        }
+    }
 }

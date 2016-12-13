@@ -43,21 +43,20 @@ class TwitterTwigExtension extends \Twig_Extension
 	public function getFunctions()
     {
         return [
-            'embedTweet' => new \Twig_Function_Method($this, 'twitterTweet'),
             'twitterGrid' => new \Twig_Function_Method($this, 'twitterGrid'),
             'twitterTimeline' => new \Twig_Function_Method($this, 'twitterTimeline'),
             'twitterTweet' => new \Twig_Function_Method($this, 'twitterTweet'),
             'twitterVideo' => new \Twig_Function_Method($this, 'twitterVideo'),
             'twitterMoment' => new \Twig_Function_Method($this, 'twitterMoment'),
-            'twitterOEmbed' => new \Twig_Function_Method($this, 'twitterOEmbed'),
             'twitterFollowButton' => new \Twig_Function_Method($this, 'twitterFollowButton'),
             'twitterMessageButton' => new \Twig_Function_Method($this, 'twitterMessageButton'),
             'twitterTweetButton' => new \Twig_Function_Method($this, 'twitterTweetButton'),
+            'embedTweet' => new \Twig_Function_Method($this, 'embedTweet'),
         ];
     }
 
     /**
-     * Twitter Grid
+     * Returns the HTML of a Timeline widget as grid.
      *
      * @param       $url
      * @param array $options
@@ -72,7 +71,7 @@ class TwitterTwigExtension extends \Twig_Extension
     }
 
     /**
-     * Twitter Moment
+     * Returns the HTML of a Moment widget.
      *
      * @param       $url
      * @param array $options
@@ -87,20 +86,7 @@ class TwitterTwigExtension extends \Twig_Extension
     }
 
 	/**
-	 * Twitter oEmbed
-	 *
-	 * @param       $url
-	 * @param array $options
-	 *
-	 * @return \Twig_Markup
-	 */
-	public function twitterOEmbed($url, $options = [])
-    {
-        return craft()->twitter_publish->oEmbed($url, $options);
-    }
-
-	/**
-	 * Twitter Timeline
+	 * Returns the HTML of a Timeline widget.
 	 *
 	 * @param       $url
 	 * @param array $options
@@ -115,7 +101,7 @@ class TwitterTwigExtension extends \Twig_Extension
     }
 
 	/**
-	 * Twitter Tweet
+	 * Returns the HTML of a Tweet widget.
 	 *
 	 * @param       $url
 	 * @param array $options
@@ -130,7 +116,7 @@ class TwitterTwigExtension extends \Twig_Extension
     }
 
 	/**
-	 * Twitter Video
+	 * Returns the HTML of a Video Tweet widget.
 	 *
 	 * @param       $url
 	 * @param array $options
@@ -144,6 +130,14 @@ class TwitterTwigExtension extends \Twig_Extension
         return TemplateHelper::getRaw($html);
     }
 
+    /**
+     * Returns the HTML of a Follow Button.
+     *
+     * @param       $username
+     * @param array $options
+     *
+     * @return \Twig_Markup
+     */
     public function twitterFollowButton($username, $options = [])
     {
         $html = craft()->twitter_publish->followButton($username, $options);
@@ -151,6 +145,16 @@ class TwitterTwigExtension extends \Twig_Extension
         return TemplateHelper::getRaw($html);
     }
 
+    /**
+     * Returns the HTML of a Message Button.
+     *
+     * @param       $recipientId
+     * @param       $screenName
+     * @param null  $text
+     * @param array $options
+     *
+     * @return \Twig_Markup
+     */
     public function twitterMessageButton($recipientId, $screenName, $text = null, $options = [])
     {
         $html = craft()->twitter_publish->messageButton($recipientId, $screenName, $text, $options);
@@ -158,6 +162,13 @@ class TwitterTwigExtension extends \Twig_Extension
         return TemplateHelper::getRaw($html);
     }
 
+    /**
+     * Returns the HTML of a Tweet Button.
+     *
+     * @param array $options
+     *
+     * @return \Twig_Markup
+     */
     public function twitterTweetButton($options = [])
     {
         $html = craft()->twitter_publish->tweetButton($options);
@@ -193,4 +204,21 @@ class TwitterTwigExtension extends \Twig_Extension
 
 		return TemplateHelper::getRaw($html);
 	}
+
+    /**
+     * Embedded Tweet
+     *
+     * @param       $id
+     * @param array $options
+     *
+     * @return \Twig_Markup
+     */
+    public function embedTweet($id, $options = [])
+    {
+        craft()->deprecator->log('{{ embedTweet() }}', '{{ embedTweet() }} has been deprecated. Use {{ twitterTweet() }} instead.');
+
+        $html = craft()->twitter->embedTweet($id, $options);
+
+        return TemplateHelper::getRaw($html);
+    }
 }
