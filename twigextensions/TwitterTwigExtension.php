@@ -42,20 +42,85 @@ class TwitterTwigExtension extends \Twig_Extension
 	 */
 	public function getFunctions()
     {
-        return array('embedTweet' => new \Twig_Function_Method($this, 'embedTweet'));
+        return [
+            'embedTweet' => new \Twig_Function_Method($this, 'twitterTweet'),
+            'twitterGrid' => new \Twig_Function_Method($this, 'twitterGrid'),
+            'twitterTimeline' => new \Twig_Function_Method($this, 'twitterTimeline'),
+            'twitterTweet' => new \Twig_Function_Method($this, 'twitterTweet'),
+            'twitterVideo' => new \Twig_Function_Method($this, 'twitterVideo'),
+            'twitterOEmbed' => new \Twig_Function_Method($this, 'twitterOEmbed'),
+        ];
     }
 
 	/**
-	 * Get Embed Tweet
+	 * Twitter Grid
 	 *
-	 * @param       $id
+	 * @param       $url
 	 * @param array $options
 	 *
 	 * @return \Twig_Markup
 	 */
-	public function embedTweet($id, $options = array())
+	public function twitterGrid($url, $options = array())
     {
-        $html = craft()->twitter->embedTweet($id, $options);
+        $html = craft()->twitter_publish->grid($url, $options);
+
+        return TemplateHelper::getRaw($html);
+    }
+
+	/**
+	 * Twitter oEmbed
+	 *
+	 * @param       $url
+	 * @param array $options
+	 *
+	 * @return \Twig_Markup
+	 */
+	public function twitterOEmbed($url, $options = array())
+    {
+        return craft()->twitter_publish->oEmbed($url, $options);
+    }
+
+	/**
+	 * Twitter Timeline
+	 *
+	 * @param       $url
+	 * @param array $options
+	 *
+	 * @return \Twig_Markup
+	 */
+	public function twitterTimeline($url, $options = array())
+    {
+        $html = craft()->twitter_publish->timeline($url, $options);
+
+        return TemplateHelper::getRaw($html);
+    }
+
+	/**
+	 * Twitter Tweet
+	 *
+	 * @param       $url
+	 * @param array $options
+	 *
+	 * @return \Twig_Markup
+	 */
+	public function twitterTweet($url, $options = array())
+    {
+        $html = craft()->twitter_publish->tweet($url, $options);
+
+        return TemplateHelper::getRaw($html);
+    }
+
+	/**
+	 * Twitter Video
+	 *
+	 * @param       $url
+	 * @param array $options
+	 *
+	 * @return \Twig_Markup
+	 */
+	public function twitterVideo($url, $options = array())
+    {
+        $html = craft()->twitter_publish->twitterVideo($url, $options);
 
         return TemplateHelper::getRaw($html);
     }
