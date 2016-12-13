@@ -29,7 +29,7 @@ class TwitterPlugin extends BasePlugin
      */
     public function getDescription()
     {
-        return Craft::t('Tweet Field, Twitter Search Widget and authenticated Twitter API requests.');
+        return Craft::t('Tweet field, search widget, embeds, and authenticated Twitter API requests.');
     }
 
 	/**
