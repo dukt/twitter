@@ -24,7 +24,7 @@ class TwitterVariable
      * @param int $cacheExpire
      * @return string|null
      */
-	public function get($uri, $params = array(), $headers = array(), $enableCache = false, $cacheExpire = 0)
+	public function get($uri, $params = array(), $headers = array(), $enableCache = null, $cacheExpire = 0)
 	{
         try
         {

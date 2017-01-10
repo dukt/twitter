@@ -76,7 +76,7 @@ class Twitter_ApiService extends BaseApplicationComponent
      * @param bool $enableCache
      * @return array|null
      */
-    public function get($uri, $params = array(), $headers = array(), $enableCache = false, $cacheExpire = 0)
+    public function get($uri, $params = array(), $headers = array(), $enableCache = null, $cacheExpire = 0)
     {
         if(!craft()->twitter->checkDependencies())
         {
@@ -85,9 +85,16 @@ class Twitter_ApiService extends BaseApplicationComponent
 
         // get from cache
 
-        if(craft()->config->get('disableCache', 'twitter') == true)
+        if(is_null($enableCache))
         {
-            $enableCache = false;
+            $enableCache = craft()->config->get('enableCache', 'twitter');
+        }
+        else
+        {
+            if(craft()->config->get('enableCache', 'twitter') === false)
+            {
+                $enableCache = false;
+            }
         }
 
         if($enableCache)

@@ -69,7 +69,7 @@ class TwitterService extends BaseApplicationComponent
      *
      * @return array|null
      */
-    public function getTweetById($tweetId, $params = array(), $enableCache = false)
+    public function getTweetById($tweetId, $params = array(), $enableCache = null)
     {
         $params = array_merge($params, array('id' => $tweetId));
 
