@@ -121,7 +121,6 @@ class Twitter_TweetFieldType extends BaseFieldType
                 }
                 elseif (is_string($value))
                 {
-
                     return craft()->twitter->getTweetByUrl($value);
                 }
             }
