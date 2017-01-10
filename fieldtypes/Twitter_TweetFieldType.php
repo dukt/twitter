@@ -132,4 +132,38 @@ class Twitter_TweetFieldType extends BaseFieldType
             }
         }
     }
+
+    public function getSearchKeywords($value)
+    {
+        $parts = [];
+
+        if(isset($value['id']))
+        {
+            $parts[] = $value['id'];
+        }
+
+        if(isset($value['text']))
+        {
+            $parts[] = $value['text'];
+        }
+
+        if(isset($value['user']['id']))
+        {
+            $parts[] = $value['user']['id'];
+        }
+
+        if(isset($value['user']['name']))
+        {
+            $parts[] = $value['user']['name'];
+        }
+
+        if(isset($value['user']['screen_name']))
+        {
+            $parts[] = $value['user']['screen_name'];
+        }
+
+        $keywords = StringHelper::arrayToString($parts,' ');
+
+        return StringHelper::encodeMb4($keywords);
+    }
 }
