@@ -7,7 +7,7 @@
  
 namespace Craft;
 
-trait TwitterTrait
+trait RequirementsTrait
 {
     // Public Methods
     // =========================================================================

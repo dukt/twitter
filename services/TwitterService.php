@@ -8,7 +8,7 @@
 namespace Craft;
 
 require_once(CRAFT_PLUGINS_PATH.'twitter/vendor/autoload.php');
-require_once(CRAFT_PLUGINS_PATH.'twitter/base/TwitterTrait.php');
+require_once(CRAFT_PLUGINS_PATH.'twitter/base/RequirementsTrait.php');
 
 use Guzzle\Http\Client;
 
@@ -17,7 +17,7 @@ class TwitterService extends BaseApplicationComponent
 	// Traits
 	// =========================================================================
 
-	use TwitterTrait;
+	use RequirementsTrait;
 
     // Public Methods
     // =========================================================================
