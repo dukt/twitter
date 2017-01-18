@@ -83,7 +83,7 @@ class TwitterService extends BaseApplicationComponent
 
     /**
      * Extract the tweet ID from a tweet URL, or simply returns the ID
-     * 
+     *
      * @param string|int $urlOrId
      *
      * @return int
@@ -110,23 +110,11 @@ class TwitterService extends BaseApplicationComponent
      */
     public function getTweetByUrl($urlOrId)
     {
-        // Extract tweet id from a tweet URL
+        $tweetId = $this->extractTweetId($urlOrId);
 
-        if (preg_match('/^\d+$/', $urlOrId))
+        if($tweetId)
         {
-            $id = $urlOrId;
-        }
-        else if (preg_match('/\/status(es)?\/(\d+)\/?$/', $urlOrId, $matches))
-        {
-            $id = $matches[2];
-        }
-
-
-        // Retrieve the tweet from its ID
-
-        if(isset($id))
-        {
-            return $this->getTweetById($id);
+            return $this->getTweetById($tweetId);
         }
     }
 
