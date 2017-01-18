@@ -92,8 +92,8 @@ class Twitter_OauthController extends BaseController
             craft()->userSession->setError(Craft::t("Couldn’t disconnect from Twitter"));
         }
 
-        // redirect
-        $redirect = craft()->request->getUrlReferrer();
-        $this->redirect($redirect);
+        $referer = craft()->request->getUrlReferrer();
+
+        $this->redirect($referer);
     }
 }
