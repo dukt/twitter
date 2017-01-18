@@ -59,59 +59,6 @@ class TwitterService extends BaseApplicationComponent
     }
 
     /**
-     * Returns a tweet by its ID.
-     *
-     * @param int $tweetId
-     * @param array $query
-     * @param bool $enableCache
-     * @param int $cacheExpire
-     *
-     * @return array|null
-     */
-    public function getTweetById($tweetId, $query = [])
-    {
-        $query = array_merge($query, array('id' => $tweetId));
-
-        $tweet = craft()->twitter_api->get('statuses/show', $query);
-
-        if(is_array($tweet))
-        {
-            return $tweet;
-        }
-    }
-
-    /**
-     * Returns a tweet by its URL or ID.
-     *
-     * @param string $urlOrId
-     * @return array|null
-     */
-    public function getTweetByUrl($urlOrId)
-    {
-        $tweetId = TwitterHelper::extractTweetId($urlOrId);
-
-        if($tweetId)
-        {
-            return $this->getTweetById($tweetId);
-        }
-    }
-
-    /**
-     * Returns a user by their ID.
-     *
-     * @param int $userId
-     * @param array $query
-     * @return array|null
-     */
-    public function getUserById($userId, $query = [])
-    {
-        $query = array_merge($query, array('user_id' => $userId));
-
-        return craft()->twitter_api->get('users/show', $query);
-    }
-
-
-    /**
      * Embedded Tweet
      *
      * @param       $tweetId

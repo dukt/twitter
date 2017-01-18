@@ -183,7 +183,7 @@ class Twitter_TweetModel extends BaseModel
     {
         if(!$this->data)
         {
-            $this->data = craft()->twitter->getTweetById($this->remoteId);
+            $this->data = craft()->twitter_api->getTweetById($this->remoteId);
         }
 
         return $this->data;

@@ -25,7 +25,9 @@ class TwitterController extends BaseController
 		$this->requireAjaxRequest();
 
 		$tweetId = craft()->request->getParam('id');
-		$tweet = craft()->twitter->getTweetById($tweetId);
+
+		$tweet = craft()->twitter_api->getTweetById($tweetId);
+
 		$this->returnJson($tweet);
 	}
 }
