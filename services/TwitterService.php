@@ -65,6 +65,7 @@ class TwitterService extends BaseApplicationComponent
      * @param array $options
      *
      * @deprecated Deprecated in 1.1. Use craft()->twitter_publish->tweet() instead.
+     *
      * @return string
      */
     public function embedTweet($tweetId, $options = array())

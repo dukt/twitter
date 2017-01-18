@@ -107,8 +107,6 @@ class Twitter_ApiService extends BaseApplicationComponent
      *
      * @param int $tweetId
      * @param array $query
-     * @param bool $enableCache
-     * @param int $cacheExpire
      *
      * @return array|null
      */
@@ -128,6 +126,7 @@ class Twitter_ApiService extends BaseApplicationComponent
      * Returns a tweet by its URL or ID.
      *
      * @param string $urlOrId
+     *
      * @return array|null
      */
     public function getTweetByUrl($urlOrId)
@@ -145,6 +144,7 @@ class Twitter_ApiService extends BaseApplicationComponent
      *
      * @param int $userId
      * @param array $query
+     *
      * @return array|null
      */
     public function getUserById($userId, $query = [])
