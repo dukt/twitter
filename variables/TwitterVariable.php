@@ -1,4 +1,10 @@
 <?php
+/**
+ * @link      https://dukt.net/craft/twitter/
+ * @copyright Copyright (c) 2016, Dukt
+ * @license   https://dukt.net/craft/twitter/docs/license
+ */
+
 namespace Craft;
 
 /**

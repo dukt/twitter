@@ -30,7 +30,7 @@ class Twitter_OauthController extends BaseController
      */
     public function actionConnect()
     {
-        // referer
+        // Referer
 
         $referer = craft()->httpSession->get('twitter.referer');
 
@@ -44,43 +44,32 @@ class Twitter_OauthController extends BaseController
         }
 
 
-        // connect
+        // Connect
 
         if ($response = craft()->oauth->connect(array(
             'plugin'   => 'twitter',
             'provider' => $this->handle
         )))
         {
-            // var_dump($response);
-            // die();
             if ($response['success'])
             {
-                // token
                 $token = $response['token'];
 
-                // save token
                 craft()->twitter_oauth->saveToken($token);
 
                 TwitterPlugin::log('Twitter OAuth Connect Step 2: '."\r\n".print_r(['token' => $token], true), LogLevel::Info);
 
-                // session notice
                 craft()->userSession->setNotice(Craft::t("Connected to Twitter."));
             }
             else
             {
-                // session error
                 craft()->userSession->setError(Craft::t($response['errorMsg']));
             }
         }
         else
         {
-            // session error
             craft()->userSession->setError(Craft::t("Couldn’t connect"));
         }
-
-        // OAuth Step 5
-
-        // redirect
 
         craft()->httpSession->remove('twitter.referer');
 
