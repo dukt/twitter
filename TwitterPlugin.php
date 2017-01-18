@@ -13,7 +13,7 @@ class TwitterPlugin extends BasePlugin
     // =========================================================================
 
     /**
-     * Returns the plugin’s name
+     * Get the plugin’s name
      *
      * @return string The plugin’s name.
      */
@@ -23,7 +23,7 @@ class TwitterPlugin extends BasePlugin
     }
 
     /**
-     * Returns the plugin’s description
+     * Get the plugin’s description
      *
      * @return string The plugin’s description.
      */
@@ -34,6 +34,8 @@ class TwitterPlugin extends BasePlugin
 
 	/**
 	 * Get Version
+     *
+     * @return string
 	 */
 	public function getVersion()
 	{
@@ -41,9 +43,9 @@ class TwitterPlugin extends BasePlugin
 	}
 
     /**
-     * Returns required plugins
+     * Get required plugins.
      *
-     * @return array Required plugins
+     * @return array
      */
     public function getRequiredPlugins()
     {
@@ -58,9 +60,9 @@ class TwitterPlugin extends BasePlugin
     }
 
     /**
-     * Returns the developer’s name
+     * Get the developer’s name.
      *
-     * @ return string The developer’s name
+     * @return string
      */
     public function getDeveloper()
     {
@@ -68,9 +70,9 @@ class TwitterPlugin extends BasePlugin
     }
 
     /**
-     * Returns the developer’s URL
+     * Get the developer’s URL.
      *
-     * @return string The developer’s URL
+     * @return string
      */
     public function getDeveloperUrl()
     {
@@ -78,7 +80,9 @@ class TwitterPlugin extends BasePlugin
     }
 
     /**
-     * Get Settings URL
+     * Get the Settings URL.
+     *
+     * @return string
      */
     public function getSettingsUrl()
     {
@@ -86,7 +90,9 @@ class TwitterPlugin extends BasePlugin
     }
 
     /**
-     * Get Documentation URL
+     * Get Documentation URL.
+     *
+     * @return string
      */
     public function getDocumentationUrl()
     {
@@ -94,7 +100,9 @@ class TwitterPlugin extends BasePlugin
     }
 
 	/**
-	 * Get Release Feed URL
+	 * Get Release Feed URL.
+     *
+     * @return string
 	 */
 	public function getReleaseFeedUrl()
 	{
@@ -102,7 +110,9 @@ class TwitterPlugin extends BasePlugin
 	}
 
     /**
-     * Hook Register CP Routes
+     * Hook Register CP Routes.
+     *
+     * @return array
      */
     public function registerCpRoutes()
     {
@@ -116,6 +126,7 @@ class TwitterPlugin extends BasePlugin
      * Adds support for Twitter user photo resource paths.
      *
      * @param string $path
+     *
      * @return string|null
      */
     public function getResourcePath($path)
@@ -263,7 +274,9 @@ class TwitterPlugin extends BasePlugin
     }
 
     /**
-     * Remove all tokens related to this plugin when uninstalled
+     * Remove all tokens related to this plugin when uninstalled.
+     *
+     * @return null
      */
     public function onBeforeUninstall()
     {
@@ -274,7 +287,9 @@ class TwitterPlugin extends BasePlugin
     }
 
     /**
-     * Add Twig Extension
+     * Adds the Twig extension for Twitter.
+     *
+     * @return TwitterTwigExtension
      */
     public function addTwigExtension()
     {
@@ -289,6 +304,7 @@ class TwitterPlugin extends BasePlugin
      * Defines the settings.
      *
      * @access protected
+     *
      * @return array
      */
     protected function defineSettings()
