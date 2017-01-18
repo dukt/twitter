@@ -13,6 +13,18 @@ class TwitterHelper
     // =========================================================================
 
     /**
+     * Returns a user image from a twitter user ID for given size. Default size is 48.
+     *
+     * @param int $twitterUserId
+     * @param int $size
+     * @return string|null
+     */
+    public function getUserProfileImageResourceUrl($twitterUserId, $size = 48)
+    {
+        return UrlHelper::getResourceUrl('twitteruserimages/'.$twitterUserId.'/'.$size);
+    }
+
+    /**
      * Format a duration in PHP Date Interval format (to seconds by default)
      */
     public static function formatDuration($cacheDuration, $format='%s')
