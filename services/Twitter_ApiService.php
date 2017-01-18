@@ -137,4 +137,30 @@ class Twitter_ApiService extends BaseApplicationComponent
             TwitterPlugin::log('Twitter API Error: '.__METHOD__." ".$e->getMessage(), LogLevel::Info, true);
         }
     }
+
+    // Private Methods
+    // =========================================================================
+
+    /**
+     * Get the authenticated client
+     *
+     * @return Client
+     */
+    private function getClient()
+    {
+        $client = new Client('https://api.twitter.com/1.1');
+
+        $provider = craft()->oauth->getProvider('twitter');
+
+        $token = craft()->twitter_oauth->getToken();
+
+        if($token)
+        {
+            $oauth = $provider->getSubscriber($token);
+
+            $client->addSubscriber($oauth);
+
+            return $client;
+        }
+    }
 }
