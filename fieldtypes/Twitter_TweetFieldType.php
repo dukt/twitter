@@ -41,7 +41,7 @@ class Twitter_TweetFieldType extends BaseFieldType
             {
                 $previewHtml .=
                     '<div class="tweet">' .
-                        '<div class="tweet-image" style="background-image: url('.$tweet->getUserProfileImageUrl('bigger').');"></div> ' .
+                        '<div class="tweet-image" style="background-image: url('.$tweet->getUserProfileImageUrl(100).');"></div> ' .
                         '<div class="tweet-user">' .
                         '<span class="tweet-user-name">'.$tweet->getUserName().'</span> ' .
                         '<a class="tweet-user-screenname light" href="'.$tweet->getUrl().'" target="_blank">@'.$tweet->getUserScreenName().'</a>' .

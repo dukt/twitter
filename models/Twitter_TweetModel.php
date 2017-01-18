@@ -49,24 +49,7 @@ class Twitter_TweetModel extends BaseModel
         }
     }
 
-    public function getUserProfileImageUrl($size = null)
-    {
-        if (craft()->request->isSecureConnection())
-        {
-            $imageUrl = $this->getUserProfileImageSecureUrl();
-        }
-        else
-        {
-            $imageUrl = $this->getUserProfileImageUnsecureUrl();
-        }
-
-        if($size)
-        {
-            return str_replace("_normal.", "_".$size.".", $imageUrl);
-        }
-    }
-
-    public function getUserProfileImageUnsecureUrl()
+    public function getUserProfileRemoteImageUrl()
     {
         $tweetData = $this->getRemoteTweetData();
 
@@ -76,7 +59,7 @@ class Twitter_TweetModel extends BaseModel
         }
     }
 
-    public function getUserProfileImageSecureUrl()
+    public function getUserProfileRemoteImageSecureUrl()
     {
         $tweetData = $this->getRemoteTweetData();
 
@@ -114,6 +97,13 @@ class Twitter_TweetModel extends BaseModel
         {
             return $tweetData['user'];
         }
+    }
+
+    public function getUserProfileImageUrl($size = null)
+    {
+        $twitterUserId = $this->getUserId();
+
+        return TwitterHelper::getUserProfileImageResourceUrl($twitterUserId, $size);
     }
 
     public function getUrl()
