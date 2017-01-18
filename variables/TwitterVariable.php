@@ -45,7 +45,7 @@ class TwitterVariable
      */
 	public function getTweetById($tweetId, $params = array())
 	{
-		return craft()->twitter->getTweetById($tweetId, $params);
+		return craft()->twitter_api->getTweetById($tweetId, $params);
 	}
 
     /**
@@ -58,7 +58,7 @@ class TwitterVariable
      */
 	public function getUserById($userId, $params = array())
 	{
-		return craft()->twitter->getUserById($userId, $params);
+		return craft()->twitter_api->getUserById($userId, $params);
 	}
 
     /**
