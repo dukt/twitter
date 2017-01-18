@@ -67,14 +67,28 @@ class TwitterVariable
 	}
 
     /**
-     * Returns a user image from a user ID for given size. Default size is 48.
+     * Returns a user image from a twitter user ID for given size. Default size is 48.
      *
-     * @param int $userId
+     * @param int $twitterUserId
      * @param int $size
      * @return string|null
      */
-	public function getUserImageUrl($userId, $size = 48)
+	public function getUserProfileImageResourceUrl($twitterUserId, $size = 48)
 	{
-		return UrlHelper::getResourceUrl('twitteruserimages/'.$userId.'/'.$size);
+	    return TwitterHelper::getUserProfileImageResourceUrl($twitterUserId, $size);
+	}
+
+    /**
+     * Returns a user image from a twitter user ID for given size. Default size is 48.
+     *
+     * @param int $twitterUserId
+     * @param int $size
+     *
+     * @deprecated Deprecated in 2.0. Use craft.twitter.getUserProfileImageResourceUrl() instead.
+     * @return string|null
+     */
+	public function getUserImageUrl($twitterUserId, $size = 48)
+	{
+	    return $this->getUserProfileImageResourceUrl($twitterUserId, $size);
 	}
 }
