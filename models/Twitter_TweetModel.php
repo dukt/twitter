@@ -9,16 +9,32 @@ namespace Craft;
 
 class Twitter_TweetModel extends BaseModel
 {
+    // Properties
+    // =========================================================================
+
+    /**
+     * @var array|null
+     */
     private $data;
 
     // Public Methods
     // =========================================================================
 
+    /**
+     * Returns the tweet’s ID.
+     *
+     * @return mixed
+     */
     public function getRemoteId()
     {
         return $this->remoteId;
     }
 
+    /**
+     * Returns the tweet's text.
+     *
+     * @return mixed
+     */
     public function getText()
     {
         $tweetData = $this->getRemoteTweetData();
@@ -29,6 +45,11 @@ class Twitter_TweetModel extends BaseModel
         }
     }
 
+    /**
+     * Returns the tweet’s user ID.
+     *
+     * @return mixed
+     */
     public function getUserId()
     {
         $tweetData = $this->getRemoteTweetData();
@@ -39,6 +60,11 @@ class Twitter_TweetModel extends BaseModel
         }
     }
 
+    /**
+     * Returns the tweet's user name.
+     *
+     * @return mixed
+     */
     public function getUserName()
     {
         $tweetData = $this->getRemoteTweetData();
@@ -49,6 +75,11 @@ class Twitter_TweetModel extends BaseModel
         }
     }
 
+    /**
+     * Returns the user profile remote image URL.
+     *
+     * @return mixed
+     */
     public function getUserProfileRemoteImageUrl()
     {
         $tweetData = $this->getRemoteTweetData();
@@ -59,6 +90,11 @@ class Twitter_TweetModel extends BaseModel
         }
     }
 
+    /**
+     * Returns the user profile remote image secure URL.
+     *
+     * @return mixed
+     */
     public function getUserProfileRemoteImageSecureUrl()
     {
         $tweetData = $this->getRemoteTweetData();
@@ -69,6 +105,11 @@ class Twitter_TweetModel extends BaseModel
         }
     }
 
+    /**
+     * Returns the user screen name.
+     *
+     * @return mixed
+     */
     public function getUserScreenName()
     {
         $tweetData = $this->getRemoteTweetData();
@@ -79,6 +120,11 @@ class Twitter_TweetModel extends BaseModel
         }
     }
 
+    /**
+     * Returns the creation date of the tweet.
+     *
+     * @return mixed
+     */
     public function getCreatedAt()
     {
         $tweetData = $this->getRemoteTweetData();
@@ -89,6 +135,11 @@ class Twitter_TweetModel extends BaseModel
         }
     }
 
+    /**
+     * Returns the author of the tweet.
+     *
+     * @return mixed
+     */
     public function getUser()
     {
         $tweetData = $this->getRemoteTweetData();
@@ -99,6 +150,11 @@ class Twitter_TweetModel extends BaseModel
         }
     }
 
+    /**
+     * @param null $size
+     *
+     * @return null|string
+     */
     public function getUserProfileImageUrl($size = null)
     {
         $twitterUserId = $this->getUserId();
@@ -106,6 +162,9 @@ class Twitter_TweetModel extends BaseModel
         return TwitterHelper::getUserProfileImageResourceUrl($twitterUserId, $size);
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         $tweetId = $this->getRemoteId();
@@ -117,6 +176,9 @@ class Twitter_TweetModel extends BaseModel
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function getRemoteTweetData()
     {
         if(!$this->data)
