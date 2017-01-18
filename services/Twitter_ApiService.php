@@ -42,27 +42,11 @@ class Twitter_ApiService extends BaseApplicationComponent
         }
 
 
-        // Get response from cache
-
-        if(is_null($enableCache))
-        {
-            $enableCache = craft()->config->get('enableCache', 'twitter');
-        }
-        else
-        {
-            if(craft()->config->get('enableCache', 'twitter') === false)
-            {
-                $enableCache = false;
-            }
-        }
+        // Try to get response from cache
 
         if($enableCache)
         {
-            $token = craft()->twitter_oauth->getToken();
-
-            $key = 'twitter.'.md5($uri.serialize(array($token, $headers, $options)));
-
-            $response = craft()->fileCache->get($key);
+            $response = craft()->twitter_cache->get([$uri, $headers, $options]);
 
             if($response)
             {
@@ -71,13 +55,11 @@ class Twitter_ApiService extends BaseApplicationComponent
         }
 
 
-        // Request the API
+        // Otherwise request the API
 
         try
         {
             $client = $this->getClient();
-
-            $options['query'] = $query;
 
             $url = $uri.'.json';
 
@@ -87,7 +69,7 @@ class Twitter_ApiService extends BaseApplicationComponent
 
             if($enableCache)
             {
-                craft()->fileCache->set($key, $jsonResponse, $cacheExpire);
+                craft()->fileCache->set([$uri, $headers, $options], $jsonResponse, $cacheExpire);
             }
 
             return $jsonResponse;
