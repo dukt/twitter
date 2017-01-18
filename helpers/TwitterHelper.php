@@ -13,6 +13,27 @@ class TwitterHelper
     // =========================================================================
 
     /**
+     * Extract the tweet ID from a tweet URL, or simply returns the ID
+     *
+     * @param string|int $urlOrId
+     *
+     * @return int
+     */
+    public static function extractTweetId($urlOrId)
+    {
+        if (preg_match('/^\d+$/', $urlOrId))
+        {
+            // If the string is a number, return it right away
+            return (int) $urlOrId;
+        }
+        else if (preg_match('/\/status(es)?\/(\d+)\/?$/', $urlOrId, $matches))
+        {
+            // Extract the tweet ID from the URL
+            return (int) $matches[2];
+        }
+    }
+
+    /**
      * Returns a user image from a twitter user ID for given size. Default size is 48.
      *
      * @param int $twitterUserId

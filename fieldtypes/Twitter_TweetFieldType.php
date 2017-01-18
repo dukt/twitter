@@ -85,7 +85,7 @@ class Twitter_TweetFieldType extends BaseFieldType
     {
         if($tweetUrlOrId)
         {
-            $tweetId = craft()->twitter->extractTweetId($tweetUrlOrId);
+            $tweetId = TwitterHelper::extractTweetId($tweetUrlOrId);
 
             if($tweetId)
             {
