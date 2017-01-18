@@ -25,14 +25,7 @@ class TwitterVariable
      */
 	public function get($uri, $params = array(), $headers = array(), $enableCache = null, $cacheExpire = 0)
 	{
-        try
-        {
-		     return craft()->twitter_api->get($uri, $params, $headers, $enableCache, $cacheExpire);
-        }
-        catch(\Exception $e)
-        {
-            return false;
-        }
+        return craft()->twitter_api->get($uri, $params, $headers, $enableCache, $cacheExpire);
 	}
 
     /**
