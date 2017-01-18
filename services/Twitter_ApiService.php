@@ -15,77 +15,34 @@ class Twitter_ApiService extends BaseApplicationComponent
     // =========================================================================
 
     /**
-     * Performs a request on the Twitter API.
-     *
-     * @param string $method
-     * @param string $uri
-     * @param array $params
-     * @param array $headers
-     * @param array $postFields
-     *
-     * @return array|null
-     */
-    public function request($method = 'get', $uri, $params = null, $headers = null, $postFields = null)
-    {
-        // client
-        $client = new Client('https://api.twitter.com/1.1');
-
-        $provider = craft()->oauth->getProvider('twitter');
-
-        $token = craft()->twitter_oauth->getToken();
-
-        if($token)
-        {
-            $oauth = $provider->getSubscriber($token);
-
-            $client->addSubscriber($oauth);
-
-
-            // request
-
-            $format = 'json';
-
-            $query = '';
-
-            if($params)
-            {
-                $query = http_build_query($params);
-
-                if($query)
-                {
-                    $query = '?'.$query;
-                }
-            }
-
-            $url = $uri.'.'.$format.$query;
-
-            $response = $client->get($url, $headers, $postFields)->send();
-
-            $response = $response->json();
-
-            return $response;
-        }
-    }
-
-    /**
      * Performs a get request on the Twitter API.
      *
      * @param string $uri
-     * @param array $params
-     * @param array $headers
-     * @param array $postFields
-     * @param bool $enableCache
+     * @param array|null $query
+     * @param array|null $headers
+     * @param array $options
+     * @param bool|null $enableCache
+     * @param int $cacheExpire
      *
      * @return array|null
      */
-    public function get($uri, $params = array(), $headers = array(), $enableCache = null, $cacheExpire = 0)
+    public function get($uri, array $query = null, array $headers = null, array $options = array(), $enableCache = null, $cacheExpire = 0)
     {
         if(!craft()->twitter->checkDependencies())
         {
             throw new Exception("Twitter plugin dependencies are not met");
         }
 
-        // get from cache
+
+        // Add query to the request’s options
+
+        if($query)
+        {
+            $options['query'] = $query;
+        }
+
+
+        // Get response from cache
 
         if(is_null($enableCache))
         {
@@ -103,7 +60,7 @@ class Twitter_ApiService extends BaseApplicationComponent
         {
             $token = craft()->twitter_oauth->getToken();
 
-            $key = 'twitter.'.md5($uri.serialize(array($token, $params)));
+            $key = 'twitter.'.md5($uri.serialize(array($token, $headers, $options)));
 
             $response = craft()->fileCache->get($key);
 
@@ -114,19 +71,26 @@ class Twitter_ApiService extends BaseApplicationComponent
         }
 
 
-        // run request
+        // Request the API
 
         try
         {
-            $response = $this->request('get', $uri, $params, $headers);
-            // cache response
+            $client = $this->getClient();
+
+            $options['query'] = $query;
+
+            $url = $uri.'.json';
+
+            $response = $client->get($url, $headers, $options)->send();
+
+            $jsonResponse = $response->json();
 
             if($enableCache)
             {
-                craft()->fileCache->set($key, $response, $cacheExpire);
+                craft()->fileCache->set($key, $jsonResponse, $cacheExpire);
             }
 
-            return $response;
+            return $jsonResponse;
         }
         catch(\Guzzle\Http\Exception\ClientErrorResponseException $e)
         {
