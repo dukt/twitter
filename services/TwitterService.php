@@ -82,6 +82,27 @@ class TwitterService extends BaseApplicationComponent
     }
 
     /**
+     * Extract the tweet ID from a tweet URL, or simply returns the ID
+     * 
+     * @param string|int $urlOrId
+     *
+     * @return int
+     */
+    public function extractTweetId($urlOrId)
+    {
+        if (preg_match('/^\d+$/', $urlOrId))
+        {
+            // If the string is a number, return it right away
+            return (int) $urlOrId;
+        }
+        else if (preg_match('/\/status(es)?\/(\d+)\/?$/', $urlOrId, $matches))
+        {
+            // Extract the tweet ID from the URL
+            return (int) $matches[2];
+        }
+    }
+
+    /**
      * Returns a tweet by its URL or ID.
      *
      * @param string $urlOrId
