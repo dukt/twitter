@@ -163,7 +163,9 @@ class Twitter_TweetModel extends BaseModel
     }
 
     /**
-     * @return string
+     * Returns the URL of the tweet
+     *
+     * @return string|null
      */
     public function getUrl()
     {
@@ -177,7 +179,9 @@ class Twitter_TweetModel extends BaseModel
     }
 
     /**
-     * @return mixed
+     * Returns the API's data for a tweet
+     *
+     * @return array|null
      */
     public function getRemoteTweetData()
     {
