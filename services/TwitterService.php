@@ -62,16 +62,17 @@ class TwitterService extends BaseApplicationComponent
      * Returns a tweet by its ID.
      *
      * @param int $tweetId
-     * @param array $params
+     * @param array $query
      * @param bool $enableCache
+     * @param int $cacheExpire
      *
      * @return array|null
      */
-    public function getTweetById($tweetId, $params = array(), $enableCache = null)
+    public function getTweetById($tweetId, $query = [])
     {
-        $params = array_merge($params, array('id' => $tweetId));
+        $query = array_merge($query, array('id' => $tweetId));
 
-        $tweet = craft()->twitter_api->get('statuses/show', $params, array(), $enableCache);
+        $tweet = craft()->twitter_api->get('statuses/show', $query);
 
         if(is_array($tweet))
         {
@@ -99,13 +100,14 @@ class TwitterService extends BaseApplicationComponent
      * Returns a user by their ID.
      *
      * @param int $userId
-     * @param array $params
+     * @param array $query
      * @return array|null
      */
-    public function getUserById($userId, $params = array())
+    public function getUserById($userId, $query = [])
     {
-        $params = array_merge($params, array('user_id' => $userId));
-        return craft()->twitter_api->get('users/show', $params);
+        $query = array_merge($query, array('user_id' => $userId));
+
+        return craft()->twitter_api->get('users/show', $query);
     }
 
 

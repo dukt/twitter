@@ -60,7 +60,7 @@ class Twitter_SearchWidget extends BaseWidget
         {
             $settings = $this->getSettings();
 
-            $query = $settings->query;
+            $searchQuery = $settings->query;
             $count = $settings->count;
 
 
@@ -70,17 +70,16 @@ class Twitter_SearchWidget extends BaseWidget
 
             if($token)
             {
-                if(!empty($query))
+                if(!empty($searchQuery))
                 {
-                    $params = array('q' => $query, 'count' => $count);
-
                     try
                     {
-                        $response = craft()->twitter_api->request('get', 'search/tweets', $params);
+                        $response = craft()->twitter_api->get('search/tweets', [
+                            'q' => $searchQuery,
+                            'count' => $count
+                        ]);
 
-                        $tweets = $response['statuses'];
-
-                        $variables['tweets'] = $tweets;
+                        $variables['tweets'] = $response['statuses'];
 
                         craft()->templates->includeCssResource('twitter/css/twitter.css');
                         craft()->templates->includeCssResource('twitter/css/widget.css');
