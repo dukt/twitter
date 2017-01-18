@@ -14,6 +14,8 @@ trait RequirementsTrait
 
     /**
      * Checks dependencies and redirects to install if one or more are missing
+     *
+     * @return bool|null
      */
     public function requireDependencies()
     {
@@ -30,7 +32,9 @@ trait RequirementsTrait
     }
 
     /**
-     * Checks dependencies
+     * Checks if dependencies are missing
+     *
+     * @return bool
      */
     public function checkDependencies()
     {
@@ -43,9 +47,11 @@ trait RequirementsTrait
 
         return true;
     }
-    
+
     /**
      * Get Missing Dependencies
+     *
+     * @return array
      */
     public function getMissingDependencies()
     {
@@ -54,9 +60,11 @@ trait RequirementsTrait
 
     // Private Methods
     // =========================================================================
-    
+
     /**
-     * Get Dependencies
+     * Get dependencies
+     *
+     * @return array
      */
     private function getDependencies($missingOnly = false)
     {
@@ -85,14 +93,16 @@ trait RequirementsTrait
 
         return $dependencies;
     }
-    
+
+
     /**
-     * Get Dependency
+     * Get dependency
+     *
+     * @return array
      */
     private function getDependency($dependency)
     {
         $isMissing = true;
-        $isInstalled = true;
 
         $plugin = craft()->plugins->getPlugin($dependency['handle'], false);
 
@@ -100,26 +110,13 @@ trait RequirementsTrait
         {
             $currentVersion = $plugin->version;
 
-
-            // requires update ?
-
             if(version_compare($currentVersion, $dependency['version']) >= 0)
             {
-                // no (requirements OK)
-
                 if($plugin->isInstalled && $plugin->isEnabled)
                 {
                     $isMissing = false;
                 }
             }
-            else
-            {
-                // yes (requirement not OK)
-            }
-        }
-        else
-        {
-            // not installed
         }
 
         $dependency['isMissing'] = $isMissing;
