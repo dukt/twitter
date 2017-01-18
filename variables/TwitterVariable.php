@@ -20,6 +20,7 @@ class TwitterVariable
      * @param array $headers
      * @param bool $enableCache
      * @param int $cacheExpire
+     *
      * @return string|null
      */
 	public function get($uri, $params = array(), $headers = array(), $enableCache = null, $cacheExpire = 0)
@@ -39,6 +40,7 @@ class TwitterVariable
      *
      * @param int $tweetId
      * @param array $params
+     *
      * @return array|null
      */
 	public function getTweetById($tweetId, $params = array())
@@ -51,6 +53,7 @@ class TwitterVariable
      *
      * @param int $userId
      * @param array $params
+     *
      * @return array|null
      */
 	public function getUserById($userId, $params = array())
@@ -63,6 +66,7 @@ class TwitterVariable
      *
      * @param int $twitterUserId
      * @param int $size
+     *
      * @return string|null
      */
 	public function getUserProfileImageResourceUrl($twitterUserId, $size = 48)
@@ -77,6 +81,7 @@ class TwitterVariable
      * @param int $size
      *
      * @deprecated Deprecated in 2.0. Use craft.twitter.getUserProfileImageResourceUrl() instead.
+     *             
      * @return string|null
      */
 	public function getUserImageUrl($twitterUserId, $size = 48)
