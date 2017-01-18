@@ -21,7 +21,7 @@ class Twitter_CacheService extends BaseApplicationComponent
 	 */
 	public function get($id)
     {
-        if(craft()->config->get('enableCache', 'twitter') == true)
+        if(craft()->config->get('enableCache', 'twitter') === true)
         {
             $cacheKey = $this->getCacheKey($id);
 
@@ -36,18 +36,12 @@ class Twitter_CacheService extends BaseApplicationComponent
 	 * @param      $value
 	 * @param null $expire
 	 * @param null $dependency
-	 * @param null $enableCache
 	 *
 	 * @return mixed
 	 */
-	public function set($id, $value, $expire = null, $dependency = null, $enableCache = null)
+	public function set($id, $value, $expire = null, $dependency = null)
     {
-        if(is_null($enableCache))
-        {
-            $enableCache = craft()->config->get('enableCache', 'twitter');
-        }
-
-        if($enableCache)
+        if(craft()->config->get('enableCache', 'twitter') === true)
         {
             $cacheKey = $this->getCacheKey($id);
 
