@@ -17,22 +17,28 @@ class TwitterHelper
      *
      * @param int $twitterUserId
      * @param int $size
+     *
      * @return string|null
      */
-    public function getUserProfileImageResourceUrl($twitterUserId, $size = 48)
+    public static function getUserProfileImageResourceUrl($twitterUserId, $size = 48)
     {
         return UrlHelper::getResourceUrl('twitteruserimages/'.$twitterUserId.'/'.$size);
     }
 
     /**
      * Format a duration in PHP Date Interval format (to seconds by default)
+     *
+     * @param        $duration
+     * @param string $format
+     *
+     * @return string
      */
-    public static function formatDuration($cacheDuration, $format='%s')
+    public static function formatDuration($duration, $format='%s')
     {
-        $cacheDuration = new DateInterval($cacheDuration);
-        $cacheDurationSeconds = $cacheDuration->format('%s');
+        $duration = new DateInterval($duration);
+        $durationSeconds = $duration->format('%s');
 
-        return $cacheDurationSeconds;
+        return $durationSeconds;
     }
 
     /**
@@ -45,7 +51,14 @@ class TwitterHelper
         return gmdate("H:i:s", $seconds);
     }
 
-	public static function timeAgo($date)
+    /**
+     * Formats a date to a time ago string like “3 days ago“
+     *
+     * @param DateTime|string $date
+     *
+     * @return string
+     */
+    public static function timeAgo($date)
 	{
 		if(is_string($date))
 		{
@@ -64,6 +77,8 @@ class TwitterHelper
 	}
 
 	/**
+     * Seconds to human duration
+     *
 	 * @param int  $seconds     The number of seconds
 	 * @param bool $showSeconds Whether to output seconds or not
 	 * @param bool $implodeComponents Whether to implode components or not for return
