@@ -15,13 +15,14 @@ class Twitter_ApiService extends BaseApplicationComponent
     // =========================================================================
 
     /**
-     * Performs a request on the Twitter API
+     * Performs a request on the Twitter API.
      *
      * @param string $method
      * @param string $uri
      * @param array $params
      * @param array $headers
      * @param array $postFields
+     *
      * @return array|null
      */
     public function request($method = 'get', $uri, $params = null, $headers = null, $postFields = null)
@@ -67,13 +68,14 @@ class Twitter_ApiService extends BaseApplicationComponent
     }
 
     /**
-     * Performs a get request on the Twitter API
+     * Performs a get request on the Twitter API.
      *
      * @param string $uri
      * @param array $params
      * @param array $headers
      * @param array $postFields
      * @param bool $enableCache
+     *
      * @return array|null
      */
     public function get($uri, $params = array(), $headers = array(), $enableCache = null, $cacheExpire = 0)
