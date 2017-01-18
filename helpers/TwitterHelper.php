@@ -36,6 +36,7 @@ class TwitterHelper
     public static function formatDuration($duration, $format='%s')
     {
         $duration = new DateInterval($duration);
+        
         $durationSeconds = $duration->format('%s');
 
         return $durationSeconds;
