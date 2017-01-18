@@ -8,7 +8,7 @@
 namespace Craft;
 
 /**
- * Twitter Plugin controller
+ * Twitter Install controller
  */
 class Twitter_InstallController extends BaseController
 {

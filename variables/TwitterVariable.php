@@ -81,7 +81,7 @@ class TwitterVariable
      * @param int $size
      *
      * @deprecated Deprecated in 2.0. Use craft.twitter.getUserProfileImageResourceUrl() instead.
-     *             
+     *
      * @return string|null
      */
 	public function getUserImageUrl($twitterUserId, $size = 48)
