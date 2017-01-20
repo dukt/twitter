@@ -107,6 +107,11 @@ class Twitter_ApiService extends BaseApplicationComponent
 
         $tweet = craft()->twitter_api->get('statuses/show', $query);
 
+
+        // generate user profile image
+
+        $this->saveOriginalUserProfileImage($tweet['user']['id'], $tweet['user']['profile_image_url_https']);
+
         if(is_array($tweet))
         {
             return $tweet;
