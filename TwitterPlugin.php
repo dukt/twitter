@@ -293,7 +293,7 @@ class TwitterPlugin extends BasePlugin
      */
     public function addTwigExtension()
     {
-        Craft::import('plugins.twitter.twigextensions.TwitterTwigExtension');
+        Craft::import('plugins.twitter.etc.templating.twigextensions.TwitterTwigExtension');
         return new TwitterTwigExtension();
     }
 

@@ -7,7 +7,11 @@
 
 namespace Craft;
 
-class TwitterTwigExtension extends \Twig_Extension
+use Twig_Extension;
+use Twig_Filter_Method;
+use Twig_Function_Method;
+
+class TwitterTwigExtension extends Twig_Extension
 {
     // Public Methods
     // =========================================================================
@@ -30,8 +34,8 @@ class TwitterTwigExtension extends \Twig_Extension
 	public function getFilters()
     {
         return array(
-	        'autoLinkTweet' => new \Twig_Filter_Method($this, 'autoLinkTweet'),
-	        'twitterTimeAgo' => new \Twig_Filter_Method($this, 'timeAgo')
+	        'autoLinkTweet' => new Twig_Filter_Method($this, 'autoLinkTweet'),
+	        'twitterTimeAgo' => new Twig_Filter_Method($this, 'timeAgo')
         );
     }
 
@@ -43,15 +47,15 @@ class TwitterTwigExtension extends \Twig_Extension
 	public function getFunctions()
     {
         return [
-            'twitterGrid' => new \Twig_Function_Method($this, 'twitterGrid'),
-            'twitterTimeline' => new \Twig_Function_Method($this, 'twitterTimeline'),
-            'twitterTweet' => new \Twig_Function_Method($this, 'twitterTweet'),
-            'twitterVideo' => new \Twig_Function_Method($this, 'twitterVideo'),
-            'twitterMoment' => new \Twig_Function_Method($this, 'twitterMoment'),
-            'twitterFollowButton' => new \Twig_Function_Method($this, 'twitterFollowButton'),
-            'twitterMessageButton' => new \Twig_Function_Method($this, 'twitterMessageButton'),
-            'twitterTweetButton' => new \Twig_Function_Method($this, 'twitterTweetButton'),
-            'embedTweet' => new \Twig_Function_Method($this, 'embedTweet'),
+            'twitterGrid' => new Twig_Function_Method($this, 'twitterGrid'),
+            'twitterTimeline' => new Twig_Function_Method($this, 'twitterTimeline'),
+            'twitterTweet' => new Twig_Function_Method($this, 'twitterTweet'),
+            'twitterVideo' => new Twig_Function_Method($this, 'twitterVideo'),
+            'twitterMoment' => new Twig_Function_Method($this, 'twitterMoment'),
+            'twitterFollowButton' => new Twig_Function_Method($this, 'twitterFollowButton'),
+            'twitterMessageButton' => new Twig_Function_Method($this, 'twitterMessageButton'),
+            'twitterTweetButton' => new Twig_Function_Method($this, 'twitterTweetButton'),
+            'embedTweet' => new Twig_Function_Method($this, 'embedTweet'),
         ];
     }
 
