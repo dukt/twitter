@@ -262,7 +262,7 @@ class TwitterPlugin extends BasePlugin
     }
 
     /**
-     * Adds craft/storage/runtime/twitter/ to the list of things the Clear Caches tool can delete.
+     * Adds `craft/storage/runtime/twitter/` to the list of things the Clear Caches tool can delete.
      *
      * @return array
      */
