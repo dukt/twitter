@@ -204,7 +204,7 @@ class TwitterPlugin extends BasePlugin
                 else
                 {
                     // OK, let’s fetch it then
-                    $user = craft()->twitter->getUserById($userId);
+                    $user = craft()->twitter_api->getUserById($userId);
 
                     if (!$user || empty($user['profile_image_url_https']))
                     {
