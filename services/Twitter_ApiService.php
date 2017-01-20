@@ -41,6 +41,13 @@ class Twitter_ApiService extends BaseApplicationComponent
             $options['query'] = $query;
         }
 
+        // Enable Cache
+
+        if(is_null($enableCache))
+        {
+            $enableCache = craft()->config->get('enableCache', 'twitter');
+        }
+
 
         // Try to get response from cache
 
@@ -69,7 +76,7 @@ class Twitter_ApiService extends BaseApplicationComponent
 
             if($enableCache)
             {
-                craft()->fileCache->set([$uri, $headers, $options], $jsonResponse, $cacheExpire);
+                craft()->twitter_cache->set([$uri, $headers, $options], $jsonResponse, $cacheExpire);
             }
 
             return $jsonResponse;
