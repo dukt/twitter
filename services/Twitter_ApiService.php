@@ -94,13 +94,15 @@ class Twitter_ApiService extends BaseApplicationComponent
     /**
      * Returns a tweet by its ID.
      *
-     * @param int $tweetId
+     * @param int|string $tweetId
      * @param array $query
      *
      * @return array|null
      */
     public function getTweetById($tweetId, $query = [])
     {
+        $tweetId = (int) $tweetId;
+
         $query = array_merge($query, array('id' => $tweetId));
 
         $tweet = craft()->twitter_api->get('statuses/show', $query);
