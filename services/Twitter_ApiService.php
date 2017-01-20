@@ -133,13 +133,15 @@ class Twitter_ApiService extends BaseApplicationComponent
     /**
      * Returns a user by their ID.
      *
-     * @param int $userId
+     * @param int|string $userId
      * @param array $query
      *
      * @return array|null
      */
     public function getUserById($userId, $query = [])
     {
+        $userId = (int) $userId;
+
         $query = array_merge($query, array('user_id' => $userId));
 
         return craft()->twitter_api->get('users/show', $query);
