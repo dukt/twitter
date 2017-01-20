@@ -147,6 +147,41 @@ class Twitter_ApiService extends BaseApplicationComponent
         return craft()->twitter_api->get('users/show', $query);
     }
 
+    public function saveOriginalUserProfileImage($userId, $remoteImageUrl)
+    {
+        $originalFolderPath = craft()->path->getRuntimePath().'twitter/userimages/'.$userId.'/original/';
+
+        $contents = IOHelper::getFolderContents($originalFolderPath, false);
+
+        if ($contents)
+        {
+            $imagePath = $contents[0];
+
+            return $imagePath;
+        }
+        else
+        {
+            IOHelper::ensureFolderExists($originalFolderPath);
+
+            $remoteImageUrl = str_replace('_normal', '', $remoteImageUrl);
+
+            $fileName = pathinfo($remoteImageUrl, PATHINFO_BASENAME);
+
+            $imagePath = $originalFolderPath.$fileName;
+
+            $response = \Guzzle\Http\StaticClient::get($remoteImageUrl, array(
+                'save_to' => $imagePath
+            ));
+
+            if (!$response->isSuccessful())
+            {
+                return;
+            }
+
+            return $imagePath;
+        }
+    }
+
     // Private Methods
     // =========================================================================
 
