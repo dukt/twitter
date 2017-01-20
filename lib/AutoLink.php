@@ -18,9 +18,7 @@ class AutoLink extends \Twitter_Autolink
      * @param  string  $tweet        The tweet to be converted.
      * @param  bool    $full_encode  Whether to encode all special characters.
      *
-     * @see  __construct()
-     *
-     * @return  Twitter\AutoLink
+     * @return  AutoLink
      */
     public static function create($tweet = null, $full_encode = false)
     {
@@ -32,8 +30,8 @@ class AutoLink extends \Twitter_Autolink
     *
     * @param string $tweet
     * @param array $entities
+     *
     * @return string
-    * @since 1.1.0
     */
     public function autoLinkEntities($tweet = null, $entities)
     {
@@ -81,10 +79,11 @@ class AutoLink extends \Twitter_Autolink
     }
 
     /**
+     * Returns text with mentions and lists as links
      *
      * @param array  $entity
+     *
      * @return string
-     * @since 1.1.0
      */
     public function linkToMentionAndList($entity)
     {
