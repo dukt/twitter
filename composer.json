@@ -1,6 +1,9 @@
 {
+  "name": "dukt/craft-twitter",
+  "description": "Twitter plugin for Craft CMS",
+  "type": "craft-plugin",
   "require": {
-    "nojimage/twitter-text-php": "dev-master"
+    "nojimage/twitter-text-php": "^1.1"
   },
   "scripts": {
     "post-update-cmd": ["echo [WARNING] Delete all .git dirs", "rm -rf vendor/**/**/.git"],
