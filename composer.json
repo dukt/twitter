@@ -1,5 +1,15 @@
 {
+  "name": "dukt/craft-twitter",
+  "description": "Twitter plugin for Craft CMS",
+  "authors": [
+    {
+      "name": "Benjamin David",
+      "email": "ben@dukt.net"
+    }
+  ],
+  "type": "craft-plugin",
   "require": {
+    "composer/installers": "~1.0",
     "nojimage/twitter-text-php": "dev-master"
   },
   "autoload": {
