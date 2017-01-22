@@ -9,14 +9,6 @@ namespace Craft;
 
 class Twitter_TweetModel extends BaseModel
 {
-    // Properties
-    // =========================================================================
-
-    /**
-     * @var array|null
-     */
-    private $data;
-
     // Public Methods
     // =========================================================================
 
@@ -37,7 +29,7 @@ class Twitter_TweetModel extends BaseModel
      */
     public function getText()
     {
-        $tweetData = $this->getRemoteTweetData();
+        $tweetData = $this->getTweetData();
 
         if(!empty($tweetData['text']))
         {
@@ -52,7 +44,7 @@ class Twitter_TweetModel extends BaseModel
      */
     public function getUserId()
     {
-        $tweetData = $this->getRemoteTweetData();
+        $tweetData = $this->getTweetData();
 
         if(!empty($tweetData['user']['id']))
         {
@@ -67,12 +59,22 @@ class Twitter_TweetModel extends BaseModel
      */
     public function getUserName()
     {
-        $tweetData = $this->getRemoteTweetData();
+        $tweetData = $this->getTweetData();
 
         if(!empty($tweetData['user']['name']))
         {
             return $tweetData['user']['name'];
         }
+    }
+
+    /**
+     * Returns the user profile URL.
+     *
+     * @return mixed
+     */
+    public function getUserProfileUrl()
+    {
+        return 'https://twitter.com/' . $this->getUserScreenName();
     }
 
     /**
@@ -82,7 +84,7 @@ class Twitter_TweetModel extends BaseModel
      */
     public function getUserProfileRemoteImageUrl()
     {
-        $tweetData = $this->getRemoteTweetData();
+        $tweetData = $this->getTweetData();
 
         if(!empty($tweetData['user']['profile_image_url']))
         {
@@ -97,7 +99,7 @@ class Twitter_TweetModel extends BaseModel
      */
     public function getUserProfileRemoteImageSecureUrl()
     {
-        $tweetData = $this->getRemoteTweetData();
+        $tweetData = $this->getTweetData();
 
         if(!empty($tweetData['user']['profile_image_url_https']))
         {
@@ -112,7 +114,7 @@ class Twitter_TweetModel extends BaseModel
      */
     public function getUserScreenName()
     {
-        $tweetData = $this->getRemoteTweetData();
+        $tweetData = $this->getTweetData();
 
         if(!empty($tweetData['user']['screen_name']))
         {
@@ -127,7 +129,7 @@ class Twitter_TweetModel extends BaseModel
      */
     public function getCreatedAt()
     {
-        $tweetData = $this->getRemoteTweetData();
+        $tweetData = $this->getTweetData();
 
         if(!empty($tweetData['created_at']))
         {
@@ -142,7 +144,7 @@ class Twitter_TweetModel extends BaseModel
      */
     public function getUser()
     {
-        $tweetData = $this->getRemoteTweetData();
+        $tweetData = $this->getTweetData();
 
         if(!empty($tweetData['user']))
         {
@@ -178,19 +180,24 @@ class Twitter_TweetModel extends BaseModel
         }
     }
 
-    /**
-     * Returns the API's data for a tweet
-     *
-     * @return array|null
-     */
-    public function getRemoteTweetData()
+    public function getTweetData()
     {
         if(!$this->data)
         {
-            $this->data = craft()->twitter_api->getTweetById($this->remoteId);
+            $this->data = $this->getRemoteTweetData();
         }
 
         return $this->data;
+    }
+
+    public function getAttributes($names = null, $flattenValues = false)
+    {
+        return parent::getAttributes($names, $flattenValues);
+    }
+
+    public function getAttribute($name, $flattenValue = false)
+    {
+        return parent::getAttribute($name, $flattenValue);
     }
 
     // Protected Methods
@@ -203,8 +210,25 @@ class Twitter_TweetModel extends BaseModel
     {
         $attributes = array(
             'remoteId' => AttributeType::Number,
+            'data' => AttributeType::Mixed,
         );
 
         return $attributes;
+    }
+
+    // Private Methods
+    // =========================================================================
+
+    /**
+     * Returns the API's data for a tweet
+     *
+     * @return array|null
+     */
+    private function getRemoteTweetData()
+    {
+        if(!empty($this->remoteId))
+        {
+            return craft()->twitter_api->getTweetById($this->remoteId);
+        }
     }
 }
