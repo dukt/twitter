@@ -7,6 +7,9 @@
 
 namespace Craft;
 
+/**
+ * Twitter Tweet Field Type
+ */
 class Twitter_TweetFieldType extends BaseFieldType
 {
     // Public Methods

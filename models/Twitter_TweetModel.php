@@ -7,6 +7,9 @@
 
 namespace Craft;
 
+/**
+ * Twitter Tweet Model
+ */
 class Twitter_TweetModel extends BaseModel
 {
     // Public Methods

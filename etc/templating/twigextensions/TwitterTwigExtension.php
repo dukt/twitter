@@ -11,6 +11,9 @@ use Twig_Extension;
 use Twig_Filter_Method;
 use Twig_Function_Method;
 
+/**
+ * Twitter Twig Extension
+ */
 class TwitterTwigExtension extends Twig_Extension
 {
     // Public Methods

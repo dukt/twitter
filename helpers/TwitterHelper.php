@@ -7,6 +7,9 @@
 
 namespace Craft;
 
+/**
+ * Twitter Helper
+ */
 class TwitterHelper
 {
     // Public Methods

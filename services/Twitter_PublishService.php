@@ -9,6 +9,9 @@ namespace Craft;
 
 use Guzzle\Http\Client;
 
+/**
+ * Twitter Publish Service
+ */
 class Twitter_PublishService extends BaseApplicationComponent
 {
     // Public Methods

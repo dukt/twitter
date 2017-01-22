@@ -7,6 +7,9 @@
 
 namespace Craft;
 
+/**
+ * Twitter Plugin
+ */
 class TwitterPlugin extends BasePlugin
 {
     // Public Methods

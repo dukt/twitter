@@ -7,6 +7,9 @@
 
 namespace Twitter;
 
+/**
+ * Auto Link
+ */
 class AutoLink extends \Twitter_Autolink
 {
     // Public Methods

@@ -7,6 +7,9 @@
 
 namespace Craft;
 
+/**
+ * Twitter Cache Service
+ */
 class Twitter_CacheService extends BaseApplicationComponent
 {
 	// Public Methods

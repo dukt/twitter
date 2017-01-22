@@ -7,6 +7,9 @@
 
 namespace Craft;
 
+/**
+ * Twitter Variable
+ */
 class TwitterVariable
 {
     // Public Methods
@@ -15,7 +18,7 @@ class TwitterVariable
     /**
      * Performs a GET request on the Twitter API and returns the response.
      *
-     * @param uri $uri
+     * @param string $uri
      * @param array|null $query
      * @param array|null $headers
      * @param array $options

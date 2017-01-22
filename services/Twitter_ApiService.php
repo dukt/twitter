@@ -9,6 +9,9 @@ namespace Craft;
 
 use Guzzle\Http\Client;
 
+/**
+ * Twitter API Service
+ */
 class Twitter_ApiService extends BaseApplicationComponent
 {
     // Public Methods
@@ -141,6 +144,14 @@ class Twitter_ApiService extends BaseApplicationComponent
         return craft()->twitter_api->get('users/show', $query);
     }
 
+    /**
+     * Saves the original user profile image for a twitter user ID
+     *
+     * @param $userId
+     * @param $remoteImageUrl
+     *
+     * @return string|void
+     */
     public function saveOriginalUserProfileImage($userId, $remoteImageUrl)
     {
         if($userId && $remoteImageUrl)

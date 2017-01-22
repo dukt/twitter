@@ -7,6 +7,9 @@
  
 namespace Craft;
 
+/**
+ * Requirements Trait
+ */
 trait RequirementsTrait
 {
     // Public Methods

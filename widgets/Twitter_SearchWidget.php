@@ -7,6 +7,9 @@
 
 namespace Craft;
 
+/**
+ * Twitter Search Widget
+ */
 class Twitter_SearchWidget extends BaseWidget
 {
     // Public Methods
