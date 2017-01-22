@@ -37,7 +37,7 @@ class Twitter_TweetFieldType extends BaseFieldType
 
         if(craft()->twitter->checkDependencies())
         {
-            if ($tweet)
+            if ($tweet && $tweet->remoteId)
             {
                 $previewHtml .=
                     '<div class="tweet">' .
@@ -48,7 +48,7 @@ class Twitter_TweetFieldType extends BaseFieldType
                     '</div>' .
                     '<div class="tweet-text">'. $tweet->getText() .'</div>'.
                         '<ul class="tweet-actions light">' .
-                            '<li class="tweet-date">'.TwitterHelper::timeAgo($tweet->getCreatedAt()).'</li>' .
+                                '<li class="tweet-date">'.TwitterHelper::timeAgo($tweet->getCreatedAt()).'</li>' .
                             '<li><a href="'.$tweet->getUrl().'">Permalink</a></li>' .
                         '</ul>' .
                     '</div>';
