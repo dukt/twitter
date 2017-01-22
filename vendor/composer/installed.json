@@ -1,17 +1,17 @@
 [
     {
         "name": "nojimage/twitter-text-php",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "1.1.1",
+        "version_normalized": "1.1.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/nojimage/twitter-text-php.git",
-            "reference": "f2c4df1b90f91c42af4fd4d57edaa2d27b313e47"
+            "reference": "2cf4d681f7cbe0a564fb8f32c423b35b85baae20"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/nojimage/twitter-text-php/zipball/f2c4df1b90f91c42af4fd4d57edaa2d27b313e47",
-            "reference": "f2c4df1b90f91c42af4fd4d57edaa2d27b313e47",
+            "url": "https://api.github.com/repos/nojimage/twitter-text-php/zipball/2cf4d681f7cbe0a564fb8f32c423b35b85baae20",
+            "reference": "2cf4d681f7cbe0a564fb8f32c423b35b85baae20",
             "shasum": ""
         },
         "require": {
@@ -22,9 +22,9 @@
             "symfony/yaml": "*",
             "twitter/twitter-text-conformance": "1.8.0"
         },
-        "time": "2014-05-16 14:14:19",
+        "time": "2014-02-28 15:18:45",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Twitter_": "lib/"

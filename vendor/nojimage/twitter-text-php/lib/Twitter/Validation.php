@@ -306,11 +306,11 @@ class Twitter_Validation extends Twitter_Regex {
    * @param string $tweet The tweet to validate.
    * @return  int  the length of a tweet.
    */
-  public function getTweetLength($tweet = null, $encoding = 'UTF-8') {
+  public function getTweetLength($tweet = null) {
     if (is_null($tweet)) {
       $tweet = $this->tweet;
     }
-    $length = mb_strlen($tweet, $encoding);
+    $length = mb_strlen($tweet);
     $urls_with_indices = $this->extractor->extractURLsWithIndices($tweet);
     foreach ($urls_with_indices as $x) {
       $length += $x['indices'][0] - $x['indices'][1];
