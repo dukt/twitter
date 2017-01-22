@@ -26,8 +26,14 @@ class TwitterController extends BaseController
 
 		$tweetId = craft()->request->getParam('id');
 
-		$tweet = craft()->twitter_api->getTweetById($tweetId);
+		try {
+            $tweet = craft()->twitter_api->getTweetById($tweetId);
 
-		$this->returnJson($tweet);
+            $this->returnJson($tweet);
+        }
+        catch(\Exception $e)
+        {
+            $this->returnErrorJson($e->getMessage());
+        }
 	}
 }

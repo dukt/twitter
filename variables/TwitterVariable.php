@@ -26,7 +26,14 @@ class TwitterVariable
      */
 	public function get($uri, array $params = null, array $headers = null, $options = array(), $enableCache = null, $cacheExpire = 0)
 	{
-        return craft()->twitter_api->get($uri, $params, $headers, $options, $enableCache, $cacheExpire);
+	    try
+        {
+            return craft()->twitter_api->get($uri, $params, $headers, $options, $enableCache, $cacheExpire);
+        }
+        catch(\Exception $e)
+        {
+            TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
+        }
 	}
 
     /**
@@ -39,7 +46,14 @@ class TwitterVariable
      */
 	public function getTweetById($tweetId, $params = array())
 	{
-		return craft()->twitter_api->getTweetById($tweetId, $params);
+        try
+        {
+            return craft()->twitter_api->getTweetById($tweetId, $params);
+        }
+        catch(\Exception $e)
+        {
+            TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
+        }
 	}
 
     /**
@@ -52,7 +66,14 @@ class TwitterVariable
      */
 	public function getUserById($userId, $params = array())
 	{
-		return craft()->twitter_api->getUserById($userId, $params);
+        try
+        {
+            return craft()->twitter_api->getUserById($userId, $params);
+        }
+        catch(\Exception $e)
+        {
+            TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
+        }
 	}
 
     /**
@@ -65,7 +86,14 @@ class TwitterVariable
      */
 	public function getUserProfileImageResourceUrl($twitterUserId, $size = 48)
 	{
-	    return TwitterHelper::getUserProfileImageResourceUrl($twitterUserId, $size);
+        try
+        {
+            return TwitterHelper::getUserProfileImageResourceUrl($twitterUserId, $size);
+        }
+        catch(\Exception $e)
+        {
+            TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
+        }
 	}
 
     /**

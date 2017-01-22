@@ -64,31 +64,20 @@ class Twitter_ApiService extends BaseApplicationComponent
 
         // Otherwise request the API
 
-        try
+        $client = $this->getClient();
+
+        $url = $uri.'.json';
+
+        $response = $client->get($url, $headers, $options)->send();
+
+        $jsonResponse = $response->json();
+
+        if($enableCache)
         {
-            $client = $this->getClient();
-
-            $url = $uri.'.json';
-
-            $response = $client->get($url, $headers, $options)->send();
-
-            $jsonResponse = $response->json();
-
-            if($enableCache)
-            {
-                craft()->twitter_cache->set([$uri, $headers, $options], $jsonResponse, $cacheExpire);
-            }
-
-            return $jsonResponse;
+            craft()->twitter_cache->set([$uri, $headers, $options], $jsonResponse, $cacheExpire);
         }
-        catch(\Guzzle\Http\Exception\ClientErrorResponseException $e)
-        {
-            TwitterPlugin::log('Twitter API Error: '.__METHOD__." Couldn't get twitter response", LogLevel::Error);
-        }
-        catch(\Guzzle\Http\Exception\CurlException $e)
-        {
-            TwitterPlugin::log('Twitter API Error: '.__METHOD__." ".$e->getMessage(), LogLevel::Error);
-        }
+
+        return $jsonResponse;
     }
 
     /**

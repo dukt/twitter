@@ -39,19 +39,26 @@ class Twitter_TweetFieldType extends BaseFieldType
         {
             if ($tweet && $tweet->remoteId)
             {
-                $previewHtml .=
-                    '<div class="tweet">' .
-                        '<div class="tweet-image" style="background-image: url('.$tweet->getUserProfileImageUrl(100).');"></div> ' .
-                        '<div class="tweet-user">' .
-                        '<span class="tweet-user-name">'.$tweet->getUserName().'</span> ' .
-                        '<a class="tweet-user-screenname light" href="'.$tweet->getUrl().'" target="_blank">@'.$tweet->getUserScreenName().'</a>' .
-                    '</div>' .
-                    '<div class="tweet-text">'. $tweet->getText() .'</div>'.
-                        '<ul class="tweet-actions light">' .
-                                '<li class="tweet-date">'.TwitterHelper::timeAgo($tweet->getCreatedAt()).'</li>' .
-                            '<li><a href="'.$tweet->getUrl().'">Permalink</a></li>' .
-                        '</ul>' .
-                    '</div>';
+                try
+                {
+                    $previewHtml .=
+                        '<div class="tweet">' .
+                            '<div class="tweet-image" style="background-image: url('.$tweet->getUserProfileImageUrl(100).');"></div> ' .
+                            '<div class="tweet-user">' .
+                            '<span class="tweet-user-name">'.$tweet->getUserName().'</span> ' .
+                            '<a class="tweet-user-screenname light" href="'.$tweet->getUrl().'" target="_blank">@'.$tweet->getUserScreenName().'</a>' .
+                        '</div>' .
+                        '<div class="tweet-text">'. $tweet->getText() .'</div>'.
+                            '<ul class="tweet-actions light">' .
+                                    '<li class="tweet-date">'.TwitterHelper::timeAgo($tweet->getCreatedAt()).'</li>' .
+                                '<li><a href="'.$tweet->getUrl().'">Permalink</a></li>' .
+                            '</ul>' .
+                        '</div>';
+                }
+                catch(\Exception $e)
+                {
+                    $previewHtml .= '<p class="error">'.$e->getMessage().'</p>';
+                }
             }
         }
         else
