@@ -6,4 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Twitter\\Lib\\' => array($baseDir . '/lib'),
+    'Twitter\\Base\\' => array($baseDir . '/base'),
 );

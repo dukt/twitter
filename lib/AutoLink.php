@@ -5,7 +5,7 @@
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
-namespace Twitter;
+namespace Twitter\Lib;
 
 /**
  * Auto Link

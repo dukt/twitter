@@ -8,7 +8,9 @@
 namespace Craft;
 
 require_once(CRAFT_PLUGINS_PATH.'twitter/vendor/autoload.php');
-require_once(CRAFT_PLUGINS_PATH.'twitter/base/RequirementsTrait.php');
+
+use Twitter\Base\RequirementsTrait;
+use Twitter\Lib\AutoLink;
 
 /**
  * Twitter Service
@@ -33,9 +35,7 @@ class TwitterService extends BaseApplicationComponent
      */
     public function autoLinkTweet($text, $options = array())
     {
-	    require_once(CRAFT_PLUGINS_PATH.'twitter/lib/AutoLink.php');
-
-	    $twitter = \Twitter\AutoLink::create();
+	    $twitter = AutoLink::create();
 
         $aliases = array(
             'urlClass' => 'setURLClass',

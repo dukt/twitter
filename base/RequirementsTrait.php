@@ -5,7 +5,10 @@
  * @license   https://dukt.net/craft/twitter/docs/license
  */
  
-namespace Craft;
+namespace Twitter\Base;
+
+use Craft\Craft;
+use Craft\UrlHelper;
 
 /**
  * Requirements Trait
@@ -25,7 +28,7 @@ trait RequirementsTrait
         if(!$this->checkDependencies())
         {
             $url = UrlHelper::getUrl('twitter/install');
-            craft()->request->redirect($url);
+            Craft::app()->request->redirect($url);
             return false;
         }
         else
@@ -71,7 +74,7 @@ trait RequirementsTrait
      */
     private function getDependencies($missingOnly = false)
     {
-        $plugin = craft()->plugins->getPlugin('twitter');
+        $plugin = Craft::app()->plugins->getPlugin('twitter');
         
         $dependencies = array();
 
@@ -107,7 +110,7 @@ trait RequirementsTrait
     {
         $isMissing = true;
 
-        $plugin = craft()->plugins->getPlugin($dependency['handle'], false);
+        $plugin = Craft::app()->plugins->getPlugin($dependency['handle'], false);
 
         if($plugin)
         {
