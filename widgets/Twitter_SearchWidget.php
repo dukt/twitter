@@ -76,7 +76,17 @@ class Twitter_SearchWidget extends BaseWidget
                             'count' => $count
                         ]);
 
-                        $variables['tweets'] = $response['statuses'];
+                        $tweets = [];
+
+                        foreach($response['statuses'] as $tweetData)
+                        {
+                            $tweet = new Twitter_TweetModel;
+                            $tweet->remoteId = $tweetData['id'];
+                            $tweet->data = $tweetData;
+                            array_push($tweets, $tweet);
+                        }
+
+                        $variables['tweets'] = $tweets;
 
                         craft()->templates->includeCssResource('twitter/css/twitter.css');
                         craft()->templates->includeCssResource('twitter/css/widget.css');
