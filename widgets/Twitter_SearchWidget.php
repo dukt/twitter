@@ -63,9 +63,6 @@ class Twitter_SearchWidget extends BaseWidget
             $searchQuery = $settings->query;
             $count = $settings->count;
 
-
-            $provider = craft()->oauth->getProvider('twitter');
-
             $token = craft()->twitter_oauth->getToken();
 
             if($token)
