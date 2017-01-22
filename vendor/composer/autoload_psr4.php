@@ -8,4 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'Twitter\\Lib\\' => array($baseDir . '/lib'),
     'Twitter\\Base\\' => array($baseDir . '/base'),
+    'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
 );

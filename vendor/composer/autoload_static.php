@@ -12,6 +12,10 @@ class ComposerStaticInita8296dcfc8bbc51f6d18e055b7b5cacd
             'Twitter\\Lib\\' => 12,
             'Twitter\\Base\\' => 13,
         ),
+        'C' => 
+        array (
+            'Composer\\Installers\\' => 20,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -22,6 +26,10 @@ class ComposerStaticInita8296dcfc8bbc51f6d18e055b7b5cacd
         'Twitter\\Base\\' => 
         array (
             0 => __DIR__ . '/../..' . '/base',
+        ),
+        'Composer\\Installers\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
         ),
     );
 
