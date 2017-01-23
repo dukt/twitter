@@ -52,7 +52,7 @@ class TwitterPlugin extends BasePlugin
      */
     public function getSchemaVersion()
     {
-        return '0.0.1';
+        return '1.0.0';
     }
     
     /**
