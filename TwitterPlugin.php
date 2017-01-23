@@ -41,6 +41,16 @@ class TwitterPlugin extends BasePlugin
 	}
 
     /**
+     * Get Schema Version
+     *
+     * @return string
+     */
+    public function getSchemaVersion()
+    {
+        return '1.0.0';
+    }
+
+    /**
      * Returns required plugins
      *
      * @return array Required plugins
