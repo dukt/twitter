@@ -41,7 +41,7 @@ class Twitter_TweetModel extends BaseModel
     }
 
     /**
-     * Returns the tweet’s user ID.
+     * Returns the tweet’s author user ID.
      *
      * @return mixed
      */
@@ -56,7 +56,7 @@ class Twitter_TweetModel extends BaseModel
     }
 
     /**
-     * Returns the tweet's user name.
+     * Returns the tweet's author user name.
      *
      * @return mixed
      */
@@ -71,7 +71,7 @@ class Twitter_TweetModel extends BaseModel
     }
 
     /**
-     * Returns the user profile URL.
+     * Returns the tweet's author user profile URL.
      *
      * @return mixed
      */
@@ -81,7 +81,7 @@ class Twitter_TweetModel extends BaseModel
     }
 
     /**
-     * Returns the user profile remote image URL.
+     * Returns the tweet's author user profile remote image URL.
      *
      * @return mixed
      */
@@ -96,7 +96,7 @@ class Twitter_TweetModel extends BaseModel
     }
 
     /**
-     * Returns the user profile remote image secure URL.
+     * Returns the tweet's author user profile remote image secure URL.
      *
      * @return mixed
      */
@@ -111,7 +111,7 @@ class Twitter_TweetModel extends BaseModel
     }
 
     /**
-     * Returns the user screen name.
+     * Returns the tweet's author user screen name.
      *
      * @return mixed
      */
@@ -141,7 +141,7 @@ class Twitter_TweetModel extends BaseModel
     }
 
     /**
-     * Returns the author of the tweet.
+     * Returns the tweet's author user profile image resource url.
      *
      * @return mixed
      */
@@ -168,7 +168,7 @@ class Twitter_TweetModel extends BaseModel
     }
 
     /**
-     * Returns the URL of the tweet
+     * Returns the URL of the tweet.
      *
      * @return string|null
      */
