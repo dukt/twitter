@@ -170,16 +170,6 @@ class Twitter_TweetModel extends BaseModel
         }
     }
 
-    public function getTweetData()
-    {
-        if(!$this->data)
-        {
-            $this->data = $this->getRemoteTweetData();
-        }
-
-        return $this->data;
-    }
-
     public function getAttributes($names = null, $flattenValues = false)
     {
         return parent::getAttributes($names, $flattenValues);
@@ -208,6 +198,21 @@ class Twitter_TweetModel extends BaseModel
 
     // Private Methods
     // =========================================================================
+
+    /**
+     * Returns the URL of the tweet.
+     *
+     * @return string|null
+     */
+    private function getTweetData()
+    {
+        if(!$this->data)
+        {
+            $this->data = $this->getRemoteTweetData();
+        }
+
+        return $this->data;
+    }
 
     /**
      * Returns the API's data for a tweet
