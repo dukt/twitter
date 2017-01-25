@@ -170,16 +170,6 @@ class Twitter_TweetModel extends BaseModel
         }
     }
 
-    public function getAttributes($names = null, $flattenValues = false)
-    {
-        return parent::getAttributes($names, $flattenValues);
-    }
-
-    public function getAttribute($name, $flattenValue = false)
-    {
-        return parent::getAttribute($name, $flattenValue);
-    }
-
     // Protected Methods
     // =========================================================================
 
