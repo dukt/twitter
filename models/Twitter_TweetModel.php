@@ -143,19 +143,6 @@ class Twitter_TweetModel extends BaseModel
     /**
      * Returns the tweet's author user profile image resource url.
      *
-     * @return mixed
-     */
-    public function getUser()
-    {
-        $tweetData = $this->getTweetData();
-
-        if(!empty($tweetData['user']))
-        {
-            return $tweetData['user'];
-        }
-    }
-
-    /**
      * @param null $size
      *
      * @return null|string
