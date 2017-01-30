@@ -27,11 +27,11 @@ class TwitterVariable
      *
      * @return string|null
      */
-	public function get($uri, array $params = null, array $headers = null, $options = array(), $enableCache = null, $cacheExpire = 0)
+	public function get($uri, array $query = null, array $headers = null, $options = array(), $enableCache = null, $cacheExpire = 0)
 	{
 	    try
         {
-            return craft()->twitter_api->get($uri, $params, $headers, $options, $enableCache, $cacheExpire);
+            return craft()->twitter_api->get($uri, $query, $headers, $options, $enableCache, $cacheExpire);
         }
         catch(\Exception $e)
         {
@@ -40,18 +40,18 @@ class TwitterVariable
 	}
 
     /**
-     * Returns a tweet by its ID.
+     * Returns a tweet by its ID. Add query parameters to the API request with `query`.
      *
      * @param int $tweetId
      * @param array $params
      *
      * @return array|null
      */
-	public function getTweetById($tweetId, $params = array())
+	public function getTweetById($tweetId, $query = array())
 	{
         try
         {
-            return craft()->twitter_api->getTweetById($tweetId, $params);
+            return craft()->twitter_api->getTweetById($tweetId, $query);
         }
         catch(\Exception $e)
         {
@@ -60,18 +60,18 @@ class TwitterVariable
 	}
 
     /**
-     * Returns a user by their ID.
+     * Returns a Twitter user by its ID. Add query parameters to the API request with `query`.
      *
-     * @param int $userId
-     * @param array $params
+     * @param int $twitterUserId
+     * @param array $query
      *
      * @return array|null
      */
-	public function getUserById($userId, $params = array())
+	public function getUserById($twitterUserId, $query = array())
 	{
         try
         {
-            return craft()->twitter_api->getUserById($userId, $params);
+            return craft()->twitter_api->getUserById($twitterUserId, $query);
         }
         catch(\Exception $e)
         {
