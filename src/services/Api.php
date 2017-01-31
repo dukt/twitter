@@ -73,9 +73,11 @@ class Api extends Component
 
         $url = $uri.'.json';
 
-        $response = $client->get($url, $headers, $options)->send();
+        $options['headers'] = $headers;
 
-        $jsonResponse = $response->json();
+        $response = $client->request('GET', $url, $options);
+
+        $jsonResponse = json_decode($response->getBody(), true);
 
         if($enableCache)
         {
@@ -202,19 +204,22 @@ class Api extends Component
      */
     private function getClient()
     {
-        $client = new Client(['base_uri' => 'https://api.twitter.com/1.1']);
-
-        $provider = \dukt\oauth\Plugin::getInstance()->oauth->getProvider('twitter');
+        $options = [
+            'base_uri' => 'https://api.twitter.com/1.1/'
+        ];
 
         $token = \dukt\twitter\Plugin::getInstance()->twitter_oauth->getToken();
 
         if($token)
         {
-            $oauth = $provider->getSubscriber($token);
+            $provider = \dukt\oauth\Plugin::getInstance()->oauth->getProvider('twitter');
 
-            $client->addSubscriber($oauth);
+            $stack = $provider->getSubscriber($token);
 
-            return $client;
+            $options['auth'] = 'oauth';
+            $options['handler'] = $stack;
         }
+
+        return new Client($options);
     }
 }

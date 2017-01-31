@@ -8,6 +8,7 @@
 namespace dukt\twitter\widgets;
 
 use Craft;
+use dukt\twitter\models\Tweet;
 
 /**
  * Twitter Search Widget
@@ -76,8 +77,8 @@ class SearchWidget extends \craft\base\Widget
             {
                 if(!empty($searchQuery))
                 {
-                    try
-                    {
+/*                    try
+                    {*/
                         $response = \dukt\twitter\Plugin::getInstance()->twitter_api->get('search/tweets', [
                             'q' => $searchQuery,
                             'count' => $count
@@ -95,13 +96,13 @@ class SearchWidget extends \craft\base\Widget
 
                         $variables['tweets'] = $tweets;
 
-                        Craft::$app->getView()->includeCssResourceTemplate('twitter/css/twitter.css');
-                        Craft::$app->getView()->includeCssResourceTemplate('twitter/css/widget.css');
-                        Craft::$app->getView()->includeJsResourceTemplate('twitter/js/SearchWidget.js');
-                        Craft::$app->getView()->includeJsTemplate("new Craft.Twitter_SearchWidget('".$this->model->id."');");
+                        Craft::$app->getView()->registerCssFile('twitter/css/twitter.css');
+                        Craft::$app->getView()->registerCssFile('twitter/css/widget.css');
+                        Craft::$app->getView()->registerJsFile('twitter/js/SearchWidget.js');
+                        Craft::$app->getView()->registerJs("new Craft.Twitter_SearchWidget('".$this->id."');");
 
                         return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/body', $variables);
-                    }
+/*                    }
                     catch(\Exception $e)
                     {
                         // TwitterPlugin::log("Twitter error: ".__METHOD__." ".$e->getMessage(), LogLevel::Error, true);
@@ -109,12 +110,12 @@ class SearchWidget extends \craft\base\Widget
                         $variables['errorMsg'] = $e->getMessage();
 
                         return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/_error', $variables);
-                    }
+                    }*/
                 }
                 else
                 {
                     $variables['infoMsg'] = Craft::t('app', 'Please enter a search query in the <a href="{url}">widget’s settings</a>.', array(
-                        'url' => UrlHelper::getUrl('dashboard/settings/'.$this->model->id)
+                        'url' => UrlHelper::getUrl('dashboard/settings/'.$this->id)
                     ));
 
                     return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/_error', $variables);
