@@ -1,19 +1,29 @@
 {
   "name": "dukt/craft-twitter",
-  "description": "Twitter plugin for Craft CMS",
+  "description": "Tweet field, search widget, embeds, and authenticated Twitter API requests.",
   "type": "craft-plugin",
+  "extra": {
+    "name": "Twitter",
+    "handle": "twitter",
+    "developer": "Dukt",
+    "developerUrl": "https://dukt.net/",
+    "documentationUrl": "https://dukt.net/craft/twitter/docs",
+    "class": "dukt\\twitter\\Plugin",
+    "version": "3.0.0",
+    "schemaVersion": "1.0.0",
+    "changelogUrl": "https://dukt.net/craft/twitter/updates.json"
+  },
   "require": {
     "composer/installers": "~1.0",
     "nojimage/twitter-text-php": "^1.1"
   },
   "autoload": {
     "psr-4": {
-      "Twitter\\Base\\": "base/",
-      "Twitter\\Lib\\": "lib/"
+      "dukt\\twitter\\": "src/"
     }
   },
   "scripts": {
-    "post-update-cmd": ["echo [WARNING] Delete all .git dirs", "rm -rf vendor/**/**/.git"],
-    "post-install-cmd": ["echo [WARNING] Delete all .git dirs", "rm -rf vendor/**/**/.git"]
+    "post-update-cmd": ["echo [WARNING] Delete all .git dirs", "rm -rf vendor/nojimage/**/**/.git"],
+    "post-install-cmd": ["echo [WARNING] Delete all .git dirs", "rm -rf vendor/nojimage/**/**/.git"]
   }
 }
