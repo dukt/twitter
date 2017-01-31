@@ -7,7 +7,8 @@
 
 namespace dukt\twitter\services;
 
-use Guzzle\Http\Client;
+use Craft;
+use GuzzleHttp\Client;
 use yii\base\Component;
 
 /**
@@ -32,7 +33,7 @@ class Api extends Component
      */
     public function get($uri, array $query = null, array $headers = null, array $options = array(), $enableCache = null, $cacheExpire = 0)
     {
-        if(!craft()->twitter->checkDependencies())
+        if(!\dukt\twitter\Plugin::getInstance()->twitter->checkDependencies())
         {
             throw new Exception("Twitter plugin dependencies are not met");
         }
@@ -49,7 +50,7 @@ class Api extends Component
 
         if(is_null($enableCache))
         {
-            $enableCache = craft()->config->get('enableCache', 'twitter');
+            $enableCache = Craft::$app->config->get('enableCache', 'twitter');
         }
 
 
@@ -57,7 +58,7 @@ class Api extends Component
 
         if($enableCache)
         {
-            $response = craft()->twitter_cache->get([$uri, $headers, $options]);
+            $response = \dukt\twitter\Plugin::getInstance()->twitter_cache->get([$uri, $headers, $options]);
 
             if($response)
             {
@@ -78,7 +79,7 @@ class Api extends Component
 
         if($enableCache)
         {
-            craft()->twitter_cache->set([$uri, $headers, $options], $jsonResponse, $cacheExpire);
+            \dukt\twitter\Plugin::getInstance()->twitter_cache->set([$uri, $headers, $options], $jsonResponse, $cacheExpire);
         }
 
         return $jsonResponse;
@@ -98,7 +99,7 @@ class Api extends Component
 
         $query = array_merge($query, array('id' => $tweetId));
 
-        $tweet = craft()->twitter_api->get('statuses/show', $query);
+        $tweet = \dukt\twitter\Plugin::getInstance()->twitter_api->get('statuses/show', $query);
 
 
         // generate user profile image
@@ -142,7 +143,7 @@ class Api extends Component
 
         $query = array_merge($query, array('user_id' => $userId));
 
-        return craft()->twitter_api->get('users/show', $query);
+        return \dukt\twitter\Plugin::getInstance()->twitter_api->get('users/show', $query);
     }
 
     /**
@@ -157,7 +158,7 @@ class Api extends Component
     {
         if($userId && $remoteImageUrl)
         {
-            $originalFolderPath = craft()->path->getRuntimePath().'twitter/userimages/'.$userId.'/original/';
+            $originalFolderPath = Craft::$app->path->getRuntimePath().'twitter/userimages/'.$userId.'/original/';
 
             $contents = IOHelper::getFolderContents($originalFolderPath, false);
 
@@ -201,11 +202,11 @@ class Api extends Component
      */
     private function getClient()
     {
-        $client = new Client('https://api.twitter.com/1.1');
+        $client = new Client(['base_uri' => 'https://api.twitter.com/1.1']);
 
-        $provider = craft()->oauth->getProvider('twitter');
+        $provider = \dukt\oauth\Plugin::getInstance()->oauth->getProvider('twitter');
 
-        $token = craft()->twitter_oauth->getToken();
+        $token = \dukt\twitter\Plugin::getInstance()->twitter_oauth->getToken();
 
         if($token)
         {

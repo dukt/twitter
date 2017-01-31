@@ -29,7 +29,7 @@ class Twitter_TweetFieldType extends BaseFieldType
      * Returns the field's input HTML.
      *
      * @param string $name
-     * @param Twitter_TweetModel|null  $tweet
+     * @param Tweet|null  $tweet
      * @return string
      */
     public function getInputHtml($name, $tweet)
@@ -89,7 +89,7 @@ class Twitter_TweetFieldType extends BaseFieldType
      * Preps the field value for use.
      *
      * @param string|int|null $tweetUrlOrId
-     * @return Twitter_TweetModel|null
+     * @return Tweet|null
      */
     public function prepValue($tweetUrlOrId)
     {
@@ -99,7 +99,7 @@ class Twitter_TweetFieldType extends BaseFieldType
 
             if($tweetId)
             {
-                $tweet = new Twitter_TweetModel;
+                $tweet = new Tweet;
                 $tweet->remoteId = $tweetId;
 
                 return $tweet;
@@ -110,7 +110,7 @@ class Twitter_TweetFieldType extends BaseFieldType
     /**
      * @inheritDoc IFieldType::getSearchKeywords()
      *
-     * @param Twitter_TweetModel|null $tweet
+     * @param Tweet|null $tweet
      *
      * @return string
      */

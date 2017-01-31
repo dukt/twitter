@@ -11,6 +11,10 @@ use craft\events\RegisterUrlRulesEvent;
 use craft\web\UrlManager;
 use yii\base\Event;
 use dukt\twitter\models\Settings;
+use dukt\twitter\widgets\SearchWidget;
+use craft\services\Dashboard;
+use craft\events\RegisterComponentTypesEvent;
+
 
 /**
  * Twitter Plugin
@@ -35,6 +39,10 @@ class Plugin extends \craft\base\Plugin
         ]);
 
         Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES, [$this, 'registerCpUrlRules']);
+
+        Event::on(Dashboard::class, Dashboard::EVENT_REGISTER_WIDGET_TYPES, function(RegisterComponentTypesEvent $event) {
+            $event->types[] = SearchWidget::class;
+        });
     }
 
     public function registerCpUrlRules(RegisterUrlRulesEvent $event)
