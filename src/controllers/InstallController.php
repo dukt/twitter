@@ -5,12 +5,14 @@
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
-namespace Craft;
+namespace dukt\twitter\controllers;
+
+use craft\web\Controller;
 
 /**
  * Twitter Install controller
  */
-class Twitter_InstallController extends BaseController
+class InstallController extends Controller
 {
     // Public Methods
     // =========================================================================
@@ -25,13 +27,13 @@ class Twitter_InstallController extends BaseController
         if(!craft()->twitter->checkDependencies())
         {
             $missingDependencies = craft()->twitter->getMissingDependencies();
-            $this->renderTemplate('twitter/_special/install/index', [
+            return $this->renderTemplate('twitter/_special/install/index', [
                 'missingDependencies' => $missingDependencies,
             ]);
         }
         else
         {
-            $this->redirect('twitter/settings');
+            return $this->redirect('twitter/settings');
         }
     }
 }

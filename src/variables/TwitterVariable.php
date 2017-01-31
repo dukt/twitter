@@ -35,7 +35,7 @@ class TwitterVariable
         }
         catch(\Exception $e)
         {
-            TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
+            // TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
         }
 	}
 
@@ -55,7 +55,7 @@ class TwitterVariable
         }
         catch(\Exception $e)
         {
-            TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
+            // TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
         }
 	}
 
@@ -75,7 +75,7 @@ class TwitterVariable
         }
         catch(\Exception $e)
         {
-            TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
+            // TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
         }
 	}
 
@@ -95,7 +95,7 @@ class TwitterVariable
         }
         catch(\Exception $e)
         {
-            TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
+            // TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
         }
 	}
 

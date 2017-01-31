@@ -5,12 +5,16 @@
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
-namespace Craft;
+namespace dukt\twitter\services;
+
+use Craft;
+use yii\base\Component;
+use dukt\twitter\helpers\TwitterHelper;
 
 /**
  * Twitter Cache Service
  */
-class Twitter_CacheService extends BaseApplicationComponent
+class Cache extends Component
 {
 	// Public Methods
 	// =========================================================================
@@ -24,11 +28,11 @@ class Twitter_CacheService extends BaseApplicationComponent
 	 */
 	public function get($id)
     {
-        if(craft()->config->get('enableCache', 'twitter') === true)
+        if(Craft::$app->config->get('enableCache', 'twitter') === true)
         {
             $cacheKey = $this->getCacheKey($id);
 
-            return craft()->cache->get($cacheKey);
+            return Craft::$app->cache->get($cacheKey);
         }
     }
 
@@ -44,17 +48,17 @@ class Twitter_CacheService extends BaseApplicationComponent
 	 */
 	public function set($id, $value, $expire = null, $dependency = null)
     {
-        if(craft()->config->get('enableCache', 'twitter') === true)
+        if(Craft::$app->config->get('enableCache', 'twitter') === true)
         {
             $cacheKey = $this->getCacheKey($id);
 
             if(!$expire)
             {
-                $expire = craft()->config->get('cacheDuration', 'twitter');
+                $expire = Craft::$app->config->get('cacheDuration', 'twitter');
                 $expire = TwitterHelper::formatDuration($expire);
             }
 
-            return craft()->cache->set($cacheKey, $value, $expire, $dependency);
+            return Craft::$app->cache->set($cacheKey, $value, $expire, $dependency);
         }
     }
 

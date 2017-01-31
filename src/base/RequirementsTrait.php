@@ -5,9 +5,9 @@
  * @license   https://dukt.net/craft/twitter/docs/license
  */
  
-namespace Twitter\Base;
+namespace dukt\twitter\base;
 
-use Craft\Craft;
+use Craft;
 use Craft\UrlHelper;
 
 /**
@@ -28,7 +28,7 @@ trait RequirementsTrait
         if(!$this->checkDependencies())
         {
             $url = UrlHelper::getUrl('twitter/install');
-            Craft::app()->request->redirect($url);
+            Craft::$app->request->redirect($url);
             return false;
         }
         else
@@ -74,7 +74,7 @@ trait RequirementsTrait
      */
     private function getDependencies($missingOnly = false)
     {
-        $plugin = Craft::app()->plugins->getPlugin('twitter');
+        $plugin = Craft::$app->plugins->getPlugin('twitter');
         
         $dependencies = array();
 
@@ -110,7 +110,7 @@ trait RequirementsTrait
     {
         $isMissing = true;
 
-        $plugin = Craft::app()->plugins->getPlugin($dependency['handle'], false);
+        $plugin = Craft::$app->plugins->getPlugin($dependency['handle'], false);
 
         if($plugin)
         {
@@ -118,9 +118,16 @@ trait RequirementsTrait
 
             if(version_compare($currentVersion, $dependency['version']) >= 0)
             {
-                if($plugin->isInstalled && $plugin->isEnabled)
+                $allPluginInfo = Craft::$app->plugins->getAllPluginInfo();
+
+                if(isset($allPluginInfo[$dependency['handle']]))
                 {
-                    $isMissing = false;
+                    $pluginInfos = $allPluginInfo[$dependency['handle']];
+
+                    if($pluginInfos['isInstalled'] && $pluginInfos['isEnabled'])
+                    {
+                        $isMissing = false;
+                    }
                 }
             }
         }

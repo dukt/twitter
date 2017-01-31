@@ -5,12 +5,16 @@
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
-namespace Craft;
+namespace dukt\twitter\controllers;
+
+use Craft;
+use craft\web\Controller;
+use dukt\twitter\Plugin;
 
 /**
  * Twitter Settings controller
  */
-class Twitter_SettingsController extends BaseController
+class SettingsController extends Controller
 {
     // Public Methods
     // =========================================================================
@@ -22,9 +26,9 @@ class Twitter_SettingsController extends BaseController
      */
     public function actionIndex()
     {
-        craft()->twitter->requireDependencies();
+        Plugin::getInstance()->twitter->requireDependencies();
 
-        $plugin = craft()->plugins->getPlugin('twitter');
+        $plugin = Craft::$app->plugins->getPlugin('twitter');
 
         $variables = array(
             'provider' => false,
@@ -33,45 +37,45 @@ class Twitter_SettingsController extends BaseController
             'error' => false
         );
 
-        $provider = craft()->oauth->getProvider('twitter');
+        $provider = \dukt\oauth\Plugin::getInstance()->oauth->getProvider('twitter');
 
         if ($provider && $provider->isConfigured())
         {
-            $token = craft()->twitter_oauth->getToken();
+            $token = Plugin::getInstance()->twitter_oauth->getToken();
 
             if ($token)
             {
-                try
-                {
-                    $account = craft()->twitter_cache->get(['getAccount', $token]);
+/*                try
+                {*/
+                    $account = Plugin::getInstance()->twitter_cache->get(['getAccount', $token]);
 
                     if(!$account)
                     {
                         $account = $provider->getAccount($token);
-                        craft()->twitter_cache->set(['getAccount', $token], $account);
+                        Plugin::getInstance()->twitter_cache->set(['getAccount', $token], $account);
                     }
 
                     if ($account)
                     {
-                        TwitterPlugin::log("Twitter OAuth Account:\r\n".print_r($account, true), LogLevel::Info);
+                        // TwitterPlugin::log("Twitter OAuth Account:\r\n".print_r($account, true), LogLevel::Info);
 
                         $variables['account'] = $account;
                         $variables['settings'] = $plugin->getSettings();
                     }
-                }
+/*                }
                 catch(\Exception $e)
                 {
                     if(method_exists($e, 'getResponse'))
                     {
-                            TwitterPlugin::log("Couldn’t get account: ".$e->getResponse(), LogLevel::Error);
+                            // TwitterPlugin::log("Couldn’t get account: ".$e->getResponse(), LogLevel::Error);
                     }
                     else
                     {
-                        TwitterPlugin::log("Couldn’t get account: ".$e->getMessage(), LogLevel::Error);
+                        // TwitterPlugin::log("Couldn’t get account: ".$e->getMessage(), LogLevel::Error);
                     }
 
                     $variables['error'] = $e->getMessage();
-                }
+                }*/
             }
 
             $variables['token'] = $token;
@@ -79,6 +83,6 @@ class Twitter_SettingsController extends BaseController
             $variables['provider'] = $provider;
         }
 
-        $this->renderTemplate('twitter/settings', $variables);
+        return $this->renderTemplate('twitter/settings', $variables);
     }
 }

@@ -5,13 +5,18 @@
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
-namespace Craft;
+namespace dukt\twitter\models;
+
+use craft\base\Model;
 
 /**
  * Twitter Tweet Model
  */
-class Twitter_TweetModel extends BaseModel
+class Tweet extends Model
 {
+    public $remoteId;
+    public $data;
+    
     // Public Methods
     // =========================================================================
 

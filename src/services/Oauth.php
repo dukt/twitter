@@ -5,15 +5,19 @@
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
-namespace Craft;
+namespace dukt\twitter\services;
 
-class Twitter_OauthService extends BaseApplicationComponent
+use Craft;
+use yii\base\Component;
+use dukt\oauth\models\Token;
+
+class Oauth extends Component
 {
     // Properties
     // =========================================================================
 
     /**
-     * @var Oauth_TokenModel|null
+     * @var Token|null
      */
     private $token;
 
@@ -23,12 +27,12 @@ class Twitter_OauthService extends BaseApplicationComponent
     /**
      * Save Token
      *
-     * @param Oauth_TokenModel $token
+     * @param Token $token
      */
-    public function saveToken(Oauth_TokenModel $token)
+    public function saveToken(Token $token)
     {
         // get plugin
-        $plugin = craft()->plugins->getPlugin('twitter');
+        $plugin = Craft::$app->plugins->getPlugin('twitter');
 
         // get settings
         $settings = $plugin->getSettings();
@@ -36,7 +40,7 @@ class Twitter_OauthService extends BaseApplicationComponent
 
         // do we have an existing token ?
 
-        $existingToken = craft()->oauth->getTokenById($settings->tokenId);
+        $existingToken = \dukt\oauth\Plugin::getInstance()->oauth->getTokenById($settings->tokenId);
 
         if($existingToken)
         {
@@ -44,19 +48,19 @@ class Twitter_OauthService extends BaseApplicationComponent
         }
 
         // save token
-        craft()->oauth->saveToken($token);
+        \dukt\oauth\Plugin::getInstance()->oauth->saveToken($token);
 
         // set token ID
         $settings->tokenId = $token->id;
 
         // save plugin settings
-        craft()->plugins->savePluginSettings($plugin, $settings);
+        Craft::$app->plugins->savePluginSettings($plugin, $settings->getAttributes());
     }
 
 	/**
 	 * Get OAuth Token
 	 *
-	 * @return Oauth_TokenModel|null
+	 * @return Token|null
 	 */
 	public function getToken()
     {
@@ -67,7 +71,7 @@ class Twitter_OauthService extends BaseApplicationComponent
         else
         {
             // get plugin
-            $plugin = craft()->plugins->getPlugin('twitter');
+            $plugin = Craft::$app->plugins->getPlugin('twitter');
 
             // get settings
             $settings = $plugin->getSettings();
@@ -76,7 +80,7 @@ class Twitter_OauthService extends BaseApplicationComponent
             $tokenId = $settings->tokenId;
 
             // get token
-            $token = craft()->oauth->getTokenById($tokenId);
+            $token = \dukt\oauth\Plugin::getInstance()->oauth->getTokenById($tokenId);
 
             return $token;
         }
@@ -90,22 +94,22 @@ class Twitter_OauthService extends BaseApplicationComponent
 	public function deleteToken()
     {
         // get plugin
-        $plugin = craft()->plugins->getPlugin('twitter');
+        $plugin = Craft::$app->plugins->getPlugin('twitter');
 
         // get settings
         $settings = $plugin->getSettings();
 
         if($settings->tokenId)
         {
-            $token = craft()->oauth->getTokenById($settings->tokenId);
+            $token = \dukt\oauth\Plugin::getInstance()->oauth->getTokenById($settings->tokenId);
 
             if($token)
             {
-                if(craft()->oauth->deleteToken($token))
+                if(\dukt\oauth\Plugin::getInstance()->oauth->deleteToken($token))
                 {
                     $settings->tokenId = null;
 
-                    craft()->plugins->savePluginSettings($plugin, $settings);
+                    Craft::$app->plugins->savePluginSettings($plugin, $settings->getAttributes());
 
                     return true;
                 }

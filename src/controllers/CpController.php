@@ -5,12 +5,14 @@
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
-namespace Craft;
+namespace dukt\twitter\controllers;
+
+use craft\web\Controller;
 
 /**
  * Twitter controller
  */
-class TwitterController extends BaseController
+class TwitterController extends Controller
 {
     // Public Methods
     // =========================================================================

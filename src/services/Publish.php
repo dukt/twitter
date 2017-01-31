@@ -5,14 +5,15 @@
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
-namespace Craft;
+namespace dukt\twitter\services;
 
 use Guzzle\Http\Client;
+use yii\base\Component;
 
 /**
  * Twitter Publish Service
  */
-class Twitter_PublishService extends BaseApplicationComponent
+class Publish extends Component
 {
     // Public Methods
     // =========================================================================

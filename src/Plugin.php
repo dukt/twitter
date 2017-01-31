@@ -7,14 +7,46 @@
 
 namespace dukt\twitter;
 
+use craft\events\RegisterUrlRulesEvent;
+use craft\web\UrlManager;
+use yii\base\Event;
+use dukt\twitter\models\Settings;
+
 /**
  * Twitter Plugin
  */
 class Plugin extends \craft\base\Plugin
 {
+    public $hasSettings = true;
+
     // Public Methods
     // =========================================================================
-    
+
+    public function init()
+    {
+        parent::init();
+
+        $this->setComponents([
+            'twitter' => \dukt\twitter\services\Twitter::class,
+            'twitter_api' => \dukt\twitter\services\Api::class,
+            'twitter_cache' => \dukt\twitter\services\Cache::class,
+            'twitter_oauth' => \dukt\twitter\services\Oauth::class,
+            'twitter_publish' => \dukt\twitter\services\Publish::class,
+        ]);
+
+        Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES, [$this, 'registerCpUrlRules']);
+    }
+
+    public function registerCpUrlRules(RegisterUrlRulesEvent $event)
+    {
+        $rules = [
+            'twitter/settings' => 'twitter/settings/index',
+            'twitter/install' => 'twitter/install/index',
+        ];
+
+        $event->rules = array_merge($event->rules, $rules);
+    }
+
     /**
      * Get required plugins.
      *
@@ -61,19 +93,6 @@ class Plugin extends \craft\base\Plugin
 	{
 		return 'https://dukt.net/craft/twitter/updates.json';
 	}
-
-    /**
-     * Hook Register CP Routes.
-     *
-     * @return array
-     */
-    public function registerCpRoutes()
-    {
-        return array(
-            'twitter/settings' => array('action' => "twitter/settings/index"),
-            'twitter/install' => array('action' => "twitter/install/index"),
-        );
-    }
 
     /**
      * Adds support for Twitter user photo resource paths.
@@ -252,6 +271,31 @@ class Plugin extends \craft\base\Plugin
 
     // Protected Methods
     // =========================================================================
+
+    /**
+     * Creates and returns the model used to store the plugin’s settings.
+     *
+     * @return \craft\base\Model|null
+     */
+    protected function createSettingsModel()
+    {
+        return new Settings();
+    }
+
+    /**
+     * Returns the rendered settings HTML, which will be inserted into the content
+     * block on the settings page.
+     *
+     * @return string The rendered settings HTML
+     */
+    public function getSettingsResponse()
+    {
+        $url = \craft\helpers\UrlHelper::cpUrl('twitter/settings');
+
+        \Craft::$app->controller->redirect($url);
+
+        return '';
+    }
 
     /**
      * Defines the settings.

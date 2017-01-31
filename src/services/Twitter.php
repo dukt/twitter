@@ -5,17 +5,16 @@
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
-namespace Craft;
+namespace dukt\twitter\services;
 
-require_once(CRAFT_PLUGINS_PATH.'twitter/vendor/autoload.php');
-
-use Twitter\Base\RequirementsTrait;
-use Twitter\Lib\AutoLink;
+use dukt\twitter\base\RequirementsTrait;
+use dukt\twitter\lib\AutoLink;
+use yii\base\Component;
 
 /**
  * Twitter Service
  */
-class TwitterService extends BaseApplicationComponent
+class Twitter extends Component
 {
 	// Traits
 	// =========================================================================
