@@ -7,12 +7,13 @@
 
 namespace dukt\twitter\controllers;
 
+use Craft;
 use craft\web\Controller;
 
 /**
  * Twitter controller
  */
-class TwitterController extends Controller
+class CpController extends Controller
 {
     // Public Methods
     // =========================================================================
@@ -24,18 +25,16 @@ class TwitterController extends Controller
 	 */
 	public function actionLookupTweet()
 	{
-		$this->requireAjaxRequest();
-
-		$tweetId = craft()->request->getParam('id');
+		$tweetId = Craft::$app->request->getParam('id');
 
 		try {
-            $tweet = craft()->twitter_api->getTweetById($tweetId);
+            $tweet = \dukt\twitter\Plugin::getInstance()->twitter_api->getTweetById($tweetId);
 
-            $this->returnJson($tweet);
+            return $this->asJson($tweet);
         }
         catch(\Exception $e)
         {
-            $this->returnErrorJson($e->getMessage());
+            return $this->asErrorJson($e->getMessage());
         }
 	}
 }

@@ -5,12 +5,18 @@
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
-namespace Craft;
+namespace dukt\twitter\fields;
+
+use Craft;
+use craft\base\Field;
+use dukt\twitter\web\assets\twitter\TwitterAsset;
+use dukt\twitter\helpers\TwitterHelper;
+use craft\helpers\StringHelper;
 
 /**
  * Twitter Tweet Field Type
  */
-class Twitter_TweetFieldType extends BaseFieldType
+class Tweet extends Field
 {
     // Public Methods
     // =========================================================================
@@ -22,7 +28,7 @@ class Twitter_TweetFieldType extends BaseFieldType
      */
     public function getName()
     {
-        return Craft::t('Tweet');
+        return Craft::t('app', 'Tweet');
     }
 
     /**
@@ -32,13 +38,16 @@ class Twitter_TweetFieldType extends BaseFieldType
      * @param Tweet|null  $tweet
      * @return string
      */
-    public function getInputHtml($name, $tweet)
+    public function getInputHtml($value, \craft\base\ElementInterface $element = NULL): string
     {
-        $id = craft()->templates->formatInputId($name);
+        $name = $this->handle;
+        $tweet = $this->prepValue($value);
+
+        $id = Craft::$app->getView()->formatInputId($name);
 
         $previewHtml = '';
 
-        if(craft()->twitter->checkDependencies())
+        if(\dukt\twitter\Plugin::getInstance()->twitter->checkDependencies())
         {
             if ($tweet && $tweet->remoteId)
             {
@@ -66,19 +75,20 @@ class Twitter_TweetFieldType extends BaseFieldType
         }
         else
         {
-            $previewHtml .= '<p class="light">'.Craft::t("Twitter plugin is not configured properly. Please check {url} for more informations.", array('url' => Craft::t('<a href="'.UrlHelper::getUrl('twitter/settings').'">{title}</a>', array('title' => 'Twitter plugin settings')))).'</p>';
+            $previewHtml .= '<p class="light">'.Craft::t('app', "Twitter plugin is not configured properly. Please check {url} for more informations.", array('url' => Craft::t('app', '<a href="'.UrlHelper::getUrl('twitter/settings').'">{title}</a>', array('title' => 'Twitter plugin settings')))).'</p>';
         }
 
-        craft()->templates->includeCssResource('twitter/css/twitter.css');
-        craft()->templates->includeJsResource('twitter/js/TweetInput.js');
-        craft()->templates->includeJs('new TweetInput("'.craft()->templates->namespaceInputId($id).'");');
+        Craft::$app->getView()->registerAssetBundle(TwitterAsset::class);
+        /*Craft::$app->getView()->registerCssFile('twitter/css/twitter.css');
+        Craft::$app->getView()->registerJsFile('twitter/js/TweetInput.js');*/
+        Craft::$app->getView()->registerJs('new TweetInput("'.Craft::$app->getView()->namespaceInputId($id).'");');
 
         return '<div class="tweet-field">' .
-            craft()->templates->render('_includes/forms/text', array(
+            Craft::$app->getView()->renderTemplate('_includes/forms/text', array(
                 'id'    => $id,
                 'name'  => $name,
-                'value' => $this->element->getContent()->{$name},
-                'placeholder' => Craft::t('Enter a tweet URL or ID'),
+                'value' => $value,
+                'placeholder' => Craft::t('app', 'Enter a tweet URL or ID'),
             )) .
             '<div class="spinner hidden"></div>' .
             $previewHtml.
@@ -99,7 +109,7 @@ class Twitter_TweetFieldType extends BaseFieldType
 
             if($tweetId)
             {
-                $tweet = new Tweet;
+                $tweet = new \dukt\twitter\models\Tweet;
                 $tweet->remoteId = $tweetId;
 
                 return $tweet;
@@ -114,8 +124,10 @@ class Twitter_TweetFieldType extends BaseFieldType
      *
      * @return string
      */
-    public function getSearchKeywords($tweet)
+    public function getSearchKeywords($value, \craft\base\ElementInterface $element): string
     {
+        $tweet = $this->prepValue($value);
+
         if($tweet)
         {
             $parts = [];
@@ -145,9 +157,11 @@ class Twitter_TweetFieldType extends BaseFieldType
                 $parts[] = $tweet->getUserScreenName();
             }
 
-            $keywords = StringHelper::arrayToString($parts,' ');
+            $keywords = StringHelper::toString($parts,' ');
 
             return StringHelper::encodeMb4($keywords);
         }
+
+        return '';
     }
 }

@@ -10,6 +10,7 @@ namespace dukt\twitter\services;
 use Craft;
 use GuzzleHttp\Client;
 use yii\base\Component;
+use craft\helpers\FileHelper;
 
 /**
  * Twitter API Service
@@ -162,32 +163,39 @@ class Api extends Component
         {
             $originalFolderPath = Craft::$app->path->getRuntimePath().'twitter/userimages/'.$userId.'/original/';
 
-            $contents = IOHelper::getFolderContents($originalFolderPath, false);
+            if (!is_dir($originalFolderPath)) {
+                FileHelper::createDirectory($originalFolderPath);
+            }
 
-            if ($contents)
+            $files = FileHelper::findFiles($originalFolderPath);
+
+            if (count($files) > 0)
             {
-                $imagePath = $contents[0];
+                $imagePath = $files[0];
 
                 return $imagePath;
             }
             else
             {
-                IOHelper::ensureFolderExists($originalFolderPath);
-
                 $remoteImageUrl = str_replace('_normal', '', $remoteImageUrl);
 
                 $fileName = pathinfo($remoteImageUrl, PATHINFO_BASENAME);
 
                 $imagePath = $originalFolderPath.$fileName;
 
-                $response = \Guzzle\Http\StaticClient::get($remoteImageUrl, array(
+                $client = new \GuzzleHttp\Client();
+
+                $response = $client->request('GET', $remoteImageUrl, array(
                     'save_to' => $imagePath
                 ));
 
-                if (!$response->isSuccessful())
+                /**
+                 * TODO: Check status instead ?
+                 * */
+/*                if (!$response->isSuccessful())
                 {
                     return;
-                }
+                }*/
 
                 return $imagePath;
             }

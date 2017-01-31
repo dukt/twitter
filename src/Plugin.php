@@ -7,14 +7,19 @@
 
 namespace dukt\twitter;
 
+use Craft;
+use craft\events\RegisterComponentTypesEvent;
 use craft\events\RegisterUrlRulesEvent;
+use craft\events\ResolveResourcePathEvent;
+use craft\helpers\FileHelper;
+use craft\services\Dashboard;
+use craft\services\Fields;
+use craft\services\Resources;
 use craft\web\UrlManager;
-use yii\base\Event;
+use dukt\twitter\fields\Tweet as TweetField;
 use dukt\twitter\models\Settings;
 use dukt\twitter\widgets\SearchWidget;
-use craft\services\Dashboard;
-use craft\events\RegisterComponentTypesEvent;
-
+use yii\base\Event;
 
 /**
  * Twitter Plugin
@@ -42,6 +47,15 @@ class Plugin extends \craft\base\Plugin
 
         Event::on(Dashboard::class, Dashboard::EVENT_REGISTER_WIDGET_TYPES, function(RegisterComponentTypesEvent $event) {
             $event->types[] = SearchWidget::class;
+        });
+
+        Event::on(Fields::class, Fields::EVENT_REGISTER_FIELD_TYPES, function(RegisterComponentTypesEvent $event) {
+            $event->types[] = TweetField::class;
+        });
+
+        Event::on(Resources::class, Resources::EVENT_RESOLVE_RESOURCE_PATH, function(ResolveResourcePathEvent $event) {
+            $path = $this->getResourcePath($event->uri);
+            $event->path = $path;
         });
     }
 
@@ -135,15 +149,19 @@ class Plugin extends \craft\base\Plugin
                 $size = $sizeKey;
             }
 
-            $baseUserImagePath = craft()->path->getRuntimePath().'twitter/userimages/'.$userId.'/';
+            $baseUserImagePath = Craft::$app->path->getRuntimePath().'/twitter/userimages/'.$userId.'/';
             $sizedFolderPath = $baseUserImagePath.$size.'/';
 
-            // Have we already downloaded this user’s image at this size?
-            $contents = IOHelper::getFolderContents($sizedFolderPath, false);
+            if (!is_dir($sizedFolderPath)) {
+                FileHelper::createDirectory($sizedFolderPath);
+            }
 
-            if ($contents)
+            // Have we already downloaded this user’s image at this size?
+            $files = FileHelper::findFiles($sizedFolderPath);
+
+            if (count($files) > 0)
             {
-                return $contents[0];
+                return $files[0];
             }
             else
             {
@@ -175,16 +193,20 @@ class Plugin extends \craft\base\Plugin
 
                 $originalFolderPath = $baseUserImagePath.$sizeName.'/';
 
-                $contents = IOHelper::getFolderContents($originalFolderPath, false);
+                if (!is_dir($originalFolderPath)) {
+                    FileHelper::createDirectory($originalFolderPath);
+                }
 
-                if ($contents)
+                $files = FileHelper::findFiles($originalFolderPath);
+
+                if (count($files) > 0)
                 {
-                    $originalPath = $contents[0];
+                    $originalPath = $files[0];
                 }
                 else
                 {
                     // OK, let’s fetch it then
-                    $user = craft()->twitter_api->getUserById($userId);
+                    $user = \dukt\twitter\Plugin::getInstance()->twitter_api->getUserById($userId);
 
                     if (!$user || empty($user['profile_image_url_https']))
                     {
@@ -205,19 +227,26 @@ class Plugin extends \craft\base\Plugin
                         }
                     }
 
-                    IOHelper::ensureFolderExists($originalFolderPath);
-
                     $fileName = pathinfo($url, PATHINFO_BASENAME);
                     $originalPath = $originalFolderPath.$fileName;
 
-                    $response = \Guzzle\Http\StaticClient::get($url, array(
+                    $client = new \GuzzleHttp\Client();
+
+                    $response = $client->request('GET', $url, array(
                         'save_to' => $originalPath
                     ));
 
+                    /**
+                     * TODO: Check status instead ?
+                     * */
+                    /*
                     if (!$response->isSuccessful())
                     {
                         return;
                     }
+                    */
+
+                    return $originalPath;
                 }
 
                 // If they were actually requesting "mini", "normal", "bigger", or "original", we're done
@@ -249,7 +278,7 @@ class Plugin extends \craft\base\Plugin
     public function registerCachePaths()
     {
         return array(
-            craft()->path->getRuntimePath().'twitter/' => Craft::t('Twitter resources'),
+            Craft::$app->path->getRuntimePath().'/twitter/' => Craft::t('Twitter resources'),
         );
     }
 
