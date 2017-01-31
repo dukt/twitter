@@ -5,55 +5,15 @@
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
-namespace Craft;
+namespace dukt\twitter;
 
 /**
  * Twitter Plugin
  */
-class TwitterPlugin extends BasePlugin
+class Plugin extends \craft\base\Plugin
 {
     // Public Methods
     // =========================================================================
-
-    /**
-     * Get the plugin’s name
-     *
-     * @return string The plugin’s name.
-     */
-    public function getName()
-    {
-        return Craft::t('Twitter');
-    }
-
-    /**
-     * Get the plugin’s description
-     *
-     * @return string The plugin’s description.
-     */
-    public function getDescription()
-    {
-        return Craft::t('Tweet field, search widget, embeds, and authenticated Twitter API requests.');
-    }
-
-	/**
-	 * Get Version
-     *
-     * @return string
-	 */
-    public function getVersion()
-    {
-        return '2.0.0';
-    }
-
-    /**
-     * Get Schema Version
-     *
-     * @return string
-     */
-    public function getSchemaVersion()
-    {
-        return '1.0.0';
-    }
     
     /**
      * Get required plugins.
@@ -70,26 +30,6 @@ class TwitterPlugin extends BasePlugin
                 'version' => '2.0.0'
             )
         );
-    }
-
-    /**
-     * Get the developer’s name.
-     *
-     * @return string
-     */
-    public function getDeveloper()
-    {
-        return 'Dukt';
-    }
-
-    /**
-     * Get the developer’s URL.
-     *
-     * @return string
-     */
-    public function getDeveloperUrl()
-    {
-        return 'https://dukt.net/';
     }
 
     /**
