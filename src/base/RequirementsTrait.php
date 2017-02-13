@@ -100,7 +100,6 @@ trait RequirementsTrait
         return $dependencies;
     }
 
-
     /**
      * Get dependency
      *
