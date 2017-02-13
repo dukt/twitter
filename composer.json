@@ -15,6 +15,7 @@
   },
   "require": {
     "composer/installers": "~1.0",
+    "dukt/craft-oauth": "3.x-dev",
     "nojimage/twitter-text-php": "^1.1"
   },
   "autoload": {
