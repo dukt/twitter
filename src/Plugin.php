@@ -26,6 +26,12 @@ use yii\base\Event;
  */
 class Plugin extends \craft\base\Plugin
 {
+    // Properties
+    // =========================================================================
+
+    /**
+     * @var bool
+     */
     public $hasSettings = true;
 
     /**
@@ -38,6 +44,9 @@ class Plugin extends \craft\base\Plugin
     // Public Methods
     // =========================================================================
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         parent::init();

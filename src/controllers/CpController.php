@@ -11,7 +11,7 @@ use Craft;
 use craft\web\Controller;
 
 /**
- * Twitter controller
+ * CP controller
  */
 class CpController extends Controller
 {

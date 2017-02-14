@@ -11,7 +11,7 @@ use Craft;
 use craft\web\Controller;
 
 /**
- * Twitter OAuth controller
+ * OAuth controller
  */
 class OauthController extends Controller
 {

@@ -10,7 +10,7 @@ namespace dukt\twitter\controllers;
 use craft\web\Controller;
 
 /**
- * Twitter Install controller
+ * Install controller
  */
 class InstallController extends Controller
 {

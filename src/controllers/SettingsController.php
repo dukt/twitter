@@ -12,7 +12,7 @@ use craft\web\Controller;
 use dukt\twitter\Plugin;
 
 /**
- * Twitter Settings controller
+ * Settings controller
  */
 class SettingsController extends Controller
 {
