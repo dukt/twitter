@@ -12,7 +12,7 @@ use craft\base\Widget;
 use craft\helpers\UrlHelper;
 use dukt\twitter\models\Tweet;
 use dukt\twitter\Plugin as Twitter;
-use dukt\twitter\web\assets\twitter\TwitterAsset;
+use dukt\twitter\web\assets\searchwidget\SearchWidgetAsset;
 
 /**
  * Search Widget
@@ -105,10 +105,7 @@ class SearchWidget extends Widget
 
                         $variables['tweets'] = $tweets;
 
-                        /*Craft::$app->getView()->registerCssFile('twitter/css/twitter.css');
-                        Craft::$app->getView()->registerCssFile('twitter/css/widget.css');
-                        Craft::$app->getView()->registerJsFile('twitter/js/SearchWidget.js');*/
-                        Craft::$app->getView()->registerAssetBundle(TwitterAsset::class);
+                        Craft::$app->getView()->registerAssetBundle(SearchWidgetAsset::class);
                         Craft::$app->getView()->registerJs("new Craft.Twitter_SearchWidget('".$this->id."');");
 
                         return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/body', $variables);
