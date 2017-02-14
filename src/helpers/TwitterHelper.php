@@ -92,93 +92,93 @@ class TwitterHelper
      * @return string
      */
     public static function timeAgo($date)
-	{
-		if(is_string($date))
-		{
-			$date = new DateTime($date);
-		}
+    {
+        if(is_string($date))
+        {
+            $date = new DateTime($date);
+        }
 
-		$now = new DateTime();
+        $now = new DateTime();
 
-		$difference = $now->getTimestamp() - $date->getTimestamp();
+        $difference = $now->getTimestamp() - $date->getTimestamp();
 
-		$durations = self::secondsToHumanTimeDuration($difference, true, false);
+        $durations = self::secondsToHumanTimeDuration($difference, true, false);
 
-		$duration = Craft::t('app', "{duration} ago", ['duration' => $durations[0]]);
+        $duration = Craft::t('app', "{duration} ago", ['duration' => $durations[0]]);
 
-		return $duration;
-	}
+        return $duration;
+    }
 
-	/**
+    /**
      * Seconds to human duration
      *
-	 * @param int  $seconds     The number of seconds
-	 * @param bool $showSeconds Whether to output seconds or not
-	 * @param bool $implodeComponents Whether to implode components or not for return
-	 *
-	 * @return string|array
-	 */
-	public static function secondsToHumanTimeDuration($seconds, $showSeconds = true, $implodeComponents = true)
-	{
-		$secondsInWeek   = 604800;
-		$secondsInDay    = 86400;
-		$secondsInHour   = 3600;
-		$secondsInMinute = 60;
+     * @param int  $seconds     The number of seconds
+     * @param bool $showSeconds Whether to output seconds or not
+     * @param bool $implodeComponents Whether to implode components or not for return
+     *
+     * @return string|array
+     */
+    public static function secondsToHumanTimeDuration($seconds, $showSeconds = true, $implodeComponents = true)
+    {
+        $secondsInWeek   = 604800;
+        $secondsInDay    = 86400;
+        $secondsInHour   = 3600;
+        $secondsInMinute = 60;
 
-		$weeks = floor($seconds / $secondsInWeek);
-		$seconds = $seconds % $secondsInWeek;
+        $weeks = floor($seconds / $secondsInWeek);
+        $seconds = $seconds % $secondsInWeek;
 
-		$days = floor($seconds / $secondsInDay);
-		$seconds = $seconds % $secondsInDay;
+        $days = floor($seconds / $secondsInDay);
+        $seconds = $seconds % $secondsInDay;
 
-		$hours = floor($seconds / $secondsInHour);
-		$seconds = $seconds % $secondsInHour;
+        $hours = floor($seconds / $secondsInHour);
+        $seconds = $seconds % $secondsInHour;
 
-		if ($showSeconds)
-		{
-			$minutes = floor($seconds / $secondsInMinute);
-			$seconds = $seconds % $secondsInMinute;
-		}
-		else
-		{
-			$minutes = round($seconds / $secondsInMinute);
-			$seconds = 0;
-		}
+        if ($showSeconds)
+        {
+            $minutes = floor($seconds / $secondsInMinute);
+            $seconds = $seconds % $secondsInMinute;
+        }
+        else
+        {
+            $minutes = round($seconds / $secondsInMinute);
+            $seconds = 0;
+        }
 
-		$timeComponents = array();
+        $timeComponents = array();
 
-		if ($weeks)
-		{
-			$timeComponents[] = $weeks.' '.($weeks == 1 ? Craft::t('app', 'week') : Craft::t('app', 'weeks'));
-		}
+        if ($weeks)
+        {
+            $timeComponents[] = $weeks.' '.($weeks == 1 ? Craft::t('app', 'week') : Craft::t('app', 'weeks'));
+        }
 
-		if ($days)
-		{
-			$timeComponents[] = $days.' '.($days == 1 ? Craft::t('app', 'day') : Craft::t('app', 'days'));
-		}
+        if ($days)
+        {
+            $timeComponents[] = $days.' '.($days == 1 ? Craft::t('app', 'day') : Craft::t('app', 'days'));
+        }
 
-		if ($hours)
-		{
-			$timeComponents[] = $hours.' '.($hours == 1 ? Craft::t('app', 'hour') : Craft::t('app', 'hours'));
-		}
+        if ($hours)
+        {
+            $timeComponents[] = $hours.' '.($hours == 1 ? Craft::t('app', 'hour') : Craft::t('app', 'hours'));
+        }
 
-		if ($minutes || (!$showSeconds && !$weeks && !$days && !$hours))
-		{
-			$timeComponents[] = $minutes.' '.($minutes == 1 ? Craft::t('app', 'minute') : Craft::t('app', 'minutes'));
-		}
+        if ($minutes || (!$showSeconds && !$weeks && !$days && !$hours))
+        {
+            $timeComponents[] = $minutes.' '.($minutes == 1 ? Craft::t('app', 'minute') : Craft::t('app', 'minutes'));
+        }
 
-		if ($seconds || ($showSeconds && !$weeks && !$days && !$hours && !$minutes))
-		{
-			$timeComponents[] = $seconds.' '.($seconds == 1 ? Craft::t('app', 'second') : Craft::t('app', 'seconds'));
-		}
+        if ($seconds || ($showSeconds && !$weeks && !$days && !$hours && !$minutes))
+        {
+            $timeComponents[] = $seconds.' '.($seconds == 1 ? Craft::t('app', 'second') : Craft::t('app', 'seconds'));
+        }
 
-		if($implodeComponents)
-		{
-			return implode(', ', $timeComponents);
-		}
-		else
-		{
-			return $timeComponents;
-		}
-	}
+        if($implodeComponents)
+        {
+            return implode(', ', $timeComponents);
+        }
+        else
+        {
+            return $timeComponents;
+        }
+    }
 }

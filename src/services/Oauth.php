@@ -63,12 +63,12 @@ class Oauth extends Component
         Craft::$app->plugins->savePluginSettings($plugin, $settings->getAttributes());
     }
 
-	/**
-	 * Get OAuth Token
-	 *
-	 * @return Token|null
-	 */
-	public function getToken()
+    /**
+     * Get OAuth Token
+     *
+     * @return Token|null
+     */
+    public function getToken()
     {
         if($this->token)
         {
@@ -92,12 +92,12 @@ class Oauth extends Component
         }
     }
 
-	/**
-	 * Delete Token
-	 *
-	 * @return bool
-	 */
-	public function deleteToken()
+    /**
+     * Delete Token
+     *
+     * @return bool
+     */
+    public function deleteToken()
     {
         // get plugin
         $plugin = Craft::$app->plugins->getPlugin('twitter');

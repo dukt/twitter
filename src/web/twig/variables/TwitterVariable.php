@@ -30,9 +30,9 @@ class TwitterVariable
      *
      * @return string|null
      */
-	public function get($uri, array $query = null, array $headers = null, $options = array(), $enableCache = null, $cacheExpire = 0)
-	{
-	    try
+    public function get($uri, array $query = null, array $headers = null, $options = array(), $enableCache = null, $cacheExpire = 0)
+    {
+        try
         {
             return craft()->twitter_api->get($uri, $query, $headers, $options, $enableCache, $cacheExpire);
         }
@@ -40,7 +40,7 @@ class TwitterVariable
         {
             // TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
         }
-	}
+    }
 
     /**
      * Returns a tweet by its ID. Add query parameters to the API request with `query`.
@@ -50,8 +50,8 @@ class TwitterVariable
      *
      * @return array|null
      */
-	public function getTweetById($tweetId, $query = array())
-	{
+    public function getTweetById($tweetId, $query = array())
+    {
         try
         {
             return craft()->twitter_api->getTweetById($tweetId, $query);
@@ -60,7 +60,7 @@ class TwitterVariable
         {
             // TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
         }
-	}
+    }
 
     /**
      * Returns a Twitter user by its ID. Add query parameters to the API request with `query`.
@@ -70,8 +70,8 @@ class TwitterVariable
      *
      * @return array|null
      */
-	public function getUserById($twitterUserId, $query = array())
-	{
+    public function getUserById($twitterUserId, $query = array())
+    {
         try
         {
             return craft()->twitter_api->getUserById($twitterUserId, $query);
@@ -80,7 +80,7 @@ class TwitterVariable
         {
             // TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
         }
-	}
+    }
 
     /**
      * Returns a user image from a twitter user ID for given size. Default size is 48.
@@ -90,8 +90,8 @@ class TwitterVariable
      *
      * @return string|null
      */
-	public function getUserProfileImageResourceUrl($twitterUserId, $size = 48)
-	{
+    public function getUserProfileImageResourceUrl($twitterUserId, $size = 48)
+    {
         try
         {
             return TwitterHelper::getUserProfileImageResourceUrl($twitterUserId, $size);
@@ -100,7 +100,7 @@ class TwitterVariable
         {
             // TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
         }
-	}
+    }
 
     /**
      * Returns a user image from a twitter user ID for given size. Default size is 48.
@@ -112,8 +112,8 @@ class TwitterVariable
      *
      * @return string|null
      */
-	public function getUserImageUrl($twitterUserId, $size = 48)
-	{
-	    return $this->getUserProfileImageResourceUrl($twitterUserId, $size);
-	}
+    public function getUserImageUrl($twitterUserId, $size = 48)
+    {
+        return $this->getUserProfileImageResourceUrl($twitterUserId, $size);
+    }
 }

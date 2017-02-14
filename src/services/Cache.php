@@ -19,17 +19,17 @@ use dukt\twitter\helpers\TwitterHelper;
  */
 class Cache extends Component
 {
-	// Public Methods
-	// =========================================================================
+    // Public Methods
+    // =========================================================================
 
-	/**
-	 * Get cache
-	 *
-	 * @param $id
-	 *
-	 * @return mixed
-	 */
-	public function get($id)
+    /**
+     * Get cache
+     *
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function get($id)
     {
         if(Craft::$app->config->get('enableCache', 'twitter') === true)
         {
@@ -39,17 +39,17 @@ class Cache extends Component
         }
     }
 
-	/**
-	 * Set cache
-	 *
-	 * @param      $id
-	 * @param      $value
-	 * @param null $expire
-	 * @param null $dependency
-	 *
-	 * @return mixed
-	 */
-	public function set($id, $value, $expire = null, $dependency = null)
+    /**
+     * Set cache
+     *
+     * @param      $id
+     * @param      $value
+     * @param null $expire
+     * @param null $dependency
+     *
+     * @return mixed
+     */
+    public function set($id, $value, $expire = null, $dependency = null)
     {
         if(Craft::$app->config->get('enableCache', 'twitter') === true)
         {
@@ -65,17 +65,17 @@ class Cache extends Component
         }
     }
 
-	// Private Methods
-	// =========================================================================
+    // Private Methods
+    // =========================================================================
 
-	/**
-	 * Get cache key
-	 *
-	 * @param array $request
-	 *
-	 * @return string
-	 */
-	private function getCacheKey(array $request)
+    /**
+     * Get cache key
+     *
+     * @param array $request
+     *
+     * @return string
+     */
+    private function getCacheKey(array $request)
     {
         $dataSourceClassName = 'Twitter';
 

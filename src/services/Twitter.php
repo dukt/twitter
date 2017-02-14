@@ -19,10 +19,10 @@ use yii\base\Component;
  */
 class Twitter extends Component
 {
-	// Traits
-	// =========================================================================
+    // Traits
+    // =========================================================================
 
-	use RequirementsTrait;
+    use RequirementsTrait;
 
     // Public Methods
     // =========================================================================
@@ -37,7 +37,7 @@ class Twitter extends Component
      */
     public function autoLinkTweet($text, $options = array())
     {
-	    $twitter = AutoLink::create();
+        $twitter = AutoLink::create();
 
         $aliases = array(
             'urlClass' => 'setURLClass',

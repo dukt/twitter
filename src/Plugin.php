@@ -127,15 +127,15 @@ class Plugin extends \craft\base\Plugin
         return 'https://dukt.net/craft/twitter/docs/';
     }
 
-	/**
-	 * Get Release Feed URL.
+    /**
+     * Get Release Feed URL.
      *
      * @return string
-	 */
-	public function getReleaseFeedUrl()
-	{
-		return 'https://dukt.net/craft/twitter/updates.json';
-	}
+     */
+    public function getReleaseFeedUrl()
+    {
+        return 'https://dukt.net/craft/twitter/updates.json';
+    }
 
     /**
      * Adds support for Twitter user photo resource paths.

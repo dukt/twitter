@@ -19,35 +19,35 @@ class TwitterTwigExtension extends Twig_Extension
     // Public Methods
     // =========================================================================
 
-	/**
-	 * Get Name
-	 *
-	 * @return string
-	 */
-	public function getName()
+    /**
+     * Get Name
+     *
+     * @return string
+     */
+    public function getName()
     {
         return 'Twitter';
     }
 
-	/**
-	 * Get Filters
-	 *
-	 * @return array
-	 */
-	public function getFilters()
+    /**
+     * Get Filters
+     *
+     * @return array
+     */
+    public function getFilters()
     {
         return array(
-	        'autoLinkTweet' => new Twig_Filter_Method($this, 'autoLinkTweet'),
-	        'twitterTimeAgo' => new Twig_Filter_Method($this, 'timeAgo')
+            'autoLinkTweet' => new Twig_Filter_Method($this, 'autoLinkTweet'),
+            'twitterTimeAgo' => new Twig_Filter_Method($this, 'timeAgo')
         );
     }
 
-	/**
-	 * Get Functions
-	 *
-	 * @return array
-	 */
-	public function getFunctions()
+    /**
+     * Get Functions
+     *
+     * @return array
+     */
+    public function getFunctions()
     {
         return [
             'twitterGrid' => new Twig_Function_Method($this, 'twitterGrid'),
@@ -92,45 +92,45 @@ class TwitterTwigExtension extends Twig_Extension
         return TemplateHelper::getRaw($html);
     }
 
-	/**
-	 * Returns the HTML of a Timeline widget.
-	 *
-	 * @param       $url
-	 * @param array $options
-	 *
-	 * @return \Twig_Markup
-	 */
-	public function twitterTimeline($url, $options = [])
+    /**
+     * Returns the HTML of a Timeline widget.
+     *
+     * @param       $url
+     * @param array $options
+     *
+     * @return \Twig_Markup
+     */
+    public function twitterTimeline($url, $options = [])
     {
         $html = craft()->twitter_publish->timeline($url, $options);
 
         return TemplateHelper::getRaw($html);
     }
 
-	/**
-	 * Returns the HTML of a Tweet widget.
-	 *
-	 * @param       $url
-	 * @param array $options
-	 *
-	 * @return \Twig_Markup
-	 */
-	public function twitterTweet($url, $options = [])
+    /**
+     * Returns the HTML of a Tweet widget.
+     *
+     * @param       $url
+     * @param array $options
+     *
+     * @return \Twig_Markup
+     */
+    public function twitterTweet($url, $options = [])
     {
         $html = craft()->twitter_publish->tweet($url, $options);
 
         return TemplateHelper::getRaw($html);
     }
 
-	/**
-	 * Returns the HTML of a Video Tweet widget.
-	 *
-	 * @param       $url
-	 * @param array $options
-	 *
-	 * @return \Twig_Markup
-	 */
-	public function twitterVideo($url, $options = [])
+    /**
+     * Returns the HTML of a Video Tweet widget.
+     *
+     * @param       $url
+     * @param array $options
+     *
+     * @return \Twig_Markup
+     */
+    public function twitterVideo($url, $options = [])
     {
         $html = craft()->twitter_publish->video($url, $options);
 
@@ -183,20 +183,20 @@ class TwitterTwigExtension extends Twig_Extension
         return TemplateHelper::getRaw($html);
     }
 
-	/**
-	 * Auto Link Tweet
-	 *
-	 * @param       $text
-	 * @param array $options
-	 *
-	 * @return \Twig_Markup
-	 */
-	public function autoLinkTweet($text, $options = [])
-	{
-		$html = craft()->twitter->autoLinkTweet($text, $options);
+    /**
+     * Auto Link Tweet
+     *
+     * @param       $text
+     * @param array $options
+     *
+     * @return \Twig_Markup
+     */
+    public function autoLinkTweet($text, $options = [])
+    {
+        $html = craft()->twitter->autoLinkTweet($text, $options);
 
-		return TemplateHelper::getRaw($html);
-	}
+        return TemplateHelper::getRaw($html);
+    }
 
     /**
      * Time Ago
@@ -205,12 +205,12 @@ class TwitterTwigExtension extends Twig_Extension
      *
      * @return \Twig_Markup
      */
-	public function timeAgo($date)
-	{
-		$html = TwitterHelper::timeAgo($date);
+    public function timeAgo($date)
+    {
+        $html = TwitterHelper::timeAgo($date);
 
-		return TemplateHelper::getRaw($html);
-	}
+        return TemplateHelper::getRaw($html);
+    }
 
     /**
      * Embedded Tweet

@@ -22,16 +22,16 @@ class CpController extends Controller
     // Public Methods
     // =========================================================================
 
-	/**
-	 * Looks up a tweet by its ID.
+    /**
+     * Looks up a tweet by its ID.
      *
      * @return null
-	 */
-	public function actionLookupTweet()
-	{
-		$tweetId = Craft::$app->request->getParam('id');
+     */
+    public function actionLookupTweet()
+    {
+        $tweetId = Craft::$app->request->getParam('id');
 
-		try {
+        try {
             $tweet = Twitter::$plugin->twitter_api->getTweetById($tweetId);
 
             return $this->asJson($tweet);
@@ -40,5 +40,5 @@ class CpController extends Controller
         {
             return $this->asErrorJson($e->getMessage());
         }
-	}
+    }
 }
