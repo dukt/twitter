@@ -22,6 +22,9 @@ use dukt\twitter\web\assets\searchwidget\SearchWidgetAsset;
  */
 class SearchWidget extends Widget
 {
+    // Properties
+    // =========================================================================
+
     /**
      * @var
      */
