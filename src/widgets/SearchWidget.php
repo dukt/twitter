@@ -8,6 +8,7 @@
 namespace dukt\twitter\widgets;
 
 use Craft;
+use craft\base\Widget;
 use dukt\twitter\models\Tweet;
 use dukt\twitter\Plugin as Twitter;
 use dukt\twitter\web\assets\twitter\TwitterAsset;
@@ -18,7 +19,7 @@ use dukt\twitter\web\assets\twitter\TwitterAsset;
  * @author Dukt <support@dukt.net>
  * @since  3.0
  */
-class SearchWidget extends \craft\base\Widget
+class SearchWidget extends Widget
 {
     /**
      * @var
