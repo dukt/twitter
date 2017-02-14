@@ -7,6 +7,7 @@
 
 namespace dukt\twitter\web\twig;
 
+use Craft;
 use craft\helpers\Template;
 use dukt\twitter\Plugin as Twitter;
 use Twig_Extension;
