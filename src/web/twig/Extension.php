@@ -7,9 +7,11 @@
 
 namespace dukt\twitter\web\twig;
 
+use craft\helpers\Template;
+use dukt\twitter\Plugin as Twitter;
 use Twig_Extension;
-use Twig_Filter_Method;
-use Twig_Function_Method;
+use Twig_SimpleFunction;
+use Twig_SimpleFilter;
 
 /**
  * Twitter Twig Extension
@@ -37,8 +39,8 @@ class Extension extends Twig_Extension
     public function getFilters()
     {
         return array(
-            'autoLinkTweet' => new Twig_Filter_Method($this, 'autoLinkTweet'),
-            'twitterTimeAgo' => new Twig_Filter_Method($this, 'timeAgo')
+            new Twig_SimpleFilter('autoLinkTweet', [$this, 'autoLinkTweet']),
+            new Twig_SimpleFilter('twitterTimeAgo', [$this, 'timeAgo'])
         );
     }
 
@@ -50,15 +52,15 @@ class Extension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            'twitterGrid' => new Twig_Function_Method($this, 'twitterGrid'),
-            'twitterTimeline' => new Twig_Function_Method($this, 'twitterTimeline'),
-            'twitterTweet' => new Twig_Function_Method($this, 'twitterTweet'),
-            'twitterVideo' => new Twig_Function_Method($this, 'twitterVideo'),
-            'twitterMoment' => new Twig_Function_Method($this, 'twitterMoment'),
-            'twitterFollowButton' => new Twig_Function_Method($this, 'twitterFollowButton'),
-            'twitterMessageButton' => new Twig_Function_Method($this, 'twitterMessageButton'),
-            'twitterTweetButton' => new Twig_Function_Method($this, 'twitterTweetButton'),
-            'embedTweet' => new Twig_Function_Method($this, 'embedTweet'),
+            new Twig_SimpleFunction('twitterGrid', [$this, 'twitterGrid']),
+            new Twig_SimpleFunction('twitterTimeline', [$this, 'twitterTimeline']),
+            new Twig_SimpleFunction('twitterTweet', [$this, 'twitterTweet']),
+            new Twig_SimpleFunction('twitterVideo', [$this, 'twitterVideo']),
+            new Twig_SimpleFunction('twitterMoment', [$this, 'twitterMoment']),
+            new Twig_SimpleFunction('twitterFollowButton', [$this, 'twitterFollowButton']),
+            new Twig_SimpleFunction('twitterMessageButton', [$this, 'twitterMessageButton']),
+            new Twig_SimpleFunction('twitterTweetButton', [$this, 'twitterTweetButton']),
+            new Twig_SimpleFunction('embedTweet', [$this, 'embedTweet']),
         ];
     }
 
@@ -72,9 +74,9 @@ class Extension extends Twig_Extension
      */
     public function twitterGrid($url, $options = [])
     {
-        $html = craft()->twitter_publish->grid($url, $options);
+        $html = Twitter::$plugin->twitter_publish->grid($url, $options);
 
-        return TemplateHelper::getRaw($html);
+        return Template::raw($html);
     }
 
     /**
@@ -87,9 +89,9 @@ class Extension extends Twig_Extension
      */
     public function twitterMoment($url, $options = [])
     {
-        $html = craft()->twitter_publish->moment($url, $options);
+        $html = Twitter::$plugin->twitter_publish->moment($url, $options);
 
-        return TemplateHelper::getRaw($html);
+        return Template::raw($html);
     }
 
     /**
@@ -102,9 +104,9 @@ class Extension extends Twig_Extension
      */
     public function twitterTimeline($url, $options = [])
     {
-        $html = craft()->twitter_publish->timeline($url, $options);
+        $html = Twitter::$plugin->twitter_publish->timeline($url, $options);
 
-        return TemplateHelper::getRaw($html);
+        return Template::raw($html);
     }
 
     /**
@@ -117,9 +119,9 @@ class Extension extends Twig_Extension
      */
     public function twitterTweet($url, $options = [])
     {
-        $html = craft()->twitter_publish->tweet($url, $options);
+        $html = Twitter::$plugin->twitter_publish->tweet($url, $options);
 
-        return TemplateHelper::getRaw($html);
+        return Template::raw($html);
     }
 
     /**
@@ -132,9 +134,9 @@ class Extension extends Twig_Extension
      */
     public function twitterVideo($url, $options = [])
     {
-        $html = craft()->twitter_publish->video($url, $options);
+        $html = Twitter::$plugin->twitter_publish->video($url, $options);
 
-        return TemplateHelper::getRaw($html);
+        return Template::raw($html);
     }
 
     /**
@@ -147,9 +149,9 @@ class Extension extends Twig_Extension
      */
     public function twitterFollowButton($username, $options = [])
     {
-        $html = craft()->twitter_publish->followButton($username, $options);
+        $html = Twitter::$plugin->twitter_publish->followButton($username, $options);
 
-        return TemplateHelper::getRaw($html);
+        return Template::raw($html);
     }
 
     /**
@@ -164,9 +166,9 @@ class Extension extends Twig_Extension
      */
     public function twitterMessageButton($recipientId, $screenName, $text = null, $options = [])
     {
-        $html = craft()->twitter_publish->messageButton($recipientId, $screenName, $text, $options);
+        $html = Twitter::$plugin->twitter_publish->messageButton($recipientId, $screenName, $text, $options);
 
-        return TemplateHelper::getRaw($html);
+        return Template::raw($html);
     }
 
     /**
@@ -178,9 +180,9 @@ class Extension extends Twig_Extension
      */
     public function twitterTweetButton($options = [])
     {
-        $html = craft()->twitter_publish->tweetButton($options);
+        $html = Twitter::$plugin->twitter_publish->tweetButton($options);
 
-        return TemplateHelper::getRaw($html);
+        return Template::raw($html);
     }
 
     /**
@@ -193,9 +195,9 @@ class Extension extends Twig_Extension
      */
     public function autoLinkTweet($text, $options = [])
     {
-        $html = craft()->twitter->autoLinkTweet($text, $options);
+        $html = Twitter::$plugin->twitter->autoLinkTweet($text, $options);
 
-        return TemplateHelper::getRaw($html);
+        return Template::raw($html);
     }
 
     /**
@@ -209,7 +211,7 @@ class Extension extends Twig_Extension
     {
         $html = TwitterHelper::timeAgo($date);
 
-        return TemplateHelper::getRaw($html);
+        return Template::raw($html);
     }
 
     /**
@@ -222,10 +224,10 @@ class Extension extends Twig_Extension
      */
     public function embedTweet($id, $options = [])
     {
-        craft()->deprecator->log('{{ embedTweet() }}', '{{ embedTweet() }} has been deprecated. Use {{ twitterTweet() }} instead.');
+        Craft::$app->deprecator->log('{{ embedTweet() }}', '{{ embedTweet() }} has been deprecated. Use {{ twitterTweet() }} instead.');
 
-        $html = craft()->twitter->embedTweet($id, $options);
+        $html = Twitter::$plugin->twitter->embedTweet($id, $options);
 
-        return TemplateHelper::getRaw($html);
+        return Template::raw($html);
     }
 }
