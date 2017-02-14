@@ -10,6 +10,7 @@ namespace dukt\twitter\controllers;
 use Craft;
 use craft\web\Controller;
 use dukt\twitter\Plugin as Twitter;
+use dukt\oauth\Plugin as Oauth;
 
 /**
  * Settings controller
@@ -40,7 +41,7 @@ class SettingsController extends Controller
             'error' => false
         );
 
-        $provider = \dukt\oauth\Twitter::$plugin->oauth->getProvider('twitter');
+        $provider = Oauth::$plugin->oauth->getProvider('twitter');
 
         if ($provider && $provider->isConfigured())
         {
