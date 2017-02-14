@@ -28,12 +28,20 @@ class Plugin extends \craft\base\Plugin
 {
     public $hasSettings = true;
 
+    /**
+     * Static property that is an instance of this plugin class so that it can be accessed via Twitter::$plugin
+     *
+     * @var static
+     */
+    public static $plugin;
+
     // Public Methods
     // =========================================================================
 
     public function init()
     {
         parent::init();
+        self::$plugin = $this;
 
         $this->setComponents([
             'twitter' => \dukt\twitter\services\Twitter::class,
