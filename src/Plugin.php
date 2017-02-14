@@ -19,6 +19,7 @@ use craft\web\UrlManager;
 use dukt\twitter\fields\Tweet as TweetField;
 use dukt\twitter\models\Settings;
 use dukt\twitter\widgets\SearchWidget;
+use dukt\twitter\web\twig\variables\TwitterVariable;
 use yii\base\Event;
 
 /**
@@ -324,6 +325,14 @@ class Plugin extends \craft\base\Plugin
     {
         Craft::import('plugins.twitter.etc.templating.twigextensions.TwitterTwigExtension');
         return new TwitterTwigExtension();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function defineTemplateComponent()
+    {
+        return TwitterVariable::class;
     }
 
     // Protected Methods

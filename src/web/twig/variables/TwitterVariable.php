@@ -5,7 +5,7 @@
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
-namespace Craft;
+namespace dukt\twitter\web\twig\variables;
 
 /**
  * Twitter Variable
