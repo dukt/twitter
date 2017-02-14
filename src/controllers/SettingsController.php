@@ -13,6 +13,9 @@ use dukt\twitter\Plugin as Twitter;
 
 /**
  * Settings controller
+ *
+ * @author Dukt <support@dukt.net>
+ * @since  3.0
  */
 class SettingsController extends Controller
 {

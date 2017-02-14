@@ -23,6 +23,9 @@ use yii\base\Event;
 
 /**
  * Twitter Plugin
+ *
+ * @author Dukt <support@dukt.net>
+ * @since  3.0
  */
 class Plugin extends \craft\base\Plugin
 {

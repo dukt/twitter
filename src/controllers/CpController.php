@@ -13,6 +13,9 @@ use dukt\twitter\Plugin as Twitter;
 
 /**
  * CP controller
+ *
+ * @author Dukt <support@dukt.net>
+ * @since  3.0
  */
 class CpController extends Controller
 {

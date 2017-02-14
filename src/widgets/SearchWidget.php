@@ -13,12 +13,22 @@ use dukt\twitter\Plugin as Twitter;
 use dukt\twitter\web\assets\twitter\TwitterAsset;
 
 /**
- * Twitter Search Widget
+ * Search Widget
+ *
+ * @author Dukt <support@dukt.net>
+ * @since  3.0
  */
 class SearchWidget extends \craft\base\Widget
 {
+    /**
+     * @var
+     */
     public $query;
+    /**
+     * @var
+     */
     public $count;
+
     // Public Methods
     // =========================================================================
 

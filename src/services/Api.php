@@ -14,7 +14,10 @@ use GuzzleHttp\Client;
 use yii\base\Component;
 
 /**
- * Twitter API Service
+ * Api Service
+ *
+ * @author Dukt <support@dukt.net>
+ * @since  3.0
  */
 class Api extends Component
 {

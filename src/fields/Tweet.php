@@ -9,13 +9,16 @@ namespace dukt\twitter\fields;
 
 use Craft;
 use craft\base\Field;
+use craft\helpers\StringHelper;
 use dukt\twitter\Plugin as Twitter;
 use dukt\twitter\helpers\TwitterHelper;
 use dukt\twitter\web\assets\twitter\TwitterAsset;
-use craft\helpers\StringHelper;
 
 /**
- * Twitter Tweet Field Type
+ * Tweet field
+ *
+ * @author Dukt <support@dukt.net>
+ * @since  3.0
  */
 class Tweet extends Field
 {

@@ -9,6 +9,9 @@ namespace Craft;
 
 /**
  * Twitter Variable
+ *
+ * @author Dukt <support@dukt.net>
+ * @since  3.0
  */
 class TwitterVariable
 {

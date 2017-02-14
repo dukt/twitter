@@ -11,7 +11,10 @@ use Guzzle\Http\Client;
 use yii\base\Component;
 
 /**
- * Twitter Publish Service
+ * Publish Service
+ *
+ * @author Dukt <support@dukt.net>
+ * @since  3.0
  */
 class Publish extends Component
 {

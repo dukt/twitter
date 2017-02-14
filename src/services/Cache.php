@@ -12,7 +12,10 @@ use yii\base\Component;
 use dukt\twitter\helpers\TwitterHelper;
 
 /**
- * Twitter Cache Service
+ * Cache Service
+ *
+ * @author Dukt <support@dukt.net>
+ * @since  3.0
  */
 class Cache extends Component
 {

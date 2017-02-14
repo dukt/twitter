@@ -13,6 +13,9 @@ use yii\base\Component;
 
 /**
  * Twitter Service
+ *
+ * @author Dukt <support@dukt.net>
+ * @since  3.0
  */
 class Twitter extends Component
 {

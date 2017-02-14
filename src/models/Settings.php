@@ -1,19 +1,30 @@
 <?php
 namespace dukt\twitter\models;
 
-use Craft;
 use craft\base\Model;
 
+/**
+ * Settings model class.
+ *
+ * @author Dukt <support@dukt.net>
+ * @since  3.0
+ */
 class Settings extends Model
 {
-    // Public Properties
+    // Properties
     // =========================================================================
 
+    /**
+     * @var
+     */
     public $tokenId;
 
     // Public Methods
     // =========================================================================
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [

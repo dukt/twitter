@@ -12,11 +12,20 @@ use dukt\twitter\helpers\TwitterHelper;
 use dukt\twitter\Plugin as Twitter;
 
 /**
- * Twitter Tweet Model
+ * Tweet model class.
+ *
+ * @author Dukt <support@dukt.net>
+ * @since  3.0
  */
 class Tweet extends Model
 {
+    /**
+     * @var
+     */
     public $remoteId;
+    /**
+     * @var
+     */
     public $data;
     
     // Public Methods

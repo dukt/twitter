@@ -14,6 +14,9 @@ use craft\helpers\UrlHelper;
 
 /**
  * Twitter Helper
+ *
+ * @author Dukt <support@dukt.net>
+ * @since  3.0
  */
 class TwitterHelper
 {

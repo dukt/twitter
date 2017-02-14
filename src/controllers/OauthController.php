@@ -13,6 +13,9 @@ use dukt\twitter\Plugin as Twitter;
 
 /**
  * OAuth controller
+ *
+ * @author Dukt <support@dukt.net>
+ * @since  3.0
  */
 class OauthController extends Controller
 {

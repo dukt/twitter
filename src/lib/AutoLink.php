@@ -8,7 +8,10 @@
 namespace dukt\twitter\lib;
 
 /**
- * Auto Link
+ * Class Auto Link
+ *
+ * @author Dukt <support@dukt.net>
+ * @since  3.0
  */
 class AutoLink extends \Twitter_Autolink
 {

@@ -11,6 +11,9 @@ use craft\web\Controller;
 
 /**
  * Install controller
+ *
+ * @author Dukt <support@dukt.net>
+ * @since  3.0
  */
 class InstallController extends Controller
 {

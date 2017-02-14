@@ -12,6 +12,9 @@ use craft\helpers\UrlHelper;
 
 /**
  * Requirements Trait
+ *
+ * @author Dukt <support@dukt.net>
+ * @since  3.0
  */
 trait RequirementsTrait
 {
