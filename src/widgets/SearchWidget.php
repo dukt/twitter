@@ -53,9 +53,7 @@ class SearchWidget extends Widget
     // =========================================================================
 
     /**
-     * @inheritDoc IWidget::getTitle()
-     *
-     * @return string
+     * @inheritdoc
      */
     public function getTitle(): string
     {
@@ -69,11 +67,9 @@ class SearchWidget extends Widget
         return Craft::t('app', "Twitter Search");
     }
 
-	/**
-	 * @inheritDoc IWidget::getBodyHtml()
-	 *
-	 * @return string|false
-	 */
+    /**
+     * @inheritdoc
+     */
     public function getBodyHtml()
     {
         if(Twitter::$plugin->twitter->checkDependencies())
@@ -153,31 +149,13 @@ class SearchWidget extends Widget
         }
     }
 
-	/**
-	 * @inheritDoc ISavableComponentType::getSettingsHtml()
-	 *
-	 * @return string
-	 */
+    /**
+     * @inheritdoc
+     */
     public function getSettingsHtml()
     {
         return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/settings', array(
            'settings' => $this->getSettings()
         ));
-    }
-
-    // Protected
-    // =========================================================================
-
-	/**
-	 * @inheritDoc BaseSavableComponentType::defineSettings()
-	 *
-	 * @return array
-	 */
-    protected function defineSettings()
-    {
-        return array(
-           'query' => array(AttributeType::String),
-           'count' => array(AttributeType::Number, 'default' => 10)
-        );
     }
 }
