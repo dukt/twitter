@@ -7,7 +7,8 @@
 
 namespace dukt\twitter\services;
 
-use Guzzle\Http\Client;
+use dukt\twitter\Plugin as Twitter;
+use GuzzleHttp\Client;
 use yii\base\Component;
 
 /**
@@ -245,25 +246,30 @@ class Publish extends Component
      *
      * @return array|bool|float|int|string
      */
-    private function oEmbed($url, $options = [])
+    private function oEmbed($url, $query = [])
     {
-        if(!isset($options['omit_script']))
+        if(!isset($query['omit_script']))
         {
-            $options['omit_script'] = true;
+            $query['omit_script'] = true;
         }
 
-        $oembed = craft()->twitter_cache->get(['twitter.publish.oEmbed', $url, $options]);
+        $query['url'] = $url;
+
+        $options = [
+            'query' => $query
+        ];
+
+        $oembed = Twitter::$plugin->twitter_cache->get(['twitter.publish.oEmbed', $url, $options]);
 
         if(!$oembed)
         {
-            $query = array_merge(['url' => $url], $options);
-
             $client = new Client();
-            $response = $client->get('https://publish.twitter.com/oembed', [], ['query' => $query])->send();
 
-            $oembed = $response->json();
+            $response = $client->request('GET', 'https://publish.twitter.com/oembed', $options);
 
-            craft()->twitter_cache->set(['twitter.publish.oEmbed', $url, $options], $oembed);
+            $oembed = json_decode($response->getBody(), true);
+
+            Twitter::$plugin->twitter_cache->set(['twitter.publish.oEmbed', $url, $options], $oembed);
         }
 
         return $oembed;
