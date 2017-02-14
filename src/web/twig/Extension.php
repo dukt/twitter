@@ -5,7 +5,7 @@
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
-namespace Craft;
+namespace dukt\twitter\web\twig;
 
 use Twig_Extension;
 use Twig_Filter_Method;
@@ -14,7 +14,7 @@ use Twig_Function_Method;
 /**
  * Twitter Twig Extension
  */
-class TwitterTwigExtension extends Twig_Extension
+class Extension extends Twig_Extension
 {
     // Public Methods
     // =========================================================================

@@ -19,6 +19,7 @@ use craft\web\UrlManager;
 use dukt\twitter\fields\Tweet as TweetField;
 use dukt\twitter\models\Settings;
 use dukt\twitter\widgets\SearchWidget;
+use dukt\twitter\web\twig\Extension;
 use dukt\twitter\web\twig\variables\TwitterVariable;
 use yii\base\Event;
 
@@ -56,6 +57,9 @@ class Plugin extends \craft\base\Plugin
         parent::init();
         self::$plugin = $this;
 
+
+        // Components
+
         $this->setComponents([
             'twitter' => \dukt\twitter\services\Twitter::class,
             'twitter_api' => \dukt\twitter\services\Api::class,
@@ -63,6 +67,9 @@ class Plugin extends \craft\base\Plugin
             'twitter_oauth' => \dukt\twitter\services\Oauth::class,
             'twitter_publish' => \dukt\twitter\services\Publish::class,
         ]);
+
+
+        // Events
 
         Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES, [$this, 'registerCpUrlRules']);
 
@@ -78,6 +85,11 @@ class Plugin extends \craft\base\Plugin
             $path = $this->getResourcePath($event->uri);
             $event->path = $path;
         });
+
+
+        // Twig extension
+
+        Craft::$app->view->twig->addExtension(new Extension());
     }
 
     public function registerCpUrlRules(RegisterUrlRulesEvent $event)
