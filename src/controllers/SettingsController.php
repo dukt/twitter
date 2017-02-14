@@ -9,7 +9,7 @@ namespace dukt\twitter\controllers;
 
 use Craft;
 use craft\web\Controller;
-use dukt\twitter\Plugin;
+use dukt\twitter\Plugin as Twitter;
 
 /**
  * Settings controller
@@ -26,7 +26,7 @@ class SettingsController extends Controller
      */
     public function actionIndex()
     {
-        Plugin::getInstance()->twitter->requireDependencies();
+        Twitter::$plugin->twitter->requireDependencies();
 
         $plugin = Craft::$app->plugins->getPlugin('twitter');
 
@@ -37,22 +37,22 @@ class SettingsController extends Controller
             'error' => false
         );
 
-        $provider = \dukt\oauth\Plugin::getInstance()->oauth->getProvider('twitter');
+        $provider = \dukt\oauth\Twitter::$plugin->oauth->getProvider('twitter');
 
         if ($provider && $provider->isConfigured())
         {
-            $token = Plugin::getInstance()->twitter_oauth->getToken();
+            $token = Twitter::$plugin->twitter_oauth->getToken();
 
             if ($token)
             {
 /*                try
                 {*/
-                    $account = Plugin::getInstance()->twitter_cache->get(['getAccount', $token]);
+                    $account = Twitter::$plugin->twitter_cache->get(['getAccount', $token]);
 
                     if(!$account)
                     {
                         $account = $provider->getAccount($token);
-                        Plugin::getInstance()->twitter_cache->set(['getAccount', $token], $account);
+                        Twitter::$plugin->twitter_cache->set(['getAccount', $token], $account);
                     }
 
                     if ($account)

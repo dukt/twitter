@@ -8,9 +8,10 @@
 namespace dukt\twitter\services;
 
 use Craft;
+use craft\helpers\FileHelper;
+use dukt\twitter\Plugin as Twitter;
 use GuzzleHttp\Client;
 use yii\base\Component;
-use craft\helpers\FileHelper;
 
 /**
  * Twitter API Service
@@ -34,7 +35,7 @@ class Api extends Component
      */
     public function get($uri, array $query = null, array $headers = null, array $options = array(), $enableCache = null, $cacheExpire = 0)
     {
-        if(!\dukt\twitter\Plugin::getInstance()->twitter->checkDependencies())
+        if(!Twitter::$plugin->twitter->checkDependencies())
         {
             throw new Exception("Twitter plugin dependencies are not met");
         }
@@ -59,7 +60,7 @@ class Api extends Component
 
         if($enableCache)
         {
-            $response = \dukt\twitter\Plugin::getInstance()->twitter_cache->get([$uri, $headers, $options]);
+            $response = Twitter::$plugin->twitter_cache->get([$uri, $headers, $options]);
 
             if($response)
             {
@@ -82,7 +83,7 @@ class Api extends Component
 
         if($enableCache)
         {
-            \dukt\twitter\Plugin::getInstance()->twitter_cache->set([$uri, $headers, $options], $jsonResponse, $cacheExpire);
+            Twitter::$plugin->twitter_cache->set([$uri, $headers, $options], $jsonResponse, $cacheExpire);
         }
 
         return $jsonResponse;
@@ -102,7 +103,7 @@ class Api extends Component
 
         $query = array_merge($query, array('id' => $tweetId));
 
-        $tweet = \dukt\twitter\Plugin::getInstance()->twitter_api->get('statuses/show', $query);
+        $tweet = Twitter::$plugin->twitter_api->get('statuses/show', $query);
 
 
         // generate user profile image
@@ -146,7 +147,7 @@ class Api extends Component
 
         $query = array_merge($query, array('user_id' => $userId));
 
-        return \dukt\twitter\Plugin::getInstance()->twitter_api->get('users/show', $query);
+        return Twitter::$plugin->twitter_api->get('users/show', $query);
     }
 
     /**
@@ -216,7 +217,7 @@ class Api extends Component
             'base_uri' => 'https://api.twitter.com/1.1/'
         ];
 
-        $token = \dukt\twitter\Plugin::getInstance()->twitter_oauth->getToken();
+        $token = Twitter::$plugin->twitter_oauth->getToken();
 
         if($token)
         {

@@ -223,7 +223,7 @@ class Plugin extends \craft\base\Plugin
                 else
                 {
                     // OK, let’s fetch it then
-                    $user = \dukt\twitter\Plugin::getInstance()->twitter_api->getUserById($userId);
+                    $user = self::$plugin->twitter_api->getUserById($userId);
 
                     if (!$user || empty($user['profile_image_url_https']))
                     {

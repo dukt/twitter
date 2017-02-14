@@ -8,7 +8,7 @@
 namespace dukt\twitter\base;
 
 use Craft;
-use Craft\UrlHelper;
+use craft\helpers\UrlHelper;
 
 /**
  * Requirements Trait

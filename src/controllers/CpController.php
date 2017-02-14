@@ -9,6 +9,7 @@ namespace dukt\twitter\controllers;
 
 use Craft;
 use craft\web\Controller;
+use dukt\twitter\Plugin as Twitter;
 
 /**
  * CP controller
@@ -28,7 +29,7 @@ class CpController extends Controller
 		$tweetId = Craft::$app->request->getParam('id');
 
 		try {
-            $tweet = \dukt\twitter\Plugin::getInstance()->twitter_api->getTweetById($tweetId);
+            $tweet = Twitter::$plugin->twitter_api->getTweetById($tweetId);
 
             return $this->asJson($tweet);
         }

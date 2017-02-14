@@ -9,6 +9,7 @@ namespace dukt\twitter\widgets;
 
 use Craft;
 use dukt\twitter\models\Tweet;
+use dukt\twitter\Plugin as Twitter;
 use dukt\twitter\web\assets\twitter\TwitterAsset;
 
 /**
@@ -65,14 +66,14 @@ class SearchWidget extends \craft\base\Widget
 	 */
     public function getBodyHtml()
     {
-        if(\dukt\twitter\Plugin::getInstance()->twitter->checkDependencies())
+        if(Twitter::$plugin->twitter->checkDependencies())
         {
             $settings = $this->getSettings();
 
             $searchQuery = $settings['query'];
             $count = $settings['count'];
 
-            $token = \dukt\twitter\Plugin::getInstance()->twitter_oauth->getToken();
+            $token = Twitter::$plugin->twitter_oauth->getToken();
 
             if($token)
             {
@@ -80,7 +81,7 @@ class SearchWidget extends \craft\base\Widget
                 {
 /*                    try
                     {*/
-                        $response = \dukt\twitter\Plugin::getInstance()->twitter_api->get('search/tweets', [
+                        $response = Twitter::$plugin->twitter_api->get('search/tweets', [
                             'q' => $searchQuery,
                             'count' => $count
                         ]);

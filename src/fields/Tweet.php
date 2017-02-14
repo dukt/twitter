@@ -9,8 +9,9 @@ namespace dukt\twitter\fields;
 
 use Craft;
 use craft\base\Field;
-use dukt\twitter\web\assets\twitter\TwitterAsset;
+use dukt\twitter\Plugin as Twitter;
 use dukt\twitter\helpers\TwitterHelper;
+use dukt\twitter\web\assets\twitter\TwitterAsset;
 use craft\helpers\StringHelper;
 
 /**
@@ -47,7 +48,7 @@ class Tweet extends Field
 
         $previewHtml = '';
 
-        if(\dukt\twitter\Plugin::getInstance()->twitter->checkDependencies())
+        if(Twitter::$plugin->twitter->checkDependencies())
         {
             if ($tweet && $tweet->remoteId)
             {

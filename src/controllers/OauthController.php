@@ -9,6 +9,7 @@ namespace dukt\twitter\controllers;
 
 use Craft;
 use craft\web\Controller;
+use dukt\twitter\Plugin as Twitter;
 
 /**
  * OAuth controller
@@ -63,7 +64,7 @@ class OauthController extends Controller
             {
                 $token = $response['token'];
 
-                \dukt\twitter\Plugin::getInstance()->twitter_oauth->saveToken($token);
+                Twitter::$plugin->twitter_oauth->saveToken($token);
 
                 // TwitterPlugin::log('Twitter OAuth Connect Step 2: '."\r\n".print_r(['token' => $token], true), LogLevel::Info);
 
@@ -93,7 +94,7 @@ class OauthController extends Controller
     {
         $session = Craft::$app->getSession();
 
-        if (\dukt\twitter\Plugin::getInstance()->twitter_oauth->deleteToken())
+        if (Twitter::$plugin->twitter_oauth->deleteToken())
         {
             $session->setNotice(Craft::t('app', "Disconnected from Twitter."));
         }

@@ -9,6 +9,7 @@ namespace dukt\twitter\models;
 
 use craft\base\Model;
 use dukt\twitter\helpers\TwitterHelper;
+use dukt\twitter\Plugin as Twitter;
 
 /**
  * Twitter Tweet Model
@@ -219,7 +220,7 @@ class Tweet extends Model
     {
         if(!empty($this->remoteId))
         {
-            return \dukt\twitter\Plugin::getInstance()->twitter_api->getTweetById($this->remoteId);
+            return Twitter::$plugin->twitter_api->getTweetById($this->remoteId);
         }
     }
 }
