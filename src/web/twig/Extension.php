@@ -10,6 +10,7 @@ namespace dukt\twitter\web\twig;
 use Craft;
 use craft\helpers\Template;
 use dukt\twitter\Plugin as Twitter;
+use dukt\twitter\helpers\TwitterHelper;
 use Twig_Extension;
 use Twig_SimpleFunction;
 use Twig_SimpleFilter;
