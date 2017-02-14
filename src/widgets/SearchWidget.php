@@ -86,8 +86,8 @@ class SearchWidget extends Widget
             {
                 if(!empty($searchQuery))
                 {
-/*                    try
-                    {*/
+                    try
+                    {
                         $response = Twitter::$plugin->twitter_api->get('search/tweets', [
                             'q' => $searchQuery,
                             'count' => $count
@@ -109,15 +109,13 @@ class SearchWidget extends Widget
                         Craft::$app->getView()->registerJs("new Craft.Twitter_SearchWidget('".$this->id."');");
 
                         return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/body', $variables);
-/*                    }
+                    }
                     catch(\Exception $e)
                     {
-                        // TwitterPlugin::log("Twitter error: ".__METHOD__." ".$e->getMessage(), LogLevel::Error, true);
-
                         $variables['errorMsg'] = $e->getMessage();
 
                         return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/_error', $variables);
-                    }*/
+                    }
                 }
                 else
                 {
