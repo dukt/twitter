@@ -9,6 +9,7 @@ namespace dukt\twitter\widgets;
 
 use Craft;
 use craft\base\Widget;
+use craft\helpers\UrlHelper;
 use dukt\twitter\models\Tweet;
 use dukt\twitter\Plugin as Twitter;
 use dukt\twitter\web\assets\twitter\TwitterAsset;
@@ -124,7 +125,7 @@ class SearchWidget extends Widget
                 else
                 {
                     $variables['infoMsg'] = Craft::t('app', 'Please enter a search query in the <a href="{url}">widget’s settings</a>.', array(
-                        'url' => UrlHelper::getUrl('dashboard/settings/'.$this->id)
+                        'url' => UrlHelper::url('dashboard/settings/'.$this->id)
                     ));
 
                     return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/_error', $variables);
@@ -133,7 +134,7 @@ class SearchWidget extends Widget
             else
             {
                 $variables['infoMsg'] = Craft::t('app', 'Twitter is not configured, please check the <a href="{url}">plugin’s settings</a>.', array(
-                    'url' => UrlHelper::getUrl('twitter/settings')
+                    'url' => UrlHelper::url('twitter/settings')
                 ));
 
                 return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/_error', $variables);
@@ -142,7 +143,7 @@ class SearchWidget extends Widget
         else
         {
             $variables['infoMsg'] = Craft::t('app', 'Twitter is not configured, please check the <a href="{url}">plugin’s settings</a>.', array(
-                'url' => UrlHelper::getUrl('twitter/settings')
+                'url' => UrlHelper::url('twitter/settings')
             ));
 
             return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/_error', $variables);
