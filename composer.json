@@ -22,9 +22,5 @@
     "psr-4": {
       "dukt\\twitter\\": "src/"
     }
-  },
-  "scripts": {
-    "post-update-cmd": ["echo [WARNING] Delete all .git dirs", "rm -rf vendor/nojimage/**/**/.git"],
-    "post-install-cmd": ["echo [WARNING] Delete all .git dirs", "rm -rf vendor/nojimage/**/**/.git"]
   }
 }
