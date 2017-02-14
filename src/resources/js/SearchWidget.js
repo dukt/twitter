@@ -13,21 +13,21 @@ Craft.Twitter_SearchWidget = Garnish.Base.extend(
 
     handleTweetClick: function(ev)
     {
-    	var $tweet = $(ev.currentTarget),
-    		$target = $(ev.target),
-    		tweetUrl = $tweet.data('tweet-url');
+        var $tweet = $(ev.currentTarget),
+            $target = $(ev.target),
+            tweetUrl = $tweet.data('tweet-url');
 
-    	if($target.prop('tagName') != 'A' && $target.parent('a').length == 0)
-    	{
-	    	if (Garnish.isCtrlKeyPressed(ev))
-	    	{
-	    		window.open( tweetUrl );
-	    	}
-	    	else
-	    	{
-	    		window.location.href = tweetUrl;
-	    	}
-    	}
+        if($target.prop('tagName') != 'A' && $target.parent('a').length == 0)
+        {
+            if (Garnish.isCtrlKeyPressed(ev))
+            {
+                window.open( tweetUrl );
+            }
+            else
+            {
+                window.location.href = tweetUrl;
+            }
+        }
     }
 });
 
