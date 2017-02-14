@@ -30,18 +30,27 @@ class SearchWidget extends Widget
      */
     public $count;
 
-    // Public Methods
+    // Static
     // =========================================================================
 
     /**
-     * @inheritDoc IComponentType::getName()
-     *
-     * @return string
+     * @inheritdoc
      */
-    public function getName()
+    public static function displayName(): string
     {
         return Craft::t('app', 'Twitter Search');
     }
+
+    /**
+     * @inheritdoc
+     */
+    public static function iconPath()
+    {
+        return Craft::getAlias('@dukt/twitter/resources/images/widgets/search.svg');
+    }
+
+    // Public Methods
+    // =========================================================================
 
     /**
      * @inheritDoc IWidget::getTitle()
@@ -52,22 +61,12 @@ class SearchWidget extends Widget
     {
         $settings = $this->getSettings();
 
-        if(!empty($settings->query))
+        if(!empty($settings['query']))
         {
-            return Craft::t('app', "Tweets for “{query}”", array('query' => $settings->query));
+            return Craft::t('app', "Tweets for “{query}”", array('query' => $settings['query']));
         }
 
         return Craft::t('app', "Twitter Search");
-    }
-
-    /**
-     * @inheritDoc IWidget::getIconPath()
-     *
-     * @return string
-     */
-    public function getIconPath()
-    {
-        return Craft::$app->resources->getResourcePath('twitter/images/widgets/search.svg');
     }
 
 	/**
