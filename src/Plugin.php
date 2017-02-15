@@ -269,15 +269,10 @@ class Plugin extends \craft\base\Plugin
                         'save_to' => $originalPath
                     ));
 
-                    /**
-                     * TODO: Check status instead ?
-                     * */
-                    /*
-                    if (!$response->isSuccessful())
+                    if (!$response->statusCode != 200)
                     {
                         return;
                     }
-                    */
 
                     return $originalPath;
                 }
@@ -292,9 +287,11 @@ class Plugin extends \craft\base\Plugin
                 $fileName = pathinfo($originalPath, PATHINFO_BASENAME);
                 $sizedPath = $sizedFolderPath.$fileName;
 
-                IOHelper::ensureFolderExists($sizedFolderPath);
+                if (!is_dir($sizedFolderPath)) {
+                    FileHelper::createDirectory($sizedFolderPath);
+                }
 
-                craft()->images->loadImage($originalPath)
+                Craft::$app->images->loadImage($originalPath)
                     ->scaleAndCrop($size, $size)
                     ->saveAs($sizedPath);
 
