@@ -193,13 +193,10 @@ class Api extends Component
                     'save_to' => $imagePath
                 ));
 
-                /**
-                 * TODO: Check status instead ?
-                 * */
-/*                if (!$response->isSuccessful())
+                if (!$response->statusCode != 200)
                 {
                     return;
-                }*/
+                }
 
                 return $imagePath;
             }
