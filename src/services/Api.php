@@ -78,7 +78,10 @@ class Api extends Component
 
         $url = $uri.'.json';
 
-        $options['headers'] = $headers;
+        if($headers)
+        {
+            $options['headers'] = $headers;
+        }
 
         $response = $client->request('GET', $url, $options);
 
