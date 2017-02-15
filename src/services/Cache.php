@@ -85,8 +85,6 @@ class Cache extends Component
 
         $hash = md5(serialize($request));
 
-        $cacheKey = 'twitter.'.$hash;
-
-        return $cacheKey;
+        return substr('twitter'.$hash, 0, 32);
     }
 }
