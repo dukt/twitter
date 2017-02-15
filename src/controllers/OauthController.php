@@ -71,16 +71,16 @@ class OauthController extends Controller
 
                 Craft::trace('Twitter OAuth Connect (Token): '."\r\n".print_r(['token' => $token], true), __METHOD__);
 
-                $session->setNotice(Craft::t('app', "Connected to Twitter."));
+                $session->setNotice(Craft::t('twitter', "Connected to Twitter."));
             }
             else
             {
-                $session->setError(Craft::t('app', $response['errorMsg']));
+                $session->setError(Craft::t('twitter', $response['errorMsg']));
             }
         }
         else
         {
-            $session->setError(Craft::t('app', "Couldn’t connect"));
+            $session->setError(Craft::t('twitter', "Couldn’t connect"));
         }
 
         $session->remove('twitter.referer');
@@ -99,11 +99,11 @@ class OauthController extends Controller
 
         if (Twitter::$plugin->twitter_oauth->deleteToken())
         {
-            $session->setNotice(Craft::t('app', "Disconnected from Twitter."));
+            $session->setNotice(Craft::t('twitter', "Disconnected from Twitter."));
         }
         else
         {
-            $session->setError(Craft::t('app', "Couldn’t disconnect from Twitter"));
+            $session->setError(Craft::t('twitter', "Couldn’t disconnect from Twitter"));
         }
 
         $referer = Craft::$app->request->referrer;

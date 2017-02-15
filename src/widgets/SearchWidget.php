@@ -42,7 +42,7 @@ class SearchWidget extends Widget
      */
     public static function displayName(): string
     {
-        return Craft::t('app', 'Twitter Search');
+        return Craft::t('twitter', 'Twitter Search');
     }
 
     /**
@@ -78,10 +78,10 @@ class SearchWidget extends Widget
 
         if(!empty($settings['query']))
         {
-            return Craft::t('app', "Tweets for “{query}”", array('query' => $settings['query']));
+            return Craft::t('twitter', "Tweets for “{query}”", array('query' => $settings['query']));
         }
 
-        return Craft::t('app', "Twitter Search");
+        return Craft::t('twitter', "Twitter Search");
     }
 
     /**
@@ -135,14 +135,14 @@ class SearchWidget extends Widget
                 }
                 else
                 {
-                    $variables['infoMsg'] = Craft::t('app', 'Please enter a search query in the widget’s settings.');
+                    $variables['infoMsg'] = Craft::t('twitter', 'Please enter a search query in the widget’s settings.');
 
                     return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/_error', $variables);
                 }
             }
             else
             {
-                $variables['infoMsg'] = Craft::t('app', 'Twitter is not configured, please check the <a href="{url}">plugin’s settings</a>.', array(
+                $variables['infoMsg'] = Craft::t('twitter', 'Twitter is not configured, please check the <a href="{url}">plugin’s settings</a>.', array(
                     'url' => UrlHelper::url('twitter/settings')
                 ));
 
@@ -151,7 +151,7 @@ class SearchWidget extends Widget
         }
         else
         {
-            $variables['infoMsg'] = Craft::t('app', 'Twitter is not configured, please check the <a href="{url}">plugin’s settings</a>.', array(
+            $variables['infoMsg'] = Craft::t('twitter', 'Twitter is not configured, please check the <a href="{url}">plugin’s settings</a>.', array(
                 'url' => UrlHelper::url('twitter/settings')
             ));
 

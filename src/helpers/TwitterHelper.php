@@ -104,7 +104,7 @@ class TwitterHelper
 
         $durations = self::secondsToHumanTimeDuration($difference, true, false);
 
-        $duration = Craft::t('app', "{duration} ago", ['duration' => $durations[0]]);
+        $duration = Craft::t('twitter', "{duration} ago", ['duration' => $durations[0]]);
 
         return $duration;
     }
@@ -149,27 +149,27 @@ class TwitterHelper
 
         if ($weeks)
         {
-            $timeComponents[] = $weeks.' '.($weeks == 1 ? Craft::t('app', 'week') : Craft::t('app', 'weeks'));
+            $timeComponents[] = $weeks.' '.($weeks == 1 ? Craft::t('twitter', 'week') : Craft::t('twitter', 'weeks'));
         }
 
         if ($days)
         {
-            $timeComponents[] = $days.' '.($days == 1 ? Craft::t('app', 'day') : Craft::t('app', 'days'));
+            $timeComponents[] = $days.' '.($days == 1 ? Craft::t('twitter', 'day') : Craft::t('twitter', 'days'));
         }
 
         if ($hours)
         {
-            $timeComponents[] = $hours.' '.($hours == 1 ? Craft::t('app', 'hour') : Craft::t('app', 'hours'));
+            $timeComponents[] = $hours.' '.($hours == 1 ? Craft::t('twitter', 'hour') : Craft::t('twitter', 'hours'));
         }
 
         if ($minutes || (!$showSeconds && !$weeks && !$days && !$hours))
         {
-            $timeComponents[] = $minutes.' '.($minutes == 1 ? Craft::t('app', 'minute') : Craft::t('app', 'minutes'));
+            $timeComponents[] = $minutes.' '.($minutes == 1 ? Craft::t('twitter', 'minute') : Craft::t('twitter', 'minutes'));
         }
 
         if ($seconds || ($showSeconds && !$weeks && !$days && !$hours && !$minutes))
         {
-            $timeComponents[] = $seconds.' '.($seconds == 1 ? Craft::t('app', 'second') : Craft::t('app', 'seconds'));
+            $timeComponents[] = $seconds.' '.($seconds == 1 ? Craft::t('twitter', 'second') : Craft::t('twitter', 'seconds'));
         }
 
         if($implodeComponents)

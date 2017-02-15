@@ -32,7 +32,7 @@ class Tweet extends Field
      */
     public function getName()
     {
-        return Craft::t('app', 'Tweet');
+        return Craft::t('twitter', 'Tweet');
     }
 
     /**
@@ -79,7 +79,7 @@ class Tweet extends Field
         }
         else
         {
-            $previewHtml .= '<p class="light">'.Craft::t('app', "Twitter plugin is not configured properly. Please check {url} for more informations.", array('url' => Craft::t('app', '<a href="'.UrlHelper::getUrl('twitter/settings').'">{title}</a>', array('title' => 'Twitter plugin settings')))).'</p>';
+            $previewHtml .= '<p class="light">'.Craft::t('twitter', "Twitter plugin is not configured properly. Please check {url} for more informations.", array('url' => Craft::t('twitter', '<a href="'.UrlHelper::getUrl('twitter/settings').'">{title}</a>', array('title' => 'Twitter plugin settings')))).'</p>';
         }
 
         Craft::$app->getView()->registerAssetBundle(TwitterAsset::class);
@@ -92,7 +92,7 @@ class Tweet extends Field
                 'id'    => $id,
                 'name'  => $name,
                 'value' => $value,
-                'placeholder' => Craft::t('app', 'Enter a tweet URL or ID'),
+                'placeholder' => Craft::t('twitter', 'Enter a tweet URL or ID'),
             )) .
             '<div class="spinner hidden"></div>' .
             $previewHtml.
