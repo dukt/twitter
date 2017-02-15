@@ -135,9 +135,7 @@ class SearchWidget extends Widget
                 }
                 else
                 {
-                    $variables['infoMsg'] = Craft::t('app', 'Please enter a search query in the <a href="{url}">widget’s settings</a>.', array(
-                        'url' => UrlHelper::url('dashboard/settings/'.$this->id)
-                    ));
+                    $variables['infoMsg'] = Craft::t('app', 'Please enter a search query in the widget’s settings.');
 
                     return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/_error', $variables);
                 }
