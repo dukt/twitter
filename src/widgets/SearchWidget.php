@@ -59,6 +59,19 @@ class SearchWidget extends Widget
     /**
      * @inheritdoc
      */
+    public function rules()
+    {
+        $rules = parent::rules();
+        $rules[] = [['query', 'count'], 'required'];
+        $rules[] = [['query'], 'string'];
+        $rules[] = [['count'], 'integer', 'min' => 1];
+
+        return $rules;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getTitle(): string
     {
         $settings = $this->getSettings();
