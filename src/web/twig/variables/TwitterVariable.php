@@ -7,7 +7,9 @@
 
 namespace dukt\twitter\web\twig\variables;
 
+use Craft;
 use dukt\twitter\Plugin as Twitter;
+use dukt\twitter\helpers\TwitterHelper;
 
 /**
  * Twitter Variable
@@ -40,7 +42,7 @@ class TwitterVariable
         }
         catch(\Exception $e)
         {
-            // TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
+            Craft::trace("Error requesting Twitter’s API: ".$e->getMessage(), __METHOD__);
         }
     }
 
@@ -60,7 +62,7 @@ class TwitterVariable
         }
         catch(\Exception $e)
         {
-            // TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
+            Craft::trace("Couldn’t get tweet by ID: ".$e->getMessage(), __METHOD__);
         }
     }
 
@@ -80,7 +82,7 @@ class TwitterVariable
         }
         catch(\Exception $e)
         {
-            // TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
+            Craft::trace("Couldn’t get user by ID: ".$e->getMessage(), __METHOD__);
         }
     }
 
@@ -100,7 +102,7 @@ class TwitterVariable
         }
         catch(\Exception $e)
         {
-            // TwitterPlugin::log("Error requesting Twitter’s API using `".__METHOD__."`"."\r\n".$e->getMessage(), LogLevel::Error);
+            Craft::trace("Coudln’t get user profile image resource URL: ".$e->getMessage(), __METHOD__);
         }
     }
 
