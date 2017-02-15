@@ -11,6 +11,7 @@ use Craft;
 use craft\web\Controller;
 use dukt\twitter\Plugin as Twitter;
 use dukt\oauth\Plugin as Oauth;
+use Exception;
 
 /**
  * Settings controller
@@ -49,37 +50,27 @@ class SettingsController extends Controller
 
             if ($token)
             {
-/*                try
-                {*/
+                try
+                {
                     $account = Twitter::$plugin->twitter_cache->get(['getAccount', $token]);
 
                     if(!$account)
                     {
                         $account = $provider->getAccount($token);
+
                         Twitter::$plugin->twitter_cache->set(['getAccount', $token], $account);
                     }
 
                     if ($account)
                     {
-                        // TwitterPlugin::log("Twitter OAuth Account:\r\n".print_r($account, true), LogLevel::Info);
-
                         $variables['account'] = $account;
                         $variables['settings'] = $plugin->getSettings();
                     }
-/*                }
-                catch(\Exception $e)
+                }
+                catch(Exception $e)
                 {
-                    if(method_exists($e, 'getResponse'))
-                    {
-                            // TwitterPlugin::log("Couldn’t get account: ".$e->getResponse(), LogLevel::Error);
-                    }
-                    else
-                    {
-                        // TwitterPlugin::log("Couldn’t get account: ".$e->getMessage(), LogLevel::Error);
-                    }
-
                     $variables['error'] = $e->getMessage();
-                }*/
+                }
             }
 
             $variables['token'] = $token;
