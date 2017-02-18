@@ -12,7 +12,7 @@ use craft\base\Field;
 use craft\helpers\StringHelper;
 use dukt\twitter\Plugin as Twitter;
 use dukt\twitter\helpers\TwitterHelper;
-use dukt\twitter\web\assets\twitter\TwitterAsset;
+use dukt\twitter\web\assets\tweetfield\TweetFieldAsset;
 
 /**
  * Tweet field
@@ -75,9 +75,7 @@ class Tweet extends Field
             }
         }
 
-        Craft::$app->getView()->registerAssetBundle(TwitterAsset::class);
-        /*Craft::$app->getView()->registerCssFile('twitter/css/twitter.css');
-        Craft::$app->getView()->registerJsFile('twitter/js/TweetInput.js');*/
+        Craft::$app->getView()->registerAssetBundle(TweetFieldAsset::class);
         Craft::$app->getView()->registerJs('new TweetInput("'.Craft::$app->getView()->namespaceInputId($id).'");');
 
         return '<div class="tweet-field">' .

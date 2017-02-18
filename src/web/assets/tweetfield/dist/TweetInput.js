@@ -45,7 +45,7 @@ TweetInput = Garnish.Base.extend({
             this.$spinner.removeClass('hidden');
             this.$preview.html('');
 
-            Craft.postActionRequest('twitter/cp/lookup-tweet', { id: tweetId }, $.proxy(function(response, textStatus)
+            Craft.postActionRequest('twitter/api/lookup-tweet', { id: tweetId }, $.proxy(function(response, textStatus)
             {
                 this.$spinner.addClass('hidden');
 
