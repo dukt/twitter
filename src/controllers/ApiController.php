@@ -12,12 +12,12 @@ use craft\web\Controller;
 use dukt\twitter\Plugin as Twitter;
 
 /**
- * CP controller
+ * API controller
  *
  * @author Dukt <support@dukt.net>
  * @since  3.0
  */
-class CpController extends Controller
+class ApiController extends Controller
 {
     // Public Methods
     // =========================================================================
