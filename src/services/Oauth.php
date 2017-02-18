@@ -101,7 +101,12 @@ class Oauth extends Component
      */
     public function getOauthProvider()
     {
-        $options = Craft::$app->config->get('oauthClientOptions', 'twitter');
+        $oauthClientCredentials = Craft::$app->config->get('oauthClientCredentials', 'twitter');
+
+        $options = [];
+
+        $options['identifier'] = $oauthClientCredentials['consumerKey'];
+        $options['secret'] = $oauthClientCredentials['consumerSecret'];
 
         if(!isset($options['callback_uri']))
         {

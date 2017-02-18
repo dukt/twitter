@@ -239,11 +239,11 @@ class Api extends Component
     {
         $stack = HandlerStack::create();
 
-        $clientOptions = Craft::$app->config->get('oauthClientOptions', 'twitter');
+        $clientOptions = Craft::$app->config->get('oauthClientCredentials', 'twitter');
 
         $middleware = new Oauth1([
-            'consumer_key'    => $clientOptions['identifier'],
-            'consumer_secret' => $clientOptions['secret'],
+            'consumer_key'    => $clientOptions['consumerKey'],
+            'consumer_secret' => $clientOptions['consumerSecret'],
             'token'           => $token->getIdentifier(),
             'token_secret'    => $token->getSecret(),
             'signature_method' => 'HMAC-SHA1'
