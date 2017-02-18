@@ -51,15 +51,13 @@ class OauthController extends Controller
      */
     public function actionDisconnect()
     {
-        $session = Craft::$app->getSession();
-
         if (Twitter::$plugin->twitter_oauth->deleteToken())
         {
-            $session->setNotice(Craft::t('twitter', "Disconnected from Twitter."));
+            Craft::$app->getSession()->setNotice(Craft::t('twitter', "Disconnected from Twitter."));
         }
         else
         {
-            $session->setError(Craft::t('twitter', "Couldn’t disconnect from Twitter"));
+            Craft::$app->getSession()->setError(Craft::t('twitter', "Couldn’t disconnect from Twitter"));
         }
 
         $referer = Craft::$app->request->referrer;
@@ -67,6 +65,11 @@ class OauthController extends Controller
         return $this->redirect($referer);
     }
 
+    /**
+     * Callback
+     *
+     * @return null
+     */
     public function actionCallback()
     {
         $provider = Twitter::$plugin->twitter_oauth->getOauthProvider();
@@ -87,10 +90,13 @@ class OauthController extends Controller
             // Reset session variables
 
             // Redirect
-            return $this->redirect('twitter/settings');
+            Craft::$app->getSession()->setNotice(Craft::t('twitter', "Connected to Twitter."));
+
         } catch (\League\OAuth1\Client\Exceptions\Exception $e) {
             // Failed to get the token credentials or user details.
-            exit($e->getMessage());
+            Craft::$app->getSession()->setError($e->getMessage());
         }
+
+        return $this->redirect('twitter/settings');
     }
 }
