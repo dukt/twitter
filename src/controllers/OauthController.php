@@ -40,8 +40,8 @@ class OauthController extends Controller
 
         // Redirect to login screen
         $authorizationUrl = $provider->getAuthorizationUrl($temporaryCredentials);
-        header('Location: ' . $authorizationUrl);
-        exit;
+
+        return $this->redirect($authorizationUrl);
     }
 
     /**
