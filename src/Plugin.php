@@ -268,19 +268,6 @@ class Plugin extends \craft\base\Plugin
     }
 
     /**
-     * Remove all tokens related to this plugin when uninstalled.
-     *
-     * @return null
-     */
-    public function onBeforeUninstall()
-    {
-        if(isset(craft()->oauth))
-        {
-            craft()->oauth->deleteTokensByPlugin('twitter');
-        }
-    }
-
-    /**
      * @inheritdoc
      */
     public function defineTemplateComponent()
