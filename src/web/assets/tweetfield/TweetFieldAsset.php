@@ -19,7 +19,7 @@ class TweetFieldAsset extends AssetBundle
     public function init()
     {
         // define the path that your publishable resources live
-        $this->sourcePath = '@dukt/twitter/resources';
+        $this->sourcePath = __DIR__.'/dist';
 
         // define the dependencies
         $this->depends = [
@@ -30,7 +30,7 @@ class TweetFieldAsset extends AssetBundle
         // define the relative path to CSS/JS files that should be registered with the page
         // when this asset bundle is registered
         $this->css = [
-            'css/twitter.css',
+            'twitter.css',
         ];
 
         parent::init();

@@ -50,7 +50,7 @@ class SearchWidget extends Widget
      */
     public static function iconPath()
     {
-        return Craft::getAlias('@dukt/twitter/resources/images/widgets/search.svg');
+        return Craft::getAlias('@dukt/twitter/icons/twitter.svg');
     }
 
     // Public Methods
