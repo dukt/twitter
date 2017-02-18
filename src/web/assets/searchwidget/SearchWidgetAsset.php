@@ -3,6 +3,7 @@ namespace dukt\twitter\web\assets\searchwidget;
 
 use craft\web\AssetBundle;
 use craft\web\assets\cp\CpAsset;
+use dukt\twitter\web\assets\twitter\TwitterAsset;
 
 /**
  * Class TwitterAsset
@@ -23,6 +24,7 @@ class SearchWidgetAsset extends AssetBundle
         // define the dependencies
         $this->depends = [
             CpAsset::class,
+            TwitterAsset::class,
         ];
 
         // define the relative path to CSS/JS files that should be registered with the page
@@ -32,7 +34,6 @@ class SearchWidgetAsset extends AssetBundle
         ];
 
         $this->css = [
-            'css/twitter.css',
             'css/widget.css',
         ];
 
