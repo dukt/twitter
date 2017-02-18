@@ -229,7 +229,7 @@ class Tweet extends Model
     {
         if(!empty($this->remoteId))
         {
-            return Twitter::$plugin->twitter_api->getTweetById($this->remoteId);
+            return Twitter::$plugin->api->getTweetById($this->remoteId);
         }
     }
 }

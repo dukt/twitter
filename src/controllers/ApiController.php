@@ -32,7 +32,7 @@ class ApiController extends Controller
         $tweetId = Craft::$app->request->getParam('id');
 
         try {
-            $tweet = Twitter::$plugin->twitter_api->getTweetById($tweetId);
+            $tweet = Twitter::$plugin->api->getTweetById($tweetId);
 
             return $this->asJson($tweet);
         }

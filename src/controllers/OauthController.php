@@ -31,7 +31,7 @@ class OauthController extends Controller
     public function actionConnect()
     {
         // Oauth provider
-        $provider = Twitter::$plugin->twitter_oauth->getOauthProvider();
+        $provider = Twitter::$plugin->oauth->getOauthProvider();
 
         // Obtain temporary credentials
         $temporaryCredentials = $provider->getTemporaryCredentials();
@@ -52,7 +52,7 @@ class OauthController extends Controller
      */
     public function actionDisconnect()
     {
-        if (Twitter::$plugin->twitter_oauth->deleteToken())
+        if (Twitter::$plugin->oauth->deleteToken())
         {
             Craft::$app->getSession()->setNotice(Craft::t('twitter', "Disconnected from Twitter."));
         }
@@ -73,7 +73,7 @@ class OauthController extends Controller
      */
     public function actionCallback()
     {
-        $provider = Twitter::$plugin->twitter_oauth->getOauthProvider();
+        $provider = Twitter::$plugin->oauth->getOauthProvider();
 
         $oauthToken = Craft::$app->request->getParam('oauth_token');
         $oauthVerifier = Craft::$app->request->getParam('oauth_verifier');
@@ -86,7 +86,7 @@ class OauthController extends Controller
             $tokenCredentials = $provider->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier);
 
             // Save token
-            Twitter::$plugin->twitter_oauth->saveToken($tokenCredentials);
+            Twitter::$plugin->oauth->saveToken($tokenCredentials);
 
             // Reset session variables
 

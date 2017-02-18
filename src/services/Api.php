@@ -60,7 +60,7 @@ class Api extends Component
 
         if($enableCache)
         {
-            $response = Twitter::$plugin->twitter_cache->get([$uri, $headers, $options]);
+            $response = Twitter::$plugin->cache->get([$uri, $headers, $options]);
 
             if($response)
             {
@@ -86,7 +86,7 @@ class Api extends Component
 
         if($enableCache)
         {
-            Twitter::$plugin->twitter_cache->set([$uri, $headers, $options], $jsonResponse, $cacheExpire);
+            Twitter::$plugin->cache->set([$uri, $headers, $options], $jsonResponse, $cacheExpire);
         }
 
         return $jsonResponse;
@@ -106,7 +106,7 @@ class Api extends Component
 
         $query = array_merge($query, array('id' => $tweetId));
 
-        $tweet = Twitter::$plugin->twitter_api->get('statuses/show', $query);
+        $tweet = Twitter::$plugin->api->get('statuses/show', $query);
 
 
         // generate user profile image
@@ -150,7 +150,7 @@ class Api extends Component
 
         $query = array_merge($query, array('user_id' => $userId));
 
-        return Twitter::$plugin->twitter_api->get('users/show', $query);
+        return Twitter::$plugin->api->get('users/show', $query);
     }
 
     /**
@@ -217,7 +217,7 @@ class Api extends Component
             'base_uri' => 'https://api.twitter.com/1.1/'
         ];
 
-        $token = Twitter::$plugin->twitter_oauth->getToken();
+        $token = Twitter::$plugin->oauth->getToken();
 
         if($token)
         {

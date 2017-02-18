@@ -62,10 +62,10 @@ class Plugin extends \craft\base\Plugin
 
         $this->setComponents([
             'twitter' => \dukt\twitter\services\Twitter::class,
-            'twitter_api' => \dukt\twitter\services\Api::class,
-            'twitter_cache' => \dukt\twitter\services\Cache::class,
-            'twitter_oauth' => \dukt\twitter\services\Oauth::class,
-            'twitter_publish' => \dukt\twitter\services\Publish::class,
+            'api' => \dukt\twitter\services\Api::class,
+            'cache' => \dukt\twitter\services\Cache::class,
+            'oauth' => \dukt\twitter\services\Oauth::class,
+            'publish' => \dukt\twitter\services\Publish::class,
         ]);
 
 
@@ -196,7 +196,7 @@ class Plugin extends \craft\base\Plugin
                 else
                 {
                     // OK, let’s fetch it then
-                    $user = self::$plugin->twitter_api->getUserById($userId);
+                    $user = self::$plugin->api->getUserById($userId);
 
                     if (!$user || empty($user['profile_image_url_https']))
                     {

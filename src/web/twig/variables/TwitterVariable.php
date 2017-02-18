@@ -38,7 +38,7 @@ class TwitterVariable
     {
         try
         {
-            return Twitter::$plugin->twitter_api->get($uri, $query, $headers, $options, $enableCache, $cacheExpire);
+            return Twitter::$plugin->api->get($uri, $query, $headers, $options, $enableCache, $cacheExpire);
         }
         catch(\Exception $e)
         {
@@ -58,7 +58,7 @@ class TwitterVariable
     {
         try
         {
-            return Twitter::$plugin->twitter_api->getTweetById($tweetId, $query);
+            return Twitter::$plugin->api->getTweetById($tweetId, $query);
         }
         catch(\Exception $e)
         {
@@ -78,7 +78,7 @@ class TwitterVariable
     {
         try
         {
-            return Twitter::$plugin->twitter_api->getUserById($twitterUserId, $query);
+            return Twitter::$plugin->api->getUserById($twitterUserId, $query);
         }
         catch(\Exception $e)
         {

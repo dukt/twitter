@@ -76,7 +76,7 @@ class Extension extends Twig_Extension
      */
     public function twitterGrid($url, $options = [])
     {
-        $html = Twitter::$plugin->twitter_publish->grid($url, $options);
+        $html = Twitter::$plugin->publish->grid($url, $options);
 
         return Template::raw($html);
     }
@@ -91,7 +91,7 @@ class Extension extends Twig_Extension
      */
     public function twitterMoment($url, $options = [])
     {
-        $html = Twitter::$plugin->twitter_publish->moment($url, $options);
+        $html = Twitter::$plugin->publish->moment($url, $options);
 
         return Template::raw($html);
     }
@@ -106,7 +106,7 @@ class Extension extends Twig_Extension
      */
     public function twitterTimeline($url, $options = [])
     {
-        $html = Twitter::$plugin->twitter_publish->timeline($url, $options);
+        $html = Twitter::$plugin->publish->timeline($url, $options);
 
         return Template::raw($html);
     }
@@ -121,7 +121,7 @@ class Extension extends Twig_Extension
      */
     public function twitterTweet($url, $options = [])
     {
-        $html = Twitter::$plugin->twitter_publish->tweet($url, $options);
+        $html = Twitter::$plugin->publish->tweet($url, $options);
 
         return Template::raw($html);
     }
@@ -136,7 +136,7 @@ class Extension extends Twig_Extension
      */
     public function twitterVideo($url, $options = [])
     {
-        $html = Twitter::$plugin->twitter_publish->video($url, $options);
+        $html = Twitter::$plugin->publish->video($url, $options);
 
         return Template::raw($html);
     }
@@ -151,7 +151,7 @@ class Extension extends Twig_Extension
      */
     public function twitterFollowButton($username, $options = [])
     {
-        $html = Twitter::$plugin->twitter_publish->followButton($username, $options);
+        $html = Twitter::$plugin->publish->followButton($username, $options);
 
         return Template::raw($html);
     }
@@ -168,7 +168,7 @@ class Extension extends Twig_Extension
      */
     public function twitterMessageButton($recipientId, $screenName, $text = null, $options = [])
     {
-        $html = Twitter::$plugin->twitter_publish->messageButton($recipientId, $screenName, $text, $options);
+        $html = Twitter::$plugin->publish->messageButton($recipientId, $screenName, $text, $options);
 
         return Template::raw($html);
     }
@@ -182,7 +182,7 @@ class Extension extends Twig_Extension
      */
     public function twitterTweetButton($options = [])
     {
-        $html = Twitter::$plugin->twitter_publish->tweetButton($options);
+        $html = Twitter::$plugin->publish->tweetButton($options);
 
         return Template::raw($html);
     }

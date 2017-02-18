@@ -63,17 +63,17 @@ class Twitter extends Component
      * @param       $tweetId
      * @param array $options
      *
-     * @deprecated Deprecated in 1.1. Use craft()->twitter_publish->tweet() instead.
+     * @deprecated Deprecated in 1.1. Use craft()->publish->tweet() instead.
      *
      * @return string
      */
     public function embedTweet($tweetId, $options = array())
     {
-        craft()->deprecator->log('craft()->twitter->embedTweet()', 'craft()->twitter->embedTweet() has been deprecated. Use craft()->twitter_publish->tweet() instead.');
+        craft()->deprecator->log('craft()->twitter->embedTweet()', 'craft()->twitter->embedTweet() has been deprecated. Use craft()->publish->tweet() instead.');
 
-        $dataAttributes = craft()->twitter_publish->getOptionsAsDataAttributes($options);
+        $dataAttributes = craft()->publish->getOptionsAsDataAttributes($options);
 
-        $response = craft()->twitter_api->get('statuses/oembed', array('id' => $tweetId));
+        $response = craft()->api->get('statuses/oembed', array('id' => $tweetId));
 
         if($response)
         {

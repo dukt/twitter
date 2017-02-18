@@ -94,7 +94,7 @@ class SearchWidget extends Widget
         $searchQuery = $settings['query'];
         $count = $settings['count'];
 
-        $token = Twitter::$plugin->twitter_oauth->getToken();
+        $token = Twitter::$plugin->oauth->getToken();
 
         if($token)
         {
@@ -102,7 +102,7 @@ class SearchWidget extends Widget
             {
                 try
                 {
-                    $response = Twitter::$plugin->twitter_api->get('search/tweets', [
+                    $response = Twitter::$plugin->api->get('search/tweets', [
                         'q' => $searchQuery,
                         'count' => $count
                     ]);
