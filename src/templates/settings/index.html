@@ -8,7 +8,7 @@
 
 	{% if not tokenExists %}
 		<div class="buttons">
-			<a href="{{ actionUrl('twitter/settings/oauth-connect') }}" class="btn submit">Connect to Twitter</a>
+			<a href="{{ actionUrl('twitter/oauth/connect') }}" class="btn submit">Connect to Twitter</a>
 		</div>
 	{% else %}
 
@@ -25,7 +25,7 @@
 		</ul>
 		
 		<div class="buttons">
-			<a href="{{ actionUrl('twitter/settings/oauth-disconnect') }}" class="btn">{{ 'Disconnect'|t('twitter') }}</a>
+			<a href="{{ actionUrl('twitter/oauth/disconnect') }}" class="btn">{{ 'Disconnect'|t('twitter') }}</a>
 		</div>
 	{% endif %}
 

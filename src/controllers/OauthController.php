@@ -19,14 +19,6 @@ use dukt\twitter\Plugin as Twitter;
  */
 class OauthController extends Controller
 {
-    // Properties
-    // =========================================================================
-
-    /**
-     * @var string
-     */
-    private $handle = 'twitter';
-
     // Public Methods
     // =========================================================================
 
@@ -37,55 +29,19 @@ class OauthController extends Controller
      */
     public function actionConnect()
     {
-        // Referer
-        $session = Craft::$app->getSession();
-        $referer = $session->get('twitter.referer');
+        // Oauth provider
+        $provider = Twitter::$plugin->twitter_oauth->getOauthProvider();
 
-        if (!$referer)
-        {
-            $referer = Craft::$app->request->referrer;
+        // Obtain temporary credentials
+        $temporaryCredentials = $provider->getTemporaryCredentials();
 
-            $session->set('twitter.referer', $referer);
+        // Store credentials in the session
+        Craft::$app->getSession()->set('oauth.temporaryCredentials', $temporaryCredentials);
 
-            Craft::trace('Twitter OAuth Connect (Referrer): '."\r\n".print_r(['referer' => $referer], true), __METHOD__);
-        }
-
-
-        // Connect
-
-        if ($response = \dukt\oauth\Plugin::getInstance()->oauth->connect(array(
-            'plugin'   => 'twitter',
-            'provider' => $this->handle
-        )))
-        {
-            if($response && is_object($response) && !$response->data)
-            {
-                return $response;
-            }
-
-            if ($response['success'])
-            {
-                $token = $response['token'];
-
-                Twitter::$plugin->twitter_oauth->saveToken($token);
-
-                Craft::trace('Twitter OAuth Connect (Token): '."\r\n".print_r(['token' => $token], true), __METHOD__);
-
-                $session->setNotice(Craft::t('twitter', "Connected to Twitter."));
-            }
-            else
-            {
-                $session->setError(Craft::t('twitter', $response['errorMsg']));
-            }
-        }
-        else
-        {
-            $session->setError(Craft::t('twitter', "Couldn’t connect"));
-        }
-
-        $session->remove('twitter.referer');
-
-        return $this->redirect($referer);
+        // Redirect to login screen
+        $authorizationUrl = $provider->getAuthorizationUrl($temporaryCredentials);
+        header('Location: ' . $authorizationUrl);
+        exit;
     }
 
     /**
@@ -109,5 +65,32 @@ class OauthController extends Controller
         $referer = Craft::$app->request->referrer;
 
         return $this->redirect($referer);
+    }
+
+    public function actionCallback()
+    {
+        $provider = Twitter::$plugin->twitter_oauth->getOauthProvider();
+
+        $oauthToken = Craft::$app->request->getParam('oauth_token');
+        $oauthVerifier = Craft::$app->request->getParam('oauth_verifier');
+
+        try {
+            // Retrieve the temporary credentials we saved before.
+            $temporaryCredentials = Craft::$app->getSession()->get('oauth.temporaryCredentials');
+
+            // Obtain token credentials from the server.
+            $tokenCredentials = $provider->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier);
+
+            // Save token
+            Twitter::$plugin->twitter_oauth->saveToken($tokenCredentials);
+
+            // Reset session variables
+
+            // Redirect
+            return $this->redirect('twitter/settings');
+        } catch (\League\OAuth1\Client\Exceptions\Exception $e) {
+            // Failed to get the token credentials or user details.
+            exit($e->getMessage());
+        }
     }
 }
