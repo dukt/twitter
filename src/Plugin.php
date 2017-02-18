@@ -13,6 +13,7 @@ use craft\events\RegisterComponentTypesEvent;
 use craft\events\RegisterUrlRulesEvent;
 use craft\events\ResolveResourcePathEvent;
 use craft\helpers\FileHelper;
+use craft\helpers\UrlHelper;
 use craft\services\Dashboard;
 use craft\services\Fields;
 use craft\services\Resources;
@@ -296,9 +297,9 @@ class Plugin extends \craft\base\Plugin
      */
     public function getSettingsResponse()
     {
-        $url = \craft\helpers\UrlHelper::cpUrl('twitter/settings');
+        $url = UrlHelper::cpUrl('twitter/settings');
 
-        \Craft::$app->controller->redirect($url);
+        Craft::$app->controller->redirect($url);
 
         return '';
     }
