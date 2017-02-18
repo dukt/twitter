@@ -76,19 +76,16 @@ class Oauth extends Component
         }
         else
         {
-            // get plugin
             $plugin = Craft::$app->plugins->getPlugin('twitter');
-
-            // get settings
             $settings = $plugin->getSettings();
 
-            // get tokenId
-            $tokenId = $settings->tokenId;
+            if($settings->token && $settings->tokenSecret) {
+                $token = new \League\OAuth1\Client\Credentials\TokenCredentials();
+                $token->setIdentifier($settings->token);
+                $token->setSecret($settings->tokenSecret);
+                return $token;
+            }
 
-            // get token
-            $token = \dukt\oauth\Plugin::getInstance()->oauth->getTokenById($tokenId);
-
-            return $token;
         }
     }
 
