@@ -17,11 +17,6 @@ class Settings extends Model
     /**
      * @var
      */
-    public $tokenId;
-
-    /**
-     * @var
-     */
     public $token;
 
     /**
@@ -38,7 +33,6 @@ class Settings extends Model
     public function rules()
     {
         return [
-            [['tokenId'], 'number', 'integerOnly' => true],
             [['token', 'tokenSecret'], 'string'],
         ];
     }
