@@ -6,46 +6,27 @@
 
 {% set content %}
 
-    {% if not error %}
-        {% if provider %}
-            {% if account %}
+	{% if not tokenExists %}
+		<div class="buttons">
+			<a href="{{ actionUrl('twitter/settings/oauth-connect') }}" class="btn submit">Connect to Twitter</a>
+		</div>
+	{% else %}
 
-                <h2 class="first">{{'Twitter Account'|t}}</h2>
-                <p>{{'You are authenticated to Twitter with the following account'|t}} :</p>
+		<h2>{{ 'Account'|t('twitter') }}</h2>
 
-                <ul>
-                    <li><strong>{{ 'UID'|t }} : </strong> {{ account.uid }}</li>
-                    <li><strong>{{ 'Name'|t }} : </strong> {{ account.name }}</li>
-                </ul>
+		<img width="36" src="{{ resourceOwner.urls.profile_image_url_https|replace('_normal', '_bigger') }}" />
 
-                <p><a class="btn small" href="{{ actionUrl('twitter/oauth/disconnect') }}">{{'Disconnect'|t}}</a></p>
-
-            {% else %}
-
-                <h2 class="first">{{'Twitter Account'|t}}</h2>
-                <p>{{'You need to connect Craft to a Twitter account in order to get started.'|t}}</p>
-                <p>{{"Getting errors trying to connect ?"|t}} <a href="{{url('oauth/providers/twitter')}}">{{"Check Twitter API key & secret in OAuth settings"|t}}</a>.</p>
-                <p><a class="btn submit" href="{{ actionUrl('twitter/oauth/connect') }}">{{"Connect to Twitter"|t}}</a></p>
-
-            {% endif %}
-
-        {% else %}
-
-            <h2 class="first">{{'Twitter provider not configured'|t}}</h2>
-            <p>{{'Please fill API client id & secret for Twitter provider.'|t}}</p>
-            <p><a class="btn" href="{{url('oauth/providers/twitter')}}">{{'Twitter OAuth settings'|t}}</a></p>
-
-        {% endif %}
-    {% else %}
-
-        <h2 class="first">{{'Twitter Account'|t}}</h2>
-
-        <p class="error">{{ error }}</p>
-
-        {% if token %}
-            <p><a class="btn small" href="{{ actionUrl('twitter/oauth/disconnect') }}">{{'Disconnect'|t}}</a></p>
-        {% endif %}
-
-    {% endif %}
+		<ul>
+			<li><strong>Name:</strong> {{ resourceOwner.name }}</li>
+			<li><strong>Nickname:</strong> {{ resourceOwner.nickname }}</li>
+			<li><strong>Email:</strong> {{ resourceOwner.email }}</li>
+			<li><strong>Location:</strong> {{ resourceOwner.location }}</li>
+			<li><strong>Description:</strong> {{ resourceOwner.description }}</li>
+		</ul>
+		
+		<div class="buttons">
+			<a href="{{ actionUrl('twitter/settings/oauth-disconnect') }}" class="btn">{{ 'Disconnect'|t('twitter') }}</a>
+		</div>
+	{% endif %}
 
 {% endset %}

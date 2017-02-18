@@ -8,6 +8,7 @@
 namespace dukt\twitter\controllers;
 
 use Craft;
+use craft\helpers\UrlHelper;
 use craft\web\Controller;
 use dukt\twitter\Plugin as Twitter;
 use dukt\oauth\Plugin as Oauth;
@@ -31,53 +32,108 @@ class SettingsController extends Controller
      */
     public function actionIndex()
     {
-        Twitter::$plugin->twitter->requireDependencies();
+        $tokenExists = false;
+        $resourceOwner = null;
 
         $plugin = Craft::$app->plugins->getPlugin('twitter');
+        $settings = $plugin->getSettings();
 
-        $variables = array(
-            'provider' => false,
-            'account' => false,
-            'token' => false,
-            'error' => false
-        );
-
-        $provider = Oauth::$plugin->oauth->getProvider('twitter');
-
-        if ($provider && $provider->isConfigured())
+        if($settings->token && $settings->tokenSecret)
         {
-            $token = Twitter::$plugin->twitter_oauth->getToken();
+            $tokenExists = true;
 
-            if ($token)
-            {
-                try
-                {
-                    $account = Twitter::$plugin->twitter_cache->get(['getAccount', $token]);
+            // Create token instance
+            $token = new \League\OAuth1\Client\Credentials\TokenCredentials();
+            $token->setIdentifier($settings->token);
+            $token->setSecret($settings->tokenSecret);
 
-                    if(!$account)
-                    {
-                        $account = $provider->getAccount($token);
+            // Oauth provider
+            $provider = $this->getOauthProvider();
 
-                        Twitter::$plugin->twitter_cache->set(['getAccount', $token], $account);
-                    }
-
-                    if ($account)
-                    {
-                        $variables['account'] = $account;
-                        $variables['settings'] = $plugin->getSettings();
-                    }
-                }
-                catch(Exception $e)
-                {
-                    $variables['error'] = $e->getMessage();
-                }
-            }
-
-            $variables['token'] = $token;
-
-            $variables['provider'] = $provider;
+            // Resource Owner
+            $resourceOwner = $provider->getUserDetails($token);
         }
 
-        return $this->renderTemplate('twitter/settings', $variables);
+        return $this->renderTemplate('twitter/settings', [
+            'tokenExists' => $tokenExists,
+            'resourceOwner' => $resourceOwner,
+        ]);
+    }
+
+    /**
+     * Connect
+     *
+     * @return null
+     */
+    public function actionOauthConnect()
+    {
+        // Oauth provider
+        $provider = $this->getOauthProvider();
+
+        // Obtain temporary credentials
+        $temporaryCredentials = $provider->getTemporaryCredentials();
+
+        // Store credentials in the session
+        Craft::$app->getSession()->set('oauth.temporaryCredentials', $temporaryCredentials);
+
+        // Redirect to login screen
+        $authorizationUrl = $provider->getAuthorizationUrl($temporaryCredentials);
+        header('Location: ' . $authorizationUrl);
+        exit;
+    }
+
+    public function actionOauthCallback()
+    {
+        $provider = $this->getOauthProvider();
+
+        $oauthToken = Craft::$app->request->getParam('oauth_token');
+        $oauthVerifier = Craft::$app->request->getParam('oauth_verifier');
+
+        try {
+            // Retrieve the temporary credentials we saved before.
+            $temporaryCredentials = Craft::$app->getSession()->get('oauth.temporaryCredentials');
+
+            // We will now obtain Token Credentials from the server.
+            $tokenCredentials = $provider->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier);
+            var_dump($tokenCredentials);
+            // Save token and token secret in the plugin's settings
+            $plugin = Craft::$app->plugins->getPlugin('twitter');
+            $settings = $plugin->getSettings();
+            $settings->token = $tokenCredentials->getIdentifier();
+            $settings->tokenSecret = $tokenCredentials->getSecret();
+            Craft::$app->plugins->savePluginSettings($plugin, $settings->getAttributes());
+
+            // Reset session variables
+
+            // Redirect
+            return $this->redirect('twitter/settings');
+        } catch (\League\OAuth1\Client\Exceptions\Exception $e) {
+            // Failed to get the token credentials or user details.
+            exit($e->getMessage());
+        }
+    }
+
+    public function actionOauthDisconnect()
+    {
+        // Reset token and token secret in the plugin's settings
+        $plugin = Craft::$app->plugins->getPlugin('twitter');
+        $settings = $plugin->getSettings();
+        $settings->token = null;
+        $settings->tokenSecret = null;
+        Craft::$app->plugins->savePluginSettings($plugin, $settings->getAttributes());
+
+        return $this->redirect('twitter/settings');
+    }
+
+    private function getOauthProvider()
+    {
+        $options = Craft::$app->config->get('oauthClientOptions', 'twitter');
+
+        if(!isset($options['callback_uri']))
+        {
+            $options['callback_uri'] = UrlHelper::actionUrl('twitter/settings/oauth-callback');
+        }
+
+        return new \League\OAuth1\Client\Server\Twitter($options);
     }
 }
