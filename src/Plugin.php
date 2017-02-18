@@ -92,6 +92,11 @@ class Plugin extends \craft\base\Plugin
         Craft::$app->view->twig->addExtension(new Extension());
     }
 
+    /**
+     * Register CP URL rules
+     *
+     * @param RegisterUrlRulesEvent $event
+     */
     public function registerCpUrlRules(RegisterUrlRulesEvent $event)
     {
         $rules = [
@@ -275,17 +280,6 @@ class Plugin extends \craft\base\Plugin
         {
             craft()->oauth->deleteTokensByPlugin('twitter');
         }
-    }
-
-    /**
-     * Adds the Twig extension for Twitter.
-     *
-     * @return TwitterTwigExtension
-     */
-    public function addTwigExtension()
-    {
-        Craft::import('plugins.twitter.etc.templating.twigextensions.TwitterTwigExtension');
-        return new TwitterTwigExtension();
     }
 
     /**
