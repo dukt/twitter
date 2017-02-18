@@ -35,22 +35,14 @@ class SettingsController extends Controller
         $tokenExists = false;
         $resourceOwner = null;
 
-        $plugin = Craft::$app->plugins->getPlugin('twitter');
-        $settings = $plugin->getSettings();
+        $token = Twitter::$plugin->twitter_oauth->getToken();
 
-        if($settings->token && $settings->tokenSecret)
+        if($token)
         {
             $tokenExists = true;
 
-            // Create token instance
-            $token = new \League\OAuth1\Client\Credentials\TokenCredentials();
-            $token->setIdentifier($settings->token);
-            $token->setSecret($settings->tokenSecret);
-
-            // Oauth provider
+            // Retrieve resource owner’s details
             $provider = $this->getOauthProvider();
-
-            // Resource Owner
             $resourceOwner = $provider->getUserDetails($token);
         }
 
@@ -93,15 +85,11 @@ class SettingsController extends Controller
             // Retrieve the temporary credentials we saved before.
             $temporaryCredentials = Craft::$app->getSession()->get('oauth.temporaryCredentials');
 
-            // We will now obtain Token Credentials from the server.
+            // Obtain token credentials from the server.
             $tokenCredentials = $provider->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier);
-            var_dump($tokenCredentials);
-            // Save token and token secret in the plugin's settings
-            $plugin = Craft::$app->plugins->getPlugin('twitter');
-            $settings = $plugin->getSettings();
-            $settings->token = $tokenCredentials->getIdentifier();
-            $settings->tokenSecret = $tokenCredentials->getSecret();
-            Craft::$app->plugins->savePluginSettings($plugin, $settings->getAttributes());
+
+            // Save token
+            Twittter::$plugin->twitter_oauth->saveToken($tokenCredentials);
 
             // Reset session variables
 

@@ -10,6 +10,7 @@ namespace dukt\twitter\services;
 use Craft;
 use yii\base\Component;
 use dukt\oauth\models\Token;
+use League\OAuth1\Client\Credentials\TokenCredentials;
 
 /**
  * OAuth Service
@@ -35,31 +36,16 @@ class Oauth extends Component
      *
      * @param Token $token
      */
-    public function saveToken(Token $token)
+    public function saveToken(TokenCredentials $token)
     {
-        // get plugin
+        // Save token and token secret in the plugin's settings
+
         $plugin = Craft::$app->plugins->getPlugin('twitter');
 
-        // get settings
         $settings = $plugin->getSettings();
+        $settings->token = $token->getIdentifier();
+        $settings->tokenSecret = $token->getSecret();
 
-
-        // do we have an existing token ?
-
-        $existingToken = \dukt\oauth\Plugin::getInstance()->oauth->getTokenById($settings->tokenId);
-
-        if($existingToken)
-        {
-            $token->id = $existingToken->id;
-        }
-
-        // save token
-        \dukt\oauth\Plugin::getInstance()->oauth->saveToken($token);
-
-        // set token ID
-        $settings->tokenId = $token->id;
-
-        // save plugin settings
         Craft::$app->plugins->savePluginSettings($plugin, $settings->getAttributes());
     }
 
@@ -96,29 +82,14 @@ class Oauth extends Component
      */
     public function deleteToken()
     {
-        // get plugin
         $plugin = Craft::$app->plugins->getPlugin('twitter');
 
-        // get settings
         $settings = $plugin->getSettings();
+        $settings->token = null;
+        $settings->tokenSecret = null;
 
-        if($settings->tokenId)
-        {
-            $token = \dukt\oauth\Plugin::getInstance()->oauth->getTokenById($settings->tokenId);
+        Craft::$app->plugins->savePluginSettings($plugin, $settings->getAttributes());
 
-            if($token)
-            {
-                if(\dukt\oauth\Plugin::getInstance()->oauth->deleteToken($token))
-                {
-                    $settings->tokenId = null;
-
-                    Craft::$app->plugins->savePluginSettings($plugin, $settings->getAttributes());
-
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return true;
     }
 }
