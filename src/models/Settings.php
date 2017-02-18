@@ -19,6 +19,16 @@ class Settings extends Model
      */
     public $tokenId;
 
+    /**
+     * @var
+     */
+    public $token;
+
+    /**
+     * @var
+     */
+    public $tokenSecret;
+
     // Public Methods
     // =========================================================================
 
@@ -29,6 +39,7 @@ class Settings extends Model
     {
         return [
             [['tokenId'], 'number', 'integerOnly' => true],
+            [['token', 'tokenSecret'], 'string'],
         ];
     }
 }
