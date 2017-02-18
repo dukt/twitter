@@ -10,7 +10,6 @@ namespace dukt\twitter\controllers;
 use Craft;
 use craft\web\Controller;
 use dukt\twitter\Plugin as Twitter;
-use dukt\oauth\Plugin as Oauth;
 use Exception;
 
 /**

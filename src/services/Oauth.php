@@ -9,7 +9,6 @@ namespace dukt\twitter\services;
 
 use Craft;
 use yii\base\Component;
-use dukt\oauth\models\Token;
 use League\OAuth1\Client\Credentials\TokenCredentials;
 use craft\helpers\UrlHelper;
 
@@ -25,7 +24,7 @@ class Oauth extends Component
     // =========================================================================
 
     /**
-     * @var Token|null
+     * @var TokenCredentials|null
      */
     private $token;
 
@@ -35,7 +34,7 @@ class Oauth extends Component
     /**
      * Save Token
      *
-     * @param Token $token
+     * @param TokenCredentials $token
      */
     public function saveToken(TokenCredentials $token)
     {
@@ -53,7 +52,7 @@ class Oauth extends Component
     /**
      * Get OAuth Token
      *
-     * @return Token|null
+     * @return TokenCredentials|null
      */
     public function getToken()
     {

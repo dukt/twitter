@@ -10,8 +10,11 @@ namespace dukt\twitter\services;
 use Craft;
 use craft\helpers\FileHelper;
 use dukt\twitter\Plugin as Twitter;
-use GuzzleHttp\Client;
+use League\OAuth1\Client\Credentials\TokenCredentials;
 use yii\base\Component;
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Subscriber\Oauth\Oauth1;
 
 /**
  * Api Service
@@ -218,14 +221,36 @@ class Api extends Component
 
         if($token)
         {
-            $provider = \dukt\oauth\Plugin::getInstance()->oauth->getProvider('twitter');
-
-            $stack = $provider->getSubscriber($token);
+            $stack = $this->getStack($token);
 
             $options['auth'] = 'oauth';
             $options['handler'] = $stack;
         }
 
         return new Client($options);
+    }
+
+    /**
+     * Get stack
+     *
+     * @return HandlerStack
+     */
+    private function getStack(TokenCredentials $token)
+    {
+        $stack = HandlerStack::create();
+
+        $clientOptions = Craft::$app->config->get('oauthClientOptions', 'twitter');
+
+        $middleware = new Oauth1([
+            'consumer_key'    => $clientOptions['identifier'],
+            'consumer_secret' => $clientOptions['secret'],
+            'token'           => $token->getIdentifier(),
+            'token_secret'    => $token->getSecret(),
+            'signature_method' => 'HMAC-SHA1'
+        ]);
+
+        $stack->push($middleware);
+
+        return $stack;
     }
 }
