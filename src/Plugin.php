@@ -96,57 +96,9 @@ class Plugin extends \craft\base\Plugin
     {
         $rules = [
             'twitter/settings' => 'twitter/settings/index',
-            'twitter/install' => 'twitter/install/index',
         ];
 
         $event->rules = array_merge($event->rules, $rules);
-    }
-
-    /**
-     * Get required plugins.
-     *
-     * @return array
-     */
-    public function getRequiredPlugins()
-    {
-        return array(
-            array(
-                'name' => "OAuth",
-                'handle' => 'oauth',
-                'url' => 'https://dukt.net/craft/oauth',
-                'version' => '2.0.0'
-            )
-        );
-    }
-
-    /**
-     * Get the Settings URL.
-     *
-     * @return string
-     */
-    public function getSettingsUrl()
-    {
-        return 'twitter/settings';
-    }
-
-    /**
-     * Get Documentation URL.
-     *
-     * @return string
-     */
-    public function getDocumentationUrl()
-    {
-        return 'https://dukt.net/craft/twitter/docs/';
-    }
-
-    /**
-     * Get Release Feed URL.
-     *
-     * @return string
-     */
-    public function getReleaseFeedUrl()
-    {
-        return 'https://dukt.net/craft/twitter/updates.json';
     }
 
     /**
@@ -370,19 +322,5 @@ class Plugin extends \craft\base\Plugin
         \Craft::$app->controller->redirect($url);
 
         return '';
-    }
-
-    /**
-     * Defines the settings.
-     *
-     * @access protected
-     *
-     * @return array
-     */
-    protected function defineSettings()
-    {
-        return array(
-            'tokenId' => array(AttributeType::Number),
-        );
     }
 }
