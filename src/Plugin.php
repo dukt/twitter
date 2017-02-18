@@ -8,6 +8,7 @@
 namespace dukt\twitter;
 
 use Craft;
+use craft\events\RegisterCacheOptionsEvent;
 use craft\events\RegisterComponentTypesEvent;
 use craft\events\RegisterUrlRulesEvent;
 use craft\events\ResolveResourcePathEvent;
@@ -16,6 +17,7 @@ use craft\services\Dashboard;
 use craft\services\Fields;
 use craft\services\Resources;
 use craft\web\UrlManager;
+use craft\utilities\ClearCaches;
 use dukt\twitter\fields\Tweet as TweetField;
 use dukt\twitter\models\Settings;
 use dukt\twitter\widgets\SearchWidget;
@@ -84,6 +86,14 @@ class Plugin extends \craft\base\Plugin
         Event::on(Resources::class, Resources::EVENT_RESOLVE_RESOURCE_PATH, function(ResolveResourcePathEvent $event) {
             $path = $this->getResourcePath($event->uri);
             $event->path = $path;
+        });
+
+        Event::on(ClearCaches::class, ClearCaches::EVENT_REGISTER_CACHE_OPTIONS, function(RegisterCacheOptionsEvent $event) {
+            $event->options[] = [
+                'key' => 'twitter-caches',
+                'label' => Craft::t('twitter', 'Twitter caches'),
+                'action' => Craft::$app->path->getStoragePath().'/twitter'
+            ];
         });
 
 
@@ -255,18 +265,6 @@ class Plugin extends \craft\base\Plugin
                 return $sizedPath;
             }
         }
-    }
-
-    /**
-     * Adds `craft/storage/runtime/twitter/` to the list of things the Clear Caches tool can delete.
-     *
-     * @return array
-     */
-    public function registerCachePaths()
-    {
-        return array(
-            Craft::$app->path->getRuntimePath().'/twitter/' => Craft::t('Twitter resources'),
-        );
     }
 
     /**
