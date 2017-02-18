@@ -10,6 +10,7 @@ namespace dukt\twitter\controllers;
 use Craft;
 use craft\web\Controller;
 use dukt\twitter\Plugin as Twitter;
+use Exception;
 
 /**
  * OAuth controller
@@ -92,7 +93,7 @@ class OauthController extends Controller
             // Redirect
             Craft::$app->getSession()->setNotice(Craft::t('twitter', "Connected to Twitter."));
 
-        } catch (\League\OAuth1\Client\Exceptions\Exception $e) {
+        } catch (Exception $e) {
             // Failed to get the token credentials or user details.
             Craft::$app->getSession()->setError($e->getMessage());
         }
