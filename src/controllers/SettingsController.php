@@ -10,7 +10,6 @@ namespace dukt\twitter\controllers;
 use Craft;
 use craft\web\Controller;
 use dukt\twitter\Plugin as Twitter;
-use Exception;
 
 /**
  * Settings controller
@@ -44,9 +43,12 @@ class SettingsController extends Controller
             $resourceOwner = $provider->getUserDetails($token);
         }
 
+        $oauthClientCredentials = Craft::$app->config->get('oauthClientCredentials', 'twitter');
+
         return $this->renderTemplate('twitter/settings', [
             'tokenExists' => $tokenExists,
             'resourceOwner' => $resourceOwner,
+            'oauthClientCredentials' => $oauthClientCredentials,
         ]);
     }
 }

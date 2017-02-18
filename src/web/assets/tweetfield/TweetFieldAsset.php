@@ -1,4 +1,10 @@
 <?php
+/**
+ * @link      https://dukt.net/craft/twitter/
+ * @copyright Copyright (c) 2017, Dukt
+ * @license   https://dukt.net/craft/twitter/docs/license
+ */
+
 namespace dukt\twitter\web\assets\tweetfield;
 
 use craft\web\AssetBundle;

@@ -10,7 +10,6 @@ namespace dukt\twitter\fields;
 use Craft;
 use craft\base\Field;
 use craft\helpers\StringHelper;
-use dukt\twitter\Plugin as Twitter;
 use dukt\twitter\helpers\TwitterHelper;
 use dukt\twitter\web\assets\tweetfield\TweetFieldAsset;
 
