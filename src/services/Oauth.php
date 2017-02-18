@@ -11,6 +11,7 @@ use Craft;
 use yii\base\Component;
 use League\OAuth1\Client\Credentials\TokenCredentials;
 use craft\helpers\UrlHelper;
+use \League\OAuth1\Client\Server\Twitter as TwitterProvider;
 
 /**
  * OAuth Service
@@ -66,7 +67,7 @@ class Oauth extends Component
             $settings = $plugin->getSettings();
 
             if($settings->token && $settings->tokenSecret) {
-                $token = new \League\OAuth1\Client\Credentials\TokenCredentials();
+                $token = new TokenCredentials();
                 $token->setIdentifier($settings->token);
                 $token->setSecret($settings->tokenSecret);
                 return $token;
@@ -93,6 +94,11 @@ class Oauth extends Component
         return true;
     }
 
+    /**
+     * Returns a Twitter provider (server) object.
+     *
+     * @return TwitterProvider
+     */
     public function getOauthProvider()
     {
         $options = Craft::$app->config->get('oauthClientOptions', 'twitter');
@@ -102,6 +108,6 @@ class Oauth extends Component
             $options['callback_uri'] = UrlHelper::actionUrl('twitter/oauth/callback');
         }
 
-        return new \League\OAuth1\Client\Server\Twitter($options);
+        return new TwitterProvider($options);
     }
 }
