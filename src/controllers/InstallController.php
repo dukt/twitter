@@ -27,16 +27,6 @@ class InstallController extends Controller
      */
     public function actionIndex()
     {
-        if(!craft()->twitter->checkDependencies())
-        {
-            $missingDependencies = craft()->twitter->getMissingDependencies();
-            return $this->renderTemplate('twitter/_special/install/index', [
-                'missingDependencies' => $missingDependencies,
-            ]);
-        }
-        else
-        {
-            return $this->redirect('twitter/settings');
-        }
+        return $this->redirect('twitter/settings');
     }
 }

@@ -7,7 +7,6 @@
 
 namespace dukt\twitter\services;
 
-use dukt\twitter\base\RequirementsTrait;
 use dukt\twitter\lib\AutoLink;
 use yii\base\Component;
 
@@ -19,11 +18,6 @@ use yii\base\Component;
  */
 class Twitter extends Component
 {
-    // Traits
-    // =========================================================================
-
-    use RequirementsTrait;
-
     // Public Methods
     // =========================================================================
 

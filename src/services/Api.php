@@ -38,12 +38,6 @@ class Api extends Component
      */
     public function get($uri, array $query = null, array $headers = null, array $options = array(), $enableCache = null, $cacheExpire = 0)
     {
-        if(!Twitter::$plugin->twitter->checkDependencies())
-        {
-            throw new Exception("Twitter plugin dependencies are not met");
-        }
-
-
         // Add query to the request’s options
 
         if($query)

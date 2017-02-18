@@ -51,35 +51,28 @@ class Tweet extends Field
 
         $previewHtml = '';
 
-        if(Twitter::$plugin->twitter->checkDependencies())
+        if ($tweet && $tweet->remoteId)
         {
-            if ($tweet && $tweet->remoteId)
+            try
             {
-                try
-                {
-                    $previewHtml .=
-                        '<div class="tweet">' .
-                            '<div class="tweet-image" style="background-image: url('.$tweet->getUserProfileImageUrl(100).');"></div> ' .
-                            '<div class="tweet-user">' .
-                            '<span class="tweet-user-name">'.$tweet->getUserName().'</span> ' .
-                            '<a class="tweet-user-screenname light" href="'.$tweet->getUrl().'" target="_blank">@'.$tweet->getUserScreenName().'</a>' .
-                        '</div>' .
-                        '<div class="tweet-text">'. $tweet->getText() .'</div>'.
-                            '<ul class="tweet-actions light">' .
-                                    '<li class="tweet-date">'.TwitterHelper::timeAgo($tweet->getCreatedAt()).'</li>' .
-                                '<li><a href="'.$tweet->getUrl().'">Permalink</a></li>' .
-                            '</ul>' .
-                        '</div>';
-                }
-                catch(\Exception $e)
-                {
-                    $previewHtml .= '<p class="error">'.$e->getMessage().'</p>';
-                }
+                $previewHtml .=
+                    '<div class="tweet">' .
+                        '<div class="tweet-image" style="background-image: url('.$tweet->getUserProfileImageUrl(100).');"></div> ' .
+                        '<div class="tweet-user">' .
+                        '<span class="tweet-user-name">'.$tweet->getUserName().'</span> ' .
+                        '<a class="tweet-user-screenname light" href="'.$tweet->getUrl().'" target="_blank">@'.$tweet->getUserScreenName().'</a>' .
+                    '</div>' .
+                    '<div class="tweet-text">'. $tweet->getText() .'</div>'.
+                        '<ul class="tweet-actions light">' .
+                                '<li class="tweet-date">'.TwitterHelper::timeAgo($tweet->getCreatedAt()).'</li>' .
+                            '<li><a href="'.$tweet->getUrl().'">Permalink</a></li>' .
+                        '</ul>' .
+                    '</div>';
             }
-        }
-        else
-        {
-            $previewHtml .= '<p class="light">'.Craft::t('twitter', "Twitter plugin is not configured properly. Please check {url} for more informations.", array('url' => Craft::t('twitter', '<a href="'.UrlHelper::getUrl('twitter/settings').'">{title}</a>', array('title' => 'Twitter plugin settings')))).'</p>';
+            catch(\Exception $e)
+            {
+                $previewHtml .= '<p class="error">'.$e->getMessage().'</p>';
+            }
         }
 
         Craft::$app->getView()->registerAssetBundle(TwitterAsset::class);

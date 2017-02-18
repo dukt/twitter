@@ -21,51 +21,6 @@ trait RequirementsTrait
     // Public Methods
     // =========================================================================
 
-    /**
-     * Checks dependencies and redirects to install if one or more are missing
-     *
-     * @return bool|null
-     */
-    public function requireDependencies()
-    {
-        if(!$this->checkDependencies())
-        {
-            $url = UrlHelper::getUrl('twitter/install');
-            Craft::$app->request->redirect($url);
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-
-    /**
-     * Checks if dependencies are missing
-     *
-     * @return bool
-     */
-    public function checkDependencies()
-    {
-        $missingDependencies = $this->getMissingDependencies();
-
-        if(count($missingDependencies) > 0)
-        {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Get Missing Dependencies
-     *
-     * @return array
-     */
-    public function getMissingDependencies()
-    {
-        return $this->getDependencies(true);
-    }
 
     // Private Methods
     // =========================================================================
