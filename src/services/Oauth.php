@@ -41,13 +41,13 @@ class Oauth extends Component
     {
         // Save token and token secret in the plugin's settings
 
-        $plugin = Craft::$app->plugins->getPlugin('twitter');
+        $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
 
         $settings = $plugin->getSettings();
         $settings->token = $token->getIdentifier();
         $settings->tokenSecret = $token->getSecret();
 
-        Craft::$app->plugins->savePluginSettings($plugin, $settings->getAttributes());
+        Craft::$app->getPlugins()->savePluginSettings($plugin, $settings->getAttributes());
     }
 
     /**
@@ -63,7 +63,7 @@ class Oauth extends Component
         }
         else
         {
-            $plugin = Craft::$app->plugins->getPlugin('twitter');
+            $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
             $settings = $plugin->getSettings();
 
             if($settings->token && $settings->tokenSecret) {
@@ -83,13 +83,13 @@ class Oauth extends Component
      */
     public function deleteToken()
     {
-        $plugin = Craft::$app->plugins->getPlugin('twitter');
+        $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
 
         $settings = $plugin->getSettings();
         $settings->token = null;
         $settings->tokenSecret = null;
 
-        Craft::$app->plugins->savePluginSettings($plugin, $settings->getAttributes());
+        Craft::$app->getPlugins()->savePluginSettings($plugin, $settings->getAttributes());
 
         return true;
     }
@@ -101,7 +101,7 @@ class Oauth extends Component
      */
     public function getOauthProvider()
     {
-        $oauthClientCredentials = Craft::$app->config->get('oauthClientCredentials', 'twitter');
+        $oauthClientCredentials = Craft::$app->getConfig()->get('oauthClientCredentials', 'twitter');
 
         $options = [];
 

@@ -259,7 +259,7 @@ class Publish extends Component
             'query' => $query
         ];
 
-        $oembed = Twitter::$plugin->cache->get(['twitter.publish.oEmbed', $url, $options]);
+        $oembed = Twitter::$plugin->getCache()->get(['twitter.publish.oEmbed', $url, $options]);
 
         if(!$oembed)
         {
@@ -269,7 +269,7 @@ class Publish extends Component
 
             $oembed = json_decode($response->getBody(), true);
 
-            Twitter::$plugin->cache->set(['twitter.publish.oEmbed', $url, $options], $oembed);
+            Twitter::$plugin->getCache()->set(['twitter.publish.oEmbed', $url, $options], $oembed);
         }
 
         return $oembed;

@@ -29,10 +29,10 @@ class ApiController extends Controller
      */
     public function actionLookupTweet()
     {
-        $tweetId = Craft::$app->request->getParam('id');
+        $tweetId = Craft::$app->getRequest()->getParam('id');
 
         try {
-            $tweet = Twitter::$plugin->api->getTweetById($tweetId);
+            $tweet = Twitter::$plugin->getApi()->getTweetById($tweetId);
 
             return $this->asJson($tweet);
         }

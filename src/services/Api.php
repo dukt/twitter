@@ -52,7 +52,7 @@ class Api extends Component
 
         if(is_null($enableCache))
         {
-            $enableCache = Craft::$app->config->get('enableCache', 'twitter');
+            $enableCache = Craft::$app->getConfig()->get('enableCache', 'twitter');
         }
 
 
@@ -60,7 +60,7 @@ class Api extends Component
 
         if($enableCache)
         {
-            $response = Twitter::$plugin->cache->get([$uri, $headers, $options]);
+            $response = Twitter::$plugin->getCache()->get([$uri, $headers, $options]);
 
             if($response)
             {
@@ -86,7 +86,7 @@ class Api extends Component
 
         if($enableCache)
         {
-            Twitter::$plugin->cache->set([$uri, $headers, $options], $jsonResponse, $cacheExpire);
+            Twitter::$plugin->getCache()->set([$uri, $headers, $options], $jsonResponse, $cacheExpire);
         }
 
         return $jsonResponse;
@@ -106,7 +106,7 @@ class Api extends Component
 
         $query = array_merge($query, array('id' => $tweetId));
 
-        $tweet = Twitter::$plugin->api->get('statuses/show', $query);
+        $tweet = Twitter::$plugin->getApi()->get('statuses/show', $query);
 
 
         // generate user profile image
@@ -150,7 +150,7 @@ class Api extends Component
 
         $query = array_merge($query, array('user_id' => $userId));
 
-        return Twitter::$plugin->api->get('users/show', $query);
+        return Twitter::$plugin->getApi()->get('users/show', $query);
     }
 
     /**
@@ -217,7 +217,7 @@ class Api extends Component
             'base_uri' => 'https://api.twitter.com/1.1/'
         ];
 
-        $token = Twitter::$plugin->oauth->getToken();
+        $token = Twitter::$plugin->getOauth()->getToken();
 
         if($token)
         {
@@ -239,7 +239,7 @@ class Api extends Component
     {
         $stack = HandlerStack::create();
 
-        $clientOptions = Craft::$app->config->get('oauthClientCredentials', 'twitter');
+        $clientOptions = Craft::$app->getConfig()->get('oauthClientCredentials', 'twitter');
 
         $middleware = new Oauth1([
             'consumer_key'    => $clientOptions['consumerKey'],

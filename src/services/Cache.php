@@ -31,7 +31,7 @@ class Cache extends Component
      */
     public function get($id)
     {
-        if(Craft::$app->config->get('enableCache', 'twitter') === true)
+        if(Craft::$app->getConfig()->get('enableCache', 'twitter') === true)
         {
             $cacheKey = $this->getCacheKey($id);
 
@@ -51,13 +51,13 @@ class Cache extends Component
      */
     public function set($id, $value, $expire = null, $dependency = null)
     {
-        if(Craft::$app->config->get('enableCache', 'twitter') === true)
+        if(Craft::$app->getConfig()->get('enableCache', 'twitter') === true)
         {
             $cacheKey = $this->getCacheKey($id);
 
             if(!$expire)
             {
-                $expire = Craft::$app->config->get('cacheDuration', 'twitter');
+                $expire = Craft::$app->getConfig()->get('cacheDuration', 'twitter');
                 $expire = TwitterHelper::formatDuration($expire);
             }
 

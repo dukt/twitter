@@ -31,7 +31,7 @@ class OauthController extends Controller
     public function actionConnect()
     {
         // Oauth provider
-        $provider = Twitter::$plugin->oauth->getOauthProvider();
+        $provider = Twitter::$plugin->getOauth()->getOauthProvider();
 
         // Obtain temporary credentials
         $temporaryCredentials = $provider->getTemporaryCredentials();
@@ -46,37 +46,16 @@ class OauthController extends Controller
     }
 
     /**
-     * Disconnect
-     *
-     * @return null
-     */
-    public function actionDisconnect()
-    {
-        if (Twitter::$plugin->oauth->deleteToken())
-        {
-            Craft::$app->getSession()->setNotice(Craft::t('twitter', "Disconnected from Twitter."));
-        }
-        else
-        {
-            Craft::$app->getSession()->setError(Craft::t('twitter', "Couldn’t disconnect from Twitter"));
-        }
-
-        $referer = Craft::$app->request->referrer;
-
-        return $this->redirect($referer);
-    }
-
-    /**
      * Callback
      *
      * @return null
      */
     public function actionCallback()
     {
-        $provider = Twitter::$plugin->oauth->getOauthProvider();
+        $provider = Twitter::$plugin->getOauth()->getOauthProvider();
 
-        $oauthToken = Craft::$app->request->getParam('oauth_token');
-        $oauthVerifier = Craft::$app->request->getParam('oauth_verifier');
+        $oauthToken = Craft::$app->getRequest()->getParam('oauth_token');
+        $oauthVerifier = Craft::$app->getRequest()->getParam('oauth_verifier');
 
         try {
             // Retrieve the temporary credentials we saved before.
@@ -86,7 +65,7 @@ class OauthController extends Controller
             $tokenCredentials = $provider->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier);
 
             // Save token
-            Twitter::$plugin->oauth->saveToken($tokenCredentials);
+            Twitter::$plugin->getOauth()->saveToken($tokenCredentials);
 
             // Reset session variables
 
@@ -99,5 +78,26 @@ class OauthController extends Controller
         }
 
         return $this->redirect('twitter/settings');
+    }
+
+    /**
+     * Disconnect
+     *
+     * @return null
+     */
+    public function actionDisconnect()
+    {
+        if (Twitter::$plugin->getOauth()->deleteToken())
+        {
+            Craft::$app->getSession()->setNotice(Craft::t('twitter', "Disconnected from Twitter."));
+        }
+        else
+        {
+            Craft::$app->getSession()->setError(Craft::t('twitter', "Couldn’t disconnect from Twitter"));
+        }
+
+        $referer = Craft::$app->getRequest()->referrer;
+
+        return $this->redirect($referer);
     }
 }

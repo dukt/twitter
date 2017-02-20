@@ -32,18 +32,18 @@ class SettingsController extends Controller
         $tokenExists = false;
         $resourceOwner = null;
 
-        $token = Twitter::$plugin->oauth->getToken();
+        $token = Twitter::$plugin->getOauth()->getToken();
 
         if($token)
         {
             $tokenExists = true;
 
             // Retrieve resource owner’s details
-            $provider = Twitter::$plugin->oauth->getOauthProvider();
+            $provider = Twitter::$plugin->getOauth()->getOauthProvider();
             $resourceOwner = $provider->getUserDetails($token);
         }
 
-        $oauthClientCredentials = Craft::$app->config->get('oauthClientCredentials', 'twitter');
+        $oauthClientCredentials = Craft::$app->getConfig()->get('oauthClientCredentials', 'twitter');
 
         return $this->renderTemplate('twitter/settings', [
             'tokenExists' => $tokenExists,

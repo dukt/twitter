@@ -19,6 +19,7 @@ use craft\services\Fields;
 use craft\services\Resources;
 use craft\web\UrlManager;
 use craft\utilities\ClearCaches;
+use dukt\twitter\base\PluginTrait;
 use dukt\twitter\fields\Tweet as TweetField;
 use dukt\twitter\models\Settings;
 use dukt\twitter\widgets\SearchWidget;
@@ -34,6 +35,11 @@ use yii\base\Event;
  */
 class Plugin extends \craft\base\Plugin
 {
+    // Traits
+    // =========================================================================
+
+    use PluginTrait;
+
     // Properties
     // =========================================================================
 
@@ -207,7 +213,7 @@ class Plugin extends \craft\base\Plugin
                 else
                 {
                     // OK, let’s fetch it then
-                    $user = self::$plugin->api->getUserById($userId);
+                    $user = self::$plugin->getApi()->getUserById($userId);
 
                     if (!$user || empty($user['profile_image_url_https']))
                     {
