@@ -14,7 +14,7 @@ trait PluginTrait
     /**
      * Returns the twitter service.
      *
-     * @return \dukt\twitter\services\Twitter The config service
+     * @return \dukt\twitter\services\Twitter The twitter service
      */
     public function getTwitter()
     {
@@ -25,7 +25,7 @@ trait PluginTrait
     /**
      * Returns the api service.
      *
-     * @return \dukt\twitter\services\Api The config service
+     * @return \dukt\twitter\services\Api The api service
      */
     public function getApi()
     {
@@ -36,7 +36,7 @@ trait PluginTrait
     /**
      * Returns the cache service.
      *
-     * @return \dukt\twitter\services\Cache The config service
+     * @return \dukt\twitter\services\Cache The cache service
      */
     public function getCache()
     {
@@ -47,7 +47,7 @@ trait PluginTrait
     /**
      * Returns the oauth service.
      *
-     * @return \dukt\twitter\services\Oauth The config service
+     * @return \dukt\twitter\services\Oauth The oauth service
      */
     public function getOauth()
     {
@@ -58,7 +58,7 @@ trait PluginTrait
     /**
      * Returns the publish service.
      *
-     * @return \dukt\twitter\services\Publish The config service
+     * @return \dukt\twitter\services\Publish The publish service
      */
     public function getPublish()
     {
