@@ -49,9 +49,7 @@ class Plugin extends \craft\base\Plugin
     public $hasSettings = true;
 
     /**
-     * Static property that is an instance of this plugin class so that it can be accessed via Twitter::$plugin
-     *
-     * @var static
+     * @var \dukt\twitter\Plugin The plugin instance.
      */
     public static $plugin;
 
