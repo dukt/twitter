@@ -9,6 +9,15 @@ namespace dukt\twitter\base;
 
 use dukt\twitter\Plugin as Twitter;
 
+/**
+ * PluginTrait
+ *
+ * @property \dukt\twitter\services\Twitter     $twitter    The twitter service
+ * @property \dukt\twitter\services\Api         $api        The api service
+ * @property \dukt\twitter\services\Cache       $cache      The cache service
+ * @property \dukt\twitter\services\Oauth       $oauth      The oauth service
+ * @property \dukt\twitter\services\Publish     $publish    The publish service
+ */
 trait PluginTrait
 {
     /**
