@@ -42,8 +42,9 @@ return [
 
 		<h2>{{ 'Configure the OAuth client'|t('twitter') }}</h2>
 		<p>{{ 'Once the OAuth client is created, Twitter will provide you with a consumer ID and secret.'|t('twitter') }}</p>
-		<p>{{ ("Copy the consumer ID & secret from the <a href=\"https://dev.twitter.com/apps\">"~'Twitter API Console'|t('twitter')~"</a>, and paste them in the <code>craft/config/twitter.php</code> config file.")|raw }}</p>
+		<p>{{ ("Copy the consumer ID & secret from your application details in the <a href=\"https://dev.twitter.com/apps\">"~'Twitter API Console'|t('twitter')~"</a>, and paste them in the <code>craft/config/twitter.php</code> config file.")|raw }}</p>
 
+		<h3>{{ 'Example'|t('twitter') }}</h3>
 		<pre><code>{{ configFile|e }}</code></pre>
 
 		{{ forms.textField({
