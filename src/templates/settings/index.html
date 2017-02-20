@@ -11,15 +11,40 @@
 
 {% set docsUrl = 'https://dukt.net/craft/twitter/docs' %}
 
+{% set configFile %}
+<?php
+return [
+	'oauthClientCredentials' => [
+		'consumerKey' => 'YOUR_CONSUMER_KEY',
+		'consumerSecret' => 'YOUR_CONSUMER_SECRET'
+	],
+];
+{% endset %}
+
 {% set content %}
 
-	<h2>{{ 'Twitter Account'|t('twitter') }}</h2>
-
 	{% if not tokenExists %}
+		<h2>{{ 'Create the OAuth application'|t('twitter') }}</h2>
+		<p>{{ 'Go to the {link} and click the “Create a new app” button.'|t('twitter', {link: '<a href="https://dev.twitter.com/apps">'~'Twitter API Console'|t('twitter')~'</a>'})|raw }}</p>
+		<p>{{ "Configure the client using the following informations."|t('twitter') }}</p>
 
-		<p>{{ 'Connect Craft to a Twitter account in order to get started.'|t('twitter') }}</p>
+		{{ forms.textField({
+			readonly: true,
+			label: "Website",
+			value: javascriptOrigin
+		}) }}
 
-		<p class="light">Gettings errors trying to connect? Check your consumer key and secret, as well as your <a target="_blank" href="https://dev.twitter.com/apps">Application settings</a> on Twitter</p>
+		{{ forms.textField({
+			readonly: true,
+			label: "Callback URL",
+			value: redirectUri
+		}) }}
+
+		<h2>{{ 'Configure the OAuth client'|t('twitter') }}</h2>
+		<p>{{ 'Once the OAuth client is created, Twitter will provide you with a consumer ID and secret.'|t('twitter') }}</p>
+		<p>{{ ("Copy the consumer ID & secret from the <a href=\"https://dev.twitter.com/apps\">"~'Twitter API Console'|t('twitter')~"</a>, and paste them in the <code>craft/config/twitter.php</code> config file.")|raw }}</p>
+
+		<pre><code>{{ configFile|e }}</code></pre>
 
 		{{ forms.textField({
 			readonly: true,
@@ -38,6 +63,8 @@
 		</div>
 
 	{% else %}
+
+		<h2>{{ 'Twitter Account'|t('twitter') }}</h2>
 
 		{% if resourceOwner.urls.profile_image_url_https is defined %}
 			<img width="36" src="{{ resourceOwner.urls.profile_image_url_https|replace('_normal', '_bigger') }}" />

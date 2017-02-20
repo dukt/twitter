@@ -48,6 +48,8 @@ class SettingsController extends Controller
         return $this->renderTemplate('twitter/settings', [
             'tokenExists' => $tokenExists,
             'resourceOwner' => $resourceOwner,
+            'javascriptOrigin' => Twitter::$plugin->getOauth()->getJavascriptOrigin(),
+            'redirectUri' => Twitter::$plugin->getOauth()->getRedirectUri(),
             'oauthClientCredentials' => $oauthClientCredentials,
         ]);
     }

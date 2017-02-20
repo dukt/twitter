@@ -115,4 +115,23 @@ class Oauth extends Component
 
         return new TwitterProvider($options);
     }
+
+    /**
+     * Get javascript origin
+     * @return string
+     */
+    public function getJavascriptOrigin()
+    {
+        return UrlHelper::baseUrl();
+    }
+
+    /**
+     * Get redirect URI
+     *
+     * @return string
+     */
+    public function getRedirectUri()
+    {
+        return UrlHelper::actionUrl('twitter/oauth/callback');
+    }
 }
