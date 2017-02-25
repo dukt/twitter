@@ -89,8 +89,13 @@ class Plugin extends \craft\base\Plugin
         });
 
         Event::on(Resources::class, Resources::EVENT_RESOLVE_RESOURCE_PATH, function(ResolveResourcePathEvent $event) {
-            $path = $this->getResourcePath($event->uri);
-            $event->path = $path;
+            if (strpos($event->uri, 'twitter/') === 0) {
+                $path = $this->getResourcePath($event->uri);
+                $event->path = $path;
+
+                // Prevent other event listeners from getting invoked
+                $event->handled = true;
+            }
         });
 
         Event::on(ClearCaches::class, ClearCaches::EVENT_REGISTER_CACHE_OPTIONS, function(RegisterCacheOptionsEvent $event) {
@@ -131,17 +136,17 @@ class Plugin extends \craft\base\Plugin
     public function getResourcePath($path)
     {
         // Are they requesting a Twitter user image?
-        if (strncmp($path, 'twitteruserimages/', 18) === 0)
+        if (strncmp($path, 'twitter/userimages/', 18) === 0)
         {
             $parts = array_merge(array_filter(explode('/', $path)));
 
-            if (count($parts) != 3)
+            if (count($parts) != 4)
             {
                 return;
             }
 
-            $userId = $parts[1];
-            $size = $parts[2];
+            $userId = $parts[2];
+            $size = $parts[3];
 
             $imageSizes = array(
                 'mini' => 24,
@@ -241,7 +246,7 @@ class Plugin extends \craft\base\Plugin
                         'save_to' => $originalPath
                     ));
 
-                    if (!$response->statusCode != 200)
+                    if (!$response->getStatusCode() != 200)
                     {
                         return;
                     }

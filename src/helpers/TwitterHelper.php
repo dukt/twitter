@@ -54,7 +54,7 @@ class TwitterHelper
      */
     public static function getUserProfileImageResourceUrl($twitterUserId, $size = 48)
     {
-        return UrlHelper::resourceUrl('twitteruserimages/'.$twitterUserId.'/'.$size);
+        return UrlHelper::resourceUrl('twitter/userimages/'.$twitterUserId.'/'.$size);
     }
 
     /**
