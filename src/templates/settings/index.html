@@ -70,22 +70,10 @@
             {% if resourceOwner.nickname is defined %}
                 <li><strong>{{ 'Nickname'|t('twitter') }}:</strong> {{ resourceOwner.nickname }}</li>
             {% endif %}
-
-            {% if resourceOwner.email is defined %}
-                <li><strong>{{ 'Email'|t('twitter') }}:</strong> {{ resourceOwner.email }}</li>
-            {% endif %}
-
-            {% if resourceOwner.location is defined %}
-                <li><strong>{{ 'Location'|t('twitter') }}:</strong> {{ resourceOwner.location }}</li>
-            {% endif %}
-
-            {% if resourceOwner.description is defined %}
-                <li><strong>{{ 'Description'|t('twitter') }}:</strong> {{ resourceOwner.description }}</li>
-            {% endif %}
         </ul>
 
         <div class="buttons">
-            <a href="{{ actionUrl('twitter/oauth/disconnect') }}" class="btn">{{ 'Disconnect'|t('twitter') }}</a>
+            <a href="{{ actionUrl('twitter/oauth/disconnect') }}" class="btn small">{{ 'Disconnect'|t('twitter') }}</a>
         </div>
     {% endif %}
 
