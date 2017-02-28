@@ -10,7 +10,7 @@ namespace dukt\twitter\base;
 use dukt\twitter\Plugin as Twitter;
 
 /**
- * PluginTrait
+ * PluginTrait implements the common methods and properties for plugin classes.
  *
  * @property \dukt\twitter\services\Twitter     $twitter    The twitter service
  * @property \dukt\twitter\services\Api         $api        The api service
