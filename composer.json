@@ -14,7 +14,7 @@
     "changelogUrl": "https://dukt.net/craft/twitter/updates.json"
   },
   "require": {
-    "dukt/craft-oauth": "3.x-dev",
+    "league/oauth1-client": "1.7.0@dev",
     "nojimage/twitter-text-php": "^1.1"
   },
   "autoload": {
