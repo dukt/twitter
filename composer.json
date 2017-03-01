@@ -9,7 +9,7 @@
     "developerUrl": "https://dukt.net/",
     "documentationUrl": "https://dukt.net/craft/twitter/docs",
     "class": "dukt\\twitter\\Plugin",
-    "version": "3.0.0",
+    "version": "2.0.0",
     "schemaVersion": "1.0.0",
     "changelogUrl": "https://dukt.net/craft/twitter/updates.json"
   },
