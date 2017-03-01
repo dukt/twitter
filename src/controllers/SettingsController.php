@@ -32,25 +32,67 @@ class SettingsController extends Controller
         $tokenExists = false;
         $resourceOwner = null;
 
-        $token = Twitter::$plugin->getOauth()->getToken();
+        try {
+            $token = Twitter::$plugin->getOauth()->getToken();
 
-        if($token)
+            if($token)
+            {
+                $tokenExists = true;
+
+                // Retrieve resource owner’s details
+                $provider = Twitter::$plugin->getOauth()->getOauthProvider();
+                $resourceOwner = $provider->getUserDetails($token);
+            }
+        }
+        catch (\Exception $e)
         {
-            $tokenExists = true;
-
-            // Retrieve resource owner’s details
-            $provider = Twitter::$plugin->getOauth()->getOauthProvider();
-            $resourceOwner = $provider->getUserDetails($token);
+            $error = $e->getMessage();
         }
 
-        $oauthClientCredentials = Craft::$app->getConfig()->get('oauthClientCredentials', 'twitter');
-
         return $this->renderTemplate('twitter/settings', [
+            'error' => (isset($error) ? $error : null),
             'tokenExists' => $tokenExists,
             'resourceOwner' => $resourceOwner,
             'javascriptOrigin' => Twitter::$plugin->getOauth()->getJavascriptOrigin(),
             'redirectUri' => Twitter::$plugin->getOauth()->getRedirectUri(),
-            'oauthClientCredentials' => $oauthClientCredentials,
         ]);
+    }
+
+    /**
+     * OAuth settings.
+     *
+     * @return string
+     */
+    public function actionOauth()
+    {
+        $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
+
+        return $this->renderTemplate('twitter/settings/oauth', [
+            'javascriptOrigin' => Twitter::$plugin->getOauth()->getJavascriptOrigin(),
+            'redirectUri' => Twitter::$plugin->getOauth()->getRedirectUri(),
+            'settings' => $plugin->getSettings(),
+        ]);
+    }
+
+    /**
+     * Save OAuth settings.
+     *
+     * @return \yii\web\Response
+     */
+    public function actionSaveOauthSettings()
+    {
+        $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
+        $settings = $plugin->getSettings();
+
+        $postSettings = Craft::$app->getRequest()->getBodyParam('settings');
+
+        $settings['oauthConsumerKey'] = $postSettings['oauthConsumerKey'];
+        $settings['oauthConsumerSecret'] = $postSettings['oauthConsumerSecret'];
+
+        Craft::$app->getPlugins()->savePluginSettings($plugin, $settings->getAttributes());
+
+        Craft::$app->getSession()->setNotice(Craft::t('twitter', 'OAuth settings saved.'));
+
+        return $this->redirectToPostedUrl();
     }
 }

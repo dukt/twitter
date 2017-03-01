@@ -1,0 +1,70 @@
+{% extends "_layouts/cp" %}
+
+{% import "_includes/forms" as forms %}
+
+{% set crumbs = [
+{ label: "Settings"|t('twitter'), url: url('settings') },
+{ label: "Plugins"|t('twitter'), url: url('settings/plugins') },
+{ label: "Twitter"|t('twitter'), url: url('twitter/settings') }
+] %}
+
+{% set title = "OAuth Settings"|t('twitter') %}
+{% set docsUrl = 'https://dukt.net/craft/twitter/docs' %}
+
+{% macro configWarning(setting, file) -%}
+	{{ "This is being overridden by the {setting} config setting."|t('twitter', {
+		setting: '<strong>'~setting~'</strong>'
+	})|raw }}
+{%- endmacro %}
+
+{% from _self import configWarning %}
+
+{% set content %}
+
+	<form action="" method="post">
+		{{ csrfInput() }}
+		<input type="hidden" name="action" value="twitter/settings/save-oauth-settings">
+		<input type="hidden" name="pluginHandle" value="twitter">
+		<input type="hidden" name="redirect" value="{{ 'twitter/settings'|hash }}">
+
+		<h2 class="first">{{ 'Create the OAuth application'|t('twitter') }}</h2>
+		<p>{{ 'Go to the {link} and click the “Create a new app” button.'|t('twitter', {link: '<a href="https://dev.twitter.com/apps">'~'Twitter API Console'|t('twitter')~'</a>'})|raw }}</p>
+		<p>{{ "Configure the client using the following informations."|t('twitter') }}</p>
+
+		{{ forms.textField({
+			readonly: true,
+			label: "Website",
+			value: javascriptOrigin
+		}) }}
+
+		{{ forms.textField({
+			readonly: true,
+			label: "Callback URL",
+			value: redirectUri
+		}) }}
+
+		<h2>{{ 'Configure the OAuth client'|t('twitter') }}</h2>
+		<p>{{ 'Once the OAuth client is created Twitter will provide you with a consumer ID and secret.'|t('twitter') }}</p>
+		<p>{{ 'Copy the consumer ID & secret from your application details in the {link}, paste them below and save.'|t('facebook', { link: '<a href="https://dev.twitter.com/apps">'~'Twitter API Console'|t('facebook')~'</a>'})|raw }}</p>
+
+		{{ forms.textField({
+			label: "Consumer Key",
+			name: 'settings[oauthConsumerKey]',
+			value: settings.oauthConsumerKey,
+			warning: (not craft.app.config.get('oauthConsumerKey', 'twitter') is empty ? configWarning('oauthConsumerKey'))
+		}) }}
+
+		{{ forms.textField({
+			label: "Consumer Secret",
+			name: 'settings[oauthConsumerSecret]',
+			value: settings.oauthConsumerSecret,
+			warning: (not craft.app.config.get('oauthConsumerSecret', 'twitter') is empty ? configWarning('oauthConsumerSecret'))
+		}) }}
+
+		<div class="buttons">
+			<input type="submit" class="btn submit" value="{{ "Save"|t('twitter') }}">
+		</div>
+	</form>
+
+{% endset %}
+

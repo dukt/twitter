@@ -121,6 +121,7 @@ class Plugin extends \craft\base\Plugin
     {
         $rules = [
             'twitter/settings' => 'twitter/settings/index',
+            'twitter/settings/oauth' => 'twitter/settings/oauth',
         ];
 
         $event->rules = array_merge($event->rules, $rules);

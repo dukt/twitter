@@ -7,6 +7,7 @@
 
 namespace dukt\twitter\base;
 
+use Craft;
 use dukt\twitter\Plugin as Twitter;
 
 /**
@@ -73,5 +74,39 @@ trait PluginTrait
     {
         /** @var Twitter $this */
         return $this->get('publish');
+    }
+
+    public function getConsumerKey()
+    {
+        $consumerKey = Craft::$app->getConfig()->get('oauthConsumerKey', 'twitter');
+
+        if($consumerKey) {
+            return $consumerKey;
+        } else {
+            $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
+            $settings = $plugin->getSettings();
+
+            if(!empty($settings['oauthConsumerKey']))
+            {
+                return $settings['oauthConsumerKey'];
+            }
+        }
+    }
+
+    public function getConsumerSecret()
+    {
+        $consumerSecret = Craft::$app->getConfig()->get('oauthConsumerSecret', 'twitter');
+
+        if($consumerSecret) {
+            return $consumerSecret;
+        } else {
+            $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
+            $settings = $plugin->getSettings();
+
+            if(!empty($settings['oauthConsumerSecret']))
+            {
+                return $settings['oauthConsumerSecret'];
+            }
+        }
     }
 }

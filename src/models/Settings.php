@@ -30,6 +30,16 @@ class Settings extends Model
      */
     public $tokenSecret;
 
+    /**
+     * @var
+     */
+    public $oauthConsumerKey;
+
+    /**
+     * @var
+     */
+    public $oauthConsumerSecret;
+
     // Public Methods
     // =========================================================================
 

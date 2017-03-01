@@ -1,6 +1,17 @@
 <?php
 
-return array(
+return [
+
+    /**
+     * OAuth consumer key.
+     */
+    'oauthConsumerKey' => null,
+
+    /**
+     * OAuth consumer secret.
+     */
+    'oauthConsumerSecret' => null,
+
     /**
      * The amount of time cache should last
      *
@@ -12,4 +23,4 @@ return array(
      * Whether request to APIs should be cached or not
      */
     'enableCache' => true,
-);
+];

@@ -13,67 +13,44 @@
 
 {% set content %}
 
-    {% if not tokenExists %}
-        <h2>{{ 'Create the OAuth application'|t('twitter') }}</h2>
-        <p>{{ 'Go to the {link} and click the “Create a new app” button.'|t('twitter', {link: '<a href="https://dev.twitter.com/apps">'~'Twitter API Console'|t('twitter')~'</a>'})|raw }}</p>
-        <p>{{ "Configure the client using the following informations."|t('twitter') }}</p>
+    <h2>{{ 'Account'|t('twitter') }}</h2>
 
-        {{ forms.textField({
-            readonly: true,
-            label: "Website",
-            value: javascriptOrigin
-        }) }}
+    {% if tokenExists %}
 
-        {{ forms.textField({
-            readonly: true,
-            label: "Callback URL",
-            value: redirectUri
-        }) }}
+		{% if not error %}
 
-        <h2>{{ 'Configure the OAuth client'|t('twitter') }}</h2>
-        <p>{{ 'Once the OAuth client is created, Twitter will provide you with a consumer ID and secret.'|t('twitter') }}</p>
-        <p>{{ ("Copy the consumer ID & secret from your application details in the <a href=\"https://dev.twitter.com/apps\">"~'Twitter API Console'|t('twitter')~"</a>, and paste them in the <code>craft/config/twitter.php</code> config file.")|raw }}</p>
-
-        {{ forms.textField({
-            readonly: true,
-            label: "Consumer Key",
-            value: oauthClientCredentials.consumerKey
-        }) }}
-
-        {{ forms.textField({
-            readonly: true,
-            label: "Consumer Secret",
-            value: oauthClientCredentials.consumerSecret
-        }) }}
-
-        <div class="buttons">
-            <a href="{{ actionUrl('twitter/oauth/connect') }}" class="btn submit">{{ 'Connect to Twitter'|t('twitter') }}</a>
-        </div>
-
-    {% else %}
-
-        <h2>{{ 'Twitter Account'|t('twitter') }}</h2>
-
-        {% if resourceOwner.urls.profile_image_url_https is defined %}
-            <img width="36" src="{{ resourceOwner.urls.profile_image_url_https|replace('_normal', '_bigger') }}" />
-        {% endif %}
-
-        <ul>
-            {% if resourceOwner.uid is defined %}
-                <li><strong>{{ 'UID'|t('twitter') }}:</strong> {{ resourceOwner.uid }}</li>
+            {% if resourceOwner.urls.profile_image_url_https is defined %}
+                <img width="36" src="{{ resourceOwner.urls.profile_image_url_https|replace('_normal', '_bigger') }}" />
             {% endif %}
 
-            {% if resourceOwner.name is defined %}
-                <li><strong>{{ 'Name'|t('twitter') }}:</strong> {{ resourceOwner.name }}</li>
-            {% endif %}
+            <ul>
+                {% if resourceOwner.uid is defined %}
+                    <li><strong>{{ 'UID'|t('twitter') }}:</strong> {{ resourceOwner.uid }}</li>
+                {% endif %}
 
-            {% if resourceOwner.nickname is defined %}
-                <li><strong>{{ 'Nickname'|t('twitter') }}:</strong> {{ resourceOwner.nickname }}</li>
-            {% endif %}
-        </ul>
+                {% if resourceOwner.name is defined %}
+                    <li><strong>{{ 'Name'|t('twitter') }}:</strong> {{ resourceOwner.name }}</li>
+                {% endif %}
+
+                {% if resourceOwner.nickname is defined %}
+                    <li><strong>{{ 'Nickname'|t('twitter') }}:</strong> {{ resourceOwner.nickname }}</li>
+                {% endif %}
+            </ul>
+
+        {% else %}
+            <p class="error">{{ error }}</p>
+		{% endif %}
 
         <div class="buttons">
             <a href="{{ actionUrl('twitter/oauth/disconnect') }}" class="btn small">{{ 'Disconnect'|t('twitter') }}</a>
+            <a href="{{ url('twitter/settings/oauth') }}" class="btn small">{{ 'OAuth Settings'|t('twitter') }}</a>
+        </div>
+
+    {% else %}
+        <p>{{ 'To connect to a Twitter account, {link} and then click “Connect”.'|t('twitter', {link: '<a href="'~ url('twitter/settings/oauth') ~'">'~'configure OAuth'|t('twitter')~'</a>' })|raw }}</p>
+
+        <div class="buttons">
+            <a class="btn submit" href="{{ actionUrl('twitter/oauth/connect') }}">{{"Connect"|t('twitter') }}</a>
         </div>
     {% endif %}
 
