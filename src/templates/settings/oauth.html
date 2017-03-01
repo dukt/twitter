@@ -33,29 +33,29 @@
 
 		{{ forms.textField({
 			readonly: true,
-			label: "Website",
+			label: "Website"|t('twitter'),
 			value: javascriptOrigin
 		}) }}
 
 		{{ forms.textField({
 			readonly: true,
-			label: "Callback URL",
+			label: "Callback URL"|t('twitter'),
 			value: redirectUri
 		}) }}
 
 		<h2>{{ 'Configure the OAuth client'|t('twitter') }}</h2>
 		<p>{{ 'Once the OAuth client is created Twitter will provide you with a consumer ID and secret.'|t('twitter') }}</p>
-		<p>{{ 'Copy the consumer ID & secret from your application details in the {link}, paste them below and save.'|t('facebook', { link: '<a href="https://dev.twitter.com/apps">'~'Twitter API Console'|t('facebook')~'</a>'})|raw }}</p>
+		<p>{{ 'Copy the consumer ID & secret from your application details in the {link}, paste them below and save.'|t('twitter', { link: '<a href="https://dev.twitter.com/apps">'~'Twitter API Console'|t('twitter')~'</a>'})|raw }}</p>
 
 		{{ forms.textField({
-			label: "Consumer Key",
+			label: "Consumer Key"|t('twitter'),
 			name: 'settings[oauthConsumerKey]',
 			value: settings.oauthConsumerKey,
 			warning: (not craft.app.config.get('oauthConsumerKey', 'twitter') is empty ? configWarning('oauthConsumerKey'))
 		}) }}
 
 		{{ forms.textField({
-			label: "Consumer Secret",
+			label: "Consumer Secret"|t('twitter'),
 			name: 'settings[oauthConsumerSecret]',
 			value: settings.oauthConsumerSecret,
 			warning: (not craft.app.config.get('oauthConsumerSecret', 'twitter') is empty ? configWarning('oauthConsumerSecret'))
