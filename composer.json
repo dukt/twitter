@@ -1,19 +1,21 @@
 {
-  "name": "dukt/craft-twitter",
+  "name": "dukt/twitter",
   "description": "Tweet field, search widget, embeds, and authenticated Twitter API requests.",
+  "version": "2.0.0-beta.1",
   "type": "craft-plugin",
-  "extra": {
-    "name": "Twitter",
-    "handle": "twitter",
-    "developer": "Dukt",
-    "developerUrl": "https://dukt.net/",
-    "documentationUrl": "https://dukt.net/craft/twitter/docs",
-    "class": "dukt\\twitter\\Plugin",
-    "version": "2.0.0",
-    "schemaVersion": "1.0.0",
-    "changelogUrl": "https://dukt.net/craft/twitter/updates.json"
-  },
+  "keywords": [
+    "twitter",
+    "cms",
+    "craftcms"
+  ],
+  "authors": [
+    {
+      "name": "Dukt",
+      "homepage": "https://dukt.net/"
+    }
+  ],
   "require": {
+    "craftcms/cms": "~3.0.0-beta.1",
     "league/oauth1-client": "1.7.0@dev",
     "nojimage/twitter-text-php": "^1.1"
   },
@@ -21,5 +23,12 @@
     "psr-4": {
       "dukt\\twitter\\": "src/"
     }
+  },
+  "extra": {
+    "name": "Twitter",
+    "handle": "twitter",
+    "schemaVersion": "1.0.0",
+    "documentationUrl": "https://dukt.net/craft/twitter/docs",
+    "changelogUrl": "https://dukt.net/craft/twitter/updates.json"
   }
 }
