@@ -3,8 +3,36 @@ Changelog
 
 ## 2.0.0 - Unreleased
 
+
 ### Added
 - Craft 3 compatibility.
+- Schema Version 1.0.0.
+- Added `craftcms/cms` dependency.
+- Added `league/oauth1-client` dependency.
+- Added `guzzlehttp/oauth-subscriber` dependency.
+- Added `Tweet` model.
+- Added `dukt\twitter\services\Api::getClient()`.
+- Added `dukt\twitter\services\Api::saveOriginalUserProfileImage()`.
+- Added `dukt\twitter\helpers\TwitterHelper::extractTweetId()`.
+- Added `dukt\twitter\helpers\TwitterHelper::getUserProfileImageResourceUrl()`.
+
+### Changed
+
+- Cache keys are now limited to 32 characters.
+- Improved `dukt\twitter\services\Api::get()` parameters.
+- Improved `dukt\twitter\web\twig\variables\TwitterVariable::get()` params.
+- Moved `dukt\twitter\services\Twitter::extractTweetId()` to `dukt\twitter\helpers\TwitterHelper::extractTweetId()`
+- Moved `dukt\twitter\services\Twitter::getTweetById()` to `dukt\twitter\services\Api::getTweetById()`
+- Moved `dukt\twitter\services\Twitter::getTweetByUrl()` to `dukt\twitter\services\Api::getTweetByUrl()`
+- Moved `dukt\twitter\services\Twitter::getUserById()` to `dukt\twitter\services\Api::getUserById()`
+- Renamed `dukt\twitter\web\twig\variables\TwitterVariable::getUserImageUrl()` to `dukt\twitter\web\twig\variables\TwitterVariable::getUserProfileImageResourceUrl()`.
+
+### Fixed
+- Fixed a bug where `dukt\twitter\services\Api::get()` wouldn’t take the `enableCache` config into account.
+
+### Removed
+- Removed `dukt/craft-oauth` dependency.
+- Removed `dukt\twitter\services\Api::request()` .
 
 
 ## 1.1.2 - 2017-01-23
