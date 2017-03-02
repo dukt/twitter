@@ -165,7 +165,7 @@ class Api extends Component
     {
         if($userId && $remoteImageUrl)
         {
-            $originalFolderPath = Craft::$app->path->getRuntimePath().'twitter/userimages/'.$userId.'/original/';
+            $originalFolderPath = Craft::$app->path->getRuntimePath().'/twitter/userimages/'.$userId.'/original/';
 
             if (!is_dir($originalFolderPath)) {
                 FileHelper::createDirectory($originalFolderPath);
