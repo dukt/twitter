@@ -18,13 +18,13 @@ To install the plugin, follow these instructions.
 
 2. Then tell Composer to load the plugin:
 
-        composer require dukt/craft-twitter
+        composer require dukt/twitter:~2.0
 
 3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Twitter.
 
 ## Learn more
 
-- [Twitter Plugin Overview](https://dukt.net/craft/twitter/)
-- [Twitter Documentation](https://dukt.net/craft/twitter/docs)
+- [Twitter Plugin Overview](https://dukt.net/twitter)
+- [Twitter Documentation](https://dukt.net/twitter/docs)
 
 [Dukt.net](https://dukt.net/) © 2017 - All rights reserved
