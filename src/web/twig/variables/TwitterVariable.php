@@ -102,7 +102,7 @@ class TwitterVariable
         }
         catch(\Exception $e)
         {
-            Craft::info("Coudln’t get user profile image resource URL: ".$e->getMessage(), __METHOD__);
+            Craft::info("Couldn’t get user profile image resource URL: ".$e->getMessage(), __METHOD__);
         }
     }
 
