@@ -1,7 +1,19 @@
 {
-  "name": "dukt/craft-twitter",
-  "description": "Twitter plugin for Craft CMS",
+  "name": "dukt/twitter",
+  "description": "Tweet field, search widget, embeds, and authenticated Twitter API requests.",
   "type": "craft-plugin",
+  "license": "proprietary",
+  "keywords": [
+    "twitter",
+    "cms",
+    "craftcms"
+  ],
+  "authors": [
+    {
+      "name": "Dukt",
+      "homepage": "https://dukt.net/"
+    }
+  ],
   "require": {
     "nojimage/twitter-text-php": "^1.1"
   },
