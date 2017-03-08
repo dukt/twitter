@@ -26,6 +26,15 @@ class TwitterVariable
      */
 	public function get($uri, $params = array(), $headers = array(), $enableCache = null, $cacheExpire = 0)
 	{
+        if (is_null($enableCache))
+        {
+            $enableCache = craft()->config->get('enableCache', 'twitter');
+        }
+        if (is_null($cacheExpire))
+        {
+            $cacheExpire = craft()->config->get('cacheDurationSeconds', 'twitter');
+        }
+
         try
         {
 		     return craft()->twitter_api->get($uri, $params, $headers, $enableCache, $cacheExpire);
