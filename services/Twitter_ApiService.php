@@ -120,7 +120,7 @@ class Twitter_ApiService extends BaseApplicationComponent
 
             if($enableCache)
             {
-                $response = craft()->twitter_cache->set(['twitter.api.get', $token, $params], $response, $cacheExpire);
+                craft()->twitter_cache->set(['twitter.api.get', $token, $params], $response, $cacheExpire);
             }
 
             return $response;
