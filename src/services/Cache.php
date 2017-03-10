@@ -57,8 +57,8 @@ class Cache extends Component
 
             if(!$expire)
             {
-                $expire = Craft::$app->getConfig()->get('cacheDuration', 'twitter');
-                $expire = TwitterHelper::formatDuration($expire);
+                $duration = Craft::$app->getConfig()->get('cacheDuration', 'twitter');
+                $expire = TwitterHelper::formatDuration($duration);
             }
 
             return Craft::$app->cache->set($cacheKey, $value, $expire, $dependency);

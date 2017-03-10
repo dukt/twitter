@@ -1,8 +1,19 @@
 Changelog
 =========
 
-## 2.0.0 - 2017-03-09
+## 2.0.0-beta.2 - Unreleased
 
+### Improved
+
+- The `$cacheExpire` parameter is now `null` instead of being set to `0` for the `\Craft\Twitter_ApiService::get()` method.
+- The `$cacheExpire` parameter is now `null` instead of being set to `0` for the `\Craft\TwitterVariable::get()` method.
+
+### Fixed
+
+- Fixed an issue where `\Craft\Twitter_ApiService` was relying on `\Craft\FileCache` instead of `\Craft\Twitter_CacheService` for caching.
+- Fixed an issue where the cache duration was not properly calculated into seconds.
+
+## 2.0.0-beta.1 - 2017-03-09
 
 ### Added
 - Craft 3 compatibility.

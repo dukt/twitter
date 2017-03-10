@@ -58,20 +58,18 @@ class TwitterHelper
     }
 
     /**
-     * Format a duration in PHP Date Interval format (to seconds by default)
+     * Formats a duration to seconds
      *
-     * @param        $duration
-     * @param string $format
+     * @param string $duration
      *
-     * @return string
+     * @return int
      */
-    public static function formatDuration($duration, $format='%s')
+    public static function durationToSeconds($duration)
     {
-        $duration = new DateInterval($duration);
-
-        $durationSeconds = $duration->format('%s');
-
-        return $durationSeconds;
+        $date = new DateTime;
+        $current = $date->getTimestamp();
+        $date->add(new DateInterval($duration));
+        return $date->getTimestamp() - $current;
     }
 
     /**

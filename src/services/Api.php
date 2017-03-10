@@ -35,11 +35,11 @@ class Api extends Component
      * @param array|null $headers
      * @param array $options
      * @param bool|null $enableCache
-     * @param int $cacheExpire
+     * @param null|int $cacheExpire
      *
      * @return array|null
      */
-    public function get($uri, array $query = null, array $headers = null, array $options = array(), $enableCache = null, $cacheExpire = 0)
+    public function get($uri, array $query = null, array $headers = null, array $options = array(), $enableCache = null, $cacheExpire = null)
     {
         // Add query to the request’s options
 

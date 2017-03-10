@@ -29,12 +29,12 @@ class TwitterVariable
      * @param array|null $query
      * @param array|null $headers
      * @param array $options
-     * @param bool $enableCache
-     * @param int $cacheExpire
+     * @param null|bool $enableCache
+     * @param null|int $cacheExpire
      *
      * @return string|null
      */
-    public function get($uri, array $query = null, array $headers = null, $options = array(), $enableCache = null, $cacheExpire = 0)
+    public function get($uri, array $query = null, array $headers = null, $options = array(), $enableCache = null, $cacheExpire = null)
     {
         try
         {
