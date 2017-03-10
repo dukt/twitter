@@ -102,9 +102,7 @@ class Twitter_ApiService extends BaseApplicationComponent
         {
             $token = craft()->twitter_oauth->getToken();
 
-            $key = 'twitter.'.md5($uri.serialize(array($token, $params)));
-
-            $response = craft()->fileCache->get($key);
+            $response = craft()->twitter_cache->get(['twitter.api.get', $token, $params]);
 
             if($response)
             {
@@ -122,7 +120,7 @@ class Twitter_ApiService extends BaseApplicationComponent
 
             if($enableCache)
             {
-                craft()->fileCache->set($key, $response, $cacheExpire);
+                $response = craft()->twitter_cache->set(['twitter.api.get', $token, $params], $response, $cacheExpire);
             }
 
             return $response;
