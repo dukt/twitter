@@ -25,6 +25,6 @@ To install the plugin, follow these instructions.
 ## Learn more
 
 - [Plugin Overview](https://dukt.net/twitter)
-- [Documentation](https://dukt.net/twitter/docs)
+- [Documentation](https://github.com/dukt/twitter/wiki)
 
 [Dukt.net](https://dukt.net/) © 2017 - All rights reserved
