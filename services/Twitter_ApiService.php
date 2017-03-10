@@ -74,9 +74,10 @@ class Twitter_ApiService extends BaseApplicationComponent
      * @param array $headers
      * @param array $postFields
      * @param bool $enableCache
+     * @param null|int $cacheExpire
      * @return array|null
      */
-    public function get($uri, $params = array(), $headers = array(), $enableCache = null, $cacheExpire = 0)
+    public function get($uri, $params = array(), $headers = array(), $enableCache = null, $cacheExpire = null)
     {
         if(!craft()->twitter->checkDependencies())
         {
