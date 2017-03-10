@@ -13,14 +13,21 @@ class TwitterHelper
     // =========================================================================
 
     /**
-     * Format a duration in PHP Date Interval format (to seconds by default)
+     * Formats a duration to seconds
+     *
+     * @param string $duration
+     *
+     * @return int
      */
-    public static function formatDuration($cacheDuration, $format='%s')
+    public static function durationToSeconds($duration)
     {
-        $cacheDuration = new DateInterval($cacheDuration);
-        $cacheDurationSeconds = $cacheDuration->format('%s');
+        $date = new DateTime;
 
-        return $cacheDurationSeconds;
+        $current = $date->getTimestamp();
+
+        $date->add(new DateInterval($duration));
+
+        return $date->getTimestamp() - $current;
     }
 
     /**
