@@ -17,14 +17,14 @@ class TwitterVariable
     /**
      * Performs a GET request on the Twitter API and returns the response.
      *
-     * @param uri $uri
+     * @param string $uri
      * @param array $params
      * @param array $headers
      * @param bool $enableCache
-     * @param int $cacheExpire
+     * @param null|int $cacheExpire
      * @return string|null
      */
-	public function get($uri, $params = array(), $headers = array(), $enableCache = null, $cacheExpire = 0)
+	public function get($uri, $params = array(), $headers = array(), $enableCache = null, $cacheExpire = null)
 	{
         try
         {
