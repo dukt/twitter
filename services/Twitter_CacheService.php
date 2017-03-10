@@ -53,8 +53,8 @@ class Twitter_CacheService extends BaseApplicationComponent
 
             if(!$expire)
             {
-                $expire = craft()->config->get('cacheDuration', 'twitter');
-                $expire = TwitterHelper::formatDuration($expire);
+                $duration = craft()->config->get('cacheDuration', 'twitter');
+                $expire = TwitterHelper::durationToSeconds($duration);
             }
 
             return craft()->cache->set($cacheKey, $value, $expire, $dependency);
