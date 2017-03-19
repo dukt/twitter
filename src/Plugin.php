@@ -102,7 +102,7 @@ class Plugin extends \craft\base\Plugin
             $event->options[] = [
                 'key' => 'twitter-caches',
                 'label' => Craft::t('twitter', 'Twitter caches'),
-                'action' => Craft::$app->path->getStoragePath().'/twitter'
+                'action' => Craft::$app->path->getRuntimePath().'/twitter'
             ];
         });
 
