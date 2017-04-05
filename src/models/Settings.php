@@ -21,22 +21,35 @@ class Settings extends Model
     // =========================================================================
 
     /**
-     * @var
+     * @var string The amount of time cache should last
+     *
+     * @see http://www.php.net/manual/en/dateinterval.construct.php
+     */
+    public $cacheDuration = 'PT10M';
+
+    /**
+     * @var bool Whether request to APIs should be cached or not
+     */
+    public $enableCache = true;
+
+    /**
+     * @var string|null OAuth token.
      */
     public $token;
 
     /**
-     * @var
+     * @var string|null OAuth token secret.
      */
     public $tokenSecret;
 
     /**
-     * @var
+     * @var string|null OAuth consumer key.
      */
     public $oauthConsumerKey;
 
+
     /**
-     * @var
+     * @var string|null OAuth consumer secret.
      */
     public $oauthConsumerSecret;
 

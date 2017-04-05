@@ -11,14 +11,6 @@
 {% set title = "OAuth Settings"|t('twitter') %}
 {% set docsUrl = 'https://dukt.net/craft/twitter/docs' %}
 
-{% macro configWarning(setting, file) -%}
-	{{ "This is being overridden by the {setting} config setting."|t('twitter', {
-		setting: '<strong>'~setting~'</strong>'
-	})|raw }}
-{%- endmacro %}
-
-{% from _self import configWarning %}
-
 {% set content %}
 
 	<form action="" method="post">
@@ -51,14 +43,12 @@
 			label: "Consumer Key"|t('twitter'),
 			name: 'settings[oauthConsumerKey]',
 			value: settings.oauthConsumerKey,
-			warning: (not craft.app.config.get('oauthConsumerKey', 'twitter') is empty ? configWarning('oauthConsumerKey'))
 		}) }}
 
 		{{ forms.textField({
 			label: "Consumer Secret"|t('twitter'),
 			name: 'settings[oauthConsumerSecret]',
 			value: settings.oauthConsumerSecret,
-			warning: (not craft.app.config.get('oauthConsumerSecret', 'twitter') is empty ? configWarning('oauthConsumerSecret'))
 		}) }}
 
 		<div class="buttons">

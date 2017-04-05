@@ -76,9 +76,14 @@ trait PluginTrait
         return $this->get('publish');
     }
 
+    /**
+     * Returns the OAuth consumer key.
+     *
+     * @return mixed
+     */
     public function getConsumerKey()
     {
-        $consumerKey = Craft::$app->getConfig()->get('oauthConsumerKey', 'twitter');
+        $consumerKey = Twitter::$plugin->getSettings()->oauthConsumerKey;
 
         if($consumerKey) {
             return $consumerKey;
@@ -93,9 +98,14 @@ trait PluginTrait
         }
     }
 
+    /**
+     * Returns the OAuth consumer secret.
+     *
+     * @return mixed
+     */
     public function getConsumerSecret()
     {
-        $consumerSecret = Craft::$app->getConfig()->get('oauthConsumerSecret', 'twitter');
+        $consumerSecret = Twitter::$plugin->getSettings()->oauthConsumerSecret;
 
         if($consumerSecret) {
             return $consumerSecret;

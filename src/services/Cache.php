@@ -10,6 +10,7 @@ namespace dukt\twitter\services;
 use Craft;
 use yii\base\Component;
 use dukt\twitter\helpers\TwitterHelper;
+use dukt\twitter\Plugin as Twitter;
 
 /**
  * Cache Service
@@ -31,7 +32,7 @@ class Cache extends Component
      */
     public function get($id)
     {
-        if(Craft::$app->getConfig()->get('enableCache', 'twitter') === true)
+        if(Twitter::$plugin->getSettings()->enableCache === true)
         {
             $cacheKey = $this->getCacheKey($id);
 
@@ -51,13 +52,13 @@ class Cache extends Component
      */
     public function set($id, $value, $expire = null, $dependency = null)
     {
-        if(Craft::$app->getConfig()->get('enableCache', 'twitter') === true)
+        if(Twitter::$plugin->getSettings()->enableCache === true)
         {
             $cacheKey = $this->getCacheKey($id);
 
             if(!$expire)
             {
-                $duration = Craft::$app->getConfig()->get('cacheDuration', 'twitter');
+                $duration = Twitter::$plugin->getSettings()->cacheDuration;
                 $expire = TwitterHelper::formatDuration($duration);
             }
 

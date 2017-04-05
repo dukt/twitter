@@ -52,7 +52,7 @@ class Api extends Component
 
         if(is_null($enableCache))
         {
-            $enableCache = Craft::$app->getConfig()->get('enableCache', 'twitter');
+            $enableCache = Twitter::$plugin->getSettings()->enableCache;
         }
 
 
