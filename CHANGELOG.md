@@ -1,15 +1,19 @@
 Changelog
 =========
 
-## 2.0.0-beta.2 - Unreleased
+## 2.0.0-beta.2 - 2017-04-05
 
 ### Improved
 
+- Renamed `$hasSettings` to `$hasCpSettings` in `\dukt\twitter\Plugin`
+- Updated config settings for Craft 3.0.0-beta.8+
 - The `$cacheExpire` parameter is now `null` instead of being set to `0` for the `\Craft\Twitter_ApiService::get()` method.
 - The `$cacheExpire` parameter is now `null` instead of being set to `0` for the `\Craft\TwitterVariable::get()` method.
 
 ### Fixed
 
+- Fixed a bug that prevented the plugin from setting cache values
+- Fixed cache path
 - Fixed an issue where `\Craft\Twitter_ApiService` was relying on `\Craft\FileCache` instead of `\Craft\Twitter_CacheService` for caching.
 - Fixed an issue where the cache duration was not properly calculated into seconds.
 
