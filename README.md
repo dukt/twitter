@@ -1,6 +1,8 @@
 # Twitter 2.x Documentation
 
 ## Getting Started
+- [Introduction](en/introduction.md)
+- [Requirements](en/requirements.md)
 - [Installation](en/installation.md)
 - [Connect to Twitter](en/connect-twitter.md)
 - [Tweet Fields](en/tweet-fields.md)
