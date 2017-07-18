@@ -10,6 +10,7 @@ Changelog
 ### Improved
 
 - The plugin now requires Craft 3.0.0 beta 20 or above
+- Improved Twitter variable for Craft 3.0.0 beta 20 compatibility
 - Improved README instructions
 
 ### Improved
