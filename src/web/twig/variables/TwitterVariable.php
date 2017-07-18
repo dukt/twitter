@@ -32,7 +32,7 @@ class TwitterVariable
      * @param null|bool $enableCache
      * @param null|int $cacheExpire
      *
-     * @return string|null
+     * @return array|null
      */
     public function get($uri, array $query = null, array $headers = null, $options = array(), $enableCache = null, $cacheExpire = null)
     {
