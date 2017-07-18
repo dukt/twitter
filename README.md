@@ -8,9 +8,4 @@ Learn more about the Twitter plugin for Craft CMS at [dukt.net/twitter](https://
 
 Installation instructions can be found in [Twitter 2 Documentation](https://github.com/dukt/twitter/tree/docs)
 
-## Resources
-
-- [Plugin Overview](https://dukt.net/twitter)
-- [Documentation](https://github.com/dukt/twitter/tree/docs)
-
 [Dukt.net](https://dukt.net/) © 2017 - All rights reserved
