@@ -1,6 +1,19 @@
 Changelog
 =========
 
+## 2.0.0-beta.3 - Unreleased
+
+### Added
+
+- Added support section to composer.json
+
+### Improved
+
+- The plugin now requires Craft 3.0.0 beta 20 or above
+- Improved README instructions
+
+### Improved
+
 ## 2.0.0-beta.2 - 2017-04-05
 
 ### Improved
