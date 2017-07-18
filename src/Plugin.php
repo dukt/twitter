@@ -12,11 +12,13 @@ use craft\events\RegisterCacheOptionsEvent;
 use craft\events\RegisterComponentTypesEvent;
 use craft\events\RegisterUrlRulesEvent;
 use craft\events\ResolveResourcePathEvent;
+use craft\events\DefineComponentsEvent;
 use craft\helpers\FileHelper;
 use craft\helpers\UrlHelper;
 use craft\services\Dashboard;
 use craft\services\Fields;
 use craft\services\Resources;
+use craft\web\twig\variables\CraftVariable;
 use craft\web\UrlManager;
 use craft\utilities\ClearCaches;
 use dukt\twitter\base\PluginTrait;
@@ -106,6 +108,9 @@ class Plugin extends \craft\base\Plugin
             ];
         });
 
+        Event::on(CraftVariable::class, CraftVariable::EVENT_DEFINE_COMPONENTS, function(DefineComponentsEvent $event) {
+            $event->components['twitter'] = TwitterVariable::class;
+        });
 
         // Twig extension
 
@@ -276,14 +281,6 @@ class Plugin extends \craft\base\Plugin
                 return $sizedPath;
             }
         }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function defineTemplateComponent()
-    {
-        return TwitterVariable::class;
     }
 
     // Protected Methods
