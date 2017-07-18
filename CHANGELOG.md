@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## 2.0.0-beta.3 - Unreleased
+## 2.0.0-beta.3 - 2017-07-18
 
 ### Added
 
