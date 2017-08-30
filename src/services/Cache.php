@@ -32,8 +32,7 @@ class Cache extends Component
      */
     public function get($id)
     {
-        if(Twitter::$plugin->getSettings()->enableCache === true)
-        {
+        if (Twitter::$plugin->getSettings()->enableCache === true) {
             $cacheKey = $this->getCacheKey($id);
 
             return Craft::$app->cache->get($cacheKey);
@@ -52,12 +51,10 @@ class Cache extends Component
      */
     public function set($id, $value, $expire = null, $dependency = null)
     {
-        if(Twitter::$plugin->getSettings()->enableCache === true)
-        {
+        if (Twitter::$plugin->getSettings()->enableCache === true) {
             $cacheKey = $this->getCacheKey($id);
 
-            if(!$expire)
-            {
+            if (!$expire) {
                 $duration = Twitter::$plugin->getSettings()->cacheDuration;
                 $expire = TwitterHelper::durationToSeconds($duration);
             }

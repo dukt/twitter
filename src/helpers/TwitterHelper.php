@@ -32,15 +32,12 @@ class TwitterHelper
      */
     public static function extractTweetId($urlOrId)
     {
-        if (preg_match('/^\d+$/', $urlOrId))
-        {
+        if (preg_match('/^\d+$/', $urlOrId)) {
             // If the string is a number, return it right away
-            return (int) $urlOrId;
-        }
-        else if (preg_match('/\/status(es)?\/(\d+)\/?$/', $urlOrId, $matches))
-        {
+            return (int)$urlOrId;
+        } else if (preg_match('/\/status(es)?\/(\d+)\/?$/', $urlOrId, $matches)) {
             // Extract the tweet ID from the URL
-            return (int) $matches[2];
+            return (int)$matches[2];
         }
     }
 
@@ -69,6 +66,7 @@ class TwitterHelper
         $date = new DateTime;
         $current = $date->getTimestamp();
         $date->add(new DateInterval($duration));
+
         return $date->getTimestamp() - $current;
     }
 
@@ -91,8 +89,7 @@ class TwitterHelper
      */
     public static function timeAgo($date)
     {
-        if(is_string($date))
-        {
+        if (is_string($date)) {
             $date = new DateTime($date);
         }
 
@@ -110,17 +107,17 @@ class TwitterHelper
     /**
      * Seconds to human duration
      *
-     * @param int  $seconds     The number of seconds
-     * @param bool $showSeconds Whether to output seconds or not
+     * @param int  $seconds           The number of seconds
+     * @param bool $showSeconds       Whether to output seconds or not
      * @param bool $implodeComponents Whether to implode components or not for return
      *
      * @return string|array
      */
     public static function secondsToHumanTimeDuration($seconds, $showSeconds = true, $implodeComponents = true)
     {
-        $secondsInWeek   = 604800;
-        $secondsInDay    = 86400;
-        $secondsInHour   = 3600;
+        $secondsInWeek = 604800;
+        $secondsInDay = 86400;
+        $secondsInHour = 3600;
         $secondsInMinute = 60;
 
         $weeks = floor($seconds / $secondsInWeek);
@@ -132,50 +129,39 @@ class TwitterHelper
         $hours = floor($seconds / $secondsInHour);
         $seconds = $seconds % $secondsInHour;
 
-        if ($showSeconds)
-        {
+        if ($showSeconds) {
             $minutes = floor($seconds / $secondsInMinute);
             $seconds = $seconds % $secondsInMinute;
-        }
-        else
-        {
+        } else {
             $minutes = round($seconds / $secondsInMinute);
             $seconds = 0;
         }
 
-        $timeComponents = array();
+        $timeComponents = [];
 
-        if ($weeks)
-        {
+        if ($weeks) {
             $timeComponents[] = $weeks.' '.($weeks == 1 ? Craft::t('twitter', 'week') : Craft::t('twitter', 'weeks'));
         }
 
-        if ($days)
-        {
+        if ($days) {
             $timeComponents[] = $days.' '.($days == 1 ? Craft::t('twitter', 'day') : Craft::t('twitter', 'days'));
         }
 
-        if ($hours)
-        {
+        if ($hours) {
             $timeComponents[] = $hours.' '.($hours == 1 ? Craft::t('twitter', 'hour') : Craft::t('twitter', 'hours'));
         }
 
-        if ($minutes || (!$showSeconds && !$weeks && !$days && !$hours))
-        {
+        if ($minutes || (!$showSeconds && !$weeks && !$days && !$hours)) {
             $timeComponents[] = $minutes.' '.($minutes == 1 ? Craft::t('twitter', 'minute') : Craft::t('twitter', 'minutes'));
         }
 
-        if ($seconds || ($showSeconds && !$weeks && !$days && !$hours && !$minutes))
-        {
+        if ($seconds || ($showSeconds && !$weeks && !$days && !$hours && !$minutes)) {
             $timeComponents[] = $seconds.' '.($seconds == 1 ? Craft::t('twitter', 'second') : Craft::t('twitter', 'seconds'));
         }
 
-        if($implodeComponents)
-        {
+        if ($implodeComponents) {
             return implode(', ', $timeComponents);
-        }
-        else
-        {
+        } else {
             return $timeComponents;
         }
     }

@@ -23,8 +23,8 @@ class AutoLink extends Twitter_Autolink
     /**
      * Provides fluent method chaining.
      *
-     * @param  string  $tweet        The tweet to be converted.
-     * @param  bool    $full_encode  Whether to encode all special characters.
+     * @param  string $tweet       The tweet to be converted.
+     * @param  bool   $full_encode Whether to encode all special characters.
      *
      * @return  AutoLink
      */
@@ -34,47 +34,36 @@ class AutoLink extends Twitter_Autolink
     }
 
     /**
-    * Autolink with entities
-    *
-    * @param string $tweet
-    * @param array $entities
+     * Autolink with entities
      *
-    * @return string
-    */
+     * @param string $tweet
+     * @param array  $entities
+     *
+     * @return string
+     */
     public function autoLinkEntities($tweet = null, $entities)
     {
-        if (is_null($tweet))
-        {
+        if (is_null($tweet)) {
             $tweet = $this->tweet;
         }
 
         $text = '';
         $beginIndex = 0;
 
-        foreach ($entities as $entity)
-        {
-            if (isset($entity['screen_name']))
-            {
+        foreach ($entities as $entity) {
+            if (isset($entity['screen_name'])) {
                 $text .= mb_substr($tweet, $beginIndex, $entity['indices'][0] - $beginIndex);
-            }
-            else {
+            } else {
                 $text .= mb_substr($tweet, $beginIndex, $entity['indices'][0] - $beginIndex);
             }
 
-            if (isset($entity['url']))
-            {
+            if (isset($entity['url'])) {
                 $text .= $this->linkToUrl($entity);
-            }
-            elseif (isset($entity['hashtag']))
-            {
+            } elseif (isset($entity['hashtag'])) {
                 $text .= $this->linkToHashtag($entity, $tweet);
-            }
-            elseif (isset($entity['screen_name']))
-            {
+            } elseif (isset($entity['screen_name'])) {
                 $text .= $this->linkToMentionAndList($entity);
-            }
-            elseif (isset($entity['cashtag']))
-            {
+            } elseif (isset($entity['cashtag'])) {
                 $text .= $this->linkToCashtag($entity, $tweet);
             }
 
@@ -89,31 +78,27 @@ class AutoLink extends Twitter_Autolink
     /**
      * Returns text with mentions and lists as links
      *
-     * @param array  $entity
+     * @param array $entity
      *
      * @return string
      */
     public function linkToMentionAndList($entity)
     {
-        $attributes = array();
+        $attributes = [];
 
-        if (!empty($entity['list_slug']))
-        {
+        if (!empty($entity['list_slug'])) {
             # Replace the list and username
-            $linkText = $entity['screen_name'] . $entity['list_slug'];
+            $linkText = $entity['screen_name'].$entity['list_slug'];
             $class = $this->class_list;
-            $url = $this->url_base_list . $linkText;
-        }
-        else
-        {
+            $url = $this->url_base_list.$linkText;
+        } else {
             # Replace the username
             $linkText = '@'.$entity['screen_name'];
             $class = $this->class_user;
-            $url = $this->url_base_user . $linkText;
+            $url = $this->url_base_user.$linkText;
         }
 
-        if (!empty($class))
-        {
+        if (!empty($class)) {
             $attributes['class'] = $class;
         }
 

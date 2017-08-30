@@ -35,17 +35,14 @@ class SettingsController extends Controller
         try {
             $token = Twitter::$plugin->getOauth()->getToken();
 
-            if($token)
-            {
+            if ($token) {
                 $tokenExists = true;
 
                 // Retrieve resource owner’s details
                 $provider = Twitter::$plugin->getOauth()->getOauthProvider();
                 $resourceOwner = $provider->getUserDetails($token);
             }
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $error = $e->getMessage();
         }
 

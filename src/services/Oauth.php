@@ -58,22 +58,19 @@ class Oauth extends Component
      */
     public function getToken()
     {
-        if($this->token)
-        {
+        if ($this->token) {
             return $this->token;
-        }
-        else
-        {
+        } else {
             $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
             $settings = $plugin->getSettings();
 
-            if($settings->token && $settings->tokenSecret) {
+            if ($settings->token && $settings->tokenSecret) {
                 $token = new TokenCredentials();
                 $token->setIdentifier($settings->token);
                 $token->setSecret($settings->tokenSecret);
+
                 return $token;
             }
-
         }
     }
 
@@ -110,8 +107,7 @@ class Oauth extends Component
         $options['identifier'] = $oauthConsumerKey;
         $options['secret'] = $oauthConsumerSecret;
 
-        if(!isset($options['callback_uri']))
-        {
+        if (!isset($options['callback_uri'])) {
             $options['callback_uri'] = UrlHelper::actionUrl('twitter/oauth/callback');
         }
 
@@ -120,6 +116,7 @@ class Oauth extends Component
 
     /**
      * Get javascript origin
+     *
      * @return string
      */
     public function getJavascriptOrigin()

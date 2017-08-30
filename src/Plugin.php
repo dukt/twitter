@@ -142,26 +142,23 @@ class Plugin extends \craft\base\Plugin
     public function getResourcePath($path)
     {
         // Are they requesting a Twitter user image?
-        if (strncmp($path, 'twitter/userimages/', 18) === 0)
-        {
+        if (strncmp($path, 'twitter/userimages/', 18) === 0) {
             $parts = array_merge(array_filter(explode('/', $path)));
 
-            if (count($parts) != 4)
-            {
+            if (count($parts) != 4) {
                 return;
             }
 
             $userId = $parts[2];
             $size = $parts[3];
 
-            $imageSizes = array(
+            $imageSizes = [
                 'mini' => 24,
                 'normal' => 48,
                 'bigger' => 73,
-            );
+            ];
 
-            if (is_numeric($size) && ($sizeKey = array_search($size, $imageSizes)) !== false)
-            {
+            if (is_numeric($size) && ($sizeKey = array_search($size, $imageSizes)) !== false) {
                 $size = $sizeKey;
             }
 
@@ -175,32 +172,21 @@ class Plugin extends \craft\base\Plugin
             // Have we already downloaded this user’s image at this size?
             $files = FileHelper::findFiles($sizedFolderPath);
 
-            if (count($files) > 0)
-            {
+            if (count($files) > 0) {
                 return $files[0];
-            }
-            else
-            {
+            } else {
                 // Do we have the original image?
-                if (!is_numeric($size))
-                {
-                    if ($size == 'original' || array_key_exists($size, $imageSizes))
-                    {
+                if (!is_numeric($size)) {
+                    if ($size == 'original' || array_key_exists($size, $imageSizes)) {
                         $sizeName = $size;
-                    }
-                    else
-                    {
+                    } else {
                         return;
                     }
-                }
-                else
-                {
+                } else {
                     $sizeName = 'original';
 
-                    foreach ($imageSizes as $sizeKey => $sizeSize)
-                    {
-                        if ($size <= $sizeSize)
-                        {
+                    foreach ($imageSizes as $sizeKey => $sizeSize) {
+                        if ($size <= $sizeSize) {
                             $sizeName = $sizeKey;
                             break;
                         }
@@ -215,30 +201,22 @@ class Plugin extends \craft\base\Plugin
 
                 $files = FileHelper::findFiles($originalFolderPath);
 
-                if (count($files) > 0)
-                {
+                if (count($files) > 0) {
                     $originalPath = $files[0];
-                }
-                else
-                {
+                } else {
                     // OK, let’s fetch it then
                     $user = self::$plugin->getApi()->getUserById($userId);
 
-                    if (!$user || empty($user['profile_image_url_https']))
-                    {
+                    if (!$user || empty($user['profile_image_url_https'])) {
                         return;
                     }
 
                     $url = $user['profile_image_url_https'];
 
-                    if ($sizeName != 'normal')
-                    {
-                        if ($sizeName == 'original')
-                        {
+                    if ($sizeName != 'normal') {
+                        if ($sizeName == 'original') {
                             $url = str_replace('_normal', '', $url);
-                        }
-                        else
-                        {
+                        } else {
                             $url = str_replace('_normal', '_'.$sizeName, $url);
                         }
                     }
@@ -248,12 +226,11 @@ class Plugin extends \craft\base\Plugin
 
                     $client = new \GuzzleHttp\Client();
 
-                    $response = $client->request('GET', $url, array(
+                    $response = $client->request('GET', $url, [
                         'save_to' => $originalPath
-                    ));
+                    ]);
 
-                    if (!$response->getStatusCode() != 200)
-                    {
+                    if (!$response->getStatusCode() != 200) {
                         return;
                     }
 
@@ -261,8 +238,7 @@ class Plugin extends \craft\base\Plugin
                 }
 
                 // If they were actually requesting "mini", "normal", "bigger", or "original", we're done
-                if (!is_numeric($size))
-                {
+                if (!is_numeric($size)) {
                     return $originalPath;
                 }
 

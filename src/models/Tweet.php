@@ -27,7 +27,7 @@ class Tweet extends Model
      * @var
      */
     public $data;
-    
+
     // Public Methods
     // =========================================================================
 
@@ -50,8 +50,7 @@ class Tweet extends Model
     {
         $tweetData = $this->getTweetData();
 
-        if(!empty($tweetData['text']))
-        {
+        if (!empty($tweetData['text'])) {
             return $tweetData['text'];
         }
     }
@@ -65,8 +64,7 @@ class Tweet extends Model
     {
         $tweetData = $this->getTweetData();
 
-        if(!empty($tweetData['user']['id']))
-        {
+        if (!empty($tweetData['user']['id'])) {
             return $tweetData['user']['id'];
         }
     }
@@ -80,8 +78,7 @@ class Tweet extends Model
     {
         $tweetData = $this->getTweetData();
 
-        if(!empty($tweetData['user']['name']))
-        {
+        if (!empty($tweetData['user']['name'])) {
             return $tweetData['user']['name'];
         }
     }
@@ -93,7 +90,7 @@ class Tweet extends Model
      */
     public function getUserProfileUrl()
     {
-        return 'https://twitter.com/' . $this->getUserScreenName();
+        return 'https://twitter.com/'.$this->getUserScreenName();
     }
 
     /**
@@ -105,8 +102,7 @@ class Tweet extends Model
     {
         $tweetData = $this->getTweetData();
 
-        if(!empty($tweetData['user']['profile_image_url']))
-        {
+        if (!empty($tweetData['user']['profile_image_url'])) {
             return $tweetData['user']['profile_image_url'];
         }
     }
@@ -120,8 +116,7 @@ class Tweet extends Model
     {
         $tweetData = $this->getTweetData();
 
-        if(!empty($tweetData['user']['profile_image_url_https']))
-        {
+        if (!empty($tweetData['user']['profile_image_url_https'])) {
             return $tweetData['user']['profile_image_url_https'];
         }
     }
@@ -135,8 +130,7 @@ class Tweet extends Model
     {
         $tweetData = $this->getTweetData();
 
-        if(!empty($tweetData['user']['screen_name']))
-        {
+        if (!empty($tweetData['user']['screen_name'])) {
             return $tweetData['user']['screen_name'];
         }
     }
@@ -150,8 +144,7 @@ class Tweet extends Model
     {
         $tweetData = $this->getTweetData();
 
-        if(!empty($tweetData['created_at']))
-        {
+        if (!empty($tweetData['created_at'])) {
             return $tweetData['created_at'];
         }
     }
@@ -180,8 +173,7 @@ class Tweet extends Model
         $tweetId = $this->getRemoteId();
         $tweetUserScreenName = $this->getUserScreenName();
 
-        if($tweetId && $tweetUserScreenName)
-        {
+        if ($tweetId && $tweetUserScreenName) {
             return 'https://twitter.com/'.$tweetUserScreenName.'/status/'.$tweetId;
         }
     }
@@ -194,10 +186,10 @@ class Tweet extends Model
      */
     protected function defineAttributes()
     {
-        $attributes = array(
+        $attributes = [
             'remoteId' => AttributeType::Number,
             'data' => AttributeType::Mixed,
-        );
+        ];
 
         return $attributes;
     }
@@ -212,8 +204,7 @@ class Tweet extends Model
      */
     private function getTweetData()
     {
-        if(!$this->data)
-        {
+        if (!$this->data) {
             $this->data = $this->getRemoteTweetData();
         }
 
@@ -227,8 +218,7 @@ class Tweet extends Model
      */
     private function getRemoteTweetData()
     {
-        if(!empty($this->remoteId))
-        {
+        if (!empty($this->remoteId)) {
             return Twitter::$plugin->getApi()->getTweetById($this->remoteId);
         }
     }

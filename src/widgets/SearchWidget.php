@@ -76,9 +76,8 @@ class SearchWidget extends Widget
     {
         $settings = $this->getSettings();
 
-        if(!empty($settings['query']))
-        {
-            return Craft::t('twitter', "Tweets for “{query}”", array('query' => $settings['query']));
+        if (!empty($settings['query'])) {
+            return Craft::t('twitter', "Tweets for “{query}”", ['query' => $settings['query']]);
         }
 
         return Craft::t('twitter', "Twitter Search");
@@ -96,12 +95,9 @@ class SearchWidget extends Widget
 
         $token = Twitter::$plugin->getOauth()->getToken();
 
-        if($token)
-        {
-            if(!empty($searchQuery))
-            {
-                try
-                {
+        if ($token) {
+            if (!empty($searchQuery)) {
+                try {
                     $response = Twitter::$plugin->getApi()->get('search/tweets', [
                         'q' => $searchQuery,
                         'count' => $count
@@ -109,8 +105,7 @@ class SearchWidget extends Widget
 
                     $tweets = [];
 
-                    foreach($response['statuses'] as $tweetData)
-                    {
+                    foreach ($response['statuses'] as $tweetData) {
                         $tweet = new Tweet;
                         $tweet->remoteId = $tweetData['id'];
                         $tweet->data = $tweetData;
@@ -123,26 +118,20 @@ class SearchWidget extends Widget
                     Craft::$app->getView()->registerJs("new Craft.Twitter_SearchWidget('".$this->id."');");
 
                     return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/body', $variables);
-                }
-                catch(\Exception $e)
-                {
+                } catch (\Exception $e) {
                     $variables['errorMsg'] = $e->getMessage();
 
                     return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/_error', $variables);
                 }
-            }
-            else
-            {
+            } else {
                 $variables['infoMsg'] = Craft::t('twitter', 'Please enter a search query in the widget’s settings.');
 
                 return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/_error', $variables);
             }
-        }
-        else
-        {
-            $variables['infoMsg'] = Craft::t('twitter', 'Twitter is not configured, please check the <a href="{url}">plugin’s settings</a>.', array(
+        } else {
+            $variables['infoMsg'] = Craft::t('twitter', 'Twitter is not configured, please check the <a href="{url}">plugin’s settings</a>.', [
                 'url' => UrlHelper::url('twitter/settings')
-            ));
+            ]);
 
             return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/_error', $variables);
         }
@@ -153,8 +142,8 @@ class SearchWidget extends Widget
      */
     public function getSettingsHtml()
     {
-        return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/settings', array(
-           'settings' => $this->getSettings()
-        ));
+        return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/settings', [
+            'settings' => $this->getSettings()
+        ]);
     }
 }

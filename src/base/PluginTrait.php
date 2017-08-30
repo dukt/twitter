@@ -85,14 +85,13 @@ trait PluginTrait
     {
         $consumerKey = Twitter::$plugin->getSettings()->oauthConsumerKey;
 
-        if($consumerKey) {
+        if ($consumerKey) {
             return $consumerKey;
         } else {
             $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
             $settings = $plugin->getSettings();
 
-            if(!empty($settings['oauthConsumerKey']))
-            {
+            if (!empty($settings['oauthConsumerKey'])) {
                 return $settings['oauthConsumerKey'];
             }
         }
@@ -107,14 +106,13 @@ trait PluginTrait
     {
         $consumerSecret = Twitter::$plugin->getSettings()->oauthConsumerSecret;
 
-        if($consumerSecret) {
+        if ($consumerSecret) {
             return $consumerSecret;
         } else {
             $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
             $settings = $plugin->getSettings();
 
-            if(!empty($settings['oauthConsumerSecret']))
-            {
+            if (!empty($settings['oauthConsumerSecret'])) {
                 return $settings['oauthConsumerSecret'];
             }
         }

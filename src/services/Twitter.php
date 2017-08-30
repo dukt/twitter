@@ -24,16 +24,16 @@ class Twitter extends Component
     /**
      * Returns the tweet with URLs transformed into HTML links
      *
-     * @param int $text      The tweet's text.
+     * @param int   $text    The tweet's text.
      * @param array $options Options to pass to AutoLink.
      *
      * @return string
      */
-    public function autoLinkTweet($text, $options = array())
+    public function autoLinkTweet($text, $options = [])
     {
         $twitter = AutoLink::create();
 
-        $aliases = array(
+        $aliases = [
             'urlClass' => 'setURLClass',
             'usernameClass' => 'setUsernameClass',
             'listClass' => 'setListClass',
@@ -42,12 +42,10 @@ class Twitter extends Component
             'noFollow' => 'setNoFollow',
             'external' => 'setExternal',
             'target' => 'setTarget'
-        );
+        ];
 
-        foreach($options as $k => $v)
-        {
-            if(isset($aliases[$k]))
-            {
+        foreach ($options as $k => $v) {
+            if (isset($aliases[$k])) {
                 $twitter->{$aliases[$k]}($v);
             }
         }
@@ -67,16 +65,15 @@ class Twitter extends Component
      *
      * @return string
      */
-    public function embedTweet($tweetId, $options = array())
+    public function embedTweet($tweetId, $options = [])
     {
         craft()->deprecator->log('craft()->twitter->embedTweet()', 'craft()->twitter->embedTweet() has been deprecated. Use craft()->publish->tweet() instead.');
 
         $dataAttributes = craft()->publish->getOptionsAsDataAttributes($options);
 
-        $response = craft()->api->get('statuses/oembed', array('id' => $tweetId));
+        $response = craft()->api->get('statuses/oembed', ['id' => $tweetId]);
 
-        if($response)
-        {
+        if ($response) {
             $html = $response['html'];
 
             $html = str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"'.$dataAttributes.'>', $html);

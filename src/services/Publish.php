@@ -36,8 +36,7 @@ class Publish extends Component
 
         $response = $this->oEmbed($url);
 
-        if($response)
-        {
+        if ($response) {
             $html = $response['html'];
             $html = str_replace('<a class="twitter-timeline"', '<a class="twitter-grid"'.$dataAttributes, $html);
 
@@ -59,8 +58,7 @@ class Publish extends Component
 
         $response = $this->oEmbed($url);
 
-        if($response)
-        {
+        if ($response) {
             $html = $response['html'];
             $html = str_replace('<a class="twitter-moment"', '<a class="twitter-moment"'.$dataAttributes, $html);
 
@@ -82,8 +80,7 @@ class Publish extends Component
 
         $response = $this->oEmbed($url);
 
-        if($response)
-        {
+        if ($response) {
             $html = $response['html'];
             $html = str_replace('<a class="twitter-timeline"', '<a class="twitter-timeline"'.$dataAttributes, $html);
 
@@ -105,8 +102,7 @@ class Publish extends Component
 
         $response = $this->oEmbed($url);
 
-        if($response)
-        {
+        if ($response) {
             $html = $response['html'];
             $html = str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"'.$dataAttributes.'>', $html);
 
@@ -122,14 +118,13 @@ class Publish extends Component
      *
      * @return string
      */
-    public function video($url, $options = array())
+    public function video($url, $options = [])
     {
         $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
         $response = $this->oEmbed($url, ['widget_type' => 'video']);
 
-        if($response)
-        {
+        if ($response) {
             $html = $response['html'];
             $html = str_replace('<blockquote class="twitter-video">', '<blockquote class="twitter-video"'.$dataAttributes.'>', $html);
 
@@ -202,7 +197,7 @@ class Publish extends Component
     {
         // Options Aliases (camel to kebab case)
 
-        $aliases = array(
+        $aliases = [
             'linkColor' => 'link-color',
             'tweetLimit' => 'tweet-limit',
             'showReplies' => 'show-replies',
@@ -211,12 +206,10 @@ class Publish extends Component
             'screenName' => 'screen-name',
             'showScreenName' => 'show-screen-name',
             'showCount' => 'show-count',
-        );
+        ];
 
-        foreach($aliases as $key => $alias)
-        {
-            if(!empty($options[$key]))
-            {
+        foreach ($aliases as $key => $alias) {
+            if (!empty($options[$key])) {
                 $options[$alias] = $options[$key];
                 unset($options[$key]);
             }
@@ -227,14 +220,13 @@ class Publish extends Component
 
         $dataAttributes = '';
 
-        foreach($options as $key => $value)
-        {
+        foreach ($options as $key => $value) {
             $dataAttributes .= ' data-'.$key.'="'.$value.'"';
         }
 
         return $dataAttributes;
     }
-    
+
     // Private Methods
     // =========================================================================
 
@@ -248,8 +240,7 @@ class Publish extends Component
      */
     private function oEmbed($url, $query = [])
     {
-        if(!isset($query['omit_script']))
-        {
+        if (!isset($query['omit_script'])) {
             $query['omit_script'] = true;
         }
 
@@ -261,8 +252,7 @@ class Publish extends Component
 
         $oembed = Twitter::$plugin->getCache()->get(['twitter.publish.oEmbed', $url, $options]);
 
-        if(!$oembed)
-        {
+        if (!$oembed) {
             $client = new Client();
 
             $response = $client->request('GET', 'https://publish.twitter.com/oembed', $options);

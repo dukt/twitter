@@ -35,9 +35,7 @@ class ApiController extends Controller
             $tweet = Twitter::$plugin->getApi()->getTweetById($tweetId);
 
             return $this->asJson($tweet);
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return $this->asErrorJson($e->getMessage());
         }
     }
