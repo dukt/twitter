@@ -8,7 +8,9 @@
 namespace dukt\twitter\fields;
 
 use Craft;
+use craft\base\ElementInterface;
 use craft\base\Field;
+use craft\helpers\Db;
 use craft\helpers\StringHelper;
 use dukt\twitter\helpers\TwitterHelper;
 use dukt\twitter\web\assets\tweetfield\TweetFieldAsset;
@@ -25,32 +27,30 @@ class Tweet extends Field
     // =========================================================================
 
     /**
-     * Returns the type of field this is.
-     *
-     * @return string
+     * @inheritdoc
      */
-    public function getName()
+    public static function displayName(): string
     {
         return Craft::t('twitter', 'Tweet');
     }
 
     /**
-     * Returns the field's input HTML.
-     *
-     * @param string $name
-     * @param Tweet|null  $tweet
-     * @return string
+     * @inheritdoc
      */
     public function getInputHtml($value, \craft\base\ElementInterface $element = NULL): string
     {
         $name = $this->handle;
-        $tweet = $this->prepValue($value);
+
+        if($value instanceof \dukt\twitter\models\Tweet) {
+            $tweet = $value;
+            $value = $tweet->getUrl();
+        }
 
         $id = Craft::$app->getView()->formatInputId($name);
 
         $previewHtml = '';
 
-        if ($tweet && $tweet->remoteId)
+        if (isset($tweet) && $tweet->remoteId)
         {
             try
             {
@@ -90,14 +90,23 @@ class Tweet extends Field
     }
 
     /**
-     * Preps the field value for use.
-     *
-     * @param string|int|null $tweetUrlOrId
-     * @return Tweet|null
+     * @inheritdoc
      */
-    public function prepValue($tweetUrlOrId)
+    public function serializeValue($value, ElementInterface $element = null)
     {
-        if($tweetUrlOrId)
+        if($value instanceof \dukt\twitter\models\Tweet && $value->getUrl()) {
+            return Db::prepareValueForDb($value->getUrl());
+        }
+
+        parent::serializeValue($value, $element);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function normalizeValue($tweetUrlOrId, craft\base\ElementInterface $element = NULL)
+    {
+        if(!$tweetUrlOrId instanceof \dukt\twitter\models\Tweet)
         {
             $tweetId = TwitterHelper::extractTweetId($tweetUrlOrId);
 
@@ -109,21 +118,18 @@ class Tweet extends Field
                 return $tweet;
             }
         }
+
+        return $tweetUrlOrId;
     }
 
     /**
-     * @inheritDoc IFieldType::getSearchKeywords()
-     *
-     * @param Tweet|null $tweet
-     *
-     * @return string
+     * @inheritdoc
      */
     public function getSearchKeywords($value, \craft\base\ElementInterface $element): string
     {
-        $tweet = $this->prepValue($value);
-
-        if($tweet)
+        if($value instanceof \dukt\twitter\models\Tweet)
         {
+            $tweet = $value;
             $parts = [];
 
             if(!empty($tweet->getRemoteId()))
