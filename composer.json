@@ -37,7 +37,7 @@
     "name": "Twitter",
     "handle": "twitter",
     "schemaVersion": "1.0.0",
-    "changelogUrl": "https://dukt.net/twitter/changelog.md?craft=3"
     "documentationUrl": "https://github.com/dukt/twitter/tree/docs",
+    "changelogUrl": "https://raw.githubusercontent.com/dukt/twitter/master/CHANGELOG.md"
   }
 }
