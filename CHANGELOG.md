@@ -1,6 +1,16 @@
 Changelog
 =========
 
+## 2.0.0-beta.4 - Unreleased
+
+### Improved
+
+- Update widget types for Craft 3
+
+### Fixed
+
+- Fixed Tweet field for Craft 3
+
 ## 2.0.0-beta.3 - 2017-07-18
 
 ### Added
