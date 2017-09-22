@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 2.0.0-beta.6 - Unreleased
+
+- The plugin now requires Craft 3.0.0-beta.27 or above.
+
+
 ## 2.0.0-beta.5 - 2017-09-22
 
 ### Fixed
