@@ -8,9 +8,11 @@
 namespace dukt\twitter\helpers;
 
 use Craft;
+use craft\helpers\FileHelper;
 use DateInterval;
 use DateTime;
 use craft\helpers\UrlHelper;
+use dukt\twitter\Plugin;
 
 /**
  * Twitter Helper
@@ -51,7 +53,62 @@ class TwitterHelper
      */
     public static function getUserProfileImageResourceUrl($twitterUserId, $size = 48)
     {
-        return UrlHelper::resourceUrl('twitter/userimages/'.$twitterUserId.'/'.$size);
+        $baseDir = Craft::$app->getPath()->getRuntimePath().DIRECTORY_SEPARATOR.'twitter'.DIRECTORY_SEPARATOR.'userimages'.DIRECTORY_SEPARATOR.$twitterUserId;
+        $originalDir = $baseDir.DIRECTORY_SEPARATOR.'original';
+        $dir = $baseDir.DIRECTORY_SEPARATOR.$size;
+        $file = null;
+
+        if(is_dir($dir)) {
+            $files = FileHelper::findFiles($dir);
+
+            if(count($files) > 0) {
+                $file = $files[0];
+            }
+        }
+
+        if (!$file) {
+            // Retrieve original image
+            $originalPath = null;
+
+            if(is_dir($originalDir)) {
+                $originalFiles = FileHelper::findFiles($originalDir);
+
+                if(count($originalFiles) > 0) {
+                    $originalPath = $originalFiles[0];
+                }
+            }
+            if(!$originalPath) {
+                $user = Plugin::$plugin->getApi()->getUserById($twitterUserId);
+
+                $url = str_replace('_normal', '', $user['profile_image_url_https']);
+                $name = pathinfo($url, PATHINFO_BASENAME);
+                $originalPath = $originalDir.DIRECTORY_SEPARATOR.$name;
+
+                FileHelper::createDirectory($dir);
+                $client = new \GuzzleHttp\Client();
+                $response = $client->request('GET', $url, [
+                    'save_to' => $originalPath,
+                ]);
+
+                if (!$response->getStatusCode() != 200) {
+                    return null;
+                }
+            } else {
+                $name = pathinfo($originalPath, PATHINFO_BASENAME);
+            }
+
+            // Generate the thumb
+            $path = $dir.DIRECTORY_SEPARATOR.$name;
+            FileHelper::createDirectory($dir);
+            Craft::$app->getImages()->loadImage($originalPath, false, $size)
+                ->scaleToFit($size, $size)
+                ->saveAs($path);
+
+        } else {
+            $name = pathinfo($file, PATHINFO_BASENAME);
+        }
+
+        return Craft::$app->getAssetManager()->getPublishedUrl($dir, true)."/{$name}";
     }
 
     /**

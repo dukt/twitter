@@ -151,7 +151,7 @@ class Api extends Component
      * @param $userId
      * @param $remoteImageUrl
      *
-     * @return string|void
+     * @return string|null
      */
     public function saveOriginalUserProfileImage($userId, $remoteImageUrl)
     {
@@ -168,25 +168,22 @@ class Api extends Component
                 $imagePath = $files[0];
 
                 return $imagePath;
-            } else {
-                $remoteImageUrl = str_replace('_normal', '', $remoteImageUrl);
-
-                $fileName = pathinfo($remoteImageUrl, PATHINFO_BASENAME);
-
-                $imagePath = $originalFolderPath.$fileName;
-
-                $client = new \GuzzleHttp\Client();
-
-                $response = $client->request('GET', $remoteImageUrl, [
-                    'save_to' => $imagePath
-                ]);
-
-                if (!$response->getStatusCode() != 200) {
-                    return;
-                }
-
-                return $imagePath;
             }
+            
+            $remoteImageUrl = str_replace('_normal', '', $remoteImageUrl);
+            $fileName = pathinfo($remoteImageUrl, PATHINFO_BASENAME);
+            $imagePath = $originalFolderPath.$fileName;
+
+            $client = new \GuzzleHttp\Client();
+            $response = $client->request('GET', $remoteImageUrl, [
+                'save_to' => $imagePath
+            ]);
+
+            if (!$response->getStatusCode() != 200) {
+                return null;
+            }
+
+            return $imagePath;
         }
     }
 
