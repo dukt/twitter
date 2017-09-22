@@ -4,7 +4,7 @@ Tweet field, search widget, embeds, and authenticated Twitter API requests for C
 
 ## Requirements
 
-This plugin requires Craft CMS 3.0.0-beta.20 or later.
+This plugin requires Craft CMS 3.0.0-beta.27 or later.
 
 ## How to install Twitter 2 Beta
 
