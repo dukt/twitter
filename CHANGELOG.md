@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## 2.0.0-beta.5 - Unreleased
+## 2.0.0-beta.5 - 2017-09-22
 
 ### Fixed
 - Fixed bug with `dukt\twitter\lib\AutoLink::autoLinkEntities()` method definition.
