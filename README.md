@@ -8,7 +8,7 @@ This plugin requires Craft CMS 3.0.0-beta.27 or later.
 
 ## How to install Twitter 2 Beta
 
-Installation instructions can be found in [Twitter 2 Documentation](https://github.com/dukt/twitter/tree/docs)
+Installation instructions can be found in [Twitter 2 Documentation](https://github.com/dukt/twitter/tree/docs).
 
 ## Resources
 
