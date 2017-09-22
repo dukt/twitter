@@ -169,7 +169,7 @@ class Api extends Component
 
                 return $imagePath;
             }
-            
+
             $remoteImageUrl = str_replace('_normal', '', $remoteImageUrl);
             $fileName = pathinfo($remoteImageUrl, PATHINFO_BASENAME);
             $imagePath = $originalFolderPath.$fileName;
