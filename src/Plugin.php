@@ -80,7 +80,14 @@ class Plugin extends \craft\base\Plugin
 
         // Events
 
-        Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES, [$this, 'registerCpUrlRules']);
+        Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES, function(RegisterUrlRulesEvent $event) {
+            $rules = [
+                'twitter/settings' => 'twitter/settings/index',
+                'twitter/settings/oauth' => 'twitter/settings/oauth',
+            ];
+
+            $event->rules = array_merge($event->rules, $rules);
+        });
 
         Event::on(Dashboard::class, Dashboard::EVENT_REGISTER_WIDGET_TYPES, function(RegisterComponentTypesEvent $event) {
             $event->types[] = SearchWidget::class;
@@ -101,25 +108,11 @@ class Plugin extends \craft\base\Plugin
         Event::on(CraftVariable::class, CraftVariable::EVENT_DEFINE_COMPONENTS, function(DefineComponentsEvent $event) {
             $event->components['twitter'] = TwitterVariable::class;
         });
+        
 
         // Twig extension
 
         Craft::$app->view->twig->addExtension(new Extension());
-    }
-
-    /**
-     * Register CP URL rules
-     *
-     * @param RegisterUrlRulesEvent $event
-     */
-    public function registerCpUrlRules(RegisterUrlRulesEvent $event)
-    {
-        $rules = [
-            'twitter/settings' => 'twitter/settings/index',
-            'twitter/settings/oauth' => 'twitter/settings/oauth',
-        ];
-
-        $event->rules = array_merge($event->rules, $rules);
     }
 
     // Protected Methods
