@@ -84,7 +84,7 @@ class TwitterHelper
                 $name = pathinfo($url, PATHINFO_BASENAME);
                 $originalPath = $originalDir.DIRECTORY_SEPARATOR.$name;
 
-                FileHelper::createDirectory($dir);
+                FileHelper::createDirectory($originalDir);
                 $client = new \GuzzleHttp\Client();
                 $response = $client->request('GET', $url, [
                     'save_to' => $originalPath,
