@@ -12,7 +12,6 @@ use craft\events\RegisterCacheOptionsEvent;
 use craft\events\RegisterComponentTypesEvent;
 use craft\events\RegisterUrlRulesEvent;
 use craft\events\ResolveResourcePathEvent;
-use craft\events\DefineComponentsEvent;
 use craft\helpers\FileHelper;
 use craft\helpers\UrlHelper;
 use craft\services\Dashboard;
@@ -98,8 +97,10 @@ class Plugin extends \craft\base\Plugin
             ];
         });
 
-        Event::on(CraftVariable::class, CraftVariable::EVENT_DEFINE_COMPONENTS, function(DefineComponentsEvent $event) {
-            $event->components['twitter'] = TwitterVariable::class;
+        Event::on(CraftVariable::class, CraftVariable::EVENT_INIT, function(Event $event) {
+            /** @var CraftVariable $variable */
+            $variable = $event->sender;
+            $variable->set('twitter', TwitterVariable::class);
         });
 
         // Twig extension
