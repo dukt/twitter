@@ -7,7 +7,7 @@
       "[Improved] The `$cacheExpire` parameter is now `null` instead of being set to `0` for the `\\Craft\\Twitter_ApiService::get()` method.",
       "[Improved] The `$cacheExpire` parameter is now `null` instead of being set to `0` for the `\\Craft\\TwitterVariable::get()` method.",
       "[Fixed] Fixed an issue where `\\Craft\\Twitter_ApiService` was relying on `\\Craft\\FileCache` instead of `\\Craft\\Twitter_CacheService` for caching.",
-      "[Fixed] Fixed an issue where the cache duration was not properly calculated into seconds.",
+      "[Fixed] Fixed an issue where the cache duration was not properly calculated into seconds."
     ]
   },
   {
@@ -17,7 +17,7 @@
     "notes": [
       "[Added] Schema Version 1.0.0.",
       "[Added] The plugin can now be installed with composer via `composer require dukt/craft-twitter`.",
-      "[Improved] Updated `nojimage/twitter-text-php` dependenc.y"
+      "[Improved] Updated `nojimage/twitter-text-php` dependency."
     ]
   },
   {
@@ -26,7 +26,7 @@
     "date": "2017-01-10T11:00:00-02:00",
     "notes": [
       "[Improved] Improved search keywords for the Tweet field type.",
-      "[Fixed] Fixed API caching and removed deprecated `disableCache` confi.g"
+      "[Fixed] Fixed API caching and removed deprecated `disableCache` config."
     ]
   },
   {
@@ -48,7 +48,7 @@
       "[Improved]  Removed `Twitter_TweetFieldType::prepValueFromPost()`.",
       "[Improved]  Replaced `disableCache` config by `enableCache`.",
       "[Improved]  Tweet field now accepts a tweet URL or a tweet ID.",
-      "[Fixed]  Fixed tweet’s permalin.k"
+      "[Fixed]  Fixed tweet’s permalink."
     ]
   }
 ]
