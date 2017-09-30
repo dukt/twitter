@@ -1,0 +1,54 @@
+[
+  {
+    "version": "1.1.3",
+    "downloadUrl": "https://github.com/dukt/twitter/archive/1.1.3.zip",
+    "date": "2017-03-10T11:00:00-02:00",
+    "notes": [
+      "[Improved] The `$cacheExpire` parameter is now `null` instead of being set to `0` for the `\Craft\Twitter_ApiService::get()` method.",
+      "[Improved] The `$cacheExpire` parameter is now `null` instead of being set to `0` for the `\Craft\TwitterVariable::get()` method.",
+      "[Fixed] Fixed an issue where `\Craft\Twitter_ApiService` was relying on `\Craft\FileCache` instead of `\Craft\Twitter_CacheService` for caching.",
+      "[Fixed] Fixed an issue where the cache duration was not properly calculated into seconds.",
+    ]
+  },
+  {
+    "version": "1.1.2",
+    "downloadUrl": "https://github.com/dukt/twitter/archive/1.1.2.zip",
+    "date": "2017-01-23T11:00:00-02:00",
+    "notes": [
+      "[Added] Schema Version 1.0.0.",
+      "[Added] The plugin can now be installed with composer via `composer require dukt/craft-twitter`.",
+      "[Improved] Updated `nojimage/twitter-text-php` dependenc.y"
+    ]
+  },
+  {
+    "version": "1.1.1",
+    "downloadUrl": "https://github.com/dukt/twitter/archive/1.1.1.zip",
+    "date": "2017-01-10T11:00:00-02:00",
+    "notes": [
+      "[Improved] Improved search keywords for the Tweet field type.",
+      "[Fixed] Fixed API caching and removed deprecated `disableCache` confi.g"
+    ]
+  },
+  {
+    "version": "1.1.0",
+    "downloadUrl": "https://github.com/dukt/twitter/archive/1.1.0.zip",
+    "date": "2016-12-14T11:00:00-02:00",
+    "notes": [
+      "[Added] Added `cacheDuration` config.",
+      "[Added] Added `twitterFollowButton()` Twig function.",
+      "[Added] Added `twitterGrid()` Twig function.",
+      "[Added] Added `twitterMessageButton()` Twig function.",
+      "[Added] Added `twitterMoment()` Twig function.",
+      "[Added] Added `twitterTimeline()` Twig function.",
+      "[Added] Added `twitterTweet()` Twig function.",
+      "[Added] Added `twitterTweetButton()` Twig function.",
+      "[Added] Added `twitterVideo()` Twig function.",
+      "[Added] Added docs URL to the Settings page.",
+      "[Improved]  Improved plugin description.",
+      "[Improved]  Removed `Twitter_TweetFieldType::prepValueFromPost()`.",
+      "[Improved]  Replaced `disableCache` config by `enableCache`.",
+      "[Improved]  Tweet field now accepts a tweet URL or a tweet ID.",
+      "[Fixed]  Fixed tweet’s permalin.k"
+    ]
+  }
+]
