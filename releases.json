@@ -4,9 +4,9 @@
     "downloadUrl": "https://github.com/dukt/twitter/archive/1.1.3.zip",
     "date": "2017-03-10T11:00:00-02:00",
     "notes": [
-      "[Improved] The `$cacheExpire` parameter is now `null` instead of being set to `0` for the `\Craft\Twitter_ApiService::get()` method.",
-      "[Improved] The `$cacheExpire` parameter is now `null` instead of being set to `0` for the `\Craft\TwitterVariable::get()` method.",
-      "[Fixed] Fixed an issue where `\Craft\Twitter_ApiService` was relying on `\Craft\FileCache` instead of `\Craft\Twitter_CacheService` for caching.",
+      "[Improved] The `$cacheExpire` parameter is now `null` instead of being set to `0` for the `\\Craft\\Twitter_ApiService::get()` method.",
+      "[Improved] The `$cacheExpire` parameter is now `null` instead of being set to `0` for the `\\Craft\\TwitterVariable::get()` method.",
+      "[Fixed] Fixed an issue where `\\Craft\\Twitter_ApiService` was relying on `\\Craft\\FileCache` instead of `\\Craft\\Twitter_CacheService` for caching.",
       "[Fixed] Fixed an issue where the cache duration was not properly calculated into seconds.",
     ]
   },
