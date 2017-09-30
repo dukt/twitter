@@ -4,8 +4,8 @@ namespace Craft;
 /**
  * @author    Dukt <support@dukt.net>
  * @copyright Copyright (c) 2017, Dukt
- * @license   https://dukt.net/craft/twitter/docs/license
- * @see       https://dukt.net/craft/twitter/
+ * @license   https://dukt.net/twitter/docs/license
+ * @see       https://dukt.net/twitter/
  * @package   twitter.variables
  * @since     0.9
  */

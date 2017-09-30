@@ -1,8 +1,8 @@
 <?php
 /**
- * @link      https://dukt.net/craft/twitter/
+ * @link      https://dukt.net/twitter/
  * @copyright Copyright (c) 2017, Dukt
- * @license   https://dukt.net/craft/twitter/docs/license
+ * @license   https://dukt.net/twitter/docs/license
  */
 
 namespace Craft;
@@ -100,7 +100,7 @@ class TwitterPlugin extends BasePlugin
      */
     public function getDocumentationUrl()
     {
-        return 'https://dukt.net/craft/twitter/docs/';
+        return 'https://dukt.net/twitter/docs/';
     }
 
     /**
