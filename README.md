@@ -1,4 +1,4 @@
-# Craft Twitter
+# Twitter for Craft CMS
 
 Adds tweet fields to Craft and lets you request Twitter API
 
