@@ -1,35 +1,40 @@
-# Craft Twitter License Agreement
+Copyright © Dukt. 
 
-Twitter plugin is free to use during beta. You are not allowed to reuse / distribute this software.
+Permission is hereby granted to any person obtaining a copy of this software
+(the “Software”) to use, copy, modify, merge, publish and/or distribute copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
 
-## Usage
+1. **Don’t plagiarize.** The above copyright notice and this license shall be
+   included in all copies or substantial portions of the Software.
 
-One license grants you the right to perform one installation of the Software on one website. You may install this software in a development environment as long as each production website has its license.
+2. **Don’t use the same license on more than one project.** Each licensed copy
+   of the Software shall be actively installed in no more than one production
+   environment at a time.
 
-## Restrictions
+3. **Don’t mess with the licensing features.** Software features related to
+   licensing shall not be altered or circumvented in any way, including (but
+   not limited to) license validation, payment prompts, feature restrictions,
+   and update eligibility.
 
-Unless the buyer has been granted prior, written consent from Dukt, the buyer may not:
+4. **Pay up.** Payment shall be made immediately upon receipt of any notice,
+   prompt, reminder, or other message indicating that a payment is owed.
 
-Reproduce, distribute, or transfer the Software, or portions thereof, to any third party.
-Sell, rent, lease, assign, or sublet the Software or portions thereof.
-Grant rights for use of the Software to any other person.
-Use the Software in violation of any French laws or other international laws and regulations.
-Display of Copyright Notices
+5. **Follow the law.** All use of the Software shall not violate any applicable
+   law or regulation, nor infringe the rights of any other person or entity.
 
-All copyright and proprietary notices and logos displayed by the Software or within the Software files must remain intact.
+Failure to comply with the foregoing conditions will automatically and
+immediately result in termination of the permission granted hereby. This
+license does not include any right to receive updates to the Software or
+technical support. Licensees bear all risk related to the quality and
+performance of the Software and any modifications made or obtained to it,
+including liability for actual and consequential harm, such as loss or
+corruption of data, and any necessary service, repair, or correction.
 
-## Technical Support
-
-User Guides and support are available at https://dukt.net/. No representations or guarantees are made regarding the response time for support requests. Dukt reserves to right to terminate official technical support at any time and for any reason with or without notice.
-
-## Refunds
-
-Dukt offers refunds on software within 30 days of purchase. Contact us with your order number and ask for a refund.
-
-## Disclaimer of Warranty
-
-THE SOFTWARE IS PROVIDED "AS IS." Dukt provides no warranty of any kind, express or implied, including warranties of quality, performance, non-infringement, merchantability, or fitness for a particular purpose. Dukt does not guarantee that the functions of the Software will meet the buyer’s ongoing requirements or that the operation of the Software will be uninterrupted or error-free. The entire risk as to the quality and performance of the Software is with the buyer. Dukt does not warrant the the Software or support for the Software will always be available.
-
-## Limitations of Liability
-
-The buyer assumes all risk associated with the installation and operation of the Software. In no event will Dukt or its assigns be liable to the buyer or any third party for any damages, including any lost profits, lost savings or other incidental, consequential or special damages arising out of the operation of or inability to operate software or its components, even if P19 has been advised of the possibility of such damages. The buyer is solely responsible for determining the appropriateness of use and assumes all risks associated with its use, including, but not limited to, the risks of program errors, damage to equipment, loss of data, or unavailability or interruption of operations.
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER
+LIABILITY, INCLUDING SPECIAL, INCIDENTAL AND CONSEQUENTIAL DAMAGES, WHETHER IN
+AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
