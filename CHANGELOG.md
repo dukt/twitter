@@ -1,10 +1,43 @@
 Changelog
 =========
 
-## 2.0.0-beta.6 - Unreleased
+## 2.0.0 - 2017-12-05
 
-- The plugin now requires Craft 3.0.0-beta.27 or above.
+### Added
+- Craft 3 compatibility.
+- Added support section to `composer.json`.
+- Schema Version 1.0.0.
+- Added `craftcms/cms` dependency.
+- Added `league/oauth1-client` dependency.
+- Added `guzzlehttp/oauth-subscriber` dependency.
+- Added `Tweet` model.
+- Added `dukt\twitter\services\Api::getClient()`.
+- Added `dukt\twitter\services\Api::saveOriginalUserProfileImage()`.
+- Added `dukt\twitter\helpers\TwitterHelper::extractTweetId()`.
+- Added `dukt\twitter\helpers\TwitterHelper::getUserProfileImageResourceUrl()`.
 
+### Changed
+- The `$cacheExpire` parameter is now `null` instead of being set to `0` for the `\Craft\Twitter_ApiService::get()` method.
+- The `$cacheExpire` parameter is now `null` instead of being set to `0` for the `\Craft\TwitterVariable::get()` method.
+- Cache keys are now limited to 32 characters.
+- Improved `dukt\twitter\services\Api::get()` parameters.
+- Improved `dukt\twitter\web\twig\variables\TwitterVariable::get()` params.
+- Moved `dukt\twitter\services\Twitter::extractTweetId()` to `dukt\twitter\helpers\TwitterHelper::extractTweetId()`.
+- Moved `dukt\twitter\services\Twitter::getTweetById()` to `dukt\twitter\services\Api::getTweetById()`.
+- Moved `dukt\twitter\services\Twitter::getTweetByUrl()` to `dukt\twitter\services\Api::getTweetByUrl()`.
+- Moved `dukt\twitter\services\Twitter::getUserById()` to `dukt\twitter\services\Api::getUserById()`.
+- Renamed `dukt\twitter\web\twig\variables\TwitterVariable::getUserImageUrl()` to `dukt\twitter\web\twig\variables\TwitterVariable::getUserProfileImageResourceUrl()`.
+
+### Fixed
+- Fixed bug with `dukt\twitter\lib\AutoLink::autoLinkEntities()` method definition.
+- Fixed cache path.
+- Fixed an issue where `\Craft\Twitter_ApiService` was relying on `\Craft\FileCache` instead of `\Craft\Twitter_CacheService` for caching.
+- Fixed an issue where the cache duration was not properly calculated into seconds.
+- Fixed a bug where `dukt\twitter\services\Api::get()` wouldn’t take the `enableCache` config into account.
+
+### Removed
+- Removed `dukt/oauth` dependency.
+- Removed `dukt\twitter\services\Api::request()`.
 
 ## 2.0.0-beta.5 - 2017-09-22
 
@@ -82,7 +115,7 @@ Changelog
 
 ### Removed
 - Removed `dukt/craft-oauth` dependency.
-- Removed `dukt\twitter\services\Api::request()` .
+- Removed `dukt\twitter\services\Api::request()`.
 
 
 ## 1.1.2 - 2017-01-23
