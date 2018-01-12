@@ -3,7 +3,7 @@
 [Embedded Tweets](https://dev.twitter.com/web/embedded-tweets) make it possible for you take any Tweet and embed it directly in to the content of your article or website.
 Tweets display with expanded media like photos, videos, and article summaries, and also include real-time retweet and favorite counts.
 
-{asset:1257:img}
+![Embedded Tweet](assets/demo-embedded-tweet.png)
 
 ## Usage
 
