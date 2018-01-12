@@ -133,7 +133,7 @@ Available options:
 
 _Deprecated in 1.1_
 
-Generates the HTML of a [Twitter embedded tweet]({entry:1254:url}) from a tweet ID and optional parameters.
+Generates the HTML of a [Twitter embedded tweet](embedded-tweets.md) from a tweet ID and optional parameters.
     
     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 

@@ -1,6 +1,6 @@
 # Auto Linking Tweets
 
-Auto-link mentions, hashtags, and urls of a tweet by using the [`autoLinkTweet`]({entry:1253:url}#autoLinkTweet) filter:
+Auto-link mentions, hashtags, and urls of a tweet by using the [`autoLinkTweet`](filters.md#autoLinkTweet) filter:
 
 
     {{ tweet.text|autoLinkTweet) }}
@@ -21,4 +21,4 @@ Auto-link mentions, hashtags, and urls of a tweet by using the [`autoLinkTweet`]
         target: "_blank"
     }) }}
 
-See [autoLinkTweet]({entry:1253:url}#autoLinkTweet) twig function for more.
+See [autoLinkTweet](filters.md#autoLinkTweet) twig function for more.

@@ -7,7 +7,7 @@ Tweets display with expanded media like photos, videos, and article summaries, a
 
 ## Usage
 
-Embed a tweet by using the [`embedTweet`]({entry:1254:url}#embedTweet) function:
+Embed a tweet by using the [`embedTweet`](functions.md#embedTweet) function:
 
     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
@@ -33,4 +33,4 @@ You can customize embedded tweets with several options:
 
     {{ embedTweet(tweetId, options) }}
 
-See [embedTweet]({entry:1254:url}#embedTweet) twig function for more.
+See [embedTweet](functions.md#embedTweet) twig function for more.

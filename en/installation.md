@@ -5,7 +5,7 @@
 - Craft 2.6+
 - PHP 5.6+
 - A [Twitter](https://twitter.com/) account
-- The {entry:4:link} plugin
+- The [OAuth](https://github.com/dukt/oauth) plugin
 
 ## Install
 
@@ -13,7 +13,7 @@
 1. Drop `twitter` plugin folder in `craft/plugin`.
 1. Go to **Admin / Twitter** and follow the installation instructions.
 
-Now that the plugin is installed, go to : {entry:469:link}
+Now that the plugin is installed, go to : [Connect to Twitter](connect-twitter.md)
 
 ## Install with composer
 
