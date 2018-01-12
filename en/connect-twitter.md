@@ -4,7 +4,7 @@
 
 Twitter plugin relies on OAuth plugin for authenticating to Google APIs :
 
-[OAuth plugin for Craft CMS](https://dukt.net/craft/oauth)
+[OAuth plugin for Craft CMS](https://dukt.net/oauth)
 
 You'll be invited to download and install OAuth in Twitter plugin settings.
 
