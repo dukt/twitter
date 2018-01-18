@@ -5,6 +5,7 @@ Changelog
 
 ### Changed
 - Updated to require craftcms/cms `^3.0.0-RC1`.
+- Changed rounded profile images to circle profile images.
 
 ## 2.0.0 - 2017-12-05
 
