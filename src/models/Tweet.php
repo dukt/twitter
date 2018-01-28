@@ -19,6 +19,9 @@ use dukt\twitter\Plugin as Twitter;
  */
 class Tweet extends Model
 {
+    // Properties
+    // =========================================================================
+
     /**
      * @var
      */
