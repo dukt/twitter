@@ -98,8 +98,14 @@ class SearchWidget extends Widget
         if ($token) {
             if (!empty($searchQuery)) {
                 try {
+                    $q = $searchQuery;
+
+                    if(Twitter::$plugin->getSettings()->searchWidgetExtraQuery) {
+                        $q .= ' '.Twitter::$plugin->getSettings()->searchWidgetExtraQuery;
+                    }
+
                     $response = Twitter::$plugin->getApi()->get('search/tweets', [
-                        'q' => $searchQuery,
+                        'q' => $q,
                         'count' => $count,
                         'tweet_mode' => 'extended'
                     ]);

@@ -47,11 +47,15 @@ class Settings extends Model
      */
     public $oauthConsumerKey;
 
-
     /**
      * @var string|null OAuth consumer secret.
      */
     public $oauthConsumerSecret;
+
+    /**
+     * @var string|null Search widget extra query.
+     */
+    public $searchWidgetExtraQuery = '-filter:retweets';
 
     // Public Methods
     // =========================================================================
