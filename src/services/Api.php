@@ -98,7 +98,10 @@ class Api extends Component
     {
         $tweetId = (int)$tweetId;
 
-        $query = array_merge($query, ['id' => $tweetId]);
+        $query = array_merge($query, [
+            'id' => $tweetId,
+            'tweet_mode' => 'extended'
+        ]);
 
         $tweet = Twitter::$plugin->getApi()->get('statuses/show', $query);
 

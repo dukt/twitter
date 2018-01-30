@@ -78,7 +78,7 @@ TweetInput = Garnish.Base.extend({
                                     '<a class="tweet-user-screenname light" href="'+userProfileUrl+'">@'+response.user.screen_name+'</a>' +
                                 '</div>' +
                                 '<div class="tweet-text">' +
-                                    response.text +
+                                    response.full_text +
                                     '<ul class="tweet-actions light">' +
                                         '<li><a href="'+ tweetUrl +'">Permalink</a></li>' +
                                     '</ul>' +

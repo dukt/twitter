@@ -100,7 +100,8 @@ class SearchWidget extends Widget
                 try {
                     $response = Twitter::$plugin->getApi()->get('search/tweets', [
                         'q' => $searchQuery,
-                        'count' => $count
+                        'count' => $count,
+                        'tweet_mode' => 'extended'
                     ]);
 
                     $tweets = [];

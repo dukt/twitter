@@ -53,8 +53,8 @@ class Tweet extends Model
     {
         $tweetData = $this->getTweetData();
 
-        if (!empty($tweetData['text'])) {
-            return $tweetData['text'];
+        if (!empty($tweetData['full_text'])) {
+            return $tweetData['full_text'];
         }
     }
 
