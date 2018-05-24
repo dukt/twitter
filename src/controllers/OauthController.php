@@ -11,6 +11,7 @@ use Craft;
 use craft\web\Controller;
 use dukt\twitter\Plugin as Twitter;
 use Exception;
+use yii\web\Response;
 
 /**
  * OAuth controller
@@ -24,9 +25,9 @@ class OauthController extends Controller
     // =========================================================================
 
     /**
-     * Connect
+     * Connect.
      *
-     * @return null
+     * @return Response
      */
     public function actionConnect()
     {
@@ -46,9 +47,9 @@ class OauthController extends Controller
     }
 
     /**
-     * Callback
+     * Callback.
      *
-     * @return null
+     * @return Response
      */
     public function actionCallback()
     {
@@ -82,7 +83,7 @@ class OauthController extends Controller
     /**
      * Disconnect
      *
-     * @return null
+     * @return Response
      */
     public function actionDisconnect()
     {

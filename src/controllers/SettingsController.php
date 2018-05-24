@@ -10,6 +10,7 @@ namespace dukt\twitter\controllers;
 use Craft;
 use craft\web\Controller;
 use dukt\twitter\Plugin as Twitter;
+use yii\web\Response;
 
 /**
  * Settings controller
@@ -23,9 +24,10 @@ class SettingsController extends Controller
     // =========================================================================
 
     /**
-     * Settings Index
+     * Settings index.
      *
-     * @return null
+     * @return Response
+     * @throws \craft\errors\SiteNotFoundException
      */
     public function actionIndex()
     {
@@ -58,7 +60,8 @@ class SettingsController extends Controller
     /**
      * OAuth settings.
      *
-     * @return string
+     * @return Response
+     * @throws \craft\errors\SiteNotFoundException
      */
     public function actionOauth()
     {
@@ -74,7 +77,8 @@ class SettingsController extends Controller
     /**
      * Save OAuth settings.
      *
-     * @return \yii\web\Response
+     * @return Response
+     * @throws \yii\web\BadRequestHttpException
      */
     public function actionSaveOauthSettings()
     {

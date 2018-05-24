@@ -158,6 +158,9 @@ class Tweet extends Model
      * @param null $size
      *
      * @return null|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \craft\errors\ImageException
+     * @throws \yii\base\Exception
      */
     public function getUserProfileImageUrl($size = null)
     {

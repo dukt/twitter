@@ -48,6 +48,7 @@ class Cache extends Component
      * @param null $dependency
      *
      * @return mixed
+     * @throws \Exception
      */
     public function set($id, $value, $expire = null, $dependency = null)
     {

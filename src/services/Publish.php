@@ -29,6 +29,7 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function grid($url, $options = [])
     {
@@ -51,6 +52,7 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function moment($url, $options = [])
     {
@@ -73,6 +75,7 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function timeline($url, $options = [])
     {
@@ -95,6 +98,7 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function tweet($url, $options = [])
     {
@@ -117,6 +121,7 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function video($url, $options = [])
     {
@@ -234,9 +239,10 @@ class Publish extends Component
      * Returns an oEmbed object from a Twitter URL.
      *
      * @param       $url
-     * @param array $options
+     * @param array $query
      *
      * @return array|bool|float|int|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function oEmbed($url, $query = [])
     {

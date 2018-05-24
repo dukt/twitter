@@ -118,6 +118,7 @@ class Oauth extends Component
      * Get javascript origin
      *
      * @return string
+     * @throws \craft\errors\SiteNotFoundException
      */
     public function getJavascriptOrigin()
     {

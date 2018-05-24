@@ -38,6 +38,7 @@ class Api extends Component
      * @param null|int   $cacheExpire
      *
      * @return array|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function get($uri, array $query = null, array $headers = null, array $options = [], $enableCache = null, $cacheExpire = null)
     {
@@ -93,6 +94,8 @@ class Api extends Component
      * @param array      $query
      *
      * @return array|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
      */
     public function getTweetById($tweetId, $query = [])
     {
@@ -121,6 +124,8 @@ class Api extends Component
      * @param string $urlOrId
      *
      * @return array|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
      */
     public function getTweetByUrl($urlOrId)
     {
@@ -138,6 +143,7 @@ class Api extends Component
      * @param array      $query
      *
      * @return array|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getUserById($userId, $query = [])
     {
@@ -155,6 +161,8 @@ class Api extends Component
      * @param $remoteImageUrl
      *
      * @return string|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
      */
     public function saveOriginalUserProfileImage($userId, $remoteImageUrl)
     {

@@ -50,6 +50,9 @@ class TwitterHelper
      * @param int $size
      *
      * @return string|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \craft\errors\ImageException
+     * @throws \yii\base\Exception
      */
     public static function getUserProfileImageResourceUrl($twitterUserId, $size = 48)
     {
@@ -117,6 +120,7 @@ class TwitterHelper
      * @param string $duration
      *
      * @return int
+     * @throws \Exception
      */
     public static function durationToSeconds($duration)
     {
@@ -131,6 +135,8 @@ class TwitterHelper
      * Format Time in HH:MM:SS from seconds
      *
      * @param int $seconds
+     *
+     * @return false|string
      */
     public static function formatTime($seconds)
     {

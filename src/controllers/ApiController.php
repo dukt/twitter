@@ -10,6 +10,7 @@ namespace dukt\twitter\controllers;
 use Craft;
 use craft\web\Controller;
 use dukt\twitter\Plugin as Twitter;
+use yii\web\Response;
 
 /**
  * API controller
@@ -25,7 +26,7 @@ class ApiController extends Controller
     /**
      * Looks up a tweet by its ID.
      *
-     * @return null
+     * @return Response
      */
     public function actionLookupTweet()
     {
