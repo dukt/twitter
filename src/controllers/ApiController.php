@@ -27,6 +27,7 @@ class ApiController extends Controller
      * Looks up a tweet by its ID.
      *
      * @return Response
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function actionLookupTweet()
     {
