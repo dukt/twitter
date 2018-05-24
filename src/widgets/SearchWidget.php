@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/craft/twitter/
- * @copyright Copyright (c) 2017, Dukt
+ * @copyright Copyright (c) 2018, Dukt
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
@@ -98,9 +98,16 @@ class SearchWidget extends Widget
         if ($token) {
             if (!empty($searchQuery)) {
                 try {
+                    $q = $searchQuery;
+
+                    if(Twitter::$plugin->getSettings()->searchWidgetExtraQuery) {
+                        $q .= ' '.Twitter::$plugin->getSettings()->searchWidgetExtraQuery;
+                    }
+
                     $response = Twitter::$plugin->getApi()->get('search/tweets', [
-                        'q' => $searchQuery,
-                        'count' => $count
+                        'q' => $q,
+                        'count' => $count,
+                        'tweet_mode' => 'extended'
                     ]);
 
                     $tweets = [];

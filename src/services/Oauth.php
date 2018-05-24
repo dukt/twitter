@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/craft/twitter/
- * @copyright Copyright (c) 2017, Dukt
+ * @copyright Copyright (c) 2018, Dukt
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
@@ -118,6 +118,7 @@ class Oauth extends Component
      * Get javascript origin
      *
      * @return string
+     * @throws \craft\errors\SiteNotFoundException
      */
     public function getJavascriptOrigin()
     {

@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/craft/twitter/
- * @copyright Copyright (c) 2017, Dukt
+ * @copyright Copyright (c) 2018, Dukt
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
@@ -47,11 +47,15 @@ class Settings extends Model
      */
     public $oauthConsumerKey;
 
-
     /**
      * @var string|null OAuth consumer secret.
      */
     public $oauthConsumerSecret;
+
+    /**
+     * @var string|null Search widget extra query.
+     */
+    public $searchWidgetExtraQuery = '-filter:retweets';
 
     // Public Methods
     // =========================================================================

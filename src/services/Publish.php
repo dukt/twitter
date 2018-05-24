@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/craft/twitter/
- * @copyright Copyright (c) 2017, Dukt
+ * @copyright Copyright (c) 2018, Dukt
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
@@ -29,6 +29,8 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\InvalidConfigException
      */
     public function grid($url, $options = [])
     {
@@ -51,6 +53,8 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\InvalidConfigException
      */
     public function moment($url, $options = [])
     {
@@ -73,6 +77,8 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\InvalidConfigException
      */
     public function timeline($url, $options = [])
     {
@@ -95,6 +101,8 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\InvalidConfigException
      */
     public function tweet($url, $options = [])
     {
@@ -117,6 +125,8 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\InvalidConfigException
      */
     public function video($url, $options = [])
     {
@@ -234,9 +244,11 @@ class Publish extends Component
      * Returns an oEmbed object from a Twitter URL.
      *
      * @param       $url
-     * @param array $options
+     * @param array $query
      *
      * @return array|bool|float|int|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\InvalidConfigException
      */
     private function oEmbed($url, $query = [])
     {

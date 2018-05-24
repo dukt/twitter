@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/craft/twitter/
- * @copyright Copyright (c) 2017, Dukt
+ * @copyright Copyright (c) 2018, Dukt
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
@@ -10,6 +10,7 @@ namespace dukt\twitter\controllers;
 use Craft;
 use craft\web\Controller;
 use dukt\twitter\Plugin as Twitter;
+use yii\web\Response;
 
 /**
  * Settings controller
@@ -23,11 +24,13 @@ class SettingsController extends Controller
     // =========================================================================
 
     /**
-     * Settings Index
+     * Settings index.
      *
-     * @return null
+     * @return Response
+     * @throws \craft\errors\SiteNotFoundException
+     * @throws \yii\base\InvalidConfigException
      */
-    public function actionIndex()
+    public function actionIndex(): Response
     {
         $tokenExists = false;
         $resourceOwner = null;
@@ -58,9 +61,11 @@ class SettingsController extends Controller
     /**
      * OAuth settings.
      *
-     * @return string
+     * @return Response
+     * @throws \craft\errors\SiteNotFoundException
+     * @throws \yii\base\InvalidConfigException
      */
-    public function actionOauth()
+    public function actionOauth(): Response
     {
         $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
 
@@ -74,9 +79,10 @@ class SettingsController extends Controller
     /**
      * Save OAuth settings.
      *
-     * @return \yii\web\Response
+     * @return Response
+     * @throws \yii\web\BadRequestHttpException
      */
-    public function actionSaveOauthSettings()
+    public function actionSaveOauthSettings(): Response
     {
         $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
         $settings = $plugin->getSettings();

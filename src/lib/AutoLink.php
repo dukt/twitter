@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/craft/twitter/
- * @copyright Copyright (c) 2017, Dukt
+ * @copyright Copyright (c) 2018, Dukt
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
@@ -15,16 +15,21 @@ namespace dukt\twitter\lib;
  */
 class AutoLink extends \Twitter\Text\Autolink
 {
+    // Properties
+    // =========================================================================
+
+    /**
+     * Whether to include the value 'noopener' in the 'rel' attribute.
+     *
+     * @var  bool
+     */
+    protected $noopener = true;
+
     // Public Methods
     // =========================================================================
 
     /**
-     * Provides fluent method chaining.
-     *
-     * @param  string $tweet       The tweet to be converted.
-     * @param  bool   $full_encode Whether to encode all special characters.
-     *
-     * @return  AutoLink
+     * @inheritdoc
      */
     public static function create($tweet = null, $full_encode = false)
     {
@@ -32,12 +37,7 @@ class AutoLink extends \Twitter\Text\Autolink
     }
 
     /**
-     * Autolink with entities
-     *
-     * @param string $tweet
-     * @param array  $entities
-     *
-     * @return string
+     * @inheritdoc
      */
     public function autoLinkEntities($tweet = null, $entities = null)
     {
@@ -74,11 +74,7 @@ class AutoLink extends \Twitter\Text\Autolink
     }
 
     /**
-     * Returns text with mentions and lists as links
-     *
-     * @param array $entity
-     *
-     * @return string
+     * @inheritdoc
      */
     public function linkToMentionAndList($entity)
     {
@@ -103,5 +99,57 @@ class AutoLink extends \Twitter\Text\Autolink
         $attributes['href'] = $url;
 
         return $this->linkToText($entity, $linkText, $attributes);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function linkToText(array $entity, $text, $attributes = array())
+    {
+        $rel = array();
+        if ($this->external) {
+            $rel[] = 'external';
+        }
+        if ($this->nofollow) {
+            $rel[] = 'nofollow';
+        }
+        if ($this->noopener) {
+            $rel[] = 'noopener';
+        }
+        if (!empty($rel)) {
+            $attributes['rel'] = join(' ', $rel);
+        }
+        if ($this->target) {
+            $attributes['target'] = $this->target;
+        }
+        $link = '<a';
+        foreach ($attributes as $key => $val) {
+            $link .= ' ' . $key . '="' . $this->escapeHTML($val) . '"';
+        }
+        $link .= '>' . $text . '</a>';
+        return $link;
+    }
+
+    /**
+     * Whether to include the value 'noopener' in the 'rel' attribute.
+     *
+     * @return  bool  Whether to add 'noopener' to the 'rel' attribute.
+     */
+    public function getNoOpener()
+    {
+        return $this->noopener;
+    }
+
+    /**
+     * Whether to include the value 'noopener' in the 'rel' attribute.
+     *
+     * @param  bool  $v  The value to add to the 'target' attribute.
+     *
+     * @return  Autolink  Fluid method chaining.
+     */
+    public function setNoOpener($v)
+    {
+        $this->noopener = $v;
+        return $this;
     }
 }

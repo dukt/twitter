@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/craft/twitter/
- * @copyright Copyright (c) 2017, Dukt
+ * @copyright Copyright (c) 2018, Dukt
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
@@ -41,7 +41,8 @@ class Twitter extends Component
             'cashtagClass' => 'setCashtagClass',
             'noFollow' => 'setNoFollow',
             'external' => 'setExternal',
-            'target' => 'setTarget'
+            'target' => 'setTarget',
+            'noOpener' => 'setNoOpener'
         ];
 
         foreach ($options as $k => $v) {

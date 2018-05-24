@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/craft/twitter/
- * @copyright Copyright (c) 2017, Dukt
+ * @copyright Copyright (c) 2018, Dukt
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
@@ -19,6 +19,9 @@ use dukt\twitter\Plugin as Twitter;
  */
 class Tweet extends Model
 {
+    // Properties
+    // =========================================================================
+
     /**
      * @var
      */
@@ -45,13 +48,16 @@ class Tweet extends Model
      * Returns the tweet's text.
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getText()
     {
         $tweetData = $this->getTweetData();
 
-        if (!empty($tweetData['text'])) {
-            return $tweetData['text'];
+        if (!empty($tweetData['full_text'])) {
+            return $tweetData['full_text'];
         }
     }
 
@@ -59,6 +65,9 @@ class Tweet extends Model
      * Returns the tweet’s author user ID.
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUserId()
     {
@@ -73,6 +82,9 @@ class Tweet extends Model
      * Returns the tweet's author user name.
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUserName()
     {
@@ -87,6 +99,9 @@ class Tweet extends Model
      * Returns the tweet's author user profile URL.
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUserProfileUrl()
     {
@@ -97,6 +112,9 @@ class Tweet extends Model
      * Returns the tweet's author user profile remote image URL.
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUserProfileRemoteImageUrl()
     {
@@ -111,6 +129,9 @@ class Tweet extends Model
      * Returns the tweet's author user profile remote image secure URL.
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUserProfileRemoteImageSecureUrl()
     {
@@ -125,6 +146,9 @@ class Tweet extends Model
      * Returns the tweet's author user screen name.
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUserScreenName()
     {
@@ -139,6 +163,9 @@ class Tweet extends Model
      * Returns the creation date of the tweet.
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getCreatedAt()
     {
@@ -155,6 +182,9 @@ class Tweet extends Model
      * @param null $size
      *
      * @return null|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \craft\errors\ImageException
+     * @throws \yii\base\Exception
      */
     public function getUserProfileImageUrl($size = null)
     {
@@ -167,6 +197,9 @@ class Tweet extends Model
      * Returns the URL of the tweet.
      *
      * @return string|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUrl()
     {
@@ -201,6 +234,9 @@ class Tweet extends Model
      * Returns the URL of the tweet.
      *
      * @return string|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     private function getTweetData()
     {
@@ -215,6 +251,9 @@ class Tweet extends Model
      * Returns the API's data for a tweet
      *
      * @return array|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     private function getRemoteTweetData()
     {

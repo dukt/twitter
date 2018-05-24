@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/craft/twitter/
- * @copyright Copyright (c) 2017, Dukt
+ * @copyright Copyright (c) 2018, Dukt
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
@@ -11,6 +11,7 @@ use Craft;
 use craft\web\Controller;
 use dukt\twitter\Plugin as Twitter;
 use Exception;
+use yii\web\Response;
 
 /**
  * OAuth controller
@@ -24,11 +25,12 @@ class OauthController extends Controller
     // =========================================================================
 
     /**
-     * Connect
+     * Connect.
      *
-     * @return null
+     * @return Response
+     * @throws \yii\base\InvalidConfigException
      */
-    public function actionConnect()
+    public function actionConnect(): Response
     {
         // Oauth provider
         $provider = Twitter::$plugin->getOauth()->getOauthProvider();
@@ -46,11 +48,12 @@ class OauthController extends Controller
     }
 
     /**
-     * Callback
+     * Callback.
      *
-     * @return null
+     * @return Response
+     * @throws \yii\base\InvalidConfigException
      */
-    public function actionCallback()
+    public function actionCallback(): Response
     {
         $provider = Twitter::$plugin->getOauth()->getOauthProvider();
 
@@ -82,9 +85,10 @@ class OauthController extends Controller
     /**
      * Disconnect
      *
-     * @return null
+     * @return Response
+     * @throws \yii\base\InvalidConfigException
      */
-    public function actionDisconnect()
+    public function actionDisconnect(): Response
     {
         if (Twitter::$plugin->getOauth()->deleteToken()) {
             Craft::$app->getSession()->setNotice(Craft::t('twitter', "Disconnected from Twitter."));

@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/craft/twitter/
- * @copyright Copyright (c) 2017, Dukt
+ * @copyright Copyright (c) 2018, Dukt
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
@@ -48,6 +48,7 @@ class Cache extends Component
      * @param null $dependency
      *
      * @return mixed
+     * @throws \Exception
      */
     public function set($id, $value, $expire = null, $dependency = null)
     {

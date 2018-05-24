@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/craft/twitter/
- * @copyright Copyright (c) 2017, Dukt
+ * @copyright Copyright (c) 2018, Dukt
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
@@ -25,14 +25,15 @@ class TwitterVariable
     /**
      * Performs a GET request on the Twitter API and returns the response.
      *
-     * @param string $uri
+     * @param string     $uri
      * @param array|null $query
      * @param array|null $headers
-     * @param array $options
-     * @param null|bool $enableCache
-     * @param null|int $cacheExpire
+     * @param array      $options
+     * @param null|bool  $enableCache
+     * @param null|int   $cacheExpire
      *
      * @return array|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function get($uri, array $query = null, array $headers = null, $options = array(), $enableCache = null, $cacheExpire = null)
     {
@@ -49,10 +50,11 @@ class TwitterVariable
     /**
      * Returns a tweet by its ID. Add query parameters to the API request with `query`.
      *
-     * @param int $tweetId
-     * @param array $params
+     * @param int   $tweetId
+     * @param array $query
      *
      * @return array|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getTweetById($tweetId, $query = array())
     {
@@ -69,10 +71,11 @@ class TwitterVariable
     /**
      * Returns a Twitter user by its ID. Add query parameters to the API request with `query`.
      *
-     * @param int $twitterUserId
+     * @param int   $twitterUserId
      * @param array $query
      *
      * @return array|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getUserById($twitterUserId, $query = array())
     {
@@ -93,6 +96,7 @@ class TwitterVariable
      * @param int $size
      *
      * @return string|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getUserProfileImageResourceUrl($twitterUserId, $size = 48)
     {
@@ -112,9 +116,10 @@ class TwitterVariable
      * @param int $twitterUserId
      * @param int $size
      *
+     * @return string|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
      * @deprecated Deprecated in 2.0. Use craft.twitter.getUserProfileImageResourceUrl() instead.
      *
-     * @return string|null
      */
     public function getUserImageUrl($twitterUserId, $size = 48)
     {

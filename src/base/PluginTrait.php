@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/craft/twitter/
- * @copyright Copyright (c) 2017, Dukt
+ * @copyright Copyright (c) 2018, Dukt
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
@@ -25,6 +25,7 @@ trait PluginTrait
      * Returns the twitter service.
      *
      * @return \dukt\twitter\services\Twitter The twitter service
+     * @throws \yii\base\InvalidConfigException
      */
     public function getTwitter()
     {
@@ -36,6 +37,7 @@ trait PluginTrait
      * Returns the api service.
      *
      * @return \dukt\twitter\services\Api The api service
+     * @throws \yii\base\InvalidConfigException
      */
     public function getApi()
     {
@@ -47,6 +49,7 @@ trait PluginTrait
      * Returns the cache service.
      *
      * @return \dukt\twitter\services\Cache The cache service
+     * @throws \yii\base\InvalidConfigException
      */
     public function getCache()
     {
@@ -58,6 +61,7 @@ trait PluginTrait
      * Returns the oauth service.
      *
      * @return \dukt\twitter\services\Oauth The oauth service
+     * @throws \yii\base\InvalidConfigException
      */
     public function getOauth()
     {
@@ -69,6 +73,7 @@ trait PluginTrait
      * Returns the publish service.
      *
      * @return \dukt\twitter\services\Publish The publish service
+     * @throws \yii\base\InvalidConfigException
      */
     public function getPublish()
     {

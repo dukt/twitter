@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/craft/twitter/
- * @copyright Copyright (c) 2017, Dukt
+ * @copyright Copyright (c) 2018, Dukt
  * @license   https://dukt.net/craft/twitter/docs/license
  */
 
@@ -38,6 +38,8 @@ class Api extends Component
      * @param null|int   $cacheExpire
      *
      * @return array|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\InvalidConfigException
      */
     public function get($uri, array $query = null, array $headers = null, array $options = [], $enableCache = null, $cacheExpire = null)
     {
@@ -93,12 +95,17 @@ class Api extends Component
      * @param array      $query
      *
      * @return array|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
      */
     public function getTweetById($tweetId, $query = [])
     {
         $tweetId = (int)$tweetId;
 
-        $query = array_merge($query, ['id' => $tweetId]);
+        $query = array_merge($query, [
+            'id' => $tweetId,
+            'tweet_mode' => 'extended'
+        ]);
 
         $tweet = Twitter::$plugin->getApi()->get('statuses/show', $query);
 
@@ -118,6 +125,8 @@ class Api extends Component
      * @param string $urlOrId
      *
      * @return array|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
      */
     public function getTweetByUrl($urlOrId)
     {
@@ -135,6 +144,8 @@ class Api extends Component
      * @param array      $query
      *
      * @return array|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUserById($userId, $query = [])
     {
@@ -152,6 +163,8 @@ class Api extends Component
      * @param $remoteImageUrl
      *
      * @return string|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
      */
     public function saveOriginalUserProfileImage($userId, $remoteImageUrl)
     {
@@ -194,6 +207,7 @@ class Api extends Component
      * Get the authenticated client
      *
      * @return Client
+     * @throws \yii\base\InvalidConfigException
      */
     private function getClient()
     {
@@ -215,6 +229,8 @@ class Api extends Component
 
     /**
      * Get stack
+     *
+     * @param TokenCredentials $token
      *
      * @return HandlerStack
      */
