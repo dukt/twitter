@@ -28,6 +28,7 @@ class SettingsController extends Controller
      *
      * @return Response
      * @throws \craft\errors\SiteNotFoundException
+     * @throws \yii\base\InvalidConfigException
      */
     public function actionIndex(): Response
     {
@@ -62,6 +63,7 @@ class SettingsController extends Controller
      *
      * @return Response
      * @throws \craft\errors\SiteNotFoundException
+     * @throws \yii\base\InvalidConfigException
      */
     public function actionOauth(): Response
     {

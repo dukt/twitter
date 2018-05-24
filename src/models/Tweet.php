@@ -48,6 +48,9 @@ class Tweet extends Model
      * Returns the tweet's text.
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getText()
     {
@@ -62,6 +65,9 @@ class Tweet extends Model
      * Returns the tweet’s author user ID.
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUserId()
     {
@@ -76,6 +82,9 @@ class Tweet extends Model
      * Returns the tweet's author user name.
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUserName()
     {
@@ -90,6 +99,9 @@ class Tweet extends Model
      * Returns the tweet's author user profile URL.
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUserProfileUrl()
     {
@@ -100,6 +112,9 @@ class Tweet extends Model
      * Returns the tweet's author user profile remote image URL.
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUserProfileRemoteImageUrl()
     {
@@ -114,6 +129,9 @@ class Tweet extends Model
      * Returns the tweet's author user profile remote image secure URL.
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUserProfileRemoteImageSecureUrl()
     {
@@ -128,6 +146,9 @@ class Tweet extends Model
      * Returns the tweet's author user screen name.
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUserScreenName()
     {
@@ -142,6 +163,9 @@ class Tweet extends Model
      * Returns the creation date of the tweet.
      *
      * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getCreatedAt()
     {
@@ -173,6 +197,9 @@ class Tweet extends Model
      * Returns the URL of the tweet.
      *
      * @return string|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUrl()
     {
@@ -207,6 +234,9 @@ class Tweet extends Model
      * Returns the URL of the tweet.
      *
      * @return string|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     private function getTweetData()
     {

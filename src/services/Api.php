@@ -39,6 +39,7 @@ class Api extends Component
      *
      * @return array|null
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\InvalidConfigException
      */
     public function get($uri, array $query = null, array $headers = null, array $options = [], $enableCache = null, $cacheExpire = null)
     {
@@ -144,6 +145,7 @@ class Api extends Component
      *
      * @return array|null
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\InvalidConfigException
      */
     public function getUserById($userId, $query = [])
     {
@@ -205,6 +207,7 @@ class Api extends Component
      * Get the authenticated client
      *
      * @return Client
+     * @throws \yii\base\InvalidConfigException
      */
     private function getClient()
     {
@@ -226,6 +229,8 @@ class Api extends Component
 
     /**
      * Get stack
+     *
+     * @param TokenCredentials $token
      *
      * @return HandlerStack
      */

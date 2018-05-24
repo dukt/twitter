@@ -158,6 +158,7 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
+     * @throws \yii\base\InvalidConfigException
      */
     public function twitterFollowButton($username, $options = [])
     {
@@ -175,6 +176,7 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
+     * @throws \yii\base\InvalidConfigException
      */
     public function twitterMessageButton($recipientId, $screenName, $text = null, $options = [])
     {
@@ -189,6 +191,7 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
+     * @throws \yii\base\InvalidConfigException
      */
     public function twitterTweetButton($options = [])
     {
@@ -204,6 +207,7 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
+     * @throws \yii\base\InvalidConfigException
      */
     public function autoLinkTweet($text, $options = [])
     {
@@ -233,6 +237,7 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
+     * @throws \yii\base\InvalidConfigException
      */
     public function embedTweet($id, $options = [])
     {

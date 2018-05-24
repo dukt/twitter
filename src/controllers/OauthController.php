@@ -28,6 +28,7 @@ class OauthController extends Controller
      * Connect.
      *
      * @return Response
+     * @throws \yii\base\InvalidConfigException
      */
     public function actionConnect(): Response
     {
@@ -50,6 +51,7 @@ class OauthController extends Controller
      * Callback.
      *
      * @return Response
+     * @throws \yii\base\InvalidConfigException
      */
     public function actionCallback(): Response
     {
@@ -84,6 +86,7 @@ class OauthController extends Controller
      * Disconnect
      *
      * @return Response
+     * @throws \yii\base\InvalidConfigException
      */
     public function actionDisconnect(): Response
     {

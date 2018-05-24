@@ -116,9 +116,10 @@ class TwitterVariable
      * @param int $twitterUserId
      * @param int $size
      *
+     * @return string|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
      * @deprecated Deprecated in 2.0. Use craft.twitter.getUserProfileImageResourceUrl() instead.
      *
-     * @return string|null
      */
     public function getUserImageUrl($twitterUserId, $size = 48)
     {
