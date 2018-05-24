@@ -29,7 +29,7 @@ class SettingsController extends Controller
      * @return Response
      * @throws \craft\errors\SiteNotFoundException
      */
-    public function actionIndex()
+    public function actionIndex(): Response
     {
         $tokenExists = false;
         $resourceOwner = null;
@@ -63,7 +63,7 @@ class SettingsController extends Controller
      * @return Response
      * @throws \craft\errors\SiteNotFoundException
      */
-    public function actionOauth()
+    public function actionOauth(): Response
     {
         $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
 
@@ -80,7 +80,7 @@ class SettingsController extends Controller
      * @return Response
      * @throws \yii\web\BadRequestHttpException
      */
-    public function actionSaveOauthSettings()
+    public function actionSaveOauthSettings(): Response
     {
         $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
         $settings = $plugin->getSettings();

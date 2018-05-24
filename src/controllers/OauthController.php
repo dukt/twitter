@@ -29,7 +29,7 @@ class OauthController extends Controller
      *
      * @return Response
      */
-    public function actionConnect()
+    public function actionConnect(): Response
     {
         // Oauth provider
         $provider = Twitter::$plugin->getOauth()->getOauthProvider();
@@ -51,7 +51,7 @@ class OauthController extends Controller
      *
      * @return Response
      */
-    public function actionCallback()
+    public function actionCallback(): Response
     {
         $provider = Twitter::$plugin->getOauth()->getOauthProvider();
 
@@ -85,7 +85,7 @@ class OauthController extends Controller
      *
      * @return Response
      */
-    public function actionDisconnect()
+    public function actionDisconnect(): Response
     {
         if (Twitter::$plugin->getOauth()->deleteToken()) {
             Craft::$app->getSession()->setNotice(Craft::t('twitter', "Disconnected from Twitter."));

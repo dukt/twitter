@@ -29,7 +29,7 @@ class ApiController extends Controller
      * @return Response
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function actionLookupTweet()
+    public function actionLookupTweet(): Response
     {
         $tweetId = Craft::$app->getRequest()->getParam('id');
 
