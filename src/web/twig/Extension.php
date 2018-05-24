@@ -73,6 +73,8 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\InvalidConfigException
      */
     public function twitterGrid($url, $options = [])
     {
@@ -88,6 +90,8 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\InvalidConfigException
      */
     public function twitterMoment($url, $options = [])
     {
@@ -103,6 +107,8 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\InvalidConfigException
      */
     public function twitterTimeline($url, $options = [])
     {
@@ -118,6 +124,8 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\InvalidConfigException
      */
     public function twitterTweet($url, $options = [])
     {
@@ -133,6 +141,8 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\InvalidConfigException
      */
     public function twitterVideo($url, $options = [])
     {

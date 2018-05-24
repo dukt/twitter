@@ -221,6 +221,9 @@ class Tweet extends Model
      * Returns the API's data for a tweet
      *
      * @return array|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     private function getRemoteTweetData()
     {
