@@ -11,23 +11,25 @@ Turns mentions, hashtags and urls contained in a text of a tweet into links.
 Customize auto-linking with options:
 
     {{ tweet.text|autoLinkTweet({
+        cashtagClass: "twitter-cashtag",
+        external: false,
+        hashtagClass: "twitter-hashtag",
+        listClass: "twitter-list",
+        noFollow: false,
+        noOpener: false,
+        target: "_blank"
         urlClass: "twitter-url",
         usernameClass: "twitter-username",
-        listClass: "twitter-list",
-        hashtagClass: "twitter-hashtag",
-        cashtagClass: "twitter-cashtag",
-        noFollow: false,
-        external: false,
-        target: "_blank"
     }) }}
 
 Available options:
 
+- `cashtagClass`
+- `external`
+- `hashtagClass`
+- `listClass`
+- `noFollow`
+- `noOpener`
+- `target`
 - `urlClass`
 - `usernameClass`
-- `listClass`
-- `hashtagClass`
-- `cashtagClass`
-- `noFollow`
-- `external`
-- `target`
