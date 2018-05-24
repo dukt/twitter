@@ -41,7 +41,8 @@ class Twitter extends Component
             'cashtagClass' => 'setCashtagClass',
             'noFollow' => 'setNoFollow',
             'external' => 'setExternal',
-            'target' => 'setTarget'
+            'target' => 'setTarget',
+            'noOpener' => 'setNoOpener'
         ];
 
         foreach ($options as $k => $v) {
