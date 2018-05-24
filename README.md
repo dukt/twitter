@@ -1,3 +1,5 @@
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dukt/twitter/badges/quality-score.png?b=v2)](https://scrutinizer-ci.com/g/dukt/twitter/?branch=v2) [![Code Coverage](https://scrutinizer-ci.com/g/dukt/twitter/badges/coverage.png?b=v2)](https://scrutinizer-ci.com/g/dukt/twitter/?branch=v2) [![Build Status](https://scrutinizer-ci.com/g/dukt/twitter/badges/build.png?b=v2)](https://scrutinizer-ci.com/g/dukt/twitter/build-status/v2) [![Code Intelligence Status](https://scrutinizer-ci.com/g/dukt/twitter/badges/code-intelligence.svg?b=v2)](https://scrutinizer-ci.com/code-intelligence)
+
 # Twitter for Craft CMS
 
 Tweet field, search widget, embeds, and authenticated Twitter API requests for Craft CMS.
