@@ -6,6 +6,8 @@ Changelog
 ### Added
 - Added support for 280-character tweets.
 - Added `searchWidgetExtraQuery` config setting.
+- Added `noOpener` option to the `autoLinkTweet` twig filter. ([#5](https://github.com/dukt/twitter/issues/5))
+- Added `noopener` support to `dukt\twitter\lib\AutoLink`.
 
 ### Changed
 - Updated to require craftcms/cms `^3.0.0-RC1`.
