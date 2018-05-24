@@ -1,11 +1,16 @@
 Changelog
 =========
 
-## 2.0.1 - Unreleased
+## Unreleased
+
+### Added
+- Added support for 280-character tweets.
+- Added `searchWidgetExtraQuery` config setting.
 
 ### Changed
 - Updated to require craftcms/cms `^3.0.0-RC1`.
 - Changed rounded profile images to circle profile images.
+- Search widget is now filtering retweets by default.
 
 ## 2.0.0 - 2017-12-05
 
