@@ -5,14 +5,18 @@
 - [Requirements](en/requirements.md)
 - [Installation](en/installation.md)
 - [Connect to Twitter](en/connect-twitter.md)
-- [Tweet Fields](en/tweet-fields.md)
-- [Search Widget](en/search-widget.md)
-- [Request API](en/request-api.md)
 - [Changelog](en/changelog.md)
 - [License](en/license.md)
 
+## Fields
+- [Tweet Field](en/tweet-field.md)
+
+## Widgets
+- [Search Widget](en/search-widget.md)
+
 ## Templating
 
+- [Requesting Twitter’s API](en/request-api.md)
 - [craft.twitter](en/craft-twitter.md)
 - [Twig Filters](en/twig-filters.md)
 - [Twig Functions](en/twig-functions.md)
