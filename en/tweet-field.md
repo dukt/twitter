@@ -4,11 +4,7 @@
 
 Tweet fields allow you to paste a tweet URL and use the tweet details, like profile image, tweet text, and others, in your templates.
 
-![Image](assets/craft-twitter-field.png)
-
-You can also combine Tweet fields with Matrix for maximum power :
-
-![Image](assets/craft-twitter-field-matrix.png)
+You can also use the Tweet field with Matrix to combine multiple tweets together.
 
 ## Templating
 

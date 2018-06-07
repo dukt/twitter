@@ -13,11 +13,7 @@ You'll be invited to download and install OAuth in Twitter plugin settings.
 
 Once OAuth is installed, [create an application on Twitter](https://dev.twitter.com/apps) in order to get a **client ID & secret**.
 
-![Image](assets/craft-oauth-twitter-app.png)
-
 Then go to **Craft Admin / OAuth / Twitter** in order to fill your client ID and secret.
-
-![Image](assets/craft-oauth-twitter-settings.png)
 
 ## Setup Twitter plugin
 
