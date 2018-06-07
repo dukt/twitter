@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## Unreleased
+
+### Fixed
+- Fixed a bug where the Tweet field would throw an error when trying to show a deleted tweet. ([#7](https://github.com/dukt/twitter/issues/7))
+
 ## 2.0.1 - 2018-05-25
 
 ### Added

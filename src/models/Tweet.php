@@ -204,7 +204,12 @@ class Tweet extends Model
     public function getUrl()
     {
         $tweetId = $this->getRemoteId();
-        $tweetUserScreenName = $this->getUserScreenName();
+
+        try {
+            $tweetUserScreenName = $this->getUserScreenName();
+        } catch(\GuzzleHttp\Exception\ClientException $e) {
+            $tweetUserScreenName = 'username';
+        }
 
         if ($tweetId && $tweetUserScreenName) {
             return 'https://twitter.com/'.$tweetUserScreenName.'/status/'.$tweetId;
