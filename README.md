@@ -16,10 +16,10 @@
 
 ## Templating
 
-- [Requesting Twitter’s API](en/request-api.md)
 - [craft.twitter](en/craft-twitter.md)
 - [Twig Filters](en/twig-filters.md)
 - [Twig Functions](en/twig-functions.md)
+- [Requesting Twitter’s API](en/request-api.md)
 
 ## Models
 - [Tweet Model](en/tweet-model.md)
