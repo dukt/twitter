@@ -41,12 +41,9 @@ module.exports = {
                     title: 'Templating',
                     collapsable: false,
                     children: [
-                        'getting-tweets',
-                        'getting-users',
-                        'auto-linking-tweets',
+                        'craft-twitter',
                         'twig-filters',
                         'twig-functions',
-                        'craft-twitter',
                     ]
                 },
                 {
