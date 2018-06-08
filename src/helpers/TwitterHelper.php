@@ -11,7 +11,6 @@ use Craft;
 use craft\helpers\FileHelper;
 use DateInterval;
 use DateTime;
-use craft\helpers\UrlHelper;
 use dukt\twitter\Plugin;
 
 /**
