@@ -131,18 +131,6 @@ class TwitterHelper
     }
 
     /**
-     * Format Time in HH:MM:SS from seconds
-     *
-     * @param int $seconds
-     *
-     * @return false|string
-     */
-    public static function formatTime($seconds)
-    {
-        return gmdate('H:i:s', $seconds);
-    }
-
-    /**
      * Formats a date to a time ago string like “3 days ago“
      *
      * @param DateTime|string $date
