@@ -9,7 +9,6 @@ namespace dukt\twitter\fields;
 
 use Craft;
 use craft\base\Field;
-use craft\helpers\StringHelper;
 use dukt\twitter\web\assets\tweetfield\TweetFieldAsset;
 
 /**
