@@ -135,7 +135,10 @@ class Api extends Component
      */
     public function populateTweetFromData(Tweet $tweet, array $data): Tweet
     {
-        $tweet->createdAt = $data['created_at'] ?? null;
+        if(isset($data['created_at'])) {
+            $tweet->createdAt = \DateTime::createFromFormat('D M d H:i:s O Y', $data['created_at']);
+        }
+
         $tweet->data = $data;
         $tweet->text = $data['full_text'] ?? null;
         $tweet->remoteId = $data['id'] ?? null;
