@@ -24,14 +24,16 @@ Customize auto-linking with options:
     usernameClass: "twitter-username",
 }) }}
 ```
-Available options:
 
-- `cashtagClass`
-- `external`
-- `hashtagClass`
-- `listClass`
-- `noFollow`
-- `noOpener`
-- `target`
-- `urlClass`
-- `usernameClass`
+### Arguments
+
+- **`options`** – An array of options. The available options are:
+    - `cashtagClass`
+    - `external`
+    - `hashtagClass`
+    - `listClass`
+    - `noFollow`
+    - `noOpener`
+    - `target`
+    - `urlClass`
+    - `usernameClass`
