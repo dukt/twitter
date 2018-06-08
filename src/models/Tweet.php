@@ -22,47 +22,47 @@ class Tweet extends Model
     // =========================================================================
 
     /**
-     * @var getCreatedAt() $this->data['created_at']
+     * @var The date the tweet was created at.
      */
     public $createdAt;
 
     /**
-     * @var
+     * @var Raw tweet data.
      */
     public $data;
 
     /**
-     * @var getText() $this->data['full_text']
+     * @var The tweet’s text.
      */
     public $text;
 
     /**
-     * @var
+     * @var The tweet’s ID.
      */
     public $remoteId;
 
     /**
-     * @var getUserId() $this->data['user']['id']
+     * @var The tweet’s author user ID.
      */
     public $remoteUserId;
 
     /**
-     * @var getUserName() $this->data['user']['name']
+     * @var The author user’s username.
      */
     public $username;
 
     /**
-     * @var getUserProfileRemoteImageSecureUrl() $this->data['user']['profile_image_url_https']
+     * @var The author user’s profile remote image secure URL.
      */
     public $userProfileRemoteImageSecureUrl;
 
     /**
-     * @var getUserProfileRemoteImageUrl() $this->data['user']['profile_image_url']
+     * @var The author user’s profile remote image URL.
      */
     public $userProfileRemoteImageUrl;
 
     /**
-     * @var getUserScreenName() $this->data['user']['screen_name']
+     * @var The author user’s screen name.
      */
     public $userScreenName;
 
