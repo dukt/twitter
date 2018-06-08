@@ -8,7 +8,7 @@ The Tweet field lets you paste a tweet URL and preview the tweet from the contro
 The Tweet field returns the tweet’s URL, which is then used to retrieve the tweet. 
 
 ```twig
-{% set tweet = craft.twitter.getTweetByUrl(tweetField) %}
+{% set tweet = craft.twitter.getTweet(tweetField) %}
 
 {% if tweet %}
     <div class="tweet">
@@ -24,7 +24,7 @@ You can also use the Tweet field with Matrix to combine multiple tweets together
 
 ```twig
 {% for matrixBlock in matrixField %}
-    {% set tweet = craft.twitter.getTweetByUrl(matrixBlock.tweetField) %}
+    {% set tweet = craft.twitter.getTweet(matrixBlock.tweetField) %}
 
     {% if tweet %}
         <div class="tweet">
