@@ -151,7 +151,9 @@ class Api extends Component
     /**
      * Returns a tweet by its URL or ID.
      *
-     * @param $urlOrId
+     * @param       $urlOrId
+     *
+     * @param array $query
      *
      * @return Tweet|null
      * @throws \GuzzleHttp\Exception\GuzzleException
