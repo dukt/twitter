@@ -9,6 +9,8 @@ namespace dukt\twitter\services;
 
 use Craft;
 use craft\helpers\FileHelper;
+use dukt\twitter\helpers\TwitterHelper;
+use dukt\twitter\models\Tweet;
 use dukt\twitter\Plugin as Twitter;
 use League\OAuth1\Client\Credentials\TokenCredentials;
 use yii\base\Component;
@@ -91,12 +93,13 @@ class Api extends Component
     /**
      * Returns a tweet by its ID.
      *
-     * @param int|string $tweetId
-     * @param array      $query
+     * @param       $tweetId
+     * @param array $query
      *
-     * @return array|null
+     * @return Tweet|null
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
     public function getTweetById($tweetId, $query = [])
     {
@@ -107,33 +110,60 @@ class Api extends Component
             'tweet_mode' => 'extended'
         ]);
 
-        $tweet = Twitter::$plugin->getApi()->get('statuses/show', $query);
+        $data = Twitter::$plugin->getApi()->get('statuses/show', $query);
 
+        if (!$data) {
+            return null;
+        }
+
+        $tweet = new Tweet();
+        $this->populateTweetFromData($tweet, $data);
 
         // generate user profile image
+        $this->saveOriginalUserProfileImage($tweet->remoteUserId, $tweet->userProfileRemoteImageSecureUrl);
 
-        $this->saveOriginalUserProfileImage($tweet['user']['id'], $tweet['user']['profile_image_url_https']);
+        return $tweet;
+    }
 
-        if (is_array($tweet)) {
-            return $tweet;
-        }
+    /**
+     * Populate tweet object from data array.
+     *
+     * @param Tweet $tweet
+     * @param array $data
+     *
+     * @return Tweet
+     */
+    public function populateTweetFromData(Tweet $tweet, array $data): Tweet
+    {
+        $tweet->createdAt = $data['created_at'] ?? null;
+        $tweet->data = $data;
+        $tweet->text = $data['full_text'] ?? null;
+        $tweet->remoteId = $data['id'] ?? null;
+        $tweet->remoteUserId = $data['user']['id'] ?? null;
+        $tweet->username = $data['user']['name'] ?? null;
+        $tweet->userProfileRemoteImageSecureUrl = $data['user']['profile_image_url_https'] ?? null;
+        $tweet->userProfileRemoteImageUrl = $data['user']['profile_image_url'] ?? null;
+        $tweet->userScreenName = $data['user']['screen_name'] ?? null;
+
+        return $tweet;
     }
 
     /**
      * Returns a tweet by its URL or ID.
      *
-     * @param string $urlOrId
+     * @param $urlOrId
      *
-     * @return array|null
+     * @return Tweet|null
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
-    public function getTweetByUrl($urlOrId)
+    public function getTweetByUrl($urlOrId, $query = [])
     {
         $tweetId = TwitterHelper::extractTweetId($urlOrId);
 
         if ($tweetId) {
-            return $this->getTweetById($tweetId);
+            return $this->getTweetById($tweetId, $query);
         }
     }
 

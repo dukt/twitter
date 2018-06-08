@@ -8,7 +8,9 @@
 namespace dukt\twitter\controllers;
 
 use Craft;
+use craft\helpers\Json;
 use craft\web\Controller;
+use dukt\twitter\errors\InvalidTweetException;
 use dukt\twitter\Plugin as Twitter;
 use yii\web\Response;
 
@@ -24,20 +26,43 @@ class ApiController extends Controller
     // =========================================================================
 
     /**
-     * Looks up a tweet by its ID.
+     * Tweet field preview.
      *
      * @return Response
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Twig_Error_Loader
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
      */
-    public function actionLookupTweet(): Response
+    public function actionTweetFieldPreview(): Response
     {
         $tweetId = Craft::$app->getRequest()->getParam('id');
 
         try {
             $tweet = Twitter::$plugin->getApi()->getTweetById($tweetId);
 
-            return $this->asJson($tweet);
-        } catch (\Exception $e) {
+            if(!$tweet) {
+                throw new InvalidTweetException('No status found with that ID.');
+            }
+
+            $html = Craft::$app->getView()->renderTemplate('twitter/_components/tweet', [
+                'tweet' => $tweet
+            ]);
+
+            return $this->asJson([
+                'html' => $html,
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $data = Json::decodeIfJson($e->getResponse()->getBody()->getContents());
+
+            if(isset($data['errors'][0]['message'])) {
+                return $this->asErrorJson($data['errors'][0]['message']);
+            }
+
+            Craft::error('Couldn’ load tweet preview: '.$e->getTraceAsString(), __METHOD__);
+            return $this->asErrorJson($e->getMessage());
+        } catch (InvalidTweetException $e) {
+            Craft::error('Couldn’ load tweet preview: '.$e->getTraceAsString(), __METHOD__);
             return $this->asErrorJson($e->getMessage());
         }
     }

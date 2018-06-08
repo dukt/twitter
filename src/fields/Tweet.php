@@ -42,46 +42,9 @@ class Tweet extends Field
     {
         $name = $this->handle;
 
-        if ($value instanceof \dukt\twitter\models\Tweet) {
-            $tweet = $value;
-            $value = $tweet->getUrl();
-        }
-
         $id = Craft::$app->getView()->formatInputId($name);
 
         $previewHtml = '';
-
-        if (isset($tweet) && $tweet->remoteId) {
-            try {
-                try {
-                    $previewHtml .=
-                        '<div class="tweet">'.
-                        '<div class="tweet-image" style="background-image: url('.$tweet->getUserProfileImageUrl(100).');"></div> '.
-                        '<div class="tweet-user">'.
-                        '<span class="tweet-user-name">'.$tweet->getUserName().'</span> '.
-                        '<a class="tweet-user-screenname light" href="'.$tweet->getUrl().'" target="_blank">@'.$tweet->getUserScreenName().'</a>'.
-                        '</div>'.
-                        '<div class="tweet-text">'.$tweet->getText().'</div>'.
-                        '<ul class="tweet-actions light">'.
-                        '<li class="tweet-date">'.TwitterHelper::timeAgo($tweet->getCreatedAt()).'</li>'.
-                        '<li><a href="'.$tweet->getUrl().'">Permalink</a></li>'.
-                        '</ul>'.
-                        '</div>';
-                } catch (\GuzzleHttp\Exception\ClientException $e) {
-                    $data = Json::decodeIfJson($e->getResponse()->getBody()->getContents());
-
-                    if(isset($data['errors'][0])) {
-                        $error = $data['errors'][0];
-                        Craft::error('Error previewing a tweet: '.$e->getTraceAsString(), __METHOD__);
-                        throw new \Exception($error['message']);
-                    }
-
-                    throw $e;
-                }
-            } catch (\Exception $e) {
-                $previewHtml .= '<p class="error">'.$e->getMessage().'</p>';
-            }
-        }
 
         Craft::$app->getView()->registerAssetBundle(TweetFieldAsset::class);
         Craft::$app->getView()->registerJs('new TweetInput("'.Craft::$app->getView()->namespaceInputId($id).'");');
@@ -94,39 +57,8 @@ class Tweet extends Field
                 'placeholder' => Craft::t('twitter', 'Enter a tweet URL or ID'),
             ]).
             '<div class="spinner hidden"></div>'.
-            $previewHtml.
+            '<div class="preview hidden">'.$previewHtml.'</div>'.
             '</div>';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function serializeValue($value, ElementInterface $element = null)
-    {
-        if ($value instanceof \dukt\twitter\models\Tweet && $value->getUrl()) {
-            return Db::prepareValueForDb($value->getUrl());
-        }
-
-        parent::serializeValue($value, $element);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function normalizeValue($tweetUrlOrId, craft\base\ElementInterface $element = null)
-    {
-        if (!$tweetUrlOrId instanceof \dukt\twitter\models\Tweet) {
-            $tweetId = TwitterHelper::extractTweetId($tweetUrlOrId);
-
-            if ($tweetId) {
-                $tweet = new \dukt\twitter\models\Tweet;
-                $tweet->remoteId = $tweetId;
-
-                return $tweet;
-            }
-        }
-
-        return $tweetUrlOrId;
     }
 
     /**

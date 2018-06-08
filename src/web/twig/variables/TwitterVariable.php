@@ -69,19 +69,40 @@ class TwitterVariable
     }
 
     /**
-     * Returns a Twitter user by its ID. Add query parameters to the API request with `query`.
+     * Returns a tweet by its URL. Add query parameters to the API request with `query`.
      *
-     * @param int   $twitterUserId
+     * @param int   $urlOrId
      * @param array $query
      *
      * @return array|null
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getUserById($twitterUserId, $query = array())
+    public function getTweetByUrl($urlOrId, $query = array())
     {
         try
         {
-            return Twitter::$plugin->getApi()->getUserById($twitterUserId, $query);
+            return Twitter::$plugin->getApi()->getTweetByUrl($urlOrId, $query);
+        }
+        catch(\Exception $e)
+        {
+            Craft::info("Couldn’t get tweet by URL: ".$e->getMessage(), __METHOD__);
+        }
+    }
+
+    /**
+     * Returns a Twitter user by its ID. Add query parameters to the API request with `query`.
+     *
+     * @param int   $remoteUserId
+     * @param array $query
+     *
+     * @return array|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getUserById($remoteUserId, $query = array())
+    {
+        try
+        {
+            return Twitter::$plugin->getApi()->getUserById($remoteUserId, $query);
         }
         catch(\Exception $e)
         {
@@ -92,17 +113,17 @@ class TwitterVariable
     /**
      * Returns a user image from a twitter user ID for given size. Default size is 48.
      *
-     * @param int $twitterUserId
+     * @param int $remoteUserId
      * @param int $size
      *
      * @return string|null
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getUserProfileImageResourceUrl($twitterUserId, $size = 48)
+    public function getUserProfileImageResourceUrl($remoteUserId, $size = 48)
     {
         try
         {
-            return TwitterHelper::getUserProfileImageResourceUrl($twitterUserId, $size);
+            return TwitterHelper::getUserProfileImageResourceUrl($remoteUserId, $size);
         }
         catch(\Exception $e)
         {
@@ -113,7 +134,7 @@ class TwitterVariable
     /**
      * Returns a user image from a twitter user ID for given size. Default size is 48.
      *
-     * @param int $twitterUserId
+     * @param int $remoteUserId
      * @param int $size
      *
      * @return string|null
@@ -121,8 +142,8 @@ class TwitterVariable
      * @deprecated Deprecated in 2.0. Use craft.twitter.getUserProfileImageResourceUrl() instead.
      *
      */
-    public function getUserImageUrl($twitterUserId, $size = 48)
+    public function getUserImageUrl($remoteUserId, $size = 48)
     {
-        return $this->getUserProfileImageResourceUrl($twitterUserId, $size);
+        return $this->getUserProfileImageResourceUrl($remoteUserId, $size);
     }
 }

@@ -46,7 +46,7 @@ class TwitterHelper
     /**
      * Returns a user image from a twitter user ID for given size. Default size is 48.
      *
-     * @param int $twitterUserId
+     * @param int $remoteUserId
      * @param int $size
      *
      * @return string|null
@@ -54,9 +54,9 @@ class TwitterHelper
      * @throws \craft\errors\ImageException
      * @throws \yii\base\Exception
      */
-    public static function getUserProfileImageResourceUrl($twitterUserId, $size = 48)
+    public static function getUserProfileImageResourceUrl($remoteUserId, $size = 48)
     {
-        $baseDir = Craft::$app->getPath()->getRuntimePath().DIRECTORY_SEPARATOR.'twitter'.DIRECTORY_SEPARATOR.'userimages'.DIRECTORY_SEPARATOR.$twitterUserId;
+        $baseDir = Craft::$app->getPath()->getRuntimePath().DIRECTORY_SEPARATOR.'twitter'.DIRECTORY_SEPARATOR.'userimages'.DIRECTORY_SEPARATOR.$remoteUserId;
         $originalDir = $baseDir.DIRECTORY_SEPARATOR.'original';
         $dir = $baseDir.DIRECTORY_SEPARATOR.$size;
         $file = null;
@@ -81,7 +81,7 @@ class TwitterHelper
                 }
             }
             if(!$originalPath) {
-                $user = Plugin::$plugin->getApi()->getUserById($twitterUserId);
+                $user = Plugin::$plugin->getApi()->getUserById($remoteUserId);
 
                 $url = str_replace('_normal', '', $user['profile_image_url_https']);
                 $name = pathinfo($url, PATHINFO_BASENAME);

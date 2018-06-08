@@ -113,9 +113,8 @@ class SearchWidget extends Widget
                     $tweets = [];
 
                     foreach ($response['statuses'] as $tweetData) {
-                        $tweet = new Tweet;
-                        $tweet->remoteId = $tweetData['id'];
-                        $tweet->data = $tweetData;
+                        $tweet = new Tweet();
+                        Twitter::$plugin->getApi()->populateTweetFromData($tweet, $tweetData);
                         array_push($tweets, $tweet);
                     }
 
