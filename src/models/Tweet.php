@@ -91,7 +91,7 @@ class Tweet extends Model
      * @throws \craft\errors\ImageException
      * @throws \yii\base\Exception
      */
-    public function getUserProfileImageUrl($size = null)
+    public function getUserProfileImageUrl($size = 48)
     {
         return TwitterHelper::getUserProfileImageResourceUrl($this->remoteUserId, $size);
     }
