@@ -39,7 +39,7 @@ class ApiController extends Controller
         $tweetId = Craft::$app->getRequest()->getParam('id');
 
         try {
-            $tweet = Twitter::$plugin->getApi()->getTweetById($tweetId);
+            $tweet = Twitter::$plugin->getApi()->getTweet($tweetId);
 
             if(!$tweet) {
                 throw new InvalidTweetException('No status found with that ID.');

@@ -91,41 +91,6 @@ class Api extends Component
     }
 
     /**
-     * Returns a tweet by its ID.
-     *
-     * @param       $tweetId
-     * @param array $query
-     *
-     * @return Tweet|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function getTweetById($tweetId, $query = [])
-    {
-        $tweetId = (int)$tweetId;
-
-        $query = array_merge($query, [
-            'id' => $tweetId,
-            'tweet_mode' => 'extended'
-        ]);
-
-        $data = Twitter::$plugin->getApi()->get('statuses/show', $query);
-
-        if (!$data) {
-            return null;
-        }
-
-        $tweet = new Tweet();
-        $this->populateTweetFromData($tweet, $data);
-
-        // generate user profile image
-        $this->saveOriginalUserProfileImage($tweet->remoteUserId, $tweet->userProfileRemoteImageSecureUrl);
-
-        return $tweet;
-    }
-
-    /**
      * Populate tweet object from data array.
      *
      * @param Tweet $tweet
@@ -163,7 +128,7 @@ class Api extends Component
      * @throws \yii\base\Exception
      * @throws \yii\base\InvalidConfigException
      */
-    public function getTweetByUrl($urlOrId, $query = [])
+    public function getTweet($urlOrId, $query = [])
     {
         $tweetId = TwitterHelper::extractTweetId($urlOrId);
 
@@ -287,5 +252,40 @@ class Api extends Component
         $stack->push($middleware);
 
         return $stack;
+    }
+
+    /**
+     * Returns a tweet by its ID.
+     *
+     * @param       $tweetId
+     * @param array $query
+     *
+     * @return Tweet|null
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
+     */
+    private function getTweetById($tweetId, $query = [])
+    {
+        $tweetId = (int)$tweetId;
+
+        $query = array_merge($query, [
+            'id' => $tweetId,
+            'tweet_mode' => 'extended'
+        ]);
+
+        $data = Twitter::$plugin->getApi()->get('statuses/show', $query);
+
+        if (!$data) {
+            return null;
+        }
+
+        $tweet = new Tweet();
+        $this->populateTweetFromData($tweet, $data);
+
+        // generate user profile image
+        $this->saveOriginalUserProfileImage($tweet->remoteUserId, $tweet->userProfileRemoteImageSecureUrl);
+
+        return $tweet;
     }
 }

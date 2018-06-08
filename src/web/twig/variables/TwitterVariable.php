@@ -48,27 +48,6 @@ class TwitterVariable
     }
 
     /**
-     * Returns a tweet by its ID. Add query parameters to the API request with `query`.
-     *
-     * @param int   $tweetId
-     * @param array $query
-     *
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function getTweetById($tweetId, $query = array())
-    {
-        try
-        {
-            return Twitter::$plugin->getApi()->getTweetById($tweetId, $query);
-        }
-        catch(\Exception $e)
-        {
-            Craft::info('Couldn’t get tweet by ID: '.$e->getMessage(), __METHOD__);
-        }
-    }
-
-    /**
      * Returns a tweet by its URL. Add query parameters to the API request with `query`.
      *
      * @param int   $urlOrId
@@ -77,11 +56,11 @@ class TwitterVariable
      * @return array|null
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getTweetByUrl($urlOrId, $query = array())
+    public function getTweet($urlOrId, $query = array())
     {
         try
         {
-            return Twitter::$plugin->getApi()->getTweetByUrl($urlOrId, $query);
+            return Twitter::$plugin->getApi()->getTweet($urlOrId, $query);
         }
         catch(\Exception $e)
         {
