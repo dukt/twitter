@@ -31,16 +31,6 @@ module.exports = {
                     ]
                 },
                 {
-                    title: 'Templating',
-                    collapsable: false,
-                    children: [
-                        'craft-twitter',
-                        'twig-filters',
-                        'twig-functions',
-                        'request-api',
-                    ]
-                },
-                {
                     title: 'Models',
                     collapsable: false,
                     children: [
@@ -48,10 +38,22 @@ module.exports = {
                     ]
                 },
                 {
-                    title: 'Examples',
+                    title: 'Templating',
                     collapsable: false,
                     children: [
+                        'getting-tweets',
+                        'getting-users',
                         'auto-linking-tweets',
+                        'twig-filters',
+                        'twig-functions',
+                        'craft-twitter',
+                    ]
+                },
+                {
+                    title: 'Advanced Topics',
+                    collapsable: false,
+                    children: [
+                        'request-api',
                         'ajax-api-request',
                     ]
                 }
