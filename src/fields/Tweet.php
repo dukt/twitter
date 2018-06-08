@@ -56,41 +56,4 @@ class Tweet extends Field
             '<div class="preview hidden">'.$previewHtml.'</div>'.
             '</div>';
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function getSearchKeywords($value, \craft\base\ElementInterface $element): string
-    {
-        if ($value instanceof \dukt\twitter\models\Tweet) {
-            $tweet = $value;
-            $parts = [];
-
-            if (!empty($tweet->getRemoteId())) {
-                $parts[] = $tweet->getRemoteId();
-            }
-
-            if (!empty($tweet->getText())) {
-                $parts[] = $tweet->getText();
-            }
-
-            if (!empty($tweet->getUserId())) {
-                $parts[] = $tweet->getUserId();
-            }
-
-            if (!empty($tweet->getUserName())) {
-                $parts[] = $tweet->getUserName();
-            }
-
-            if (!empty($tweet->getUserScreenName())) {
-                $parts[] = $tweet->getUserScreenName();
-            }
-
-            $keywords = StringHelper::toString($parts, ' ');
-
-            return StringHelper::encodeMb4($keywords);
-        }
-
-        return '';
-    }
 }
