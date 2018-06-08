@@ -139,7 +139,7 @@ class TwitterHelper
      */
     public static function formatTime($seconds)
     {
-        return gmdate("H:i:s", $seconds);
+        return gmdate('H:i:s', $seconds);
     }
 
     /**
@@ -161,7 +161,7 @@ class TwitterHelper
 
         $durations = self::secondsToHumanTimeDuration($difference, true, false);
 
-        $duration = Craft::t('twitter', "{duration} ago", ['duration' => $durations[0]]);
+        $duration = Craft::t('twitter', '{duration} ago', ['duration' => $durations[0]]);
 
         return $duration;
     }
@@ -183,17 +183,17 @@ class TwitterHelper
         $secondsInMinute = 60;
 
         $weeks = floor($seconds / $secondsInWeek);
-        $seconds = $seconds % $secondsInWeek;
+        $seconds %= $secondsInWeek;
 
         $days = floor($seconds / $secondsInDay);
-        $seconds = $seconds % $secondsInDay;
+        $seconds %= $secondsInDay;
 
         $hours = floor($seconds / $secondsInHour);
-        $seconds = $seconds % $secondsInHour;
+        $seconds %= $secondsInHour;
 
         if ($showSeconds) {
             $minutes = floor($seconds / $secondsInMinute);
-            $seconds = $seconds % $secondsInMinute;
+            $seconds %= $secondsInMinute;
         } else {
             $minutes = round($seconds / $secondsInMinute);
             $seconds = 0;

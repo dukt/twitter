@@ -43,7 +43,7 @@ class TwitterVariable
         }
         catch(\Exception $e)
         {
-            Craft::info("Error requesting Twitter’s API: ".$e->getMessage(), __METHOD__);
+            Craft::info('Error requesting Twitter’s API: '.$e->getMessage(), __METHOD__);
         }
     }
 
@@ -64,7 +64,7 @@ class TwitterVariable
         }
         catch(\Exception $e)
         {
-            Craft::info("Couldn’t get tweet by ID: ".$e->getMessage(), __METHOD__);
+            Craft::info('Couldn’t get tweet by ID: '.$e->getMessage(), __METHOD__);
         }
     }
 
@@ -85,7 +85,7 @@ class TwitterVariable
         }
         catch(\Exception $e)
         {
-            Craft::info("Couldn’t get tweet by URL: ".$e->getMessage(), __METHOD__);
+            Craft::info('Couldn’t get tweet by URL: '.$e->getMessage(), __METHOD__);
         }
     }
 
@@ -106,7 +106,7 @@ class TwitterVariable
         }
         catch(\Exception $e)
         {
-            Craft::info("Couldn’t get user by ID: ".$e->getMessage(), __METHOD__);
+            Craft::info('Couldn’t get user by ID: '.$e->getMessage(), __METHOD__);
         }
     }
 
@@ -127,7 +127,7 @@ class TwitterVariable
         }
         catch(\Exception $e)
         {
-            Craft::info("Couldn’t get user profile image resource URL: ".$e->getMessage(), __METHOD__);
+            Craft::info('Couldn’t get user profile image resource URL: '.$e->getMessage(), __METHOD__);
         }
     }
 

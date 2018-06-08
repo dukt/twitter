@@ -77,10 +77,10 @@ class SearchWidget extends Widget
         $settings = $this->getSettings();
 
         if (!empty($settings['query'])) {
-            return Craft::t('twitter', "Tweets for “{query}”", ['query' => $settings['query']]);
+            return Craft::t('twitter', 'Tweets for “{query}”', ['query' => $settings['query']]);
         }
 
-        return Craft::t('twitter', "Twitter Search");
+        return Craft::t('twitter', 'Twitter Search');
     }
 
     /**
