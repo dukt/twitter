@@ -6,22 +6,24 @@ On top of the template filters that Twig comes with, Twitter plugin provides a f
 
 Turns mentions, hashtags and urls contained in a text of a tweet into links.
 
-    {{ tweet.text|autoLinkTweet }}
+```twig
+{{ tweet.text|autoLinkTweet }}
+```
 
 Customize auto-linking with options:
-
-    {{ tweet.text|autoLinkTweet({
-        cashtagClass: "twitter-cashtag",
-        external: false,
-        hashtagClass: "twitter-hashtag",
-        listClass: "twitter-list",
-        noFollow: false,
-        noOpener: false,
-        target: "_blank"
-        urlClass: "twitter-url",
-        usernameClass: "twitter-username",
-    }) }}
-
+```twig
+{{ tweet.text|autoLinkTweet({
+    cashtagClass: "twitter-cashtag",
+    external: false,
+    hashtagClass: "twitter-hashtag",
+    listClass: "twitter-list",
+    noFollow: false,
+    noOpener: false,
+    target: "_blank"
+    urlClass: "twitter-url",
+    usernameClass: "twitter-username",
+}) }}
+```
 Available options:
 
 - `cashtagClass`

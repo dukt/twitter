@@ -1,4 +1,4 @@
-# Widget
+# Search Widget
 
 ## The Widget
 

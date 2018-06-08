@@ -1,29 +1,29 @@
 # Twitter 2.x Documentation
 
 ## Getting Started
-- [Introduction](en/introduction.md)
-- [Requirements](en/requirements.md)
-- [Installation](en/installation.md)
-- [Connect to Twitter](en/connect-twitter.md)
-- [Changelog](en/changelog.md)
-- [License](en/license.md)
+- [Introduction](docs/introduction.md)
+- [Requirements](docs/requirements.md)
+- [Installation](docs/installation.md)
+- [Connect to Twitter](docs/connect-twitter.md)
+- [Changelog](docs/changelog.md)
+- [License](docs/license.md)
 
 ## Fields
-- [Tweet Field](en/tweet-field.md)
+- [Tweet Field](docs/tweet-field.md)
 
 ## Widgets
-- [Search Widget](en/search-widget.md)
+- [Search Widget](docs/search-widget.md)
 
 ## Templating
 
-- [craft.twitter](en/craft-twitter.md)
-- [Twig Filters](en/twig-filters.md)
-- [Twig Functions](en/twig-functions.md)
-- [Requesting Twitter’s API](en/request-api.md)
+- [craft.twitter](docs/craft-twitter.md)
+- [Twig Filters](docs/twig-filters.md)
+- [Twig Functions](docs/twig-functions.md)
+- [Requesting Twitter’s API](docs/request-api.md)
 
 ## Models
-- [Tweet Model](en/tweet-model.md)
+- [Tweet Model](docs/tweet-model.md)
 
 ## Examples
-- [Auto Linking Tweets](en/auto-linking-tweets.md)
-- [Ajax API request](en/ajax-api-request.md)
+- [Auto Linking Tweets](docs/auto-linking-tweets.md)
+- [Ajax API request](docs/ajax-api-request.md)
