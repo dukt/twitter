@@ -1,21 +1,11 @@
 # Connect to Twitter
 
-## Setup OAuth
+## OAuth configuration
 
-Twitter plugin relies on OAuth plugin for authenticating to Google APIs :
+[Create a Twitter application](https://dev.twitter.com/apps) in order to get an OAuth **Consumer Key** and a **Consumer Secret**.
 
-[OAuth plugin for Craft CMS](https://github.com/dukt/oauth)
+Then go to **Craft CP → Settings → Twitter  → Configure OAuth** in order to fill your consumer key and secret, and save.
 
-You'll be invited to download and install OAuth in Twitter plugin settings.
+## Connect
 
-
-## Create an application on Twitter
-
-Once OAuth is installed, [create an application on Twitter](https://dev.twitter.com/apps) in order to get a **client ID & secret**.
-
-Then go to **Craft Admin / OAuth / Twitter** in order to fill your client ID and secret.
-
-## Setup Twitter plugin
-
-OAuth and Twitter settings are now all OK. We are now ready to connect to a Twitter account.
-Go to to **Twitter plugin settings**, under **Craft Admin / Settings / Twitter**, and click Connect.
+OAuth is now configured for Twitter, you can go back to Twitter’s settings in **Craft CP → Settings → Twitter** and click “Connect”.
