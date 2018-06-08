@@ -14,35 +14,12 @@ Performs a GET request on Twitter API and returns the response.
 ### Return Values
 Returns the API response as an array.
 
-## getTweetById(tweetId, query)
-Get a tweet by its ID.
-
-```twig
-{% set tweetId = 998619839043256321 %}
-{% set tweet = craft.twitter.getTweetById(tweetId) %}
-
-{% if tweet %}
-    <div class="tweet">
-        <img src="{{ tweet.getUserProfileImageUrl() }}" />
-        <p><cite><a href="{{ tweet.url }}">{{ tweet.username }} (@{{ tweet.userScreenName }})</a></cite></p>
-        <blockquote>{{ tweet.text|autoLinkTweet }}</blockquote>
-    </div>
-{% endif %}
-```
-
-### Arguments
-- **`tweetId`** – Tweet ID
-- **`query`** – An array of query parameters that can be added to the API request. Defaults to `[]`.
-
-### Return Values
-Returns a [Tweet model](tweet-model.md) or `null`.
-
-## getTweetByUrl(urlOrId, query)
+## getTweet(urlOrId, query)
 Get a tweet by its URL.
 
 ```twig
 {% set tweetUrl = 'https://twitter.com/CraftCMS/status/998619839043256321' %}
-{% set tweet = craft.twitter.getTweetByUrl(tweetUrl) %}
+{% set tweet = craft.twitter.getTweet(tweetUrl) %}
 
 {% if tweet %}
     <div class="tweet">
