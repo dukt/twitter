@@ -1,30 +1,93 @@
 # craft.twitter
 
-## get( uri, query, headers, options, enableCache, cacheExpire )
-
+## get(uri, query, headers, options, enableCache, cacheExpire)
 Performs a GET request on Twitter API and returns the response.
 
-**Params:**
+### Arguments
+- **`uri`** – The API request URI.
+- **`query`** – The query parameters as an array.
+- **`headers`** – The request headers as an array.
+- **`options`** – The request options as an array.
+- **`enableCache`** – Boolean for enabling/disabling cache. Defaults to `false`.
+- **`cacheExpire`** – Cache expiry in seconds. 0 means never expires. Defaults to `0`.
 
-- `uri` _(Required)_ — API request URI. Required field.
-- `query` _(Optional)_ — Query parameters as an array.
-- `headers` _(Optional)_ — Request headers as an array.
-- `options` _(Optional)_ — Request options as an array.
-- `enableCache` _(Optional)_ — Boolean for enabling/disabling cache. Default is `false`.
-- `cacheExpire` _(Optional)_ — Set cache expiry. 0 means never expire. Default is `0`.
+### Return Values
+Returns the API response as an array.
 
-**Returns:**
+## getTweetById(tweetId, query)
+Get a tweet by its ID.
 
-- The API response.
+```twig
+{% set tweetId = 998619839043256321 %}
+{% set tweet = craft.twitter.getTweetById(tweetId) %}
 
-## getTweetById( tweetId, query = [] )
+{% if tweet %}
+    <div class="tweet">
+        <img src="{{ tweet.getUserProfileImageUrl() }}" />
+        <p><cite><a href="{{ tweet.url }}">{{ tweet.username }} (@{{ tweet.userScreenName }})</a></cite></p>
+        <blockquote>{{ tweet.text|autoLinkTweet }}</blockquote>
+    </div>
+{% endif %}
+```
 
-Returns a tweet by its ID. Add query parameters to the API request with `query`.
+### Arguments
+- **`tweetId`** – Tweet ID
+- **`query`** – An array of query parameters that can be added to the API request. Defaults to `[]`.
 
-## getUserById( twitterUserId, query = [] )
+### Return Values
+Returns a [Tweet model](tweet-model.md) or `null`.
 
-Returns a Twitter user by its ID. Add query parameters to the API request with `query`.
+## getTweetByUrl(urlOrId, query)
+Get a tweet by its URL.
 
-## getUserProfileImageResourceUrl( twitterUserId, size = 48 )
+```twig
+{% set tweetUrl = 'https://twitter.com/CraftCMS/status/998619839043256321' %}
+{% set tweet = craft.twitter.getTweetByUrl(tweetUrl) %}
 
-Returns a user image from a user ID. Default `size` is 48.
+{% if tweet %}
+    <div class="tweet">
+        <img src="{{ tweet.getUserProfileImageUrl() }}" />
+        <p><cite><a href="{{ tweet.url }}">{{ tweet.username }} (@{{ tweet.userScreenName }})</a></cite></p>
+        <blockquote>{{ tweet.text|autoLinkTweet }}</blockquote>
+    </div>
+{% endif %}
+```
+
+### Arguments
+- **`urlOrId`** – The URL or ID of the tweet.
+- **`query`** – An array of query parameters that can be added to the API request. Defaults to `[]`.
+
+### Return Values
+Returns a [Tweet model](tweet-model.md) or `null`.
+
+## getUserById(twitterUserId, query)
+Get a Twitter user by its ID.
+
+```twig
+{% set twitterUser = craft.twitter.getUserById(236658433) %}
+
+{% if twitterUser %}
+    <ul>
+        <li>{{ twitterUser.name }} (@{{ twitterUser.screen_name }})</li>
+        <li>{{ twitterUser.location }}</li>
+        <li>{{ twitterUser.description }}</li>
+    </ul>
+{% endif %}
+```
+
+### Arguments
+- **`twitterUserId`** – Twitter user ID.
+- **`query`** – An array of query parameters that can be added to the API request. Defaults to `[]`.
+
+### Return Values
+Returns a user as an array, or `null`.
+
+## getUserProfileImageResourceUrl(twitterUserId, size)
+Get a user profile image from a user ID.
+
+### Arguments
+- **`twitterUserId`** – Twitter user ID.
+- **`size`** – Size of the image as an integer. Defaults to `48`.
+
+### Return Values
+Returns the user profile image resource URL, or `null`.
