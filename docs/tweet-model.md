@@ -1,49 +1,27 @@
 # Tweet Model
 
-The tweet model is responsible for storing the tweet ID and exposing the tweet’s data through model functions.
+The `Tweet` model is responsible for storing the tweet ID and exposing the tweet’s data through model functions.
 
-The `Twitter_TweetModel` model has the following attributes and methods:
+It has the following properties and methods:
 
-## Attributes
-
-### remoteId
-The ID of the tweet.
-
-### data
-The tweet’s API response data.
+## Properties
+- **`createdAt`** – The date the tweet was created at. 
+- **`data`** – Raw tweet data. 
+- **`text`** – The tweet’s text. 
+- **`remoteId`** – The tweet’s ID. 
+- **`remoteUserId`** – The tweet’s author user ID. 
+- **`username`** – The author user’s username. 
+- **`userProfileRemoteImageSecureUrl`** – The author user’s profile remote image secure URL. 
+- **`userProfileRemoteImageUrl`** – The author user’s profile remote image URL. 
+- **`userScreenName`** – The author user’s screen name. 
 
 ## Methods
 
-### getRemoteId()
-Returns the tweet’s ID.
-
-### getText()
-Returns the tweet's text.
-
-### getUserId()
-Returns the tweet’s author user ID.
-
-### getUserName()
-Returns the tweet's author user name.
-
-### getUserProfileUrl()
-Returns the tweet's author user profile URL.
-
-### getUserProfileRemoteImageUrl()
-Returns the tweet's author user profile remote image URL.
-
-### getUserProfileRemoteImageSecureUrl()
-Returns the tweet's author user profile remote image secure URL.
-
-### getUserScreenName()
-Returns the tweet's author user screen name.
-
-### getCreatedAt()
-Returns the creation date of the tweet.
-
-### getUserProfileImageUrl($size = null)
-Returns the tweet's author user profile image resource url.
-
-### getUrl()
+### `getUrl()`
 Returns the URL of the tweet.
 
+### `getUserProfileImageUrl(size)`
+Returns the tweet's author user profile image resource URL.
+
+### `getUserProfileUrl()`
+Returns the tweet's author user profile URL.
