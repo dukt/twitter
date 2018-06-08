@@ -4,7 +4,8 @@ Changelog
 ## Unreleased
 
 ### Changed
-- Renamed `getTweetById()` and `getTweetByUrl()` methods to `getTweet()`
+- The Tweet field now returns a tweet URL instead of a Tweet model.
+- Renamed `getTweetById()` and `getTweetByUrl()` methods to `getTweet()`.
 
 ### Fixed
 - Fixed a bug where the Tweet field would throw an error when trying to show a deleted tweet. ([#7](https://github.com/dukt/twitter/issues/7))
