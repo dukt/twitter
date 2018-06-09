@@ -58,11 +58,11 @@ class Tweet extends Field
                     ]
                 ];
 
-                $cachedTweet = Plugin::$plugin->getCache()->get([$uri, $headers, $options]);
+                $cachedTweet = Plugin::getInstance()->getCache()->get([$uri, $headers, $options]);
 
                 if ($cachedTweet) {
                     $tweet = new TweetModel();
-                    Plugin::$plugin->getApi()->populateTweetFromData($tweet, $cachedTweet);
+                    Plugin::getInstance()->getApi()->populateTweetFromData($tweet, $cachedTweet);
 
                     $previewHtml = Craft::$app->getView()->renderTemplate('twitter/_components/tweet', [
                         'tweet' => $tweet

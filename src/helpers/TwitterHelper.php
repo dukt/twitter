@@ -80,7 +80,7 @@ class TwitterHelper
                 }
             }
             if (!$originalPath) {
-                $user = Plugin::$plugin->getApi()->getUserById($remoteUserId);
+                $user = Plugin::getInstance()->getApi()->getUserById($remoteUserId);
 
                 $url = str_replace('_normal', '', $user['profile_image_url_https']);
                 $name = pathinfo($url, PATHINFO_BASENAME);
