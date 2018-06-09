@@ -16,7 +16,9 @@ TweetInput = Garnish.Base.extend({
 
         this.addListener(this.$input, 'textchange', 'lookupTweet');
 
-        this.lookupTweet();
+        if (this.$preview.hasClass('hidden') && this.$input.val()) {
+             this.lookupTweet();
+        }
     },
 
     lookupTweet: function() {

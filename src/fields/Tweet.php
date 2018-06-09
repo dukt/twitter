@@ -9,6 +9,9 @@ namespace dukt\twitter\fields;
 
 use Craft;
 use craft\base\Field;
+use dukt\twitter\helpers\TwitterHelper;
+use dukt\twitter\models\Tweet as TweetModel;
+use dukt\twitter\Plugin;
 use dukt\twitter\web\assets\tweetfield\TweetFieldAsset;
 
 /**
@@ -41,6 +44,32 @@ class Tweet extends Field
 
         $previewHtml = '';
 
+        if($value) {
+            $tweetId = TwitterHelper::extractTweetId($value);
+
+            if($tweetId) {
+                $uri = 'statuses/show';
+                $headers = null;
+                $options = [
+                    'query' => [
+                        'id' => $tweetId,
+                        'tweet_mode' => 'extended'
+                    ]
+                ];
+
+                $cachedTweet = Plugin::$plugin->getCache()->get([$uri, $headers, $options]);
+
+                if($cachedTweet) {
+                    $tweet = new TweetModel();
+                    Plugin::$plugin->getApi()->populateTweetFromData($tweet, $cachedTweet);
+
+                    $previewHtml = Craft::$app->getView()->renderTemplate('twitter/_components/tweet', [
+                        'tweet' => $tweet
+                    ]);
+                }
+            }
+        }
+
         Craft::$app->getView()->registerAssetBundle(TweetFieldAsset::class);
         Craft::$app->getView()->registerJs('new TweetInput("'.Craft::$app->getView()->namespaceInputId($id).'");');
 
@@ -52,7 +81,7 @@ class Tweet extends Field
                 'placeholder' => Craft::t('twitter', 'Enter a tweet URL or ID'),
             ]).
             '<div class="spinner hidden"></div>'.
-            '<div class="preview hidden">'.$previewHtml.'</div>'.
+            '<div class="preview'.($previewHtml ? '' : ' hidden').'">'.$previewHtml.'</div>'.
             '</div>';
     }
 }
