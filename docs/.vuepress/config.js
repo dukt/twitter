@@ -13,6 +13,7 @@ module.exports = {
                         '',
                         'requirements',
                         'installation',
+                        'updating',
                         'connect-twitter',
                     ]
                 },
