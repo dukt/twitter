@@ -156,7 +156,7 @@ class Api extends Component
 
         return $tweet;
     }
-    
+
     /**
      * Saves the original user profile image for a twitter user ID
      *
