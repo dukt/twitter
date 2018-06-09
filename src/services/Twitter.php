@@ -55,31 +55,4 @@ class Twitter extends Component
 
         return $html;
     }
-
-    /**
-     * Embedded Tweet
-     *
-     * @param       $tweetId
-     * @param array $options
-     *
-     * @deprecated Deprecated in 1.1. Use craft()->publish->tweet() instead.
-     *
-     * @return string
-     */
-    public function embedTweet($tweetId, $options = [])
-    {
-        craft()->deprecator->log('craft()->twitter->embedTweet()', 'craft()->twitter->embedTweet() has been deprecated. Use craft()->publish->tweet() instead.');
-
-        $dataAttributes = craft()->publish->getOptionsAsDataAttributes($options);
-
-        $response = craft()->api->get('statuses/oembed', ['id' => $tweetId]);
-
-        if ($response) {
-            $html = $response['html'];
-
-            $html = str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"'.$dataAttributes.'>', $html);
-
-            return $html;
-        }
-    }
 }
