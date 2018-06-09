@@ -12,6 +12,7 @@ use craft\helpers\Json;
 use craft\web\Controller;
 use dukt\twitter\errors\InvalidTweetException;
 use dukt\twitter\Plugin as Twitter;
+use GuzzleHttp\Exception\ClientException;
 use yii\web\Response;
 
 /**
@@ -52,7 +53,7 @@ class ApiController extends Controller
             return $this->asJson([
                 'html' => $html,
             ]);
-        } catch (\GuzzleHttp\Exception\ClientException $e) {
+        } catch (ClientException $e) {
             $data = Json::decodeIfJson($e->getResponse()->getBody()->getContents());
 
             if(isset($data['errors'][0]['message'])) {

@@ -13,6 +13,7 @@ use craft\helpers\UrlHelper;
 use dukt\twitter\models\Tweet;
 use dukt\twitter\Plugin as Twitter;
 use dukt\twitter\web\assets\searchwidget\SearchWidgetAsset;
+use GuzzleHttp\Exception\ClientException;
 
 /**
  * Search Widget
@@ -124,7 +125,7 @@ class SearchWidget extends Widget
                     Craft::$app->getView()->registerJs("new Craft.Twitter_SearchWidget('".$this->id."');");
 
                     return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/body', $variables);
-                } catch (\GuzzleHttp\Exception\ClientException $e) {
+                } catch (ClientException $e) {
                     $errorMsg = $e->getMessage();
                     $data = Json::decodeIfJson($e->getResponse()->getBody()->getContents());
 

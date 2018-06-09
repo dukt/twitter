@@ -8,6 +8,7 @@
 namespace dukt\twitter\fields;
 
 use Craft;
+use craft\base\ElementInterface;
 use craft\base\Field;
 use dukt\twitter\helpers\TwitterHelper;
 use dukt\twitter\models\Tweet as TweetModel;
@@ -36,7 +37,7 @@ class Tweet extends Field
     /**
      * @inheritdoc
      */
-    public function getInputHtml($value, \craft\base\ElementInterface $element = null): string
+    public function getInputHtml($value, ElementInterface $element = null): string
     {
         $name = $this->handle;
 

@@ -56,7 +56,6 @@ class OauthController extends Controller
     public function actionCallback(): Response
     {
         $provider = Twitter::$plugin->getOauth()->getOauthProvider();
-
         $oauthToken = Craft::$app->getRequest()->getParam('oauth_token');
         $oauthVerifier = Craft::$app->getRequest()->getParam('oauth_verifier');
 
@@ -70,12 +69,11 @@ class OauthController extends Controller
             // Save token
             Twitter::$plugin->getOauth()->saveToken($tokenCredentials);
 
-            // Reset session variables
-
             // Redirect
             Craft::$app->getSession()->setNotice(Craft::t('twitter', 'Connected to Twitter.'));
         } catch (Exception $e) {
             // Failed to get the token credentials or user details.
+            Craft::error('Couldn’t connect to Twitter: '.$e->getTraceAsString(), __METHOD__);
             Craft::$app->getSession()->setError($e->getMessage());
         }
 

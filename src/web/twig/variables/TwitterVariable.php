@@ -10,6 +10,7 @@ namespace dukt\twitter\web\twig\variables;
 use Craft;
 use dukt\twitter\Plugin as Twitter;
 use dukt\twitter\helpers\TwitterHelper;
+use Exception;
 
 /**
  * Twitter Variable
@@ -41,9 +42,9 @@ class TwitterVariable
         {
             return Twitter::$plugin->getApi()->get($uri, $query, $headers, $options, $enableCache, $cacheExpire);
         }
-        catch(\Exception $e)
+        catch(Exception $e)
         {
-            Craft::info('Error requesting Twitter’s API: '.$e->getMessage(), __METHOD__);
+            Craft::error('Error requesting Twitter’s API: '.$e->getTraceAsString(), __METHOD__);
         }
     }
 
@@ -62,9 +63,9 @@ class TwitterVariable
         {
             return Twitter::$plugin->getApi()->getTweet($urlOrId, $query);
         }
-        catch(\Exception $e)
+        catch(Exception $e)
         {
-            Craft::info('Couldn’t get tweet by URL: '.$e->getMessage(), __METHOD__);
+            Craft::error('Couldn’t get tweet by URL: '.$e->getTraceAsString(), __METHOD__);
         }
     }
 
@@ -83,9 +84,9 @@ class TwitterVariable
         {
             return Twitter::$plugin->getApi()->getUserById($remoteUserId, $query);
         }
-        catch(\Exception $e)
+        catch(Exception $e)
         {
-            Craft::info('Couldn’t get user by ID: '.$e->getMessage(), __METHOD__);
+            Craft::error('Couldn’t get user by ID: '.$e->getTraceAsString(), __METHOD__);
         }
     }
 
@@ -104,9 +105,9 @@ class TwitterVariable
         {
             return TwitterHelper::getUserProfileImageResourceUrl($remoteUserId, $size);
         }
-        catch(\Exception $e)
+        catch(Exception $e)
         {
-            Craft::info('Couldn’t get user profile image resource URL: '.$e->getMessage(), __METHOD__);
+            Craft::error('Couldn’t get user profile image resource URL: '.$e->getTraceAsString(), __METHOD__);
         }
     }
 

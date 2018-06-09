@@ -11,6 +11,7 @@ use Craft;
 use craft\web\Controller;
 use dukt\twitter\Plugin as Twitter;
 use yii\web\Response;
+use Exception;
 
 /**
  * Settings controller
@@ -45,7 +46,8 @@ class SettingsController extends Controller
                 $provider = Twitter::$plugin->getOauth()->getOauthProvider();
                 $resourceOwner = $provider->getUserDetails($token);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
+            Craft::error('Couldn’t retrieve twitter account: '.$e->getTraceAsString(), __METHOD__);
             $error = $e->getMessage();
         }
 

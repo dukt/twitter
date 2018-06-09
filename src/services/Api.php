@@ -17,6 +17,7 @@ use yii\base\Component;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
+use DateTime;
 
 /**
  * Api Service
@@ -101,7 +102,7 @@ class Api extends Component
     public function populateTweetFromData(Tweet $tweet, array $data): Tweet
     {
         if(isset($data['created_at'])) {
-            $tweet->createdAt = \DateTime::createFromFormat('D M d H:i:s O Y', $data['created_at']);
+            $tweet->createdAt = DateTime::createFromFormat('D M d H:i:s O Y', $data['created_at']);
         }
 
         $tweet->data = $data;
@@ -187,7 +188,7 @@ class Api extends Component
             $fileName = pathinfo($remoteImageUrl, PATHINFO_BASENAME);
             $imagePath = $originalFolderPath.$fileName;
 
-            $client = new \GuzzleHttp\Client();
+            $client = new Client();
             $response = $client->request('GET', $remoteImageUrl, [
                 'save_to' => $imagePath
             ]);
