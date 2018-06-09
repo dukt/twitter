@@ -1,4 +1,4 @@
-# Installation
+# Installing Twitter
 
 This plugin can be installed either through the Plugin Store or through Composer.
 
