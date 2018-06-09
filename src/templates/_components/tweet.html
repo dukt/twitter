@@ -1,6 +1,6 @@
 <div class="tweet" data-tweet-url="{{ tweet.url }}">
     <div class="tweet-image">
-        <a href="{{ tweet.userProfileUrl }}"><img src="{{ tweet.userProfileRemoteImageSecureUrl }}"></a>
+        <a href="{{ tweet.userProfileUrl }}"><img src="{{ tweet.getUserProfileImageUrl(96) }}"></a>
     </div>
     <div class="tweet-user">
         <a class="tweet-user-name" href="{{ tweet.userProfileUrl }}"><strong>{{ tweet.username }}</strong></a>
