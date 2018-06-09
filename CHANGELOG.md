@@ -6,8 +6,9 @@ Changelog
 ### Changed
 - The Tweet field now returns a tweet URL instead of a Tweet model.
 - Renamed `getTweetById()` and `getTweetByUrl()` methods to `getTweet()`.
-- Removed unused `dukt\twitter\helpers\TwitterHelper::formatTime()` method.
-- Removed deprecated `dukt\twitter\web\twig\variables\TwitterVariable::getUserImageUrl()`, replaced by `dukt\twitter\web\twig\variables\TwitterVariable::getUserProfileImageResourceUrl()`
+- Removed `dukt\twitter\helpers\TwitterHelper::formatTime()` unused method.
+- Removed `dukt\twitter\web\twig\variables\TwitterVariable::getUserImageUrl()` deprecated method.
+- Removed `dukt\twitter\web\twig\Extension::embedTweet()` deprecated method.
 
 ### Fixed
 - Fixed a bug where the Tweet field would throw an error when trying to show a deleted tweet. ([#7](https://github.com/dukt/twitter/issues/7))

@@ -229,22 +229,4 @@ class Extension extends Twig_Extension
 
         return Template::raw($html);
     }
-
-    /**
-     * Embedded Tweet
-     *
-     * @param       $id
-     * @param array $options
-     *
-     * @return \Twig_Markup
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function embedTweet($id, $options = [])
-    {
-        Craft::$app->deprecator->log('{{ embedTweet() }}', '{{ embedTweet() }} has been deprecated. Use {{ twitterTweet() }} instead.');
-
-        $html = Plugin::getInstance()->getTwitter()->embedTweet($id, $options);
-
-        return Template::raw($html);
-    }
 }
