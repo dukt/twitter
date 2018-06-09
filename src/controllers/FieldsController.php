@@ -21,7 +21,7 @@ use yii\web\Response;
  * @author Dukt <support@dukt.net>
  * @since  3.0
  */
-class ApiController extends Controller
+class FieldsController extends Controller
 {
     // Public Methods
     // =========================================================================

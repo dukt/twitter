@@ -44,7 +44,7 @@ TweetInput = Garnish.Base.extend({
         }
 
         if (tweetId) {
-            Craft.postActionRequest('twitter/api/tweet-field-preview', {id: tweetId}, $.proxy(function(response, textStatus) {
+            Craft.postActionRequest('twitter/fields/tweet-field-preview', {id: tweetId}, $.proxy(function(response, textStatus) {
                 if (textStatus == 'success') {
                     if (!response.error) {
                         this.$preview.html(response.html);
