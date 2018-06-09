@@ -1,8 +1,8 @@
 <?php
 /**
- * @link      https://dukt.net/craft/twitter/
+ * @link      https://dukt.net/twitter/
  * @copyright Copyright (c) 2018, Dukt
- * @license   https://dukt.net/craft/twitter/docs/license
+ * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
 namespace dukt\twitter;

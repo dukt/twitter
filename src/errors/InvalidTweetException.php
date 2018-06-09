@@ -2,7 +2,7 @@
 /**
  * @link      https://dukt.net/twitter/
  * @copyright Copyright (c) 2018, Dukt
- * @license   https://dukt.net/twitter/docs/license
+ * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
 namespace dukt\twitter\errors;
