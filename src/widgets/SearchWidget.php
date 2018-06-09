@@ -124,10 +124,18 @@ class SearchWidget extends Widget
                     Craft::$app->getView()->registerJs("new Craft.Twitter_SearchWidget('".$this->id."');");
 
                     return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/body', $variables);
-                } catch (\Exception $e) {
-                    $variables['errorMsg'] = $e->getMessage();
+                } catch (\GuzzleHttp\Exception\ClientException $e) {
+                    $errorMsg = $e->getMessage();
+                    $data = Json::decodeIfJson($e->getResponse()->getBody()->getContents());
 
-                    return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/_error', $variables);
+                    if(isset($data['errors'][0]['message'])) {
+                        $errorMsg = $data['errors'][0]['message'];
+                    }
+
+                    Craft::error('Couldn’t retrieve tweets: '.$e->getTraceAsString(), __METHOD__);
+                    return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/_error', [
+                        'errorMsg' => $errorMsg
+                    ]);
                 }
             } else {
                 $variables['infoMsg'] = Craft::t('twitter', 'Please enter a search query in the widget’s settings.');
