@@ -12,7 +12,7 @@
 .tweet .tweet-actions { font-size: 0.9em; opacity: .7; }
 .tweet .tweet-actions li { display: inline; }
 .tweet .tweet-actions li a { color: rgb(143, 152, 163); }
-.tweet .tweet-actions li:not(:last-child):after { content: ' — '; display: inline; }
+.tweet .tweet-actions li:not(:last-child):after { content: ' – '; display: inline; }
 
 
 /* Tweet Field */
