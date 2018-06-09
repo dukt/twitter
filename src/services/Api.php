@@ -101,7 +101,7 @@ class Api extends Component
      */
     public function populateTweetFromData(Tweet $tweet, array $data): Tweet
     {
-        if(isset($data['created_at'])) {
+        if (isset($data['created_at'])) {
             $tweet->createdAt = DateTime::createFromFormat('D M d H:i:s O Y', $data['created_at']);
         }
 

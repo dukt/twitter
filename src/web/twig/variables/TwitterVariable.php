@@ -36,14 +36,11 @@ class TwitterVariable
      * @return array|null
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function get($uri, array $query = null, array $headers = null, $options = array(), $enableCache = null, $cacheExpire = null)
+    public function get($uri, array $query = null, array $headers = null, $options = [], $enableCache = null, $cacheExpire = null)
     {
-        try
-        {
+        try {
             return Twitter::$plugin->getApi()->get($uri, $query, $headers, $options, $enableCache, $cacheExpire);
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             Craft::error('Error requesting Twitter’s API: '.$e->getTraceAsString(), __METHOD__);
         }
     }
@@ -57,14 +54,11 @@ class TwitterVariable
      * @return array|null
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getTweet($urlOrId, $query = array())
+    public function getTweet($urlOrId, $query = [])
     {
-        try
-        {
+        try {
             return Twitter::$plugin->getApi()->getTweet($urlOrId, $query);
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             Craft::error('Couldn’t get tweet by URL: '.$e->getTraceAsString(), __METHOD__);
         }
     }
@@ -78,14 +72,11 @@ class TwitterVariable
      * @return array|null
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getUserById($remoteUserId, $query = array())
+    public function getUserById($remoteUserId, $query = [])
     {
-        try
-        {
+        try {
             return Twitter::$plugin->getApi()->getUserById($remoteUserId, $query);
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             Craft::error('Couldn’t get user by ID: '.$e->getTraceAsString(), __METHOD__);
         }
     }
@@ -101,12 +92,9 @@ class TwitterVariable
      */
     public function getUserProfileImageResourceUrl($remoteUserId, $size = 48)
     {
-        try
-        {
+        try {
             return TwitterHelper::getUserProfileImageResourceUrl($remoteUserId, $size);
-        }
-        catch(Exception $e)
-        {
+        } catch (Exception $e) {
             Craft::error('Couldn’t get user profile image resource URL: '.$e->getTraceAsString(), __METHOD__);
         }
     }

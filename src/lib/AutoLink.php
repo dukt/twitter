@@ -104,9 +104,9 @@ class AutoLink extends \Twitter\Text\Autolink
     /**
      * @inheritdoc
      */
-    public function linkToText(array $entity, $text, $attributes = array())
+    public function linkToText(array $entity, $text, $attributes = [])
     {
-        $rel = array();
+        $rel = [];
         if ($this->external) {
             $rel[] = 'external';
         }
@@ -124,9 +124,10 @@ class AutoLink extends \Twitter\Text\Autolink
         }
         $link = '<a';
         foreach ($attributes as $key => $val) {
-            $link .= ' ' . $key . '="' . $this->escapeHTML($val) . '"';
+            $link .= ' '.$key.'="'.$this->escapeHTML($val).'"';
         }
-        $link .= '>' . $text . '</a>';
+        $link .= '>'.$text.'</a>';
+
         return $link;
     }
 
@@ -143,13 +144,14 @@ class AutoLink extends \Twitter\Text\Autolink
     /**
      * Whether to include the value 'noopener' in the 'rel' attribute.
      *
-     * @param  bool  $v  The value to add to the 'target' attribute.
+     * @param  bool $v The value to add to the 'target' attribute.
      *
      * @return  Autolink  Fluid method chaining.
      */
     public function setNoOpener($v)
     {
         $this->noopener = $v;
+
         return $this;
     }
 }

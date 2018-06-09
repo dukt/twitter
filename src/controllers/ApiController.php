@@ -42,7 +42,7 @@ class ApiController extends Controller
         try {
             $tweet = Twitter::$plugin->getApi()->getTweet($tweetId);
 
-            if(!$tweet) {
+            if (!$tweet) {
                 throw new InvalidTweetException('No status found with that ID.');
             }
 
@@ -56,14 +56,16 @@ class ApiController extends Controller
         } catch (ClientException $e) {
             $data = Json::decodeIfJson($e->getResponse()->getBody()->getContents());
 
-            if(isset($data['errors'][0]['message'])) {
+            if (isset($data['errors'][0]['message'])) {
                 return $this->asErrorJson($data['errors'][0]['message']);
             }
 
             Craft::error('Couldn’ load tweet preview: '.$e->getTraceAsString(), __METHOD__);
+
             return $this->asErrorJson($e->getMessage());
         } catch (InvalidTweetException $e) {
             Craft::error('Couldn’ load tweet preview: '.$e->getTraceAsString(), __METHOD__);
+
             return $this->asErrorJson($e->getMessage());
         }
     }

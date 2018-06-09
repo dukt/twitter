@@ -45,10 +45,10 @@ class Tweet extends Field
 
         $previewHtml = '';
 
-        if($value) {
+        if ($value) {
             $tweetId = TwitterHelper::extractTweetId($value);
 
-            if($tweetId) {
+            if ($tweetId) {
                 $uri = 'statuses/show';
                 $headers = null;
                 $options = [
@@ -60,7 +60,7 @@ class Tweet extends Field
 
                 $cachedTweet = Plugin::$plugin->getCache()->get([$uri, $headers, $options]);
 
-                if($cachedTweet) {
+                if ($cachedTweet) {
                     $tweet = new TweetModel();
                     Plugin::$plugin->getApi()->populateTweetFromData($tweet, $cachedTweet);
 
