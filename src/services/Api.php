@@ -92,32 +92,6 @@ class Api extends Component
     }
 
     /**
-     * Populate tweet object from data array.
-     *
-     * @param Tweet $tweet
-     * @param array $data
-     *
-     * @return Tweet
-     */
-    public function populateTweetFromData(Tweet $tweet, array $data): Tweet
-    {
-        if (isset($data['created_at'])) {
-            $tweet->createdAt = DateTime::createFromFormat('D M d H:i:s O Y', $data['created_at']);
-        }
-
-        $tweet->data = $data;
-        $tweet->text = $data['full_text'] ?? null;
-        $tweet->remoteId = $data['id'] ?? null;
-        $tweet->remoteUserId = $data['user']['id'] ?? null;
-        $tweet->username = $data['user']['name'] ?? null;
-        $tweet->userProfileRemoteImageSecureUrl = $data['user']['profile_image_url_https'] ?? null;
-        $tweet->userProfileRemoteImageUrl = $data['user']['profile_image_url'] ?? null;
-        $tweet->userScreenName = $data['user']['screen_name'] ?? null;
-
-        return $tweet;
-    }
-
-    /**
      * Returns a tweet by its URL or ID.
      *
      * @param       $urlOrId
@@ -157,6 +131,32 @@ class Api extends Component
         return $this->get('users/show', $query);
     }
 
+    /**
+     * Populate tweet object from data array.
+     *
+     * @param Tweet $tweet
+     * @param array $data
+     *
+     * @return Tweet
+     */
+    public function populateTweetFromData(Tweet $tweet, array $data): Tweet
+    {
+        if (isset($data['created_at'])) {
+            $tweet->createdAt = DateTime::createFromFormat('D M d H:i:s O Y', $data['created_at']);
+        }
+
+        $tweet->data = $data;
+        $tweet->text = $data['full_text'] ?? null;
+        $tweet->remoteId = $data['id'] ?? null;
+        $tweet->remoteUserId = $data['user']['id'] ?? null;
+        $tweet->username = $data['user']['name'] ?? null;
+        $tweet->userProfileRemoteImageSecureUrl = $data['user']['profile_image_url_https'] ?? null;
+        $tweet->userProfileRemoteImageUrl = $data['user']['profile_image_url'] ?? null;
+        $tweet->userScreenName = $data['user']['screen_name'] ?? null;
+
+        return $tweet;
+    }
+    
     /**
      * Saves the original user profile image for a twitter user ID
      *
