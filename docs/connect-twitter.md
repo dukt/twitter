@@ -1,4 +1,4 @@
-# Connect to Twitter
+# Connecting to Twitter
 
 ## OAuth configuration
 
