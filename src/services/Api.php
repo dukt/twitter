@@ -153,7 +153,7 @@ class Api extends Component
 
         $query = array_merge($query, ['user_id' => $userId]);
 
-        return Twitter::$plugin->getApi()->get('users/show', $query);
+        return $this->get('users/show', $query);
     }
 
     /**
@@ -274,7 +274,7 @@ class Api extends Component
             'tweet_mode' => 'extended'
         ]);
 
-        $data = Twitter::$plugin->getApi()->get('statuses/show', $query);
+        $data = $this->get('statuses/show', $query);
 
         if (!$data) {
             return null;
