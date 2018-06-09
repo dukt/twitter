@@ -17,7 +17,7 @@
 
     {% if tokenExists %}
 
-		{% if not error %}
+        {% if not error %}
 
             {% if resourceOwner.urls.profile_image_url_https is defined %}
                 <img width="36" src="{{ resourceOwner.urls.profile_image_url_https|replace('_normal', '_bigger') }}" />
@@ -39,7 +39,7 @@
 
         {% else %}
             <p class="error">{{ error }}</p>
-		{% endif %}
+        {% endif %}
 
         <div class="buttons">
             <a href="{{ actionUrl('twitter/oauth/disconnect') }}" class="btn small">{{ 'Disconnect'|t('twitter') }}</a>
