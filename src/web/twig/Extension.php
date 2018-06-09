@@ -9,8 +9,8 @@ namespace dukt\twitter\web\twig;
 
 use Craft;
 use craft\helpers\Template;
-use dukt\twitter\Plugin as Twitter;
 use dukt\twitter\helpers\TwitterHelper;
+use dukt\twitter\Plugin;
 use Twig_Extension;
 use Twig_SimpleFunction;
 use Twig_SimpleFilter;
@@ -40,10 +40,10 @@ class Extension extends Twig_Extension
      */
     public function getFilters()
     {
-        return array(
+        return [
             new Twig_SimpleFilter('autoLinkTweet', [$this, 'autoLinkTweet']),
             new Twig_SimpleFilter('twitterTimeAgo', [$this, 'timeAgo'])
-        );
+        ];
     }
 
     /**
@@ -78,7 +78,7 @@ class Extension extends Twig_Extension
      */
     public function twitterGrid($url, $options = [])
     {
-        $html = Twitter::$plugin->getPublish()->grid($url, $options);
+        $html = Plugin::getInstance()->getPublish()->grid($url, $options);
 
         return Template::raw($html);
     }
@@ -95,7 +95,7 @@ class Extension extends Twig_Extension
      */
     public function twitterMoment($url, $options = [])
     {
-        $html = Twitter::$plugin->getPublish()->moment($url, $options);
+        $html = Plugin::getInstance()->getPublish()->moment($url, $options);
 
         return Template::raw($html);
     }
@@ -112,7 +112,7 @@ class Extension extends Twig_Extension
      */
     public function twitterTimeline($url, $options = [])
     {
-        $html = Twitter::$plugin->getPublish()->timeline($url, $options);
+        $html = Plugin::getInstance()->getPublish()->timeline($url, $options);
 
         return Template::raw($html);
     }
@@ -129,7 +129,7 @@ class Extension extends Twig_Extension
      */
     public function twitterTweet($url, $options = [])
     {
-        $html = Twitter::$plugin->getPublish()->tweet($url, $options);
+        $html = Plugin::getInstance()->getPublish()->tweet($url, $options);
 
         return Template::raw($html);
     }
@@ -146,7 +146,7 @@ class Extension extends Twig_Extension
      */
     public function twitterVideo($url, $options = [])
     {
-        $html = Twitter::$plugin->getPublish()->video($url, $options);
+        $html = Plugin::getInstance()->getPublish()->video($url, $options);
 
         return Template::raw($html);
     }
@@ -162,7 +162,7 @@ class Extension extends Twig_Extension
      */
     public function twitterFollowButton($username, $options = [])
     {
-        $html = Twitter::$plugin->getPublish()->followButton($username, $options);
+        $html = Plugin::getInstance()->getPublish()->followButton($username, $options);
 
         return Template::raw($html);
     }
@@ -180,7 +180,7 @@ class Extension extends Twig_Extension
      */
     public function twitterMessageButton($recipientId, $screenName, $text = null, $options = [])
     {
-        $html = Twitter::$plugin->getPublish()->messageButton($recipientId, $screenName, $text, $options);
+        $html = Plugin::getInstance()->getPublish()->messageButton($recipientId, $screenName, $text, $options);
 
         return Template::raw($html);
     }
@@ -195,7 +195,7 @@ class Extension extends Twig_Extension
      */
     public function twitterTweetButton($options = [])
     {
-        $html = Twitter::$plugin->getPublish()->tweetButton($options);
+        $html = Plugin::getInstance()->getPublish()->tweetButton($options);
 
         return Template::raw($html);
     }
@@ -211,7 +211,7 @@ class Extension extends Twig_Extension
      */
     public function autoLinkTweet($text, $options = [])
     {
-        $html = Twitter::$plugin->getTwitter()->autoLinkTweet($text, $options);
+        $html = Plugin::getInstance()->getTwitter()->autoLinkTweet($text, $options);
 
         return Template::raw($html);
     }
@@ -243,7 +243,7 @@ class Extension extends Twig_Extension
     {
         Craft::$app->deprecator->log('{{ embedTweet() }}', '{{ embedTweet() }} has been deprecated. Use {{ twitterTweet() }} instead.');
 
-        $html = Twitter::$plugin->getTwitter()->embedTweet($id, $options);
+        $html = Plugin::getInstance()->getTwitter()->embedTweet($id, $options);
 
         return Template::raw($html);
     }

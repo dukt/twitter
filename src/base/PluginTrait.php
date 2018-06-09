@@ -8,7 +8,7 @@
 namespace dukt\twitter\base;
 
 use Craft;
-use dukt\twitter\Plugin as Twitter;
+use dukt\twitter\Plugin;
 
 /**
  * PluginTrait implements the common methods and properties for plugin classes.
@@ -88,7 +88,7 @@ trait PluginTrait
      */
     public function getConsumerKey()
     {
-        $consumerKey = Twitter::$plugin->getSettings()->oauthConsumerKey;
+        $consumerKey = Plugin::getInstance()->getSettings()->oauthConsumerKey;
 
         if ($consumerKey) {
             return $consumerKey;
@@ -109,7 +109,7 @@ trait PluginTrait
      */
     public function getConsumerSecret()
     {
-        $consumerSecret = Twitter::$plugin->getSettings()->oauthConsumerSecret;
+        $consumerSecret = Plugin::getInstance()->getSettings()->oauthConsumerSecret;
 
         if ($consumerSecret) {
             return $consumerSecret;

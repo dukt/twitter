@@ -7,7 +7,7 @@
 
 namespace dukt\twitter\services;
 
-use dukt\twitter\Plugin as Twitter;
+use dukt\twitter\Plugin;
 use GuzzleHttp\Client;
 use yii\base\Component;
 
@@ -262,7 +262,7 @@ class Publish extends Component
             'query' => $query
         ];
 
-        $oembed = Twitter::$plugin->getCache()->get(['twitter.publish.oEmbed', $url, $options]);
+        $oembed = Plugin::getInstance()->getCache()->get(['twitter.publish.oEmbed', $url, $options]);
 
         if (!$oembed) {
             $client = new Client();
@@ -271,7 +271,7 @@ class Publish extends Component
 
             $oembed = json_decode($response->getBody(), true);
 
-            Twitter::$plugin->getCache()->set(['twitter.publish.oEmbed', $url, $options], $oembed);
+            Plugin::getInstance()->getCache()->set(['twitter.publish.oEmbed', $url, $options], $oembed);
         }
 
         return $oembed;

@@ -11,7 +11,7 @@ use Craft;
 use craft\helpers\FileHelper;
 use dukt\twitter\helpers\TwitterHelper;
 use dukt\twitter\models\Tweet;
-use dukt\twitter\Plugin as Twitter;
+use dukt\twitter\Plugin;
 use League\OAuth1\Client\Credentials\TokenCredentials;
 use yii\base\Component;
 use GuzzleHttp\Client;
@@ -55,14 +55,14 @@ class Api extends Component
         // Enable Cache
 
         if (is_null($enableCache)) {
-            $enableCache = Twitter::$plugin->getSettings()->enableCache;
+            $enableCache = Plugin::getInstance()->getSettings()->enableCache;
         }
 
 
         // Try to get response from cache
 
         if ($enableCache) {
-            $response = Twitter::$plugin->getCache()->get([$uri, $headers, $options]);
+            $response = Plugin::getInstance()->getCache()->get([$uri, $headers, $options]);
 
             if ($response) {
                 return $response;
@@ -85,7 +85,7 @@ class Api extends Component
         $jsonResponse = json_decode($response->getBody(), true);
 
         if ($enableCache) {
-            Twitter::$plugin->getCache()->set([$uri, $headers, $options], $jsonResponse, $cacheExpire);
+            Plugin::getInstance()->getCache()->set([$uri, $headers, $options], $jsonResponse, $cacheExpire);
         }
 
         return $jsonResponse;
@@ -216,7 +216,7 @@ class Api extends Component
             'base_uri' => 'https://api.twitter.com/1.1/'
         ];
 
-        $token = Twitter::$plugin->getOauth()->getToken();
+        $token = Plugin::getInstance()->getOauth()->getToken();
 
         if ($token) {
             $stack = $this->getStack($token);
@@ -239,8 +239,8 @@ class Api extends Component
     {
         $stack = HandlerStack::create();
 
-        $oauthConsumerKey = Twitter::$plugin->getConsumerKey();
-        $oauthConsumerSecret = Twitter::$plugin->getConsumerSecret();
+        $oauthConsumerKey = Plugin::getInstance()->getConsumerKey();
+        $oauthConsumerSecret = Plugin::getInstance()->getConsumerSecret();
 
         $middleware = new Oauth1([
             'consumer_key' => $oauthConsumerKey,

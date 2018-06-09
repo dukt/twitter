@@ -9,7 +9,7 @@ namespace dukt\twitter\controllers;
 
 use Craft;
 use craft\web\Controller;
-use dukt\twitter\Plugin as Twitter;
+use dukt\twitter\Plugin;
 use yii\web\Response;
 use Exception;
 
@@ -37,13 +37,13 @@ class SettingsController extends Controller
         $resourceOwner = null;
 
         try {
-            $token = Twitter::$plugin->getOauth()->getToken();
+            $token = Plugin::getInstance()->getOauth()->getToken();
 
             if ($token) {
                 $tokenExists = true;
 
                 // Retrieve resource owner’s details
-                $provider = Twitter::$plugin->getOauth()->getOauthProvider();
+                $provider = Plugin::getInstance()->getOauth()->getOauthProvider();
                 $resourceOwner = $provider->getUserDetails($token);
             }
         } catch (Exception $e) {
@@ -55,8 +55,8 @@ class SettingsController extends Controller
             'error' => isset($error) ? $error : null,
             'tokenExists' => $tokenExists,
             'resourceOwner' => $resourceOwner,
-            'javascriptOrigin' => Twitter::$plugin->getOauth()->getJavascriptOrigin(),
-            'redirectUri' => Twitter::$plugin->getOauth()->getRedirectUri(),
+            'javascriptOrigin' => Plugin::getInstance()->getOauth()->getJavascriptOrigin(),
+            'redirectUri' => Plugin::getInstance()->getOauth()->getRedirectUri(),
         ]);
     }
 
@@ -72,8 +72,8 @@ class SettingsController extends Controller
         $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
 
         return $this->renderTemplate('twitter/settings/oauth', [
-            'javascriptOrigin' => Twitter::$plugin->getOauth()->getJavascriptOrigin(),
-            'redirectUri' => Twitter::$plugin->getOauth()->getRedirectUri(),
+            'javascriptOrigin' => Plugin::getInstance()->getOauth()->getJavascriptOrigin(),
+            'redirectUri' => Plugin::getInstance()->getOauth()->getRedirectUri(),
             'settings' => $plugin->getSettings(),
         ]);
     }

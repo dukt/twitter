@@ -8,7 +8,7 @@
 namespace dukt\twitter\web\twig\variables;
 
 use Craft;
-use dukt\twitter\Plugin as Twitter;
+use dukt\twitter\Plugin;
 use dukt\twitter\helpers\TwitterHelper;
 use Exception;
 
@@ -39,7 +39,7 @@ class TwitterVariable
     public function get($uri, array $query = null, array $headers = null, $options = [], $enableCache = null, $cacheExpire = null)
     {
         try {
-            return Twitter::$plugin->getApi()->get($uri, $query, $headers, $options, $enableCache, $cacheExpire);
+            return Plugin::getInstance()->getApi()->get($uri, $query, $headers, $options, $enableCache, $cacheExpire);
         } catch (Exception $e) {
             Craft::error('Error requesting Twitter’s API: '.$e->getTraceAsString(), __METHOD__);
         }
@@ -57,7 +57,7 @@ class TwitterVariable
     public function getTweet($urlOrId, $query = [])
     {
         try {
-            return Twitter::$plugin->getApi()->getTweet($urlOrId, $query);
+            return Plugin::getInstance()->getApi()->getTweet($urlOrId, $query);
         } catch (Exception $e) {
             Craft::error('Couldn’t get tweet by URL: '.$e->getTraceAsString(), __METHOD__);
         }
@@ -75,7 +75,7 @@ class TwitterVariable
     public function getUserById($remoteUserId, $query = [])
     {
         try {
-            return Twitter::$plugin->getApi()->getUserById($remoteUserId, $query);
+            return Plugin::getInstance()->getApi()->getUserById($remoteUserId, $query);
         } catch (Exception $e) {
             Craft::error('Couldn’t get user by ID: '.$e->getTraceAsString(), __METHOD__);
         }

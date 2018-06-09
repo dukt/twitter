@@ -8,7 +8,7 @@
 namespace dukt\twitter\services;
 
 use Craft;
-use dukt\twitter\Plugin as Twitter;
+use dukt\twitter\Plugin;
 use yii\base\Component;
 use League\OAuth1\Client\Credentials\TokenCredentials;
 use craft\helpers\UrlHelper;
@@ -99,8 +99,8 @@ class Oauth extends Component
      */
     public function getOauthProvider()
     {
-        $oauthConsumerKey = Twitter::$plugin->getConsumerKey();
-        $oauthConsumerSecret = Twitter::$plugin->getConsumerSecret();
+        $oauthConsumerKey = Plugin::getInstance()->getConsumerKey();
+        $oauthConsumerSecret = Plugin::getInstance()->getConsumerSecret();
 
         $options = [];
 

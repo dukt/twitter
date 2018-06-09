@@ -9,7 +9,7 @@ namespace dukt\twitter\controllers;
 
 use Craft;
 use craft\web\Controller;
-use dukt\twitter\Plugin as Twitter;
+use dukt\twitter\Plugin;
 use Exception;
 use yii\web\Response;
 
@@ -33,7 +33,7 @@ class OauthController extends Controller
     public function actionConnect(): Response
     {
         // Oauth provider
-        $provider = Twitter::$plugin->getOauth()->getOauthProvider();
+        $provider = Plugin::getInstance()->getOauth()->getOauthProvider();
 
         // Obtain temporary credentials
         $temporaryCredentials = $provider->getTemporaryCredentials();
@@ -55,7 +55,7 @@ class OauthController extends Controller
      */
     public function actionCallback(): Response
     {
-        $provider = Twitter::$plugin->getOauth()->getOauthProvider();
+        $provider = Plugin::getInstance()->getOauth()->getOauthProvider();
         $oauthToken = Craft::$app->getRequest()->getParam('oauth_token');
         $oauthVerifier = Craft::$app->getRequest()->getParam('oauth_verifier');
 
@@ -67,7 +67,7 @@ class OauthController extends Controller
             $tokenCredentials = $provider->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier);
 
             // Save token
-            Twitter::$plugin->getOauth()->saveToken($tokenCredentials);
+            Plugin::getInstance()->getOauth()->saveToken($tokenCredentials);
 
             // Redirect
             Craft::$app->getSession()->setNotice(Craft::t('twitter', 'Connected to Twitter.'));
@@ -88,7 +88,7 @@ class OauthController extends Controller
      */
     public function actionDisconnect(): Response
     {
-        if (Twitter::$plugin->getOauth()->deleteToken()) {
+        if (Plugin::getInstance()->getOauth()->deleteToken()) {
             Craft::$app->getSession()->setNotice(Craft::t('twitter', 'Disconnected from Twitter.'));
         } else {
             Craft::$app->getSession()->setError(Craft::t('twitter', 'Couldn’t disconnect from Twitter'));

@@ -11,7 +11,7 @@ use Craft;
 use craft\helpers\Json;
 use craft\web\Controller;
 use dukt\twitter\errors\InvalidTweetException;
-use dukt\twitter\Plugin as Twitter;
+use dukt\twitter\Plugin;
 use GuzzleHttp\Exception\ClientException;
 use yii\web\Response;
 
@@ -40,7 +40,7 @@ class ApiController extends Controller
         $tweetId = Craft::$app->getRequest()->getParam('id');
 
         try {
-            $tweet = Twitter::$plugin->getApi()->getTweet($tweetId);
+            $tweet = Plugin::getInstance()->getApi()->getTweet($tweetId);
 
             if (!$tweet) {
                 throw new InvalidTweetException('No status found with that ID.');
