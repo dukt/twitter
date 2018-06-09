@@ -98,20 +98,4 @@ class TwitterVariable
             Craft::error('Couldn’t get user profile image resource URL: '.$e->getTraceAsString(), __METHOD__);
         }
     }
-
-    /**
-     * Returns a user image from a twitter user ID for given size. Default size is 48.
-     *
-     * @param int $remoteUserId
-     * @param int $size
-     *
-     * @return string|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @deprecated Deprecated in 2.0. Use craft.twitter.getUserProfileImageResourceUrl() instead.
-     *
-     */
-    public function getUserImageUrl($remoteUserId, $size = 48)
-    {
-        return $this->getUserProfileImageResourceUrl($remoteUserId, $size);
-    }
 }
