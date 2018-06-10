@@ -4,6 +4,12 @@ module.exports = {
     base: '/twitter/v2/',
     ga: 'UA-1547168-34',
     themeConfig: {
+        nav: [
+            { text: 'Analytics', link: 'https://docs.dukt.net/analytics/v4/'},
+            { text: 'Social', link: 'https://docs.dukt.net/social/v2/'},
+            { text: 'Twitter', link: '/'},
+            { text: 'Videos', link: 'https://docs.dukt.net/videos/v2/'},
+        ],
         sidebar: {
             '/': [
                 {
