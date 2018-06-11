@@ -10,7 +10,7 @@ namespace dukt\twitter\web\twig\variables;
 use Craft;
 use dukt\twitter\Plugin;
 use dukt\twitter\helpers\TwitterHelper;
-use Exception;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Twitter Variable
@@ -24,7 +24,7 @@ class TwitterVariable
     // =========================================================================
 
     /**
-     * Performs a GET request on the Twitter API and returns the response.
+     *
      *
      * @param string     $uri
      * @param array|null $query
@@ -34,13 +34,12 @@ class TwitterVariable
      * @param null|int   $cacheExpire
      *
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function get($uri, array $query = null, array $headers = null, $options = [], $enableCache = null, $cacheExpire = null)
     {
         try {
             return Plugin::getInstance()->getApi()->get($uri, $query, $headers, $options, $enableCache, $cacheExpire);
-        } catch (Exception $e) {
+        } catch (GuzzleException $e) {
             Craft::error('Error requesting Twitter’s API: '.$e->getTraceAsString(), __METHOD__);
             return null;
         }
@@ -53,13 +52,13 @@ class TwitterVariable
      * @param array $query
      *
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \yii\base\Exception
      */
     public function getTweet($urlOrId, $query = [])
     {
         try {
             return Plugin::getInstance()->getApi()->getTweet($urlOrId, $query);
-        } catch (Exception $e) {
+        } catch (GuzzleException $e) {
             Craft::error('Couldn’t get tweet by URL: '.$e->getTraceAsString(), __METHOD__);
             return null;
         }
@@ -72,13 +71,12 @@ class TwitterVariable
      * @param array $query
      *
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getUserById($remoteUserId, $query = [])
     {
         try {
             return Plugin::getInstance()->getApi()->getUserById($remoteUserId, $query);
-        } catch (Exception $e) {
+        } catch (GuzzleException $e) {
             Craft::error('Couldn’t get user by ID: '.$e->getTraceAsString(), __METHOD__);
             return null;
         }
@@ -91,13 +89,14 @@ class TwitterVariable
      * @param int $size
      *
      * @return string|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \craft\errors\ImageException
+     * @throws \yii\base\Exception
      */
     public function getUserProfileImageResourceUrl($remoteUserId, $size = 48)
     {
         try {
             return TwitterHelper::getUserProfileImageResourceUrl($remoteUserId, $size);
-        } catch (Exception $e) {
+        } catch (GuzzleException $e) {
             Craft::error('Couldn’t get user profile image resource URL: '.$e->getTraceAsString(), __METHOD__);
             return null;
         }

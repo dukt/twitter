@@ -10,7 +10,7 @@ namespace dukt\twitter\controllers;
 use Craft;
 use craft\web\Controller;
 use dukt\twitter\Plugin;
-use Exception;
+use League\OAuth1\Client\Credentials\CredentialsException;
 use yii\web\Response;
 
 /**
@@ -62,14 +62,14 @@ class OauthController extends Controller
             $temporaryCredentials = Craft::$app->getSession()->get('oauth.temporaryCredentials');
 
             // Obtain token credentials from the server.
-            $tokenCredentials = $provider->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier);
+            $tokenCredentials = $provider->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier."x");
 
             // Save token
             Plugin::getInstance()->getOauth()->saveToken($tokenCredentials);
 
             // Redirect
             Craft::$app->getSession()->setNotice(Craft::t('twitter', 'Connected to Twitter.'));
-        } catch (Exception $e) {
+        } catch (CredentialsException $e) {
             // Failed to get the token credentials or user details.
             Craft::error('Couldn’t connect to Twitter: '.$e->getTraceAsString(), __METHOD__);
             Craft::$app->getSession()->setError($e->getMessage());
