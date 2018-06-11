@@ -8,8 +8,10 @@
 namespace dukt\twitter\web\twig\variables;
 
 use Craft;
+use craft\helpers\Json;
 use dukt\twitter\Plugin;
 use dukt\twitter\helpers\TwitterHelper;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
@@ -24,7 +26,7 @@ class TwitterVariable
     // =========================================================================
 
     /**
-     *
+     * Perform a GET request on the Twitter API.
      *
      * @param string     $uri
      * @param array|null $query
@@ -33,15 +35,22 @@ class TwitterVariable
      * @param null|bool  $enableCache
      * @param null|int   $cacheExpire
      *
-     * @return array|null
+     * @return array
+     * @throws GuzzleException
      */
-    public function get($uri, array $query = null, array $headers = null, $options = [], $enableCache = null, $cacheExpire = null)
+    public function get($uri, array $query = null, array $headers = null, $options = [], $enableCache = null, $cacheExpire = null): array
     {
         try {
-            return Plugin::getInstance()->getApi()->get($uri, $query, $headers, $options, $enableCache, $cacheExpire);
-        } catch (GuzzleException $e) {
+            return [
+                'success' => true,
+                'data' => Plugin::getInstance()->getApi()->get($uri, $query, $headers, $options, $enableCache, $cacheExpire)
+            ];
+        } catch (ClientException $e) {
             Craft::error('Error requesting Twitter’s API: '.$e->getTraceAsString(), __METHOD__);
-            return null;
+            return [
+                'success' => false,
+                'data' => Json::decodeIfJson($e->getResponse()->getBody()->getContents()),
+            ];
         }
     }
 
