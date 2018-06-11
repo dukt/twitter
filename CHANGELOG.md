@@ -5,12 +5,13 @@ Changelog
 
 ### Changed
 - The Tweet field now returns a tweet URL instead of a Tweet model.
-- Renamed `getTweetById()` and `getTweetByUrl()` methods to `getTweet()`.
+- The Tweet model’s attributes and methods have changed.
+- Merged `getTweetById()` and `getTweetByUrl()` methods into a single `getTweet()`.
 - Renamed `dukt\twitter\controllers\ApiController` to `dukt\twitter\controllers\FieldsController`.
-- Removed `dukt\twitter\helpers\TwitterHelper::formatTime()` unused method.
-- Removed `dukt\twitter\web\twig\variables\TwitterVariable::getUserImageUrl()` deprecated method.
-- Removed `dukt\twitter\web\twig\Extension::embedTweet()` deprecated method.
-- Removed `dukt\twitter\services\Twitter::embedTweet()` deprecated method.
+- Removed `dukt\twitter\helpers\TwitterHelper::formatTime()`.
+- Removed `dukt\twitter\web\twig\variables\TwitterVariable::getUserImageUrl()`.
+- Removed `dukt\twitter\web\twig\Extension::embedTweet()`.
+- Removed `dukt\twitter\services\Twitter::embedTweet()`.
 - Updated nojimage/twitter-text-php dependency to `^2.0`.
 
 ### Fixed
