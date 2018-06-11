@@ -52,7 +52,7 @@ class SettingsController extends Controller
         }
 
         return $this->renderTemplate('twitter/settings', [
-            'error' => isset($error) ? $error : null,
+            'error' => $error ?? null,
             'tokenExists' => $tokenExists,
             'resourceOwner' => $resourceOwner,
             'javascriptOrigin' => Plugin::getInstance()->getOauth()->getJavascriptOrigin(),

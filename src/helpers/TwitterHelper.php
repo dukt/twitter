@@ -25,25 +25,7 @@ class TwitterHelper
     // =========================================================================
 
     /**
-     * Extract the tweet ID from a tweet URL, or simply returns the ID
-     *
-     * @param string|int $urlOrId
-     *
-     * @return int
-     */
-    public static function extractTweetId($urlOrId)
-    {
-        if (preg_match('/^\d+$/', $urlOrId)) {
-            // If the string is a number, return it right away
-            return (int)$urlOrId;
-        } else if (preg_match('/\/status(es)?\/(\d+)\/?$/', $urlOrId, $matches)) {
-            // Extract the tweet ID from the URL
-            return (int)$matches[2];
-        }
-    }
-
-    /**
-     * Returns a user image from a twitter user ID for given size. Default size is 48.
+     * Returns a user image from a Twitter user ID for given size. Default size is 48.
      *
      * @param int $remoteUserId
      * @param int $size
@@ -113,7 +95,29 @@ class TwitterHelper
     }
 
     /**
-     * Formats a duration to seconds
+     * Extract the tweet ID from a tweet URL, or simply returns the ID.
+     *
+     * @param $urlOrId
+     *
+     * @return int|null
+     */
+    public static function extractTweetId($urlOrId)
+    {
+        if (preg_match('/^\d+$/', $urlOrId)) {
+            // If the string is a number, return it right away
+            return (int)$urlOrId;
+        }
+
+        if (preg_match('/\/status(es)?\/(\d+)\/?$/', $urlOrId, $matches)) {
+            // Extract the tweet ID from the URL
+            return (int)$matches[2];
+        }
+
+        return null;
+    }
+
+    /**
+     * Formats a duration to seconds.
      *
      * @param string $duration
      *
@@ -130,7 +134,7 @@ class TwitterHelper
     }
 
     /**
-     * Formats a date to a time ago string like “3 days ago“
+     * Formats a date to a time ago string like “3 days ago”.
      *
      * @param DateTime|string $date
      *
@@ -154,7 +158,7 @@ class TwitterHelper
     }
 
     /**
-     * Seconds to human duration
+     * Seconds to human duration.
      *
      * @param int  $seconds           The number of seconds
      * @param bool $showSeconds       Whether to output seconds or not
@@ -210,8 +214,8 @@ class TwitterHelper
 
         if ($implodeComponents) {
             return implode(', ', $timeComponents);
-        } else {
-            return $timeComponents;
         }
+
+        return $timeComponents;
     }
 }

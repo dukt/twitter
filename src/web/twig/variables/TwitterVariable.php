@@ -42,6 +42,7 @@ class TwitterVariable
             return Plugin::getInstance()->getApi()->get($uri, $query, $headers, $options, $enableCache, $cacheExpire);
         } catch (Exception $e) {
             Craft::error('Error requesting Twitter’s API: '.$e->getTraceAsString(), __METHOD__);
+            return null;
         }
     }
 
@@ -60,6 +61,7 @@ class TwitterVariable
             return Plugin::getInstance()->getApi()->getTweet($urlOrId, $query);
         } catch (Exception $e) {
             Craft::error('Couldn’t get tweet by URL: '.$e->getTraceAsString(), __METHOD__);
+            return null;
         }
     }
 
@@ -78,6 +80,7 @@ class TwitterVariable
             return Plugin::getInstance()->getApi()->getUserById($remoteUserId, $query);
         } catch (Exception $e) {
             Craft::error('Couldn’t get user by ID: '.$e->getTraceAsString(), __METHOD__);
+            return null;
         }
     }
 
@@ -96,6 +99,7 @@ class TwitterVariable
             return TwitterHelper::getUserProfileImageResourceUrl($remoteUserId, $size);
         } catch (Exception $e) {
             Craft::error('Couldn’t get user profile image resource URL: '.$e->getTraceAsString(), __METHOD__);
+            return null;
         }
     }
 }

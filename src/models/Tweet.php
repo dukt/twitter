@@ -76,15 +76,17 @@ class Tweet extends Model
      */
     public function getUrl()
     {
-        if ($this->remoteId && $this->userScreenName) {
-            return 'https://twitter.com/'.$this->userScreenName.'/status/'.$this->remoteId;
+        if (!$this->remoteId || !$this->userScreenName) {
+            return null;
         }
+
+        return 'https://twitter.com/'.$this->userScreenName.'/status/'.$this->remoteId;
     }
 
     /**
      * Returns the tweet's author user profile image resource url.
      *
-     * @param null $size
+     * @param int $size
      *
      * @return null|string
      * @throws \GuzzleHttp\Exception\GuzzleException

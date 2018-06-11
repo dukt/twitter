@@ -60,18 +60,20 @@ class Oauth extends Component
     {
         if ($this->token) {
             return $this->token;
-        } else {
-            $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
-            $settings = $plugin->getSettings();
-
-            if ($settings->token && $settings->tokenSecret) {
-                $token = new TokenCredentials();
-                $token->setIdentifier($settings->token);
-                $token->setSecret($settings->tokenSecret);
-
-                return $token;
-            }
         }
+
+        $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
+        $settings = $plugin->getSettings();
+
+        if (!$settings->token || !$settings->tokenSecret) {
+            return null;
+        }
+
+        $token = new TokenCredentials();
+        $token->setIdentifier($settings->token);
+        $token->setSecret($settings->tokenSecret);
+
+        return $token;
     }
 
     /**

@@ -54,7 +54,7 @@ class Api extends Component
 
         // Enable Cache
 
-        if (is_null($enableCache)) {
+        if (null === $enableCache) {
             $enableCache = Plugin::getInstance()->getSettings()->enableCache;
         }
 
@@ -110,6 +110,8 @@ class Api extends Component
         if ($tweetId) {
             return $this->getTweetById($tweetId, $query);
         }
+
+        return null;
     }
 
     /**
@@ -169,36 +171,38 @@ class Api extends Component
      */
     public function saveOriginalUserProfileImage($userId, $remoteImageUrl)
     {
-        if ($userId && $remoteImageUrl) {
-            $originalFolderPath = Craft::$app->path->getRuntimePath().'/twitter/userimages/'.$userId.'/original/';
+        if (!$userId || !$remoteImageUrl) {
+            return null;
+        }
 
-            if (!is_dir($originalFolderPath)) {
-                FileHelper::createDirectory($originalFolderPath);
-            }
+        $originalFolderPath = Craft::$app->path->getRuntimePath().'/twitter/userimages/'.$userId.'/original/';
 
-            $files = FileHelper::findFiles($originalFolderPath);
+        if (!is_dir($originalFolderPath)) {
+            FileHelper::createDirectory($originalFolderPath);
+        }
 
-            if (count($files) > 0) {
-                $imagePath = $files[0];
+        $files = FileHelper::findFiles($originalFolderPath);
 
-                return $imagePath;
-            }
-
-            $remoteImageUrl = str_replace('_normal', '', $remoteImageUrl);
-            $fileName = pathinfo($remoteImageUrl, PATHINFO_BASENAME);
-            $imagePath = $originalFolderPath.$fileName;
-
-            $client = new Client();
-            $response = $client->request('GET', $remoteImageUrl, [
-                'save_to' => $imagePath
-            ]);
-
-            if (!$response->getStatusCode() != 200) {
-                return null;
-            }
+        if (count($files) > 0) {
+            $imagePath = $files[0];
 
             return $imagePath;
         }
+
+        $remoteImageUrl = str_replace('_normal', '', $remoteImageUrl);
+        $fileName = pathinfo($remoteImageUrl, PATHINFO_BASENAME);
+        $imagePath = $originalFolderPath.$fileName;
+
+        $client = new Client();
+        $response = $client->request('GET', $remoteImageUrl, [
+            'save_to' => $imagePath
+        ]);
+
+        if (!$response->getStatusCode() != 200) {
+            return null;
+        }
+
+        return $imagePath;
     }
 
     // Private Methods

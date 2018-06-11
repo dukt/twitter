@@ -38,12 +38,14 @@ class Publish extends Component
 
         $response = $this->oEmbed($url);
 
-        if ($response) {
-            $html = $response['html'];
-            $html = str_replace('<a class="twitter-timeline"', '<a class="twitter-grid"'.$dataAttributes, $html);
-
-            return $html;
+        if (!$response) {
+            return null;
         }
+
+        $html = $response['html'];
+        $html = str_replace('<a class="twitter-timeline"', '<a class="twitter-grid"'.$dataAttributes, $html);
+
+        return $html;
     }
 
     /**
@@ -62,12 +64,14 @@ class Publish extends Component
 
         $response = $this->oEmbed($url);
 
-        if ($response) {
-            $html = $response['html'];
-            $html = str_replace('<a class="twitter-moment"', '<a class="twitter-moment"'.$dataAttributes, $html);
-
-            return $html;
+        if (!$response) {
+            return null;
         }
+
+        $html = $response['html'];
+        $html = str_replace('<a class="twitter-moment"', '<a class="twitter-moment"'.$dataAttributes, $html);
+
+        return $html;
     }
 
     /**
@@ -86,12 +90,14 @@ class Publish extends Component
 
         $response = $this->oEmbed($url);
 
-        if ($response) {
-            $html = $response['html'];
-            $html = str_replace('<a class="twitter-timeline"', '<a class="twitter-timeline"'.$dataAttributes, $html);
-
-            return $html;
+        if (!$response) {
+            return null;
         }
+
+        $html = $response['html'];
+        $html = str_replace('<a class="twitter-timeline"', '<a class="twitter-timeline"'.$dataAttributes, $html);
+
+        return $html;
     }
 
     /**
@@ -110,12 +116,14 @@ class Publish extends Component
 
         $response = $this->oEmbed($url);
 
-        if ($response) {
-            $html = $response['html'];
-            $html = str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"'.$dataAttributes.'>', $html);
-
-            return $html;
+        if (!$response) {
+            return null;
         }
+
+        $html = $response['html'];
+        $html = str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"'.$dataAttributes.'>', $html);
+
+        return $html;
     }
 
     /**
@@ -134,12 +142,14 @@ class Publish extends Component
 
         $response = $this->oEmbed($url, ['widget_type' => 'video']);
 
-        if ($response) {
-            $html = $response['html'];
-            $html = str_replace('<blockquote class="twitter-video">', '<blockquote class="twitter-video"'.$dataAttributes.'>', $html);
-
-            return $html;
+        if (!$response) {
+            return null;
         }
+
+        $html = $response['html'];
+        $html = str_replace('<blockquote class="twitter-video">', '<blockquote class="twitter-video"'.$dataAttributes.'>', $html);
+
+        return $html;
     }
 
     /**
@@ -154,9 +164,7 @@ class Publish extends Component
     {
         $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
-        $html = '<a class="twitter-follow-button" href="https://twitter.com/'.$username.'"'.$dataAttributes.'>Follow @'.$username.'</a>';
-
-        return $html;
+        return '<a class="twitter-follow-button" href="https://twitter.com/'.$username.'"'.$dataAttributes.'>Follow @'.$username.'</a>';
     }
 
     /**
@@ -175,9 +183,7 @@ class Publish extends Component
 
         $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
-        $html = '<a class="twitter-dm-button" href="https://twitter.com/messages/compose?recipient_id='.$recipientId.'&text='.rawurlencode($text).'"'.$dataAttributes.'>Message @'.$screenName.'</a>';
-
-        return $html;
+        return '<a class="twitter-dm-button" href="https://twitter.com/messages/compose?recipient_id='.$recipientId.'&text='.rawurlencode($text).'"'.$dataAttributes.'>Message @'.$screenName.'</a>';
     }
 
     /**
@@ -191,9 +197,7 @@ class Publish extends Component
     {
         $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
-        $html = '<a class="twitter-share-button" href="https://twitter.com/share"'.$dataAttributes.'>Tweet</a>';
-
-        return $html;
+        return '<a class="twitter-share-button" href="https://twitter.com/share"'.$dataAttributes.'>Tweet</a>';
     }
 
     /**

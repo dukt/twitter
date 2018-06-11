@@ -41,7 +41,7 @@ class AutoLink extends \Twitter\Text\Autolink
      */
     public function autoLinkEntities($tweet = null, $entities = null)
     {
-        if (is_null($tweet)) {
+        if (null === $tweet) {
             $tweet = $this->tweet;
         }
 
