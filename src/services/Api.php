@@ -94,15 +94,14 @@ class Api extends Component
     /**
      * Returns a tweet by its URL or ID.
      *
-     * @param       $urlOrId
-     *
-     * @param array $query
+     * @param string|int $urlOrId
+     * @param array|null $query
      *
      * @return Tweet|null
      * @throws GuzzleException
      * @throws \yii\base\Exception
      */
-    public function getTweet($urlOrId, $query = [])
+    public function getTweet($urlOrId, array $query = null)
     {
         $tweetId = TwitterHelper::extractTweetId($urlOrId);
 
@@ -259,16 +258,20 @@ class Api extends Component
     /**
      * Returns a tweet by its ID.
      *
-     * @param       $tweetId
-     * @param array $query
+     * @param            $tweetId
+     * @param array|null $query
      *
      * @return Tweet|null
      * @throws GuzzleException
      * @throws \yii\base\Exception
      */
-    private function getTweetById($tweetId, $query = [])
+    private function getTweetById($tweetId, array $query = null)
     {
         $tweetId = (int)$tweetId;
+
+        if(!$query) {
+            $query = [];
+        }
 
         $query = array_merge($query, [
             'id' => $tweetId,

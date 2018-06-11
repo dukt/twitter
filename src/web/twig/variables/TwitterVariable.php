@@ -11,9 +11,9 @@ use Craft;
 use craft\helpers\Json;
 use dukt\twitter\Plugin;
 use dukt\twitter\helpers\TwitterHelper;
+use dukt\twitter\models\Tweet;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
-
 /**
  * Twitter Variable
  *
@@ -57,13 +57,13 @@ class TwitterVariable
     /**
      * Returns a tweet by its URL. Add query parameters to the API request with `query`.
      *
-     * @param int   $urlOrId
-     * @param array $query
+     * @param string|int $urlOrId
+     * @param array|null $query
      *
-     * @return array|null
+     * @return Tweet|null
      * @throws \yii\base\Exception
      */
-    public function getTweet($urlOrId, $query = [])
+    public function getTweet($urlOrId, array $query = null)
     {
         try {
             return Plugin::getInstance()->getApi()->getTweet($urlOrId, $query);
