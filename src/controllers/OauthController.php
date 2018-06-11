@@ -62,7 +62,7 @@ class OauthController extends Controller
             $temporaryCredentials = Craft::$app->getSession()->get('oauth.temporaryCredentials');
 
             // Obtain token credentials from the server.
-            $tokenCredentials = $provider->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier."x");
+            $tokenCredentials = $provider->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier);
 
             // Save token
             Plugin::getInstance()->getOauth()->saveToken($tokenCredentials);
