@@ -10,6 +10,7 @@ namespace dukt\twitter\services;
 use dukt\twitter\Plugin;
 use GuzzleHttp\Client;
 use yii\base\Component;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Publish Service
@@ -29,7 +30,7 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function grid($url, $options = [])
     {
@@ -54,7 +55,7 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function moment($url, $options = [])
     {
@@ -79,7 +80,7 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function timeline($url, $options = [])
     {
@@ -104,7 +105,7 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function tweet($url, $options = [])
     {
@@ -129,7 +130,7 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function video($url, $options = [])
     {
@@ -246,7 +247,7 @@ class Publish extends Component
      * @param array $query
      *
      * @return array|bool|float|int|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     private function oEmbed($url, $query = [])
     {

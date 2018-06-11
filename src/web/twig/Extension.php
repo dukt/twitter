@@ -7,13 +7,13 @@
 
 namespace dukt\twitter\web\twig;
 
-use Craft;
 use craft\helpers\Template;
 use dukt\twitter\helpers\TwitterHelper;
 use dukt\twitter\Plugin;
 use Twig_Extension;
 use Twig_SimpleFunction;
 use Twig_SimpleFilter;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Twitter Twig Extension
@@ -73,7 +73,7 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function twitterGrid($url, $options = [])
     {
@@ -89,7 +89,7 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function twitterMoment($url, $options = [])
     {
@@ -105,7 +105,7 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function twitterTimeline($url, $options = [])
     {
@@ -121,7 +121,7 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function twitterTweet($url, $options = [])
     {
@@ -137,7 +137,7 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function twitterVideo($url, $options = [])
     {

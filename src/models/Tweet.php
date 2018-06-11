@@ -8,7 +8,9 @@
 namespace dukt\twitter\models;
 
 use craft\base\Model;
+use craft\errors\ImageException;
 use dukt\twitter\helpers\TwitterHelper;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Tweet model class.
@@ -89,8 +91,8 @@ class Tweet extends Model
      * @param int $size
      *
      * @return null|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \craft\errors\ImageException
+     * @throws GuzzleException
+     * @throws ImageException
      * @throws \yii\base\Exception
      */
     public function getUserProfileImageUrl($size = 48)

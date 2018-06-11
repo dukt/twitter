@@ -12,6 +12,7 @@ use craft\helpers\FileHelper;
 use DateInterval;
 use DateTime;
 use dukt\twitter\Plugin;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Twitter Helper
@@ -31,7 +32,7 @@ class TwitterHelper
      * @param int $size
      *
      * @return string|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      * @throws \craft\errors\ImageException
      * @throws \yii\base\Exception
      */

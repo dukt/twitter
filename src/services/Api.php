@@ -18,6 +18,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
 use DateTime;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Api Service
@@ -41,7 +42,7 @@ class Api extends Component
      * @param null|int   $cacheExpire
      *
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function get($uri, array $query = null, array $headers = null, array $options = [], $enableCache = null, $cacheExpire = null)
     {
@@ -98,7 +99,7 @@ class Api extends Component
      * @param array $query
      *
      * @return Tweet|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      * @throws \yii\base\Exception
      */
     public function getTweet($urlOrId, $query = [])
@@ -119,7 +120,7 @@ class Api extends Component
      * @param array      $query
      *
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getUserById($userId, $query = [])
     {
@@ -163,7 +164,7 @@ class Api extends Component
      * @param $remoteImageUrl
      *
      * @return string|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      * @throws \yii\base\Exception
      */
     public function saveOriginalUserProfileImage($userId, $remoteImageUrl)
@@ -262,7 +263,7 @@ class Api extends Component
      * @param array $query
      *
      * @return Tweet|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      * @throws \yii\base\Exception
      */
     private function getTweetById($tweetId, $query = [])

@@ -12,7 +12,7 @@ use craft\helpers\Json;
 use craft\web\Controller;
 use dukt\twitter\errors\InvalidTweetException;
 use dukt\twitter\Plugin;
-use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\GuzzleException;
 use yii\web\Response;
 
 /**
@@ -30,7 +30,6 @@ class FieldsController extends Controller
      * Tweet field preview.
      *
      * @return Response
-     * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Twig_Error_Loader
      * @throws \yii\base\Exception
      */
@@ -52,7 +51,7 @@ class FieldsController extends Controller
             return $this->asJson([
                 'html' => $html,
             ]);
-        } catch (ClientException $e) {
+        } catch (GuzzleException $e) {
             $data = Json::decodeIfJson($e->getResponse()->getBody()->getContents());
 
             if (isset($data['errors'][0]['message'])) {
