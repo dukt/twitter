@@ -7,6 +7,7 @@ Changelog
 - The Tweet field now returns a tweet URL instead of a Tweet model.
 - The Tweet model’s attributes and methods have changed.
 - Merged `getTweetById()` and `getTweetByUrl()` methods into a single `getTweet()`.
+- `craft.twitter.get()` now returns the data encapulsated into a response array in case of success and failure.
 - Renamed `dukt\twitter\controllers\ApiController` to `dukt\twitter\controllers\FieldsController`.
 - Removed `dukt\twitter\helpers\TwitterHelper::formatTime()`.
 - Removed `dukt\twitter\web\twig\variables\TwitterVariable::getUserImageUrl()`.
