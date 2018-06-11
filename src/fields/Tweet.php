@@ -49,16 +49,7 @@ class Tweet extends Field
             $tweetId = TwitterHelper::extractTweetId($value);
 
             if ($tweetId) {
-                $uri = 'statuses/show';
-                $headers = null;
-                $options = [
-                    'query' => [
-                        'id' => $tweetId,
-                        'tweet_mode' => 'extended'
-                    ]
-                ];
-
-                $cachedTweet = Plugin::getInstance()->getCache()->get([$uri, $headers, $options]);
+                $cachedTweet = $this->getCachedTweet($tweetId);
 
                 if ($cachedTweet) {
                     $tweet = new TweetModel();
@@ -84,5 +75,27 @@ class Tweet extends Field
             '<div class="spinner hidden"></div>'.
             '<div class="preview'.($previewHtml ? '' : ' hidden').'">'.$previewHtml.'</div>'.
             '</div>';
+    }
+
+    // Private Methods
+    // =========================================================================
+
+    /**
+     * @param string|int $tweetId
+     *
+     * @return mixed
+     */
+    private function getCachedTweet($tweetId)
+    {
+        $uri = 'statuses/show';
+        $headers = null;
+        $options = [
+            'query' => [
+                'id' => $tweetId,
+                'tweet_mode' => 'extended'
+            ]
+        ];
+
+        return Plugin::getInstance()->getCache()->get([$uri, $headers, $options]);
     }
 }
