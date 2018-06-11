@@ -33,27 +33,27 @@ class Settings extends Model
     public $enableCache = true;
 
     /**
-     * @var string|null OAuth token.
+     * @var string|null The OAuth token.
      */
     public $token;
 
     /**
-     * @var string|null OAuth token secret.
+     * @var string|null The OAuth token secret.
      */
     public $tokenSecret;
 
     /**
-     * @var string|null OAuth consumer key.
+     * @var string|null The OAuth consumer key.
      */
     public $oauthConsumerKey;
 
     /**
-     * @var string|null OAuth consumer secret.
+     * @var string|null The OAuth consumer secret.
      */
     public $oauthConsumerSecret;
 
     /**
-     * @var string|null Search widget extra query.
+     * @var string|null The search widget’s extra query.
      */
     public $searchWidgetExtraQuery = '-filter:retweets';
 
