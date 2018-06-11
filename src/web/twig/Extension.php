@@ -74,7 +74,6 @@ class Extension extends Twig_Extension
      *
      * @return \Twig_Markup
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
      */
     public function twitterGrid($url, $options = [])
     {
@@ -91,7 +90,6 @@ class Extension extends Twig_Extension
      *
      * @return \Twig_Markup
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
      */
     public function twitterMoment($url, $options = [])
     {
@@ -108,7 +106,6 @@ class Extension extends Twig_Extension
      *
      * @return \Twig_Markup
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
      */
     public function twitterTimeline($url, $options = [])
     {
@@ -125,7 +122,6 @@ class Extension extends Twig_Extension
      *
      * @return \Twig_Markup
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
      */
     public function twitterTweet($url, $options = [])
     {
@@ -142,7 +138,6 @@ class Extension extends Twig_Extension
      *
      * @return \Twig_Markup
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
      */
     public function twitterVideo($url, $options = [])
     {
@@ -158,7 +153,6 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
-     * @throws \yii\base\InvalidConfigException
      */
     public function twitterFollowButton($username, $options = [])
     {
@@ -176,7 +170,6 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
-     * @throws \yii\base\InvalidConfigException
      */
     public function twitterMessageButton($recipientId, $screenName, $text = null, $options = [])
     {
@@ -191,7 +184,6 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
-     * @throws \yii\base\InvalidConfigException
      */
     public function twitterTweetButton($options = [])
     {
@@ -207,7 +199,6 @@ class Extension extends Twig_Extension
      * @param array $options
      *
      * @return \Twig_Markup
-     * @throws \yii\base\InvalidConfigException
      */
     public function autoLinkTweet($text, $options = [])
     {

@@ -30,7 +30,6 @@ class Publish extends Component
      *
      * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
      */
     public function grid($url, $options = [])
     {
@@ -56,7 +55,6 @@ class Publish extends Component
      *
      * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
      */
     public function moment($url, $options = [])
     {
@@ -82,7 +80,6 @@ class Publish extends Component
      *
      * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
      */
     public function timeline($url, $options = [])
     {
@@ -108,7 +105,6 @@ class Publish extends Component
      *
      * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
      */
     public function tweet($url, $options = [])
     {
@@ -134,7 +130,6 @@ class Publish extends Component
      *
      * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
      */
     public function video($url, $options = [])
     {
@@ -252,7 +247,6 @@ class Publish extends Component
      *
      * @return array|bool|float|int|string
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
      */
     private function oEmbed($url, $query = [])
     {

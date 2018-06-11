@@ -33,7 +33,6 @@ class FieldsController extends Controller
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Twig_Error_Loader
      * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
      */
     public function actionTweetFieldPreview(): Response
     {
