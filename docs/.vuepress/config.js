@@ -22,6 +22,7 @@ module.exports = {
                         'installation',
                         'updating',
                         'connect-twitter',
+                        'configuration',
                     ]
                 },
                 {
