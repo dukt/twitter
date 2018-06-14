@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## Unreleased
+## 2.1.0 - 2018-06-14
 
 ### Changed
 - The Tweet field now returns a tweet URL instead of a Tweet model.
