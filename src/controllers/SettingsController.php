@@ -1,16 +1,17 @@
 <?php
 /**
- * @link      https://dukt.net/craft/twitter/
+ * @link      https://dukt.net/twitter/
  * @copyright Copyright (c) 2018, Dukt
- * @license   https://dukt.net/craft/twitter/docs/license
+ * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
 namespace dukt\twitter\controllers;
 
 use Craft;
 use craft\web\Controller;
-use dukt\twitter\Plugin as Twitter;
+use dukt\twitter\Plugin;
 use yii\web\Response;
+use Exception;
 
 /**
  * Settings controller
@@ -28,7 +29,6 @@ class SettingsController extends Controller
      *
      * @return Response
      * @throws \craft\errors\SiteNotFoundException
-     * @throws \yii\base\InvalidConfigException
      */
     public function actionIndex(): Response
     {
@@ -36,25 +36,26 @@ class SettingsController extends Controller
         $resourceOwner = null;
 
         try {
-            $token = Twitter::$plugin->getOauth()->getToken();
+            $token = Plugin::getInstance()->getOauth()->getToken();
 
             if ($token) {
                 $tokenExists = true;
 
                 // Retrieve resource owner’s details
-                $provider = Twitter::$plugin->getOauth()->getOauthProvider();
+                $provider = Plugin::getInstance()->getOauth()->getOauthProvider();
                 $resourceOwner = $provider->getUserDetails($token);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
+            Craft::error('Couldn’t retrieve twitter account: '.$e->getTraceAsString(), __METHOD__);
             $error = $e->getMessage();
         }
 
         return $this->renderTemplate('twitter/settings', [
-            'error' => (isset($error) ? $error : null),
+            'error' => $error ?? null,
             'tokenExists' => $tokenExists,
             'resourceOwner' => $resourceOwner,
-            'javascriptOrigin' => Twitter::$plugin->getOauth()->getJavascriptOrigin(),
-            'redirectUri' => Twitter::$plugin->getOauth()->getRedirectUri(),
+            'javascriptOrigin' => Plugin::getInstance()->getOauth()->getJavascriptOrigin(),
+            'redirectUri' => Plugin::getInstance()->getOauth()->getRedirectUri(),
         ]);
     }
 
@@ -63,15 +64,14 @@ class SettingsController extends Controller
      *
      * @return Response
      * @throws \craft\errors\SiteNotFoundException
-     * @throws \yii\base\InvalidConfigException
      */
     public function actionOauth(): Response
     {
         $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
 
         return $this->renderTemplate('twitter/settings/oauth', [
-            'javascriptOrigin' => Twitter::$plugin->getOauth()->getJavascriptOrigin(),
-            'redirectUri' => Twitter::$plugin->getOauth()->getRedirectUri(),
+            'javascriptOrigin' => Plugin::getInstance()->getOauth()->getJavascriptOrigin(),
+            'redirectUri' => Plugin::getInstance()->getOauth()->getRedirectUri(),
             'settings' => $plugin->getSettings(),
         ]);
     }

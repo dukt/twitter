@@ -1,24 +1,6 @@
 {% if tweets %}
     {% for tweet in tweets %}
-
-        <div class="tweet" data-tweet-url="{{ tweet.url }}">
-            <div class="tweet-image">
-                <a href="{{ tweet.userProfileUrl }}"><img src="{{ tweet.userProfileRemoteImageSecureUrl }}"></a>
-            </div>
-            <div class="tweet-user">
-                <a class="tweet-user-name" href="{{ tweet.userProfileUrl }}"><strong>{{ tweet.userName }}</strong></a>
-                <a class="tweet-user-screenname light" target="_blank" href="{{ tweet.userProfileUrl }}">@{{ tweet.userScreenName }}</a>
-            </div>
-            <div class="tweet-text">
-                {{ tweet.text|autoLinkTweet }}
-
-                <ul class="tweet-actions light">
-                    <li class="tweet-date">{{ tweet.createdAt|twitterTimeAgo }}</li>
-                    <li><a href="{{ tweet.url }}">Permalink</a></li>
-                </ul>
-            </div>
-        </div>
-
+        {% include 'twitter/_components/tweet' with { tweet: tweet } %}
     {% endfor %}
 {% else %}
     <p class="light">{{ "No tweets"|t('twitter') }}</p>

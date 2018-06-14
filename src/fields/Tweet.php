@@ -1,8 +1,8 @@
 <?php
 /**
- * @link      https://dukt.net/craft/twitter/
+ * @link      https://dukt.net/twitter/
  * @copyright Copyright (c) 2018, Dukt
- * @license   https://dukt.net/craft/twitter/docs/license
+ * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
 namespace dukt\twitter\fields;
@@ -10,9 +10,9 @@ namespace dukt\twitter\fields;
 use Craft;
 use craft\base\ElementInterface;
 use craft\base\Field;
-use craft\helpers\Db;
-use craft\helpers\StringHelper;
 use dukt\twitter\helpers\TwitterHelper;
+use dukt\twitter\models\Tweet as TweetModel;
+use dukt\twitter\Plugin;
 use dukt\twitter\web\assets\tweetfield\TweetFieldAsset;
 
 /**
@@ -37,36 +37,28 @@ class Tweet extends Field
     /**
      * @inheritdoc
      */
-    public function getInputHtml($value, \craft\base\ElementInterface $element = null): string
+    public function getInputHtml($value, ElementInterface $element = null): string
     {
         $name = $this->handle;
-
-        if ($value instanceof \dukt\twitter\models\Tweet) {
-            $tweet = $value;
-            $value = $tweet->getUrl();
-        }
 
         $id = Craft::$app->getView()->formatInputId($name);
 
         $previewHtml = '';
 
-        if (isset($tweet) && $tweet->remoteId) {
-            try {
-                $previewHtml .=
-                    '<div class="tweet">'.
-                    '<div class="tweet-image" style="background-image: url('.$tweet->getUserProfileImageUrl(100).');"></div> '.
-                    '<div class="tweet-user">'.
-                    '<span class="tweet-user-name">'.$tweet->getUserName().'</span> '.
-                    '<a class="tweet-user-screenname light" href="'.$tweet->getUrl().'" target="_blank">@'.$tweet->getUserScreenName().'</a>'.
-                    '</div>'.
-                    '<div class="tweet-text">'.$tweet->getText().'</div>'.
-                    '<ul class="tweet-actions light">'.
-                    '<li class="tweet-date">'.TwitterHelper::timeAgo($tweet->getCreatedAt()).'</li>'.
-                    '<li><a href="'.$tweet->getUrl().'">Permalink</a></li>'.
-                    '</ul>'.
-                    '</div>';
-            } catch (\Exception $e) {
-                $previewHtml .= '<p class="error">'.$e->getMessage().'</p>';
+        if ($value) {
+            $tweetId = TwitterHelper::extractTweetId($value);
+
+            if ($tweetId) {
+                $cachedTweet = $this->getCachedTweet($tweetId);
+
+                if ($cachedTweet) {
+                    $tweet = new TweetModel();
+                    Plugin::getInstance()->getApi()->populateTweetFromData($tweet, $cachedTweet);
+
+                    $previewHtml = Craft::$app->getView()->renderTemplate('twitter/_components/tweet', [
+                        'tweet' => $tweet
+                    ]);
+                }
             }
         }
 
@@ -81,75 +73,29 @@ class Tweet extends Field
                 'placeholder' => Craft::t('twitter', 'Enter a tweet URL or ID'),
             ]).
             '<div class="spinner hidden"></div>'.
-            $previewHtml.
+            '<div class="preview'.($previewHtml ? '' : ' hidden').'">'.$previewHtml.'</div>'.
             '</div>';
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function serializeValue($value, ElementInterface $element = null)
-    {
-        if ($value instanceof \dukt\twitter\models\Tweet && $value->getUrl()) {
-            return Db::prepareValueForDb($value->getUrl());
-        }
-
-        parent::serializeValue($value, $element);
-    }
+    // Private Methods
+    // =========================================================================
 
     /**
-     * @inheritdoc
+     * @param string|int $tweetId
+     *
+     * @return mixed
      */
-    public function normalizeValue($tweetUrlOrId, craft\base\ElementInterface $element = null)
+    private function getCachedTweet($tweetId)
     {
-        if (!$tweetUrlOrId instanceof \dukt\twitter\models\Tweet) {
-            $tweetId = TwitterHelper::extractTweetId($tweetUrlOrId);
+        $uri = 'statuses/show';
+        $headers = null;
+        $options = [
+            'query' => [
+                'id' => $tweetId,
+                'tweet_mode' => 'extended'
+            ]
+        ];
 
-            if ($tweetId) {
-                $tweet = new \dukt\twitter\models\Tweet;
-                $tweet->remoteId = $tweetId;
-
-                return $tweet;
-            }
-        }
-
-        return $tweetUrlOrId;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getSearchKeywords($value, \craft\base\ElementInterface $element): string
-    {
-        if ($value instanceof \dukt\twitter\models\Tweet) {
-            $tweet = $value;
-            $parts = [];
-
-            if (!empty($tweet->getRemoteId())) {
-                $parts[] = $tweet->getRemoteId();
-            }
-
-            if (!empty($tweet->getText())) {
-                $parts[] = $tweet->getText();
-            }
-
-            if (!empty($tweet->getUserId())) {
-                $parts[] = $tweet->getUserId();
-            }
-
-            if (!empty($tweet->getUserName())) {
-                $parts[] = $tweet->getUserName();
-            }
-
-            if (!empty($tweet->getUserScreenName())) {
-                $parts[] = $tweet->getUserScreenName();
-            }
-
-            $keywords = StringHelper::toString($parts, ' ');
-
-            return StringHelper::encodeMb4($keywords);
-        }
-
-        return '';
+        return Plugin::getInstance()->getCache()->get([$uri, $headers, $options]);
     }
 }

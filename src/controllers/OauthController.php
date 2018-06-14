@@ -1,16 +1,16 @@
 <?php
 /**
- * @link      https://dukt.net/craft/twitter/
+ * @link      https://dukt.net/twitter/
  * @copyright Copyright (c) 2018, Dukt
- * @license   https://dukt.net/craft/twitter/docs/license
+ * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
 namespace dukt\twitter\controllers;
 
 use Craft;
 use craft\web\Controller;
-use dukt\twitter\Plugin as Twitter;
-use Exception;
+use dukt\twitter\Plugin;
+use League\OAuth1\Client\Credentials\CredentialsException;
 use yii\web\Response;
 
 /**
@@ -28,12 +28,11 @@ class OauthController extends Controller
      * Connect.
      *
      * @return Response
-     * @throws \yii\base\InvalidConfigException
      */
     public function actionConnect(): Response
     {
         // Oauth provider
-        $provider = Twitter::$plugin->getOauth()->getOauthProvider();
+        $provider = Plugin::getInstance()->getOauth()->getOauthProvider();
 
         // Obtain temporary credentials
         $temporaryCredentials = $provider->getTemporaryCredentials();
@@ -51,12 +50,10 @@ class OauthController extends Controller
      * Callback.
      *
      * @return Response
-     * @throws \yii\base\InvalidConfigException
      */
     public function actionCallback(): Response
     {
-        $provider = Twitter::$plugin->getOauth()->getOauthProvider();
-
+        $provider = Plugin::getInstance()->getOauth()->getOauthProvider();
         $oauthToken = Craft::$app->getRequest()->getParam('oauth_token');
         $oauthVerifier = Craft::$app->getRequest()->getParam('oauth_verifier');
 
@@ -68,14 +65,13 @@ class OauthController extends Controller
             $tokenCredentials = $provider->getTokenCredentials($temporaryCredentials, $oauthToken, $oauthVerifier);
 
             // Save token
-            Twitter::$plugin->getOauth()->saveToken($tokenCredentials);
-
-            // Reset session variables
+            Plugin::getInstance()->getOauth()->saveToken($tokenCredentials);
 
             // Redirect
-            Craft::$app->getSession()->setNotice(Craft::t('twitter', "Connected to Twitter."));
-        } catch (Exception $e) {
+            Craft::$app->getSession()->setNotice(Craft::t('twitter', 'Connected to Twitter.'));
+        } catch (CredentialsException $e) {
             // Failed to get the token credentials or user details.
+            Craft::error('Couldn’t connect to Twitter: '.$e->getTraceAsString(), __METHOD__);
             Craft::$app->getSession()->setError($e->getMessage());
         }
 
@@ -86,14 +82,13 @@ class OauthController extends Controller
      * Disconnect
      *
      * @return Response
-     * @throws \yii\base\InvalidConfigException
      */
     public function actionDisconnect(): Response
     {
-        if (Twitter::$plugin->getOauth()->deleteToken()) {
-            Craft::$app->getSession()->setNotice(Craft::t('twitter', "Disconnected from Twitter."));
+        if (Plugin::getInstance()->getOauth()->deleteToken()) {
+            Craft::$app->getSession()->setNotice(Craft::t('twitter', 'Disconnected from Twitter.'));
         } else {
-            Craft::$app->getSession()->setError(Craft::t('twitter', "Couldn’t disconnect from Twitter"));
+            Craft::$app->getSession()->setError(Craft::t('twitter', 'Couldn’t disconnect from Twitter'));
         }
 
         $referer = Craft::$app->getRequest()->referrer;

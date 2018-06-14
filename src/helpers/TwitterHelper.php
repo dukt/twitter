@@ -1,8 +1,8 @@
 <?php
 /**
- * @link      https://dukt.net/craft/twitter/
+ * @link      https://dukt.net/twitter/
  * @copyright Copyright (c) 2018, Dukt
- * @license   https://dukt.net/craft/twitter/docs/license
+ * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
 namespace dukt\twitter\helpers;
@@ -11,8 +11,8 @@ use Craft;
 use craft\helpers\FileHelper;
 use DateInterval;
 use DateTime;
-use craft\helpers\UrlHelper;
 use dukt\twitter\Plugin;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Twitter Helper
@@ -26,45 +26,27 @@ class TwitterHelper
     // =========================================================================
 
     /**
-     * Extract the tweet ID from a tweet URL, or simply returns the ID
+     * Returns a user image from a Twitter user ID for given size. Default size is 48.
      *
-     * @param string|int $urlOrId
-     *
-     * @return int
-     */
-    public static function extractTweetId($urlOrId)
-    {
-        if (preg_match('/^\d+$/', $urlOrId)) {
-            // If the string is a number, return it right away
-            return (int)$urlOrId;
-        } else if (preg_match('/\/status(es)?\/(\d+)\/?$/', $urlOrId, $matches)) {
-            // Extract the tweet ID from the URL
-            return (int)$matches[2];
-        }
-    }
-
-    /**
-     * Returns a user image from a twitter user ID for given size. Default size is 48.
-     *
-     * @param int $twitterUserId
+     * @param int $remoteUserId
      * @param int $size
      *
      * @return string|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      * @throws \craft\errors\ImageException
      * @throws \yii\base\Exception
      */
-    public static function getUserProfileImageResourceUrl($twitterUserId, $size = 48)
+    public static function getUserProfileImageResourceUrl($remoteUserId, $size = 48)
     {
-        $baseDir = Craft::$app->getPath()->getRuntimePath().DIRECTORY_SEPARATOR.'twitter'.DIRECTORY_SEPARATOR.'userimages'.DIRECTORY_SEPARATOR.$twitterUserId;
+        $baseDir = Craft::$app->getPath()->getRuntimePath().DIRECTORY_SEPARATOR.'twitter'.DIRECTORY_SEPARATOR.'userimages'.DIRECTORY_SEPARATOR.$remoteUserId;
         $originalDir = $baseDir.DIRECTORY_SEPARATOR.'original';
         $dir = $baseDir.DIRECTORY_SEPARATOR.$size;
         $file = null;
 
-        if(is_dir($dir)) {
+        if (is_dir($dir)) {
             $files = FileHelper::findFiles($dir);
 
-            if(count($files) > 0) {
+            if (count($files) > 0) {
                 $file = $files[0];
             }
         }
@@ -73,15 +55,15 @@ class TwitterHelper
             // Retrieve original image
             $originalPath = null;
 
-            if(is_dir($originalDir)) {
+            if (is_dir($originalDir)) {
                 $originalFiles = FileHelper::findFiles($originalDir);
 
-                if(count($originalFiles) > 0) {
+                if (count($originalFiles) > 0) {
                     $originalPath = $originalFiles[0];
                 }
             }
-            if(!$originalPath) {
-                $user = Plugin::$plugin->getApi()->getUserById($twitterUserId);
+            if (!$originalPath) {
+                $user = Plugin::getInstance()->getApi()->getUserById($remoteUserId);
 
                 $url = str_replace('_normal', '', $user['profile_image_url_https']);
                 $name = pathinfo($url, PATHINFO_BASENAME);
@@ -106,7 +88,6 @@ class TwitterHelper
             Craft::$app->getImages()->loadImage($originalPath, false, $size)
                 ->scaleToFit($size, $size)
                 ->saveAs($path);
-
         } else {
             $name = pathinfo($file, PATHINFO_BASENAME);
         }
@@ -115,7 +96,29 @@ class TwitterHelper
     }
 
     /**
-     * Formats a duration to seconds
+     * Extract the tweet ID from a tweet URL, or simply returns the ID.
+     *
+     * @param $urlOrId
+     *
+     * @return int|null
+     */
+    public static function extractTweetId($urlOrId)
+    {
+        if (preg_match('/^\d+$/', $urlOrId)) {
+            // If the string is a number, return it right away
+            return (int)$urlOrId;
+        }
+
+        if (preg_match('/\/status(es)?\/(\d+)\/?$/', $urlOrId, $matches)) {
+            // Extract the tweet ID from the URL
+            return (int)$matches[2];
+        }
+
+        return null;
+    }
+
+    /**
+     * Formats a duration to seconds.
      *
      * @param string $duration
      *
@@ -132,19 +135,7 @@ class TwitterHelper
     }
 
     /**
-     * Format Time in HH:MM:SS from seconds
-     *
-     * @param int $seconds
-     *
-     * @return false|string
-     */
-    public static function formatTime($seconds)
-    {
-        return gmdate("H:i:s", $seconds);
-    }
-
-    /**
-     * Formats a date to a time ago string like “3 days ago“
+     * Formats a date to a time ago string like “3 days ago”.
      *
      * @param DateTime|string $date
      *
@@ -162,13 +153,13 @@ class TwitterHelper
 
         $durations = self::secondsToHumanTimeDuration($difference, true, false);
 
-        $duration = Craft::t('twitter', "{duration} ago", ['duration' => $durations[0]]);
+        $duration = Craft::t('twitter', '{duration} ago', ['duration' => $durations[0]]);
 
         return $duration;
     }
 
     /**
-     * Seconds to human duration
+     * Seconds to human duration.
      *
      * @param int  $seconds           The number of seconds
      * @param bool $showSeconds       Whether to output seconds or not
@@ -184,17 +175,17 @@ class TwitterHelper
         $secondsInMinute = 60;
 
         $weeks = floor($seconds / $secondsInWeek);
-        $seconds = $seconds % $secondsInWeek;
+        $seconds %= $secondsInWeek;
 
         $days = floor($seconds / $secondsInDay);
-        $seconds = $seconds % $secondsInDay;
+        $seconds %= $secondsInDay;
 
         $hours = floor($seconds / $secondsInHour);
-        $seconds = $seconds % $secondsInHour;
+        $seconds %= $secondsInHour;
 
         if ($showSeconds) {
             $minutes = floor($seconds / $secondsInMinute);
-            $seconds = $seconds % $secondsInMinute;
+            $seconds %= $secondsInMinute;
         } else {
             $minutes = round($seconds / $secondsInMinute);
             $seconds = 0;
@@ -224,8 +215,8 @@ class TwitterHelper
 
         if ($implodeComponents) {
             return implode(', ', $timeComponents);
-        } else {
-            return $timeComponents;
         }
+
+        return $timeComponents;
     }
 }

@@ -1,8 +1,8 @@
 <?php
 /**
- * @link      https://dukt.net/craft/twitter/
+ * @link      https://dukt.net/twitter/
  * @copyright Copyright (c) 2018, Dukt
- * @license   https://dukt.net/craft/twitter/docs/license
+ * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
 namespace dukt\twitter;
@@ -60,7 +60,6 @@ class Plugin extends \craft\base\Plugin
     public function init()
     {
         parent::init();
-        self::$plugin = $this;
 
 
         // Components
@@ -111,6 +110,32 @@ class Plugin extends \craft\base\Plugin
         // Twig extension
 
         Craft::$app->view->twig->addExtension(new Extension());
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getSettings()
+    {
+        $settings = parent::getSettings();
+        $configFile = Craft::$app->getConfig()->getConfigFromFile('twitter');
+
+        if($settings) {
+            $defaultSettingsModel = new Settings();
+
+            if(!isset($configFile['cacheDuration'])) {
+                $settings->cacheDuration = $defaultSettingsModel->cacheDuration;
+            }
+
+            if(!isset($configFile['enableCache'])) {
+                $settings->enableCache = $defaultSettingsModel->enableCache;
+            }
+            if(!isset($configFile['searchWidgetExtraQuery'])) {
+                $settings->searchWidgetExtraQuery = $defaultSettingsModel->searchWidgetExtraQuery;
+            }
+        }
+
+        return $settings;
     }
 
     // Protected Methods
