@@ -112,6 +112,32 @@ class Plugin extends \craft\base\Plugin
         Craft::$app->view->twig->addExtension(new Extension());
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function getSettings()
+    {
+        $settings = parent::getSettings();
+        $configFile = Craft::$app->getConfig()->getConfigFromFile('twitter');
+
+        if($settings) {
+            $defaultSettingsModel = new Settings();
+
+            if(!isset($configFile['cacheDuration'])) {
+                $settings->cacheDuration = $defaultSettingsModel->cacheDuration;
+            }
+
+            if(!isset($configFile['enableCache'])) {
+                $settings->enableCache = $defaultSettingsModel->enableCache;
+            }
+            if(!isset($configFile['searchWidgetExtraQuery'])) {
+                $settings->searchWidgetExtraQuery = $defaultSettingsModel->searchWidgetExtraQuery;
+            }
+        }
+
+        return $settings;
+    }
+
     // Protected Methods
     // =========================================================================
 
