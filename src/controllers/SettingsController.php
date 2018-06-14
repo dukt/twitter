@@ -11,7 +11,7 @@ use Craft;
 use craft\web\Controller;
 use dukt\twitter\Plugin;
 use yii\web\Response;
-use GuzzleHttp\Exception\GuzzleException;
+use Exception;
 
 /**
  * Settings controller
@@ -45,7 +45,7 @@ class SettingsController extends Controller
                 $provider = Plugin::getInstance()->getOauth()->getOauthProvider();
                 $resourceOwner = $provider->getUserDetails($token);
             }
-        } catch (GuzzleException $e) {
+        } catch (Exception $e) {
             Craft::error('Couldn’t retrieve twitter account: '.$e->getTraceAsString(), __METHOD__);
             $error = $e->getMessage();
         }
