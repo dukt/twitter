@@ -16,9 +16,7 @@
     <h2>{{ 'Account'|t('twitter') }}</h2>
 
     {% if tokenExists %}
-
         {% if not error %}
-
             {% if resourceOwner.urls.profile_image_url_https is defined %}
                 <img width="36" src="{{ resourceOwner.urls.profile_image_url_https|replace('_normal', '_bigger') }}" />
             {% endif %}
@@ -29,14 +27,15 @@
                 {% endif %}
 
                 {% if resourceOwner.name is defined %}
-                    <li><strong>{{ 'Name'|t('twitter') }}:</strong> {{ resourceOwner.name }}</li>
-                {% endif %}
+                    <li>
+                        <strong>{{ 'Name'|t('twitter') }}:</strong> {{ resourceOwner.name }}
 
-                {% if resourceOwner.nickname is defined %}
-                    <li><strong>{{ 'Nickname'|t('twitter') }}:</strong> {{ resourceOwner.nickname }}</li>
+                        {% if resourceOwner.nickname is defined %}
+                            (@{{ resourceOwner.nickname }})
+                        {% endif %}
+                    </li>
                 {% endif %}
             </ul>
-
         {% else %}
             <p class="error">{{ error }}</p>
         {% endif %}
