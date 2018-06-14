@@ -20,7 +20,7 @@ This example displays recent tweets by calling `statuses/user_timeline` API meth
     <pre>{{ tweets|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
 {% else %}
     <p>An error occured:</p>
-    <pre>{{ response|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+    <pre>{{ response.data|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
 {% endif %}
 ```
 
@@ -36,7 +36,7 @@ When requesting the API, it is recommended to cache responses in order to reduce
         <pre>{{ tweets|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
     {% else %}
         <p>An error occured:</p>
-        <pre>{{ response|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+        <pre>{{ response.data|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
     {% endif %}
 {% endcache %}
 ```
