@@ -1,8 +1,8 @@
 <?php
 /**
- * @link      https://dukt.net/craft/twitter/
+ * @link      https://dukt.net/twitter/
  * @copyright Copyright (c) 2018, Dukt
- * @license   https://dukt.net/craft/twitter/docs/license
+ * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
 namespace dukt\twitter\services;
@@ -54,32 +54,5 @@ class Twitter extends Component
         $html = $twitter->autoLink($text);
 
         return $html;
-    }
-
-    /**
-     * Embedded Tweet
-     *
-     * @param       $tweetId
-     * @param array $options
-     *
-     * @deprecated Deprecated in 1.1. Use craft()->publish->tweet() instead.
-     *
-     * @return string
-     */
-    public function embedTweet($tweetId, $options = [])
-    {
-        craft()->deprecator->log('craft()->twitter->embedTweet()', 'craft()->twitter->embedTweet() has been deprecated. Use craft()->publish->tweet() instead.');
-
-        $dataAttributes = craft()->publish->getOptionsAsDataAttributes($options);
-
-        $response = craft()->api->get('statuses/oembed', ['id' => $tweetId]);
-
-        if ($response) {
-            $html = $response['html'];
-
-            $html = str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"'.$dataAttributes.'>', $html);
-
-            return $html;
-        }
     }
 }

@@ -1,20 +1,24 @@
 <?php
 /**
- * @link      https://dukt.net/craft/twitter/
+ * @link      https://dukt.net/twitter/
  * @copyright Copyright (c) 2018, Dukt
- * @license   https://dukt.net/craft/twitter/docs/license
+ * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
 namespace dukt\twitter\services;
 
 use Craft;
 use craft\helpers\FileHelper;
-use dukt\twitter\Plugin as Twitter;
+use dukt\twitter\helpers\TwitterHelper;
+use dukt\twitter\models\Tweet;
+use dukt\twitter\Plugin;
 use League\OAuth1\Client\Credentials\TokenCredentials;
 use yii\base\Component;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
+use DateTime;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Api Service
@@ -38,8 +42,7 @@ class Api extends Component
      * @param null|int   $cacheExpire
      *
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
+     * @throws GuzzleException
      */
     public function get($uri, array $query = null, array $headers = null, array $options = [], $enableCache = null, $cacheExpire = null)
     {
@@ -51,15 +54,15 @@ class Api extends Component
 
         // Enable Cache
 
-        if (is_null($enableCache)) {
-            $enableCache = Twitter::$plugin->getSettings()->enableCache;
+        if (null === $enableCache) {
+            $enableCache = Plugin::getInstance()->getSettings()->enableCache;
         }
 
 
         // Try to get response from cache
 
         if ($enableCache) {
-            $response = Twitter::$plugin->getCache()->get([$uri, $headers, $options]);
+            $response = Plugin::getInstance()->getCache()->get([$uri, $headers, $options]);
 
             if ($response) {
                 return $response;
@@ -82,59 +85,31 @@ class Api extends Component
         $jsonResponse = json_decode($response->getBody(), true);
 
         if ($enableCache) {
-            Twitter::$plugin->getCache()->set([$uri, $headers, $options], $jsonResponse, $cacheExpire);
+            Plugin::getInstance()->getCache()->set([$uri, $headers, $options], $jsonResponse, $cacheExpire);
         }
 
         return $jsonResponse;
     }
 
     /**
-     * Returns a tweet by its ID.
-     *
-     * @param int|string $tweetId
-     * @param array      $query
-     *
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\Exception
-     */
-    public function getTweetById($tweetId, $query = [])
-    {
-        $tweetId = (int)$tweetId;
-
-        $query = array_merge($query, [
-            'id' => $tweetId,
-            'tweet_mode' => 'extended'
-        ]);
-
-        $tweet = Twitter::$plugin->getApi()->get('statuses/show', $query);
-
-
-        // generate user profile image
-
-        $this->saveOriginalUserProfileImage($tweet['user']['id'], $tweet['user']['profile_image_url_https']);
-
-        if (is_array($tweet)) {
-            return $tweet;
-        }
-    }
-
-    /**
      * Returns a tweet by its URL or ID.
      *
-     * @param string $urlOrId
+     * @param string|int $urlOrId
+     * @param array|null $query
      *
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return Tweet|null
+     * @throws GuzzleException
      * @throws \yii\base\Exception
      */
-    public function getTweetByUrl($urlOrId)
+    public function getTweet($urlOrId, array $query = null)
     {
         $tweetId = TwitterHelper::extractTweetId($urlOrId);
 
         if ($tweetId) {
-            return $this->getTweetById($tweetId);
+            return $this->getTweetById($tweetId, $query);
         }
+
+        return null;
     }
 
     /**
@@ -144,8 +119,7 @@ class Api extends Component
      * @param array      $query
      *
      * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
+     * @throws GuzzleException
      */
     public function getUserById($userId, $query = [])
     {
@@ -153,7 +127,33 @@ class Api extends Component
 
         $query = array_merge($query, ['user_id' => $userId]);
 
-        return Twitter::$plugin->getApi()->get('users/show', $query);
+        return $this->get('users/show', $query);
+    }
+
+    /**
+     * Populate tweet object from data array.
+     *
+     * @param Tweet $tweet
+     * @param array $data
+     *
+     * @return Tweet
+     */
+    public function populateTweetFromData(Tweet $tweet, array $data): Tweet
+    {
+        if (isset($data['created_at'])) {
+            $tweet->createdAt = DateTime::createFromFormat('D M d H:i:s O Y', $data['created_at']);
+        }
+
+        $tweet->data = $data;
+        $tweet->text = $data['full_text'] ?? null;
+        $tweet->remoteId = $data['id'] ?? null;
+        $tweet->remoteUserId = $data['user']['id'] ?? null;
+        $tweet->username = $data['user']['name'] ?? null;
+        $tweet->userProfileRemoteImageSecureUrl = $data['user']['profile_image_url_https'] ?? null;
+        $tweet->userProfileRemoteImageUrl = $data['user']['profile_image_url'] ?? null;
+        $tweet->userScreenName = $data['user']['screen_name'] ?? null;
+
+        return $tweet;
     }
 
     /**
@@ -163,41 +163,43 @@ class Api extends Component
      * @param $remoteImageUrl
      *
      * @return string|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      * @throws \yii\base\Exception
      */
     public function saveOriginalUserProfileImage($userId, $remoteImageUrl)
     {
-        if ($userId && $remoteImageUrl) {
-            $originalFolderPath = Craft::$app->path->getRuntimePath().'/twitter/userimages/'.$userId.'/original/';
+        if (!$userId || !$remoteImageUrl) {
+            return null;
+        }
 
-            if (!is_dir($originalFolderPath)) {
-                FileHelper::createDirectory($originalFolderPath);
-            }
+        $originalFolderPath = Craft::$app->path->getRuntimePath().'/twitter/userimages/'.$userId.'/original/';
 
-            $files = FileHelper::findFiles($originalFolderPath);
+        if (!is_dir($originalFolderPath)) {
+            FileHelper::createDirectory($originalFolderPath);
+        }
 
-            if (count($files) > 0) {
-                $imagePath = $files[0];
+        $files = FileHelper::findFiles($originalFolderPath);
 
-                return $imagePath;
-            }
-
-            $remoteImageUrl = str_replace('_normal', '', $remoteImageUrl);
-            $fileName = pathinfo($remoteImageUrl, PATHINFO_BASENAME);
-            $imagePath = $originalFolderPath.$fileName;
-
-            $client = new \GuzzleHttp\Client();
-            $response = $client->request('GET', $remoteImageUrl, [
-                'save_to' => $imagePath
-            ]);
-
-            if (!$response->getStatusCode() != 200) {
-                return null;
-            }
+        if (count($files) > 0) {
+            $imagePath = $files[0];
 
             return $imagePath;
         }
+
+        $remoteImageUrl = str_replace('_normal', '', $remoteImageUrl);
+        $fileName = pathinfo($remoteImageUrl, PATHINFO_BASENAME);
+        $imagePath = $originalFolderPath.$fileName;
+
+        $client = new Client();
+        $response = $client->request('GET', $remoteImageUrl, [
+            'save_to' => $imagePath
+        ]);
+
+        if (!$response->getStatusCode() != 200) {
+            return null;
+        }
+
+        return $imagePath;
     }
 
     // Private Methods
@@ -207,7 +209,6 @@ class Api extends Component
      * Get the authenticated client
      *
      * @return Client
-     * @throws \yii\base\InvalidConfigException
      */
     private function getClient()
     {
@@ -215,7 +216,7 @@ class Api extends Component
             'base_uri' => 'https://api.twitter.com/1.1/'
         ];
 
-        $token = Twitter::$plugin->getOauth()->getToken();
+        $token = Plugin::getInstance()->getOauth()->getToken();
 
         if ($token) {
             $stack = $this->getStack($token);
@@ -238,8 +239,8 @@ class Api extends Component
     {
         $stack = HandlerStack::create();
 
-        $oauthConsumerKey = Twitter::$plugin->getConsumerKey();
-        $oauthConsumerSecret = Twitter::$plugin->getConsumerSecret();
+        $oauthConsumerKey = Plugin::getInstance()->getConsumerKey();
+        $oauthConsumerSecret = Plugin::getInstance()->getConsumerSecret();
 
         $middleware = new Oauth1([
             'consumer_key' => $oauthConsumerKey,
@@ -252,5 +253,43 @@ class Api extends Component
         $stack->push($middleware);
 
         return $stack;
+    }
+
+    /**
+     * Returns a tweet by its ID.
+     *
+     * @param            $tweetId
+     * @param array|null $query
+     *
+     * @return Tweet|null
+     * @throws GuzzleException
+     * @throws \yii\base\Exception
+     */
+    private function getTweetById($tweetId, array $query = null)
+    {
+        $tweetId = (int)$tweetId;
+
+        if(!$query) {
+            $query = [];
+        }
+
+        $query = array_merge($query, [
+            'id' => $tweetId,
+            'tweet_mode' => 'extended'
+        ]);
+
+        $data = $this->get('statuses/show', $query);
+
+        if (!$data) {
+            return null;
+        }
+
+        $tweet = new Tweet();
+        $this->populateTweetFromData($tweet, $data);
+
+        // generate user profile image
+        $this->saveOriginalUserProfileImage($tweet->remoteUserId, $tweet->userProfileRemoteImageSecureUrl);
+
+        return $tweet;
     }
 }

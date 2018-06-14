@@ -1,23 +1,23 @@
 <?php
 /**
- * @link      https://dukt.net/craft/twitter/
+ * @link      https://dukt.net/twitter/
  * @copyright Copyright (c) 2018, Dukt
- * @license   https://dukt.net/craft/twitter/docs/license
+ * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
 namespace dukt\twitter\base;
 
 use Craft;
-use dukt\twitter\Plugin as Twitter;
+use dukt\twitter\Plugin;
 
 /**
  * PluginTrait implements the common methods and properties for plugin classes.
  *
- * @property \dukt\twitter\services\Twitter     $twitter    The twitter service
- * @property \dukt\twitter\services\Api         $api        The api service
- * @property \dukt\twitter\services\Cache       $cache      The cache service
- * @property \dukt\twitter\services\Oauth       $oauth      The oauth service
- * @property \dukt\twitter\services\Publish     $publish    The publish service
+ * @property \dukt\twitter\services\Twitter $twitter    The twitter service
+ * @property \dukt\twitter\services\Api     $api        The api service
+ * @property \dukt\twitter\services\Cache   $cache      The cache service
+ * @property \dukt\twitter\services\Oauth   $oauth      The oauth service
+ * @property \dukt\twitter\services\Publish $publish    The publish service
  */
 trait PluginTrait
 {
@@ -25,7 +25,6 @@ trait PluginTrait
      * Returns the twitter service.
      *
      * @return \dukt\twitter\services\Twitter The twitter service
-     * @throws \yii\base\InvalidConfigException
      */
     public function getTwitter()
     {
@@ -37,7 +36,6 @@ trait PluginTrait
      * Returns the api service.
      *
      * @return \dukt\twitter\services\Api The api service
-     * @throws \yii\base\InvalidConfigException
      */
     public function getApi()
     {
@@ -49,7 +47,6 @@ trait PluginTrait
      * Returns the cache service.
      *
      * @return \dukt\twitter\services\Cache The cache service
-     * @throws \yii\base\InvalidConfigException
      */
     public function getCache()
     {
@@ -61,7 +58,6 @@ trait PluginTrait
      * Returns the oauth service.
      *
      * @return \dukt\twitter\services\Oauth The oauth service
-     * @throws \yii\base\InvalidConfigException
      */
     public function getOauth()
     {
@@ -73,7 +69,6 @@ trait PluginTrait
      * Returns the publish service.
      *
      * @return \dukt\twitter\services\Publish The publish service
-     * @throws \yii\base\InvalidConfigException
      */
     public function getPublish()
     {
@@ -84,42 +79,46 @@ trait PluginTrait
     /**
      * Returns the OAuth consumer key.
      *
-     * @return mixed
+     * @return string|null
      */
     public function getConsumerKey()
     {
-        $consumerKey = Twitter::$plugin->getSettings()->oauthConsumerKey;
+        $consumerKey = Plugin::getInstance()->getSettings()->oauthConsumerKey;
 
         if ($consumerKey) {
             return $consumerKey;
-        } else {
-            $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
-            $settings = $plugin->getSettings();
-
-            if (!empty($settings['oauthConsumerKey'])) {
-                return $settings['oauthConsumerKey'];
-            }
         }
+
+        $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
+        $settings = $plugin->getSettings();
+
+        if (empty($settings['oauthConsumerKey'])) {
+            return null;
+        }
+
+        return $settings['oauthConsumerKey'];
     }
 
     /**
      * Returns the OAuth consumer secret.
      *
-     * @return mixed
+     * @return string|null
      */
     public function getConsumerSecret()
     {
-        $consumerSecret = Twitter::$plugin->getSettings()->oauthConsumerSecret;
+        $consumerSecret = Plugin::getInstance()->getSettings()->oauthConsumerSecret;
 
         if ($consumerSecret) {
             return $consumerSecret;
-        } else {
-            $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
-            $settings = $plugin->getSettings();
-
-            if (!empty($settings['oauthConsumerSecret'])) {
-                return $settings['oauthConsumerSecret'];
-            }
         }
+
+        $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
+        $settings = $plugin->getSettings();
+
+        if (!empty($settings['oauthConsumerSecret'])) {
+            return null;
+        }
+
+        return $settings['oauthConsumerSecret'];
     }
 }

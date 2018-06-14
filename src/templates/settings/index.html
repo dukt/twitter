@@ -9,16 +9,14 @@
 
 {% import "_includes/forms" as forms %}
 
-{% set docsUrl = 'https://dukt.net/craft/twitter/docs' %}
+{% set docsUrl = 'https://docs.dukt.net/twitter/v2/' %}
 
 {% set content %}
 
     <h2>{{ 'Account'|t('twitter') }}</h2>
 
     {% if tokenExists %}
-
-		{% if not error %}
-
+        {% if not error %}
             {% if resourceOwner.urls.profile_image_url_https is defined %}
                 <img width="36" src="{{ resourceOwner.urls.profile_image_url_https|replace('_normal', '_bigger') }}" />
             {% endif %}
@@ -29,17 +27,18 @@
                 {% endif %}
 
                 {% if resourceOwner.name is defined %}
-                    <li><strong>{{ 'Name'|t('twitter') }}:</strong> {{ resourceOwner.name }}</li>
-                {% endif %}
+                    <li>
+                        <strong>{{ 'Name'|t('twitter') }}:</strong> {{ resourceOwner.name }}
 
-                {% if resourceOwner.nickname is defined %}
-                    <li><strong>{{ 'Nickname'|t('twitter') }}:</strong> {{ resourceOwner.nickname }}</li>
+                        {% if resourceOwner.nickname is defined %}
+                            (@{{ resourceOwner.nickname }})
+                        {% endif %}
+                    </li>
                 {% endif %}
             </ul>
-
         {% else %}
             <p class="error">{{ error }}</p>
-		{% endif %}
+        {% endif %}
 
         <div class="buttons">
             <a href="{{ actionUrl('twitter/oauth/disconnect') }}" class="btn small">{{ 'Disconnect'|t('twitter') }}</a>

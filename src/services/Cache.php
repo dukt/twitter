@@ -1,8 +1,8 @@
 <?php
 /**
- * @link      https://dukt.net/craft/twitter/
+ * @link      https://dukt.net/twitter/
  * @copyright Copyright (c) 2018, Dukt
- * @license   https://dukt.net/craft/twitter/docs/license
+ * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
 namespace dukt\twitter\services;
@@ -10,7 +10,7 @@ namespace dukt\twitter\services;
 use Craft;
 use yii\base\Component;
 use dukt\twitter\helpers\TwitterHelper;
-use dukt\twitter\Plugin as Twitter;
+use dukt\twitter\Plugin;
 
 /**
  * Cache Service
@@ -32,7 +32,7 @@ class Cache extends Component
      */
     public function get($id)
     {
-        if (Twitter::$plugin->getSettings()->enableCache === true) {
+        if (Plugin::getInstance()->getSettings()->enableCache === true) {
             $cacheKey = $this->getCacheKey($id);
 
             return Craft::$app->cache->get($cacheKey);
@@ -52,11 +52,11 @@ class Cache extends Component
      */
     public function set($id, $value, $expire = null, $dependency = null)
     {
-        if (Twitter::$plugin->getSettings()->enableCache === true) {
+        if (Plugin::getInstance()->getSettings()->enableCache === true) {
             $cacheKey = $this->getCacheKey($id);
 
             if (!$expire) {
-                $duration = Twitter::$plugin->getSettings()->cacheDuration;
+                $duration = Plugin::getInstance()->getSettings()->cacheDuration;
                 $expire = TwitterHelper::durationToSeconds($duration);
             }
 

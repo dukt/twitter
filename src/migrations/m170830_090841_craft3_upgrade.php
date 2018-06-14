@@ -25,6 +25,7 @@ class m170830_090841_craft3_upgrade extends Migration
     public function safeDown()
     {
         echo "m170830_090841_craft3_upgrade cannot be reverted.\n";
+
         return false;
     }
 }

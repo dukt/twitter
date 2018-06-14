@@ -1,14 +1,14 @@
 <?php
 /**
- * @link      https://dukt.net/craft/twitter/
+ * @link      https://dukt.net/twitter/
  * @copyright Copyright (c) 2018, Dukt
- * @license   https://dukt.net/craft/twitter/docs/license
+ * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
 namespace dukt\twitter\services;
 
 use Craft;
-use dukt\twitter\Plugin as Twitter;
+use dukt\twitter\Plugin;
 use yii\base\Component;
 use League\OAuth1\Client\Credentials\TokenCredentials;
 use craft\helpers\UrlHelper;
@@ -60,18 +60,20 @@ class Oauth extends Component
     {
         if ($this->token) {
             return $this->token;
-        } else {
-            $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
-            $settings = $plugin->getSettings();
-
-            if ($settings->token && $settings->tokenSecret) {
-                $token = new TokenCredentials();
-                $token->setIdentifier($settings->token);
-                $token->setSecret($settings->tokenSecret);
-
-                return $token;
-            }
         }
+
+        $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
+        $settings = $plugin->getSettings();
+
+        if (!$settings->token || !$settings->tokenSecret) {
+            return null;
+        }
+
+        $token = new TokenCredentials();
+        $token->setIdentifier($settings->token);
+        $token->setSecret($settings->tokenSecret);
+
+        return $token;
     }
 
     /**
@@ -99,8 +101,8 @@ class Oauth extends Component
      */
     public function getOauthProvider()
     {
-        $oauthConsumerKey = Twitter::$plugin->getConsumerKey();
-        $oauthConsumerSecret = Twitter::$plugin->getConsumerSecret();
+        $oauthConsumerKey = Plugin::getInstance()->getConsumerKey();
+        $oauthConsumerSecret = Plugin::getInstance()->getConsumerSecret();
 
         $options = [];
 

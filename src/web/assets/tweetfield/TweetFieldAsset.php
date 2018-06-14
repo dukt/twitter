@@ -1,8 +1,8 @@
 <?php
 /**
- * @link      https://dukt.net/craft/twitter/
+ * @link      https://dukt.net/twitter/
  * @copyright Copyright (c) 2018, Dukt
- * @license   https://dukt.net/craft/twitter/docs/license
+ * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
 namespace dukt\twitter\web\assets\tweetfield;
@@ -35,6 +35,10 @@ class TweetFieldAsset extends AssetBundle
 
         // define the relative path to CSS/JS files that should be registered with the page
         // when this asset bundle is registered
+        $this->css = [
+            'TweetInput.css',
+        ];
+
         $this->js = [
             'TweetInput.js',
         ];

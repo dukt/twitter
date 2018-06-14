@@ -1,15 +1,16 @@
 <?php
 /**
- * @link      https://dukt.net/craft/twitter/
+ * @link      https://dukt.net/twitter/
  * @copyright Copyright (c) 2018, Dukt
- * @license   https://dukt.net/craft/twitter/docs/license
+ * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
 namespace dukt\twitter\services;
 
-use dukt\twitter\Plugin as Twitter;
+use dukt\twitter\Plugin;
 use GuzzleHttp\Client;
 use yii\base\Component;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Publish Service
@@ -29,8 +30,7 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
+     * @throws GuzzleException
      */
     public function grid($url, $options = [])
     {
@@ -38,12 +38,14 @@ class Publish extends Component
 
         $response = $this->oEmbed($url);
 
-        if ($response) {
-            $html = $response['html'];
-            $html = str_replace('<a class="twitter-timeline"', '<a class="twitter-grid"'.$dataAttributes, $html);
-
-            return $html;
+        if (!$response) {
+            return null;
         }
+
+        $html = $response['html'];
+        $html = str_replace('<a class="twitter-timeline"', '<a class="twitter-grid"'.$dataAttributes, $html);
+
+        return $html;
     }
 
     /**
@@ -53,8 +55,7 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
+     * @throws GuzzleException
      */
     public function moment($url, $options = [])
     {
@@ -62,12 +63,14 @@ class Publish extends Component
 
         $response = $this->oEmbed($url);
 
-        if ($response) {
-            $html = $response['html'];
-            $html = str_replace('<a class="twitter-moment"', '<a class="twitter-moment"'.$dataAttributes, $html);
-
-            return $html;
+        if (!$response) {
+            return null;
         }
+
+        $html = $response['html'];
+        $html = str_replace('<a class="twitter-moment"', '<a class="twitter-moment"'.$dataAttributes, $html);
+
+        return $html;
     }
 
     /**
@@ -77,8 +80,7 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
+     * @throws GuzzleException
      */
     public function timeline($url, $options = [])
     {
@@ -86,12 +88,14 @@ class Publish extends Component
 
         $response = $this->oEmbed($url);
 
-        if ($response) {
-            $html = $response['html'];
-            $html = str_replace('<a class="twitter-timeline"', '<a class="twitter-timeline"'.$dataAttributes, $html);
-
-            return $html;
+        if (!$response) {
+            return null;
         }
+
+        $html = $response['html'];
+        $html = str_replace('<a class="twitter-timeline"', '<a class="twitter-timeline"'.$dataAttributes, $html);
+
+        return $html;
     }
 
     /**
@@ -101,8 +105,7 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
+     * @throws GuzzleException
      */
     public function tweet($url, $options = [])
     {
@@ -110,12 +113,14 @@ class Publish extends Component
 
         $response = $this->oEmbed($url);
 
-        if ($response) {
-            $html = $response['html'];
-            $html = str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"'.$dataAttributes.'>', $html);
-
-            return $html;
+        if (!$response) {
+            return null;
         }
+
+        $html = $response['html'];
+        $html = str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"'.$dataAttributes.'>', $html);
+
+        return $html;
     }
 
     /**
@@ -125,8 +130,7 @@ class Publish extends Component
      * @param array $options
      *
      * @return string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
+     * @throws GuzzleException
      */
     public function video($url, $options = [])
     {
@@ -134,12 +138,14 @@ class Publish extends Component
 
         $response = $this->oEmbed($url, ['widget_type' => 'video']);
 
-        if ($response) {
-            $html = $response['html'];
-            $html = str_replace('<blockquote class="twitter-video">', '<blockquote class="twitter-video"'.$dataAttributes.'>', $html);
-
-            return $html;
+        if (!$response) {
+            return null;
         }
+
+        $html = $response['html'];
+        $html = str_replace('<blockquote class="twitter-video">', '<blockquote class="twitter-video"'.$dataAttributes.'>', $html);
+
+        return $html;
     }
 
     /**
@@ -154,9 +160,7 @@ class Publish extends Component
     {
         $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
-        $html = '<a class="twitter-follow-button" href="https://twitter.com/'.$username.'"'.$dataAttributes.'>Follow @'.$username.'</a>';
-
-        return $html;
+        return '<a class="twitter-follow-button" href="https://twitter.com/'.$username.'"'.$dataAttributes.'>Follow @'.$username.'</a>';
     }
 
     /**
@@ -175,9 +179,7 @@ class Publish extends Component
 
         $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
-        $html = '<a class="twitter-dm-button" href="https://twitter.com/messages/compose?recipient_id='.$recipientId.'&text='.rawurlencode($text).'"'.$dataAttributes.'>Message @'.$screenName.'</a>';
-
-        return $html;
+        return '<a class="twitter-dm-button" href="https://twitter.com/messages/compose?recipient_id='.$recipientId.'&text='.rawurlencode($text).'"'.$dataAttributes.'>Message @'.$screenName.'</a>';
     }
 
     /**
@@ -191,9 +193,7 @@ class Publish extends Component
     {
         $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
-        $html = '<a class="twitter-share-button" href="https://twitter.com/share"'.$dataAttributes.'>Tweet</a>';
-
-        return $html;
+        return '<a class="twitter-share-button" href="https://twitter.com/share"'.$dataAttributes.'>Tweet</a>';
     }
 
     /**
@@ -247,8 +247,7 @@ class Publish extends Component
      * @param array $query
      *
      * @return array|bool|float|int|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\InvalidConfigException
+     * @throws GuzzleException
      */
     private function oEmbed($url, $query = [])
     {
@@ -262,7 +261,7 @@ class Publish extends Component
             'query' => $query
         ];
 
-        $oembed = Twitter::$plugin->getCache()->get(['twitter.publish.oEmbed', $url, $options]);
+        $oembed = Plugin::getInstance()->getCache()->get(['twitter.publish.oEmbed', $url, $options]);
 
         if (!$oembed) {
             $client = new Client();
@@ -271,7 +270,7 @@ class Publish extends Component
 
             $oembed = json_decode($response->getBody(), true);
 
-            Twitter::$plugin->getCache()->set(['twitter.publish.oEmbed', $url, $options], $oembed);
+            Plugin::getInstance()->getCache()->set(['twitter.publish.oEmbed', $url, $options], $oembed);
         }
 
         return $oembed;

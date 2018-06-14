@@ -1,15 +1,16 @@
 <?php
 /**
- * @link      https://dukt.net/craft/twitter/
+ * @link      https://dukt.net/twitter/
  * @copyright Copyright (c) 2018, Dukt
- * @license   https://dukt.net/craft/twitter/docs/license
+ * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
 namespace dukt\twitter\models;
 
 use craft\base\Model;
+use craft\errors\ImageException;
 use dukt\twitter\helpers\TwitterHelper;
-use dukt\twitter\Plugin as Twitter;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Tweet model class.
@@ -23,247 +24,89 @@ class Tweet extends Model
     // =========================================================================
 
     /**
-     * @var
+     * @var The date the tweet was created at.
      */
-    public $remoteId;
+    public $createdAt;
+
     /**
-     * @var
+     * @var Raw tweet data.
      */
     public $data;
+
+    /**
+     * @var The tweet’s text.
+     */
+    public $text;
+
+    /**
+     * @var The tweet’s ID.
+     */
+    public $remoteId;
+
+    /**
+     * @var The tweet’s author user ID.
+     */
+    public $remoteUserId;
+
+    /**
+     * @var The author user’s username.
+     */
+    public $username;
+
+    /**
+     * @var The author user’s profile remote image secure URL.
+     */
+    public $userProfileRemoteImageSecureUrl;
+
+    /**
+     * @var The author user’s profile remote image URL.
+     */
+    public $userProfileRemoteImageUrl;
+
+    /**
+     * @var The author user’s screen name.
+     */
+    public $userScreenName;
 
     // Public Methods
     // =========================================================================
 
     /**
-     * Returns the tweet’s ID.
+     * Returns the URL of the tweet.
      *
-     * @return mixed
+     * @return string|null
      */
-    public function getRemoteId()
+    public function getUrl()
     {
-        return $this->remoteId;
+        if (!$this->remoteId || !$this->userScreenName) {
+            return null;
+        }
+
+        return 'https://twitter.com/'.$this->userScreenName.'/status/'.$this->remoteId;
     }
 
     /**
-     * Returns the tweet's text.
+     * Returns the tweet's author user profile image resource url.
      *
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function getText()
-    {
-        $tweetData = $this->getTweetData();
-
-        if (!empty($tweetData['full_text'])) {
-            return $tweetData['full_text'];
-        }
-    }
-
-    /**
-     * Returns the tweet’s author user ID.
+     * @param int $size
      *
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return null|string
+     * @throws GuzzleException
+     * @throws ImageException
      * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
      */
-    public function getUserId()
+    public function getUserProfileImageUrl($size = 48)
     {
-        $tweetData = $this->getTweetData();
-
-        if (!empty($tweetData['user']['id'])) {
-            return $tweetData['user']['id'];
-        }
-    }
-
-    /**
-     * Returns the tweet's author user name.
-     *
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function getUserName()
-    {
-        $tweetData = $this->getTweetData();
-
-        if (!empty($tweetData['user']['name'])) {
-            return $tweetData['user']['name'];
-        }
+        return TwitterHelper::getUserProfileImageResourceUrl($this->remoteUserId, $size);
     }
 
     /**
      * Returns the tweet's author user profile URL.
      *
      * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
      */
     public function getUserProfileUrl()
     {
-        return 'https://twitter.com/'.$this->getUserScreenName();
-    }
-
-    /**
-     * Returns the tweet's author user profile remote image URL.
-     *
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function getUserProfileRemoteImageUrl()
-    {
-        $tweetData = $this->getTweetData();
-
-        if (!empty($tweetData['user']['profile_image_url'])) {
-            return $tweetData['user']['profile_image_url'];
-        }
-    }
-
-    /**
-     * Returns the tweet's author user profile remote image secure URL.
-     *
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function getUserProfileRemoteImageSecureUrl()
-    {
-        $tweetData = $this->getTweetData();
-
-        if (!empty($tweetData['user']['profile_image_url_https'])) {
-            return $tweetData['user']['profile_image_url_https'];
-        }
-    }
-
-    /**
-     * Returns the tweet's author user screen name.
-     *
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function getUserScreenName()
-    {
-        $tweetData = $this->getTweetData();
-
-        if (!empty($tweetData['user']['screen_name'])) {
-            return $tweetData['user']['screen_name'];
-        }
-    }
-
-    /**
-     * Returns the creation date of the tweet.
-     *
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function getCreatedAt()
-    {
-        $tweetData = $this->getTweetData();
-
-        if (!empty($tweetData['created_at'])) {
-            return $tweetData['created_at'];
-        }
-    }
-
-    /**
-     * Returns the tweet's author user profile image resource url.
-     *
-     * @param null $size
-     *
-     * @return null|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \craft\errors\ImageException
-     * @throws \yii\base\Exception
-     */
-    public function getUserProfileImageUrl($size = null)
-    {
-        $twitterUserId = $this->getUserId();
-
-        return TwitterHelper::getUserProfileImageResourceUrl($twitterUserId, $size);
-    }
-
-    /**
-     * Returns the URL of the tweet.
-     *
-     * @return string|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
-     */
-    public function getUrl()
-    {
-        $tweetId = $this->getRemoteId();
-
-        try {
-            $tweetUserScreenName = $this->getUserScreenName();
-        } catch(\GuzzleHttp\Exception\ClientException $e) {
-            $tweetUserScreenName = 'username';
-        }
-
-        if ($tweetId && $tweetUserScreenName) {
-            return 'https://twitter.com/'.$tweetUserScreenName.'/status/'.$tweetId;
-        }
-    }
-
-    // Protected Methods
-    // =========================================================================
-
-    /**
-     * Define Attributes
-     */
-    protected function defineAttributes()
-    {
-        $attributes = [
-            'remoteId' => AttributeType::Number,
-            'data' => AttributeType::Mixed,
-        ];
-
-        return $attributes;
-    }
-
-    // Private Methods
-    // =========================================================================
-
-    /**
-     * Returns the URL of the tweet.
-     *
-     * @return string|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
-     */
-    private function getTweetData()
-    {
-        if (!$this->data) {
-            $this->data = $this->getRemoteTweetData();
-        }
-
-        return $this->data;
-    }
-
-    /**
-     * Returns the API's data for a tweet
-     *
-     * @return array|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \yii\base\Exception
-     * @throws \yii\base\InvalidConfigException
-     */
-    private function getRemoteTweetData()
-    {
-        if (!empty($this->remoteId)) {
-            return Twitter::$plugin->getApi()->getTweetById($this->remoteId);
-        }
+        return 'https://twitter.com/'.$this->userScreenName;
     }
 }
