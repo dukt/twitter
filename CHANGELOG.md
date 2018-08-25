@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## Unreleased
+
+### Fixed
+- Fixed a bug where the plugin may cause Twig to be loaded before it should be, and another bug where the extension might not be available if the Template Mode ever changes from CP to Site, or vise-versa. ([#9](https://github.com/dukt/twitter/pull/9)) 
+
 ## 2.1.0 - 2018-06-14
 
 ### Changed
