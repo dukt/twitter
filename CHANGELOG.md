@@ -3,6 +3,9 @@ Changelog
 
 ## Unreleased
 
+### Changed
+- Use `Craft::createGuzzleClient()` to instantiate Guzzle clients.
+
 ### Fixed
 - Fixed a bug where the plugin may cause Twig to be loaded before it should be, and another bug where the extension might not be available if the Template Mode ever changes from CP to Site, or vise-versa. ([#9](https://github.com/dukt/twitter/pull/9)) 
 

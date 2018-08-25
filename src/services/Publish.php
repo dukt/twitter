@@ -247,7 +247,7 @@ class Publish extends Component
      * @param array $query
      *
      * @return array|bool|float|int|string
-     * @throws GuzzleException
+     * @throws \Exception
      */
     private function oEmbed($url, $query = [])
     {
@@ -264,7 +264,7 @@ class Publish extends Component
         $oembed = Plugin::getInstance()->getCache()->get(['twitter.publish.oEmbed', $url, $options]);
 
         if (!$oembed) {
-            $client = new Client();
+            $client = Craft::createGuzzleClient();
 
             $response = $client->request('GET', 'https://publish.twitter.com/oembed', $options);
 

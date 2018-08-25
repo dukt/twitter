@@ -190,7 +190,7 @@ class Api extends Component
         $fileName = pathinfo($remoteImageUrl, PATHINFO_BASENAME);
         $imagePath = $originalFolderPath.$fileName;
 
-        $client = new Client();
+        $client = Craft::createGuzzleClient();
         $response = $client->request('GET', $remoteImageUrl, [
             'save_to' => $imagePath
         ]);
@@ -206,7 +206,7 @@ class Api extends Component
     // =========================================================================
 
     /**
-     * Get the authenticated client
+     * Returns the authenticated client.
      *
      * @return Client
      */
@@ -225,7 +225,7 @@ class Api extends Component
             $options['handler'] = $stack;
         }
 
-        return new Client($options);
+        return Craft::createGuzzleClient($options);
     }
 
     /**
