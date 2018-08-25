@@ -109,7 +109,7 @@ class Plugin extends \craft\base\Plugin
 
         // Twig extension
 
-        Craft::$app->view->twig->addExtension(new Extension());
+        Craft::$app->view->registerTwigExtension(new Extension());
     }
 
     /**
