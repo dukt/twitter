@@ -15,7 +15,7 @@ Performs a GET request on Twitter API and returns the response.
 Returns the API response as an array.
 
 ```twig
-{% set tweets = craft.twitter.get('statuses/user_timeline', {count:5}) %}
+{% set response = craft.twitter.get('statuses/user_timeline', {count:5}) %}
 
 {% if response.success %}
     {% set tweets = response.data %}

@@ -13,7 +13,7 @@ Sends a GET request and returns the API response. You can use any GET request li
 This example displays recent tweets by calling `statuses/user_timeline` API method:
 
 ```twig
-{% set tweets = craft.twitter.get('statuses/user_timeline', {count:5}) %}
+{% set response = craft.twitter.get('statuses/user_timeline', {count:5}) %}
 
 {% if response.success %}
     {% set tweets = response.data %}
@@ -29,7 +29,7 @@ When requesting the API, it is recommended to cache responses in order to reduce
 
 ```twig
 {% cache for 1 day %}
-    {% set tweets = craft.twitter.get('statuses/user_timeline', {count:5}) %}
+    {% set response = craft.twitter.get('statuses/user_timeline', {count:5}) %}
     
     {% if response.success %}
         {% set tweets = response.data %}
