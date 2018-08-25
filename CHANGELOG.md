@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## Unreleased
+## 2.1.1  - 2018-08-25
 
 ### Changed
 - Use `Craft::createGuzzleClient()` to instantiate Guzzle clients.
