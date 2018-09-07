@@ -159,7 +159,7 @@ class TwitterHelper
     /**
      * Seconds to human duration.
      *
-     * @param $seconds The number of seconds.
+     * @param int $seconds The number of seconds.
      * @return string The duration.
      */
     public static function secondsToHumanTimeDuration($seconds): string
