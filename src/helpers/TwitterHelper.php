@@ -125,7 +125,7 @@ class TwitterHelper
      * @return int
      * @throws \Exception
      */
-    public static function durationToSeconds($duration)
+    public static function durationToSeconds($duration): int
     {
         $date = new DateTime;
         $current = $date->getTimestamp();
@@ -141,7 +141,7 @@ class TwitterHelper
      *
      * @return string
      */
-    public static function timeAgo($date)
+    public static function timeAgo($date): string
     {
         if (is_string($date)) {
             $date = new DateTime($date);
@@ -151,72 +151,34 @@ class TwitterHelper
 
         $difference = $now->getTimestamp() - $date->getTimestamp();
 
-        $durations = self::secondsToHumanTimeDuration($difference, true, false);
+        $duration = self::secondsToHumanTimeDuration($difference);
 
-        $duration = Craft::t('twitter', '{duration} ago', ['duration' => $durations[0]]);
-
-        return $duration;
+        return Craft::t('twitter', '{duration} ago', ['duration' => $duration]);
     }
 
     /**
      * Seconds to human duration.
      *
-     * @param int  $seconds           The number of seconds
-     * @param bool $showSeconds       Whether to output seconds or not
-     * @param bool $implodeComponents Whether to implode components or not for return
-     *
-     * @return string|array
+     * @param int $seconds The number of seconds.
+     * @return string The duration.
      */
-    public static function secondsToHumanTimeDuration($seconds, $showSeconds = true, $implodeComponents = true)
+    public static function secondsToHumanTimeDuration($seconds): string
     {
-        $secondsInWeek = 604800;
-        $secondsInDay = 86400;
-        $secondsInHour = 3600;
-        $secondsInMinute = 60;
+        $periods = ['second', 'minute', 'hour', 'day', 'week', 'month', 'year', 'decade'];
+        $lengths = ['60', '60', '24', '7', '4.35', '12', '10'];
 
-        $weeks = floor($seconds / $secondsInWeek);
-        $seconds %= $secondsInWeek;
+        $difference = $seconds;
 
-        $days = floor($seconds / $secondsInDay);
-        $seconds %= $secondsInDay;
-
-        $hours = floor($seconds / $secondsInHour);
-        $seconds %= $secondsInHour;
-
-        if ($showSeconds) {
-            $minutes = floor($seconds / $secondsInMinute);
-            $seconds %= $secondsInMinute;
-        } else {
-            $minutes = round($seconds / $secondsInMinute);
-            $seconds = 0;
+        for ($j = 0; $difference >= $lengths[$j] && $j < count($lengths) - 1; $j++) {
+            $difference /= $lengths[$j];
         }
 
-        $timeComponents = [];
+        $difference = round($difference);
 
-        if ($weeks) {
-            $timeComponents[] = $weeks.' '.($weeks == 1 ? Craft::t('twitter', 'week') : Craft::t('twitter', 'weeks'));
+        if ($difference != 1) {
+            $periods[$j] .= 's';
         }
 
-        if ($days) {
-            $timeComponents[] = $days.' '.($days == 1 ? Craft::t('twitter', 'day') : Craft::t('twitter', 'days'));
-        }
-
-        if ($hours) {
-            $timeComponents[] = $hours.' '.($hours == 1 ? Craft::t('twitter', 'hour') : Craft::t('twitter', 'hours'));
-        }
-
-        if ($minutes || (!$showSeconds && !$weeks && !$days && !$hours)) {
-            $timeComponents[] = $minutes.' '.($minutes == 1 ? Craft::t('twitter', 'minute') : Craft::t('twitter', 'minutes'));
-        }
-
-        if ($seconds || ($showSeconds && !$weeks && !$days && !$hours && !$minutes)) {
-            $timeComponents[] = $seconds.' '.($seconds == 1 ? Craft::t('twitter', 'second') : Craft::t('twitter', 'seconds'));
-        }
-
-        if ($implodeComponents) {
-            return implode(', ', $timeComponents);
-        }
-
-        return $timeComponents;
+        return Craft::t('twitter', '{difference} {period}', ['difference' => $difference, 'period' => $periods[$j]]);
     }
 }

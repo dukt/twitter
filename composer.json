@@ -1,7 +1,7 @@
 {
   "name": "dukt/twitter",
   "description": "Tweet field, search widget, embeds, and authenticated Twitter API requests.",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "type": "craft-plugin",
   "license": "proprietary",
   "keywords": [
@@ -36,7 +36,7 @@
   "extra": {
     "name": "Twitter",
     "handle": "twitter",
-    "schemaVersion": "1.0.0",
+    "schemaVersion": "1.0.1",
     "documentationUrl": "https://docs.dukt.net/twitter/v2",
     "changelogUrl": "https://raw.githubusercontent.com/dukt/twitter/master/CHANGELOG.md"
   }

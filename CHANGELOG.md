@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 2.1.2 - 2018-09-10
+
+### Fixed
+- Fixed Craft 3 upgrade migration.
+
 ## 2.1.1  - 2018-08-25
 
 ### Changed
