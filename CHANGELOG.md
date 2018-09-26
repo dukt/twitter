@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 2.1.3 - 2018-09-25
+
+### Fixed
+- Fixed error that kept embeds from working.
+
 ## 2.1.2 - 2018-09-10
 
 ### Fixed

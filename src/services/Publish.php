@@ -264,7 +264,7 @@ class Publish extends Component
         $oembed = Plugin::getInstance()->getCache()->get(['twitter.publish.oEmbed', $url, $options]);
 
         if (!$oembed) {
-            $client = Craft::createGuzzleClient();
+            $client = \Craft::createGuzzleClient();
 
             $response = $client->request('GET', 'https://publish.twitter.com/oembed', $options);
 
