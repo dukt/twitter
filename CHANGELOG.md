@@ -1,6 +1,13 @@
 Changelog
 =========
 
+## Unreleased
+
+### Added
+- Added a `craft.twitter.parseTweetData()` method which parses tweet data and returns a Tweet model.
+- Added `dukt\twitter\web\twig\variables\TwitterVariable::parseTweetData()`.
+- Added `dukt\twitter\services\Api::parseTweetData()`.
+
 ## 2.1.2 - 2018-09-10
 
 ### Fixed
