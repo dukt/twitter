@@ -1,15 +1,11 @@
 # Requesting the Twitter API
 
-Twitter plugin allows you to perform requests on the Twitter API from inside templates.
+The Twitter plugin allows you to perform requests on the Twitter API from inside templates.
 
-## Performing GET requests
-Sends a GET request and returns the API response. You can use any GET request listed in [Twitter REST API](https://dev.twitter.com/docs/api/1.1).
+## Performing GET Requests
+Use the [`craft.twitter.get()`](craft-twitter.md#get-uri-query-headers-options-enablecache-cacheexpire) method to perform GET requests to the Twitter API.
+You can use any GET request listed in the [Twitter API reference](https://developer.twitter.com/en/docs/api-reference-index.html).
 
-```twig
-{% set response = craft.twitter.get(uri) %}
-```
-
-## Displaying Tweets
 This example displays recent tweets by calling `statuses/user_timeline` API method:
 
 ```twig
@@ -23,6 +19,8 @@ This example displays recent tweets by calling `statuses/user_timeline` API meth
     <pre>{{ response.data|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
 {% endif %}
 ```
+
+See more examples in the [dukt/twitter-demo](https://github.com/dukt/twitter-demo) repository.
 
 ## Caching API Responses
 When requesting the API, it is recommended to cache responses in order to reduce api calls and server load.
