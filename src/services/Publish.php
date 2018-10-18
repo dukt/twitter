@@ -7,6 +7,7 @@
 
 namespace dukt\twitter\services;
 
+use Craft;
 use dukt\twitter\Plugin;
 use GuzzleHttp\Client;
 use yii\base\Component;

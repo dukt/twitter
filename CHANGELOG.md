@@ -8,6 +8,9 @@ Changelog
 - Added `dukt\twitter\web\twig\variables\TwitterVariable::parseTweetData()`.
 - Added `dukt\twitter\services\Api::parseTweetData()`.
 
+### Fixed
+- Fixed a bug where a missing namespace was preventing the Publish service from working properly. ([#13](https://github.com/dukt/twitter/issues/13))
+
 ## 2.1.2 - 2018-09-10
 
 ### Fixed
