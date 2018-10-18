@@ -80,3 +80,28 @@ Get a user profile image from a user ID.
 
 ### Return Values
 Returns the user profile image resource URL, or `null`.
+
+## parseTweetData(data)
+Parses tweet data and returns a tweet model.
+
+### Arguments
+- **`data`** – Tweet’s API data as an array.
+
+### Return Values
+Returns a [Tweet model](tweet-model.md).
+
+```twig
+{% set response = craft.twitter.get("statuses/show", {id: 1004820018939514880, tweet_mode: 'extended' }) %}
+
+{% if response.success %}
+    {% set tweet = craft.twitter.parseTweetData(response.data) %}
+
+    <div class="tweet">
+        <img src="{{ tweet.getUserProfileImageUrl() }}" />
+        <p><cite><a href="{{ tweet.url }}">{{ tweet.username }} (@{{ tweet.userScreenName }})</a></cite></p>
+        <blockquote>{{ tweet.text|autoLinkTweet }}</blockquote>
+    </div>
+{% else %}
+    <p>Couldn’t get tweet.</p>
+{% endif %}
+```
