@@ -131,6 +131,21 @@ class Api extends Component
     }
 
     /**
+     * Parses tweet data and returns a tweet model.
+     *
+     * @param array $data
+     * @return Tweet
+     */
+    public function parseTweetData(array $data): Tweet
+    {
+        $tweet = new Tweet();
+
+        $this->populateTweetFromData($tweet, $data);
+
+        return $tweet;
+    }
+
+    /**
      * Populate tweet object from data array.
      *
      * @param Tweet $tweet

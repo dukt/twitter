@@ -1,6 +1,16 @@
 Changelog
 =========
 
+## 2.1.3 - 2018-10-18
+
+### Added
+- Added a `craft.twitter.parseTweetData()` method which parses tweet data and returns a Tweet model.
+- Added `dukt\twitter\web\twig\variables\TwitterVariable::parseTweetData()`.
+- Added `dukt\twitter\services\Api::parseTweetData()`.
+
+### Fixed
+- Fixed a bug where a missing namespace was preventing the Publish service from working properly. ([#13](https://github.com/dukt/twitter/issues/13))
+
 ## 2.1.2 - 2018-09-10
 
 ### Fixed

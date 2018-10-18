@@ -110,4 +110,15 @@ class TwitterVariable
             return null;
         }
     }
+
+    /**
+     * Parses tweet data and returns a Tweet model.
+     *
+     * @param array $data Tweet’s API data as an array.
+     * @return Tweet
+     */
+    public function parseTweetData(array $data): Tweet
+    {
+        return Plugin::getInstance()->getApi()->parseTweetData($data);
+    }
 }
