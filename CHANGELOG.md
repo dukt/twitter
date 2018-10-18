@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## Unreleased
+## 2.1.3 - 2018-10-18
 
 ### Added
 - Added a `craft.twitter.parseTweetData()` method which parses tweet data and returns a Tweet model.
