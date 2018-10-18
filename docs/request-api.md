@@ -6,7 +6,7 @@ The Twitter plugin allows you to perform requests on the Twitter API from inside
 Use the [`craft.twitter.get()`](craft-twitter.md#get-uri-query-headers-options-enablecache-cacheexpire) method to perform GET requests to the Twitter API.
 You can use any GET request listed in the [Twitter API reference](https://developer.twitter.com/en/docs/api-reference-index.html).
 
-This example displays recent tweets by calling `statuses/user_timeline` API method:
+This example displays recent tweets by calling `statuses/user_timeline` Twitter API endpoint:
 
 ```twig
 {% set response = craft.twitter.get('statuses/user_timeline', {count:5}) %}
