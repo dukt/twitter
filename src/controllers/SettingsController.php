@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/twitter/
- * @copyright Copyright (c) 2018, Dukt
+ * @copyright Copyright (c) 2019, Dukt
  * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
