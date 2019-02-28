@@ -1,6 +1,9 @@
 Changelog
 =========
 
+## 2.1.4 - 2019-02-28
+- Show a warning when the OAuth callback URL contains query parameters which are not supported by Twitter.
+
 ## 2.1.3 - 2018-10-18
 
 ### Added
