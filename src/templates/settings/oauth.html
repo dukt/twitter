@@ -32,7 +32,8 @@
         {{ forms.textField({
             readonly: true,
             label: "Callback URL"|t('twitter'),
-            value: redirectUri
+            value: redirectUri,
+            warning: (not craft.app.config.general.usePathInfo ? "Query parameters are not allowed in Twitter callback URLs. {link}."|t('twitter', {link: '<a href="https://developer.twitter.com/en/docs/basics/developer-portal/guides/callback-urls">'~'More Information'|t('twitter')~'</a>'})),
         }) }}
 
         <h2>{{ 'Configure the OAuth client'|t('twitter') }}</h2>
