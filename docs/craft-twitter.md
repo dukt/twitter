@@ -14,7 +14,6 @@ Performs a GET request on Twitter API and returns the response.
 ### Return Values
 Returns the API response as an array.
 
-    ```twig
     {% set response = craft.twitter.get('statuses/user_timeline', {count:5}) %}
 
     {% if response.success %}
@@ -29,22 +28,22 @@ Returns the API response as an array.
         {% endfor %}
     {% else %}
         <p>An error occured.</p>
-    {% endif %}```
+    {% endif %}
 
 You can also use the `json_encode` filter to display all of the attributes and values the response has to offer:
 
 
-    ```twig
-    {% set response = craft.twitter.get('statuses/user_timeline', {count:5}) %}
+```twig
+{% set response = craft.twitter.get('statuses/user_timeline', {count:5}) %}
 
-    {% if response.success %}
-        {% set tweets = response.data %}
-        <pre>{{ tweets|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
-    {% else %}
-        <p>An error occured:</p>
-        <pre>{{ response.data|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
-    {% endif %}
-    ```
+{% if response.success %}
+    {% set tweets = response.data %}
+    <pre>{{ tweets|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+{% else %}
+    <p>An error occured:</p>
+    <pre>{{ response.data|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre>
+{% endif %}
+```
 
 ## getTweet(urlOrId, query)
 Get a tweet by its URL.
