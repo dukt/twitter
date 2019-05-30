@@ -30,7 +30,8 @@ Returns the API response as an array.
     {% endfor %}
 {% else %}
     <p>An error occured.</p>
-{% endif %}```
+{% endif %}
+```
 
 You can also use the `json_encode` filter to display all of the attributes and values the response has to offer:
 
