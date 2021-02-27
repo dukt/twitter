@@ -12,7 +12,29 @@ Performs a GET request on Twitter API and returns the response.
 - **`cacheExpire`** – Cache expiry in seconds. 0 means never expires. Defaults to `0`.
 
 ### Return Values
+
 Returns the API response as an array.
+
+```twig
+{% set response = craft.twitter.get('statuses/user_timeline', {count:5}) %}
+
+{% if response.success %}
+    {% set tweets = response.data %}
+
+    {% for tweet in tweets %}
+        <div class="tweet">
+            <img src="{{ tweet['user']['profile_image_url_https'] }}" />
+            <p><cite><a href="https://twitter.com/statuses/{{ tweet['id'] }}">{{ tweet['user']['name'] }} (@{{ tweet['user']['screen_name'] }})</a></cite></p>
+            <blockquote>{{ tweet.text|autoLinkTweet }}</blockquote>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>An error occured.</p>
+{% endif %}
+```
+
+You can also use the `json_encode` filter to display all of the attributes and values the response has to offer:
+
 
 ```twig
 {% set response = craft.twitter.get('statuses/user_timeline', {count:5}) %}
