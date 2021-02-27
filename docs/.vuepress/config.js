@@ -1,6 +1,6 @@
 module.exports = {
-    title: 'Twitter 2 Documentation',
-    description: 'Twitter 2 Documentation',
+    title: 'Twitter Documentation',
+    description: 'Twitter Documentation',
     base: '/docs/twitter/v2/',
     ga: 'UA-1547168-34',
     themeConfig: {
@@ -19,7 +19,7 @@ module.exports = {
         sidebar: {
             '/': [
                 {
-                    title: 'Getting Started',
+                    title: 'Twitter plugin for Craft CMS',
                     collapsable: false,
                     children: [
                         '',
