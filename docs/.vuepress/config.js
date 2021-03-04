@@ -2,7 +2,14 @@ module.exports = {
     title: 'Twitter Documentation',
     description: 'Twitter Documentation',
     base: '/docs/twitter/v2/',
-    ga: 'UA-1547168-20',
+    plugins: [
+        [
+            '@vuepress/google-analytics',
+            {
+                'ga': 'UA-1547168-20'
+            }
+        ]
+    ],
     themeConfig: {
         docsRepo: 'dukt/twitter',
         docsDir: 'docs',
