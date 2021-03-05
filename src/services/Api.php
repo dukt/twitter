@@ -207,7 +207,7 @@ class Api extends Component
 
         $client = Craft::createGuzzleClient();
         $response = $client->request('GET', $remoteImageUrl, [
-            'save_to' => $imagePath
+            'sink' => $imagePath
         ]);
 
         if (!$response->getStatusCode() != 200) {

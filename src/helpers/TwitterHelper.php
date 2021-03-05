@@ -72,7 +72,7 @@ class TwitterHelper
                 FileHelper::createDirectory($originalDir);
                 $client = new \GuzzleHttp\Client();
                 $response = $client->request('GET', $url, [
-                    'save_to' => $originalPath,
+                    'sink' => $originalPath,
                 ]);
 
                 if ($response->getStatusCode() != 200) {

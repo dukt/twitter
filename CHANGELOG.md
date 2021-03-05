@@ -1,6 +1,15 @@
 Changelog
 =========
 
+## Unreleased
+
+### Changed
+- Updated `league/oauth1-client` to 1.9.
+- Updated `guzzlehttp/oauth-subscriber` to 0.4.
+
+### Fixed
+- Fixed a bug where the plugin was not working properly with Guzzle 7. ([#27](https://github.com/dukt/twitter/issues/27))
+
 ## 2.1.4 - 2019-02-28
 - Show a warning when the OAuth callback URL contains query parameters which are not supported by Twitter.
 
