@@ -3,6 +3,9 @@ Changelog
 
 ## Unreleased
 
+### Added
+-  Added environment variables support to consumer key and consumer secret OAuth settings.
+
 ### Changed
 - Updated `league/oauth1-client` to 1.9.
 - Updated `guzzlehttp/oauth-subscriber` to 0.4.

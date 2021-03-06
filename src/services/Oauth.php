@@ -101,13 +101,10 @@ class Oauth extends Component
      */
     public function getOauthProvider()
     {
-        $oauthConsumerKey = Plugin::getInstance()->getConsumerKey();
-        $oauthConsumerSecret = Plugin::getInstance()->getConsumerSecret();
-
-        $options = [];
-
-        $options['identifier'] = $oauthConsumerKey;
-        $options['secret'] = $oauthConsumerSecret;
+        $options = [
+            'identifier' => Craft::parseEnv(Plugin::getInstance()->getConsumerKey()),
+            'secret' => Craft::parseEnv(Plugin::getInstance()->getConsumerSecret()),
+        ];
 
         if (!isset($options['callback_uri'])) {
             $options['callback_uri'] = UrlHelper::actionUrl('twitter/oauth/callback');
