@@ -14,6 +14,7 @@ Changelog
 - Updated `guzzlehttp/oauth-subscriber` to 0.4.
 
 ### Fixed
+- Fixed the icon of the search widget.
 - Fixed a bug where the plugin was not working properly with Guzzle 7. ([#27](https://github.com/dukt/twitter/issues/27))
 
 ## 2.1.4 - 2019-02-28
