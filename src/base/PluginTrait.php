@@ -79,46 +79,34 @@ trait PluginTrait
     /**
      * Returns the OAuth consumer key.
      *
+     * @param bool $parse
      * @return string|null
      */
-    public function getConsumerKey()
+    public function getConsumerKey(bool $parse = true)
     {
-        $consumerKey = Plugin::getInstance()->getSettings()->oauthConsumerKey;
+        $consumerKey = Plugin::$plugin->getSettings()->oauthConsumerKey;
 
-        if ($consumerKey) {
-            return $consumerKey;
-        }
-
-        $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
-        $settings = $plugin->getSettings();
-
-        if (empty($settings['oauthConsumerKey'])) {
+        if (!$consumerKey) {
             return null;
         }
 
-        return $settings['oauthConsumerKey'];
+        return $parse ? Craft::parseEnv($consumerKey) : $consumerKey;
     }
 
     /**
      * Returns the OAuth consumer secret.
      *
+     * @param bool $parse
      * @return string|null
      */
-    public function getConsumerSecret()
+    public function getConsumerSecret(bool $parse = true)
     {
-        $consumerSecret = Plugin::getInstance()->getSettings()->oauthConsumerSecret;
+        $consumerSecret = Plugin::$plugin->getSettings()->oauthConsumerSecret;
 
-        if ($consumerSecret) {
-            return $consumerSecret;
-        }
-
-        $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
-        $settings = $plugin->getSettings();
-
-        if (!empty($settings['oauthConsumerSecret'])) {
+        if (!$consumerSecret) {
             return null;
         }
 
-        return $settings['oauthConsumerSecret'];
+        return $parse ? Craft::parseEnv($consumerSecret) : $consumerSecret;
     }
 }

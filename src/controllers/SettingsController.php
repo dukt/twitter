@@ -67,12 +67,11 @@ class SettingsController extends Controller
      */
     public function actionOauth(): Response
     {
-        $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
-
         return $this->renderTemplate('twitter/settings/oauth', [
             'javascriptOrigin' => Plugin::getInstance()->getOauth()->getJavascriptOrigin(),
             'redirectUri' => Plugin::getInstance()->getOauth()->getRedirectUri(),
-            'settings' => $plugin->getSettings(),
+            'oauthConsumerKey' => Plugin::$plugin->getConsumerKey(false),
+            'oauthConsumerSecret' => Plugin::$plugin->getConsumerSecret(false),
         ]);
     }
 
