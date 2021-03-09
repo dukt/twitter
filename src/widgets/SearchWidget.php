@@ -9,6 +9,7 @@ namespace dukt\twitter\widgets;
 
 use Craft;
 use craft\base\Widget;
+use craft\helpers\Json;
 use craft\helpers\UrlHelper;
 use dukt\twitter\models\Tweet;
 use dukt\twitter\Plugin;
