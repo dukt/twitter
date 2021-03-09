@@ -33,6 +33,17 @@ trait PluginTrait
     }
 
     /**
+     * Returns the accounts service.
+     *
+     * @return \dukt\twitter\services\Accounts The accounts service
+     */
+    public function getAccounts()
+    {
+        /** @var Twitter $this */
+        return $this->get('accounts');
+    }
+
+    /**
      * Returns the api service.
      *
      * @return \dukt\twitter\services\Api The api service

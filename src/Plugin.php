@@ -66,6 +66,7 @@ class Plugin extends \craft\base\Plugin
 
         $this->setComponents([
             'twitter' => \dukt\twitter\services\Twitter::class,
+            'accounts' => \dukt\twitter\services\Accounts::class,
             'api' => \dukt\twitter\services\Api::class,
             'cache' => \dukt\twitter\services\Cache::class,
             'oauth' => \dukt\twitter\services\Oauth::class,

@@ -4,9 +4,12 @@ Changelog
 ## Unreleased
 
 ### Added
--  Added environment variables support to consumer key and consumer secret OAuth settings.
+- Added environment variables support for the OAuth consumer key and consumer secret.
 
 ### Changed
+- Twitter OAuth tokens are now stored in a `twitter_accounts` table instead of in the plugin’s settings.
+- Deprecated `\dukt\twitter\models\Settings::$token`.
+- Deprecated `\dukt\twitter\models\Settings::$tokenSecret`.
 - Updated `league/oauth1-client` to 1.9.
 - Updated `guzzlehttp/oauth-subscriber` to 0.4.
 
