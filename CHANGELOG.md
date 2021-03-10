@@ -4,17 +4,17 @@ Changelog
 ## Unreleased
 
 ### Added
-- Added environment variables support for the OAuth consumer key and consumer secret.
+- Added environment variables support for the OAuth consumer key and secret.
 
 ### Changed
-- Twitter OAuth tokens are now stored in a `twitter_accounts` table instead of in the plugin’s settings.
+- OAuth tokens are now stored in a `twitter_accounts` table instead of in the plugin’s settings.
 - Deprecated `\dukt\twitter\models\Settings::$token`.
 - Deprecated `\dukt\twitter\models\Settings::$tokenSecret`.
 - Updated `league/oauth1-client` to 1.9.
 - Updated `guzzlehttp/oauth-subscriber` to 0.4.
 
 ### Fixed
-- Fixed the icon of the search widget.
+- Fixed the icon of the Search widget.
 - Fixed a bug where the plugin was not working properly with Guzzle 7. ([#27](https://github.com/dukt/twitter/issues/27))
 
 ## 2.1.4 - 2019-02-28
