@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## Unreleased
+## 2.1.5 - 2021-03-10
 
 ### Added
 - Added environment variables support for the OAuth consumer key and secret.
