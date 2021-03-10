@@ -97,7 +97,7 @@ class Accounts extends Component
     }
 
     /**
-     * Delete an account
+     * Deletes an account
      *
      * @param Account $account
      * @return bool

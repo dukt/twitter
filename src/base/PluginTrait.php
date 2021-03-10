@@ -88,7 +88,7 @@ trait PluginTrait
     }
 
     /**
-     * Returns the OAuth consumer key.
+     * Gets the OAuth consumer key
      *
      * @param bool $parse
      * @return string|null
@@ -105,7 +105,7 @@ trait PluginTrait
     }
 
     /**
-     * Returns the OAuth consumer secret.
+     * Gets the OAuth consumer secret
      *
      * @param bool $parse
      * @return string|null
