@@ -36,7 +36,7 @@
   "extra": {
     "name": "Twitter",
     "handle": "twitter",
-    "schemaVersion": "1.0.1",
+    "schemaVersion": "1.0.2",
     "documentationUrl": "https://dukt.net/docs/twitter/v2",
     "changelogUrl": "https://raw.githubusercontent.com/dukt/twitter/master/CHANGELOG.md"
   }
