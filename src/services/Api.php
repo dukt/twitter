@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/twitter/
- * @copyright Copyright (c) 2019, Dukt
+ * @copyright Copyright (c) 2021, Dukt
  * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
@@ -207,7 +207,7 @@ class Api extends Component
 
         $client = Craft::createGuzzleClient();
         $response = $client->request('GET', $remoteImageUrl, [
-            'save_to' => $imagePath
+            'sink' => $imagePath
         ]);
 
         if (!$response->getStatusCode() != 200) {

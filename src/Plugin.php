@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/twitter/
- * @copyright Copyright (c) 2019, Dukt
+ * @copyright Copyright (c) 2021, Dukt
  * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
@@ -60,12 +60,13 @@ class Plugin extends \craft\base\Plugin
     public function init()
     {
         parent::init();
-
+        self::$plugin = $this;
 
         // Components
 
         $this->setComponents([
             'twitter' => \dukt\twitter\services\Twitter::class,
+            'accounts' => \dukt\twitter\services\Accounts::class,
             'api' => \dukt\twitter\services\Api::class,
             'cache' => \dukt\twitter\services\Cache::class,
             'oauth' => \dukt\twitter\services\Oauth::class,

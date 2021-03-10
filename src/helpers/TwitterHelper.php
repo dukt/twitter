@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/twitter/
- * @copyright Copyright (c) 2019, Dukt
+ * @copyright Copyright (c) 2021, Dukt
  * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
@@ -72,7 +72,7 @@ class TwitterHelper
                 FileHelper::createDirectory($originalDir);
                 $client = new \GuzzleHttp\Client();
                 $response = $client->request('GET', $url, [
-                    'save_to' => $originalPath,
+                    'sink' => $originalPath,
                 ]);
 
                 if ($response->getStatusCode() != 200) {

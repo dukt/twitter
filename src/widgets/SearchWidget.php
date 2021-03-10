@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/twitter/
- * @copyright Copyright (c) 2019, Dukt
+ * @copyright Copyright (c) 2021, Dukt
  * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
@@ -9,6 +9,7 @@ namespace dukt\twitter\widgets;
 
 use Craft;
 use craft\base\Widget;
+use craft\helpers\Json;
 use craft\helpers\UrlHelper;
 use dukt\twitter\models\Tweet;
 use dukt\twitter\Plugin;
@@ -49,7 +50,7 @@ class SearchWidget extends Widget
     /**
      * @inheritdoc
      */
-    public static function iconPath()
+    public static function icon()
     {
         return Craft::getAlias('@dukt/twitter/icons/twitter.svg');
     }

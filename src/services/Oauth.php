@@ -1,13 +1,14 @@
 <?php
 /**
  * @link      https://dukt.net/twitter/
- * @copyright Copyright (c) 2019, Dukt
+ * @copyright Copyright (c) 2021, Dukt
  * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
 namespace dukt\twitter\services;
 
 use Craft;
+use dukt\twitter\errors\InvalidAccountException;
 use dukt\twitter\Plugin;
 use yii\base\Component;
 use League\OAuth1\Client\Credentials\TokenCredentials;
@@ -34,64 +35,54 @@ class Oauth extends Component
     // =========================================================================
 
     /**
-     * Save Token
+     * Saves a token
      *
      * @param TokenCredentials $token
+     * @return bool
+     * @throws InvalidAccountException
+     * @throws \yii\db\Exception
      */
     public function saveToken(TokenCredentials $token)
     {
-        // Save token and token secret in the plugin's settings
+        $account = Plugin::$plugin->getAccounts()->getAccount();
+        $account->token = $token->getIdentifier();
+        $account->tokenSecret = $token->getSecret();
 
-        $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
-
-        $settings = $plugin->getSettings();
-        $settings->token = $token->getIdentifier();
-        $settings->tokenSecret = $token->getSecret();
-
-        Craft::$app->getPlugins()->savePluginSettings($plugin, $settings->getAttributes());
+        return Plugin::$plugin->getAccounts()->saveAccount($account);
     }
 
     /**
-     * Get OAuth Token
+     * Gets a token
      *
      * @return TokenCredentials|null
      */
     public function getToken()
     {
-        if ($this->token) {
-            return $this->token;
-        }
+        $account = Plugin::$plugin->getAccounts()->getAccount();
 
-        $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
-        $settings = $plugin->getSettings();
-
-        if (!$settings->token || !$settings->tokenSecret) {
+        if (!$account || !$account->token || !$account->tokenSecret) {
             return null;
         }
 
         $token = new TokenCredentials();
-        $token->setIdentifier($settings->token);
-        $token->setSecret($settings->tokenSecret);
+        $token->setIdentifier($account->token);
+        $token->setSecret($account->tokenSecret);
 
         return $token;
     }
 
     /**
-     * Delete Token
+     * Deletes a token
      *
      * @return bool
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function deleteToken()
     {
-        $plugin = Craft::$app->getPlugins()->getPlugin('twitter');
+        $account = Plugin::$plugin->getAccounts()->getAccount();
 
-        $settings = $plugin->getSettings();
-        $settings->token = null;
-        $settings->tokenSecret = null;
-
-        Craft::$app->getPlugins()->savePluginSettings($plugin, $settings->getAttributes());
-
-        return true;
+        return Plugin::$plugin->getAccounts()->deleteAccount($account);
     }
 
     /**
@@ -101,13 +92,10 @@ class Oauth extends Component
      */
     public function getOauthProvider()
     {
-        $oauthConsumerKey = Plugin::getInstance()->getConsumerKey();
-        $oauthConsumerSecret = Plugin::getInstance()->getConsumerSecret();
-
-        $options = [];
-
-        $options['identifier'] = $oauthConsumerKey;
-        $options['secret'] = $oauthConsumerSecret;
+        $options = [
+            'identifier' => Plugin::getInstance()->getConsumerKey(),
+            'secret' => Craft::parseEnv(Plugin::getInstance()->getConsumerSecret()),
+        ];
 
         if (!isset($options['callback_uri'])) {
             $options['callback_uri'] = UrlHelper::actionUrl('twitter/oauth/callback');
@@ -117,7 +105,7 @@ class Oauth extends Component
     }
 
     /**
-     * Get javascript origin
+     * Gets the javascript origin
      *
      * @return string
      * @throws \craft\errors\SiteNotFoundException

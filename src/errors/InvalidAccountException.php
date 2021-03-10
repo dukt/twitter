@@ -10,8 +10,8 @@ namespace dukt\twitter\errors;
 use yii\base\Exception;
 
 /**
- * Class InvalidTweetException
+ * Class InvalidAccountException
  */
-class InvalidTweetException extends Exception
+class InvalidAccountException extends Exception
 {
 }

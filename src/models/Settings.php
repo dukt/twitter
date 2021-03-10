@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/twitter/
- * @copyright Copyright (c) 2019, Dukt
+ * @copyright Copyright (c) 2021, Dukt
  * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
@@ -34,11 +34,13 @@ class Settings extends Model
 
     /**
      * @var string|null The OAuth token.
+     * @deprecated in 2.1.5
      */
     public $token;
 
     /**
      * @var string|null The OAuth token secret.
+     * @deprecated in 2.1.5
      */
     public $tokenSecret;
 

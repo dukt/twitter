@@ -9,10 +9,9 @@
 ] %}
 
 {% set title = "OAuth Settings"|t('twitter') %}
-{% set docsUrl = 'https://docs.dukt.net/twitter/v2/' %}
+{% set docsUrl = 'https://dukt.net/docs/twitter/v2/' %}
 
 {% set content %}
-
     <form action="" method="post">
         {{ csrfInput() }}
         <input type="hidden" name="action" value="twitter/settings/save-oauth-settings">
@@ -40,22 +39,25 @@
         <p>{{ 'Once the OAuth client is created Twitter will provide you with a consumer ID and secret.'|t('twitter') }}</p>
         <p>{{ 'Copy the consumer ID & secret from your application details in the {link}, paste them below and save.'|t('twitter', { link: '<a href="https://dev.twitter.com/apps">'~'Twitter API Console'|t('twitter')~'</a>'})|raw }}</p>
 
-        {{ forms.textField({
-            label: "Consumer Key"|t('twitter'),
-            name: 'settings[oauthConsumerKey]',
-            value: settings.oauthConsumerKey,
+        {{ forms.autosuggestField({
+          label: "Consumer Key"|t('twitter'),
+          name: 'settings[oauthConsumerKey]',
+          value: oauthConsumerKey,
+          suggestions: craft.cp.getEnvSuggestions(),
+          suggestEnvVars: true,
         }) }}
 
-        {{ forms.textField({
-            label: "Consumer Secret"|t('twitter'),
-            name: 'settings[oauthConsumerSecret]',
-            value: settings.oauthConsumerSecret,
+        {{ forms.autosuggestField({
+          label: "Consumer Secret"|t('twitter'),
+          name: 'settings[oauthConsumerSecret]',
+          value: oauthConsumerSecret,
+          suggestions: craft.cp.getEnvSuggestions(),
+          suggestEnvVars: true,
         }) }}
 
         <div class="buttons">
             <input type="submit" class="btn submit" value="{{ "Save"|t('twitter') }}">
         </div>
     </form>
-
 {% endset %}
 
