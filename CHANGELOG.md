@@ -4,7 +4,7 @@ Changelog
 ## 2.1.5 - 2021-03-10
 
 ### Added
-- Added environment variables support for the OAuth consumer key and secret.
+- Added environment variable suggestions support for the OAuth consumer key and secret.
 
 ### Changed
 - OAuth tokens are now stored in a `twitter_accounts` table instead of in the plugin’s settings.
@@ -12,6 +12,7 @@ Changelog
 - Deprecated `\dukt\twitter\models\Settings::$tokenSecret`.
 - Updated `league/oauth1-client` to 1.9.
 - Updated `guzzlehttp/oauth-subscriber` to 0.4.
+- Bumped the schema version to 1.0.2.
 
 ### Fixed
 - Fixed the icon of the Search widget.
