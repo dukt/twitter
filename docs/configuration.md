@@ -24,4 +24,4 @@ The OAuth consumer secret.
 ## searchWidgetExtraQuery    
 The search widget’s extra query.
      
-     'searchWidgetExtraQuery => '-filter:retweets'
+     'searchWidgetExtraQuery' => '-filter:retweets'
