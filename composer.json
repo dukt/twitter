@@ -25,7 +25,7 @@
   "require": {
     "craftcms/cms": "^3.0.0",
     "league/oauth1-client": "^1.9.0",
-    "guzzlehttp/oauth-subscriber": "^0.4.0",
+    "guzzlehttp/oauth-subscriber": "^0.6.0",
     "nojimage/twitter-text-php": "^2.0.0"
   },
   "autoload": {
