@@ -90,6 +90,7 @@ class SearchWidget extends Widget
      */
     public function getBodyHtml()
     {
+        $variables = [];
         $settings = $this->getSettings();
 
         $searchQuery = $settings['query'];
