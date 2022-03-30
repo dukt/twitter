@@ -1,7 +1,7 @@
 {
   "name": "dukt/twitter",
   "description": "Tweet field, search widget, embeds, and authenticated Twitter API requests.",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "type": "craft-plugin",
   "license": "proprietary",
   "keywords": [
