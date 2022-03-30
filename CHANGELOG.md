@@ -5,6 +5,9 @@ Changelog
 
 ### Changed
 - Updated plugin icon.
+- Updated `league/oauth1-client` to 1.10.0.
+- Updated `guzzlehttp/oauth-subscriber` to 0.6.0.
+- Updated `nojimage/twitter-text-php` to 2.0.3.
 
 ## 2.1.5 - 2021-03-10
 
