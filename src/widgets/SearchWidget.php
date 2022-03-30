@@ -1,7 +1,7 @@
 <?php
 /**
  * @link      https://dukt.net/twitter/
- * @copyright Copyright (c) 2021, Dukt
+ * @copyright Copyright (c) Dukt
  * @license   https://github.com/dukt/twitter/blob/master/LICENSE.md
  */
 
@@ -90,6 +90,7 @@ class SearchWidget extends Widget
      */
     public function getBodyHtml()
     {
+        $variables = [];
         $settings = $this->getSettings();
 
         $searchQuery = $settings['query'];
