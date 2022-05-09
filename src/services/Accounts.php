@@ -66,7 +66,7 @@ class Accounts extends Component
                 ->one();
 
             if (!$accountRecord) {
-                throw new InvalidAccountException("No account exists with the ID '{$account->id}'");
+                throw new InvalidAccountException(sprintf('No account exists with the ID \'%s\'', $account->id));
             }
         } else {
             $accountRecord = new AccountRecord();
@@ -87,10 +87,10 @@ class Accounts extends Component
             }
 
             $transaction->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $transaction->rollBack();
 
-            throw $e;
+            throw $exception;
         }
 
         return true;
@@ -112,7 +112,7 @@ class Accounts extends Component
 
         $accountRecord = AccountRecord::findOne($account->id);
 
-        if (!$accountRecord) {
+        if ($accountRecord === null) {
             return true;
         }
 

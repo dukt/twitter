@@ -121,7 +121,7 @@ class Plugin extends \craft\base\Plugin
         $settings = parent::getSettings();
         $configFile = Craft::$app->getConfig()->getConfigFromFile('twitter');
 
-        if($settings) {
+        if($settings !== null) {
             $defaultSettingsModel = new Settings();
 
             if(!isset($configFile['cacheDuration'])) {
@@ -131,6 +131,7 @@ class Plugin extends \craft\base\Plugin
             if(!isset($configFile['enableCache'])) {
                 $settings->enableCache = $defaultSettingsModel->enableCache;
             }
+
             if(!isset($configFile['searchWidgetExtraQuery'])) {
                 $settings->searchWidgetExtraQuery = $defaultSettingsModel->searchWidgetExtraQuery;
             }

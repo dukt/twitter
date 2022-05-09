@@ -42,7 +42,7 @@ class FieldsController extends Controller
         try {
             $tweet = Plugin::getInstance()->getApi()->getTweet($tweetId);
 
-            if (!$tweet) {
+            if ($tweet === null) {
                 throw new InvalidTweetException('No status found with that ID.');
             }
 
@@ -53,20 +53,20 @@ class FieldsController extends Controller
             return $this->asJson([
                 'html' => $html,
             ]);
-        } catch (RequestException $e) {
-            $data = Json::decodeIfJson($e->getResponse()->getBody()->getContents());
+        } catch (RequestException $requestException) {
+            $data = Json::decodeIfJson($requestException->getResponse()->getBody()->getContents());
 
             if (isset($data['errors'][0]['message'])) {
                 return $this->asErrorJson($data['errors'][0]['message']);
             }
 
-            Craft::error('Couldn’ load tweet preview: '.$e->getTraceAsString(), __METHOD__);
+            Craft::error('Couldn’ load tweet preview: '.$requestException->getTraceAsString(), __METHOD__);
 
-            return $this->asErrorJson($e->getMessage());
-        } catch (InvalidTweetException $e) {
-            Craft::error('Couldn’ load tweet preview: '.$e->getTraceAsString(), __METHOD__);
+            return $this->asErrorJson($requestException->getMessage());
+        } catch (InvalidTweetException $invalidTweetException) {
+            Craft::error('Couldn’ load tweet preview: '.$invalidTweetException->getTraceAsString(), __METHOD__);
 
-            return $this->asErrorJson($e->getMessage());
+            return $this->asErrorJson($invalidTweetException->getMessage());
         }
     }
 }

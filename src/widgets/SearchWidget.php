@@ -31,6 +31,7 @@ class SearchWidget extends Widget
      * @var
      */
     public $query;
+
     /**
      * @var
      */
@@ -98,7 +99,7 @@ class SearchWidget extends Widget
 
         $token = Plugin::getInstance()->getOauth()->getToken();
 
-        if ($token) {
+        if ($token !== null) {
             if (!empty($searchQuery)) {
                 try {
                     $q = $searchQuery;
@@ -127,15 +128,15 @@ class SearchWidget extends Widget
                     Craft::$app->getView()->registerJs("new Craft.Twitter_SearchWidget('".$this->id."');");
 
                     return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/body', $variables);
-                } catch (ClientException $e) {
-                    $errorMsg = $e->getMessage();
-                    $data = Json::decodeIfJson($e->getResponse()->getBody()->getContents());
+                } catch (ClientException $clientException) {
+                    $errorMsg = $clientException->getMessage();
+                    $data = Json::decodeIfJson($clientException->getResponse()->getBody()->getContents());
 
                     if (isset($data['errors'][0]['message'])) {
                         $errorMsg = $data['errors'][0]['message'];
                     }
 
-                    Craft::error('Couldn’t retrieve tweets: '.$e->getTraceAsString(), __METHOD__);
+                    Craft::error('Couldn’t retrieve tweets: '.$clientException->getTraceAsString(), __METHOD__);
 
                     return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/_error', [
                         'errorMsg' => $errorMsg

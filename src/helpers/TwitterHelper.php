@@ -62,6 +62,7 @@ class TwitterHelper
                     $originalPath = $originalFiles[0];
                 }
             }
+
             if (!$originalPath) {
                 $user = Plugin::getInstance()->getApi()->getUserById($remoteUserId);
 
@@ -92,7 +93,7 @@ class TwitterHelper
             $name = pathinfo($file, PATHINFO_BASENAME);
         }
 
-        return Craft::$app->getAssetManager()->getPublishedUrl($dir, true)."/{$name}";
+        return Craft::$app->getAssetManager()->getPublishedUrl($dir, true).sprintf('/%s', $name);
     }
 
     /**
@@ -104,12 +105,12 @@ class TwitterHelper
      */
     public static function extractTweetId($urlOrId)
     {
-        if (preg_match('/^\d+$/', $urlOrId)) {
+        if (preg_match('#^\d+$#', $urlOrId)) {
             // If the string is a number, return it right away
             return (int)$urlOrId;
         }
 
-        if (preg_match('/\/status(es)?\/(\d+)\/?$/', $urlOrId, $matches)) {
+        if (preg_match('#\/status(es)?\/(\d+)\/?$#', $urlOrId, $matches)) {
             // Extract the tweet ID from the URL
             return (int)$matches[2];
         }
@@ -169,7 +170,7 @@ class TwitterHelper
 
         $difference = $seconds;
 
-        for ($j = 0; $difference >= $lengths[$j] && $j < count($lengths) - 1; $j++) {
+        for ($j = 0; $difference >= $lengths[$j] && $j < count($lengths) - 1; ++$j) {
             $difference /= $lengths[$j];
         }
 

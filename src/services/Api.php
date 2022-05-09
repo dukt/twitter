@@ -233,7 +233,7 @@ class Api extends Component
 
         $token = Plugin::getInstance()->getOauth()->getToken();
 
-        if ($token) {
+        if ($token !== null) {
             $stack = $this->getStack($token);
 
             $options['auth'] = 'oauth';

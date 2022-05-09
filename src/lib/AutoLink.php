@@ -110,22 +110,28 @@ class AutoLink extends \Twitter\Text\Autolink
         if ($this->external) {
             $rel[] = 'external';
         }
+
         if ($this->nofollow) {
             $rel[] = 'nofollow';
         }
+
         if ($this->noopener) {
             $rel[] = 'noopener';
         }
+
         if (!empty($rel)) {
             $attributes['rel'] = join(' ', $rel);
         }
+
         if ($this->target) {
             $attributes['target'] = $this->target;
         }
+
         $link = '<a';
         foreach ($attributes as $key => $val) {
             $link .= ' '.$key.'="'.$this->escapeHTML($val).'"';
         }
+
         $link .= '>'.$text.'</a>';
 
         return $link;

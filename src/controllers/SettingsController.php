@@ -38,16 +38,16 @@ class SettingsController extends Controller
         try {
             $token = Plugin::getInstance()->getOauth()->getToken();
 
-            if ($token) {
+            if ($token !== null) {
                 $tokenExists = true;
 
                 // Retrieve resource owner’s details
                 $provider = Plugin::getInstance()->getOauth()->getOauthProvider();
                 $resourceOwner = $provider->getUserDetails($token);
             }
-        } catch (Exception $e) {
-            Craft::error('Couldn’t retrieve twitter account: '.$e->getTraceAsString(), __METHOD__);
-            $error = $e->getMessage();
+        } catch (Exception $exception) {
+            Craft::error('Couldn’t retrieve twitter account: '.$exception->getTraceAsString(), __METHOD__);
+            $error = $exception->getMessage();
         }
 
         return $this->renderTemplate('twitter/settings', [

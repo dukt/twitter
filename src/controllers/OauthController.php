@@ -69,10 +69,10 @@ class OauthController extends Controller
 
             // Redirect
             Craft::$app->getSession()->setNotice(Craft::t('twitter', 'Connected to Twitter.'));
-        } catch (CredentialsException $e) {
+        } catch (CredentialsException $credentialsException) {
             // Failed to get the token credentials or user details.
-            Craft::error('Couldn’t connect to Twitter: '.$e->getTraceAsString(), __METHOD__);
-            Craft::$app->getSession()->setError($e->getMessage());
+            Craft::error('Couldn’t connect to Twitter: '.$credentialsException->getTraceAsString(), __METHOD__);
+            Craft::$app->getSession()->setError($credentialsException->getMessage());
         }
 
         return $this->redirect('twitter/settings');

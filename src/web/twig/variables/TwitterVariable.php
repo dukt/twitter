@@ -45,11 +45,11 @@ class TwitterVariable
                 'success' => true,
                 'data' => Plugin::getInstance()->getApi()->get($uri, $query, $headers, $options, $enableCache, $cacheExpire)
             ];
-        } catch (ClientException $e) {
-            Craft::error('Error requesting Twitter’s API: '.$e->getTraceAsString(), __METHOD__);
+        } catch (ClientException $clientException) {
+            Craft::error('Error requesting Twitter’s API: '.$clientException->getTraceAsString(), __METHOD__);
             return [
                 'success' => false,
-                'data' => Json::decodeIfJson($e->getResponse()->getBody()->getContents()),
+                'data' => Json::decodeIfJson($clientException->getResponse()->getBody()->getContents()),
             ];
         }
     }
@@ -67,8 +67,8 @@ class TwitterVariable
     {
         try {
             return Plugin::getInstance()->getApi()->getTweet($urlOrId, $query);
-        } catch (GuzzleException $e) {
-            Craft::error('Couldn’t get tweet by URL: '.$e->getTraceAsString(), __METHOD__);
+        } catch (GuzzleException $guzzleException) {
+            Craft::error('Couldn’t get tweet by URL: '.$guzzleException->getTraceAsString(), __METHOD__);
             return null;
         }
     }
@@ -85,8 +85,8 @@ class TwitterVariable
     {
         try {
             return Plugin::getInstance()->getApi()->getUserById($remoteUserId, $query);
-        } catch (GuzzleException $e) {
-            Craft::error('Couldn’t get user by ID: '.$e->getTraceAsString(), __METHOD__);
+        } catch (GuzzleException $guzzleException) {
+            Craft::error('Couldn’t get user by ID: '.$guzzleException->getTraceAsString(), __METHOD__);
             return null;
         }
     }
@@ -105,8 +105,8 @@ class TwitterVariable
     {
         try {
             return TwitterHelper::getUserProfileImageResourceUrl($remoteUserId, $size);
-        } catch (GuzzleException $e) {
-            Craft::error('Couldn’t get user profile image resource URL: '.$e->getTraceAsString(), __METHOD__);
+        } catch (GuzzleException $guzzleException) {
+            Craft::error('Couldn’t get user profile image resource URL: '.$guzzleException->getTraceAsString(), __METHOD__);
             return null;
         }
     }
