@@ -46,7 +46,7 @@ class TwitterHelper
         if (is_dir($dir)) {
             $files = FileHelper::findFiles($dir);
 
-            if (count($files) > 0) {
+            if ($files !== []) {
                 $file = $files[0];
             }
         }
@@ -58,7 +58,7 @@ class TwitterHelper
             if (is_dir($originalDir)) {
                 $originalFiles = FileHelper::findFiles($originalDir);
 
-                if (count($originalFiles) > 0) {
+                if ($originalFiles !== []) {
                     $originalPath = $originalFiles[0];
                 }
             }
@@ -169,8 +169,9 @@ class TwitterHelper
         $lengths = ['60', '60', '24', '7', '4.35', '12', '10'];
 
         $difference = $seconds;
+        $lengthsCount = count($lengths);
 
-        for ($j = 0; $difference >= $lengths[$j] && $j < count($lengths) - 1; ++$j) {
+        for ($j = 0; $difference >= $lengths[$j] && $j < $lengthsCount - 1; ++$j) {
             $difference /= $lengths[$j];
         }
 

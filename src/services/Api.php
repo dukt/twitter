@@ -195,7 +195,7 @@ class Api extends Component
 
         $files = FileHelper::findFiles($originalFolderPath);
 
-        if (count($files) > 0) {
+        if ($files !== []) {
             $imagePath = $files[0];
 
             return $imagePath;

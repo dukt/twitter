@@ -120,7 +120,7 @@ class AutoLink extends \Twitter\Text\Autolink
         }
 
         if (!empty($rel)) {
-            $attributes['rel'] = join(' ', $rel);
+            $attributes['rel'] = implode(' ', $rel);
         }
 
         if ($this->target) {

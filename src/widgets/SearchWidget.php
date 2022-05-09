@@ -119,7 +119,7 @@ class SearchWidget extends Widget
                     foreach ($response['statuses'] as $tweetData) {
                         $tweet = new Tweet();
                         Plugin::getInstance()->getApi()->populateTweetFromData($tweet, $tweetData);
-                        array_push($tweets, $tweet);
+                        $tweets[] = $tweet;
                     }
 
                     $variables['tweets'] = $tweets;

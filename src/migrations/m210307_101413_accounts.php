@@ -36,8 +36,8 @@ class m210307_101413_accounts extends Migration
         $settings = Plugin::$plugin->getSettings();
 
         if (
-            !isset($settings->token) ||
-            !isset($settings->tokenSecret) ||
+            !(property_exists($settings, 'token') && $settings->token !== null) ||
+            !(property_exists($settings, 'tokenSecret') && $settings->tokenSecret !== null) ||
             !$settings->token ||
             !$settings->tokenSecret
         ) {

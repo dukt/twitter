@@ -42,7 +42,7 @@ class FieldsController extends Controller
         try {
             $tweet = Plugin::getInstance()->getApi()->getTweet($tweetId);
 
-            if ($tweet === null) {
+            if (!$tweet instanceof \dukt\twitter\models\Tweet) {
                 throw new InvalidTweetException('No status found with that ID.');
             }
 

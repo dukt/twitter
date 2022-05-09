@@ -112,7 +112,7 @@ class Accounts extends Component
 
         $accountRecord = AccountRecord::findOne($account->id);
 
-        if ($accountRecord === null) {
+        if (!$accountRecord instanceof \dukt\twitter\records\Account) {
             return true;
         }
 
