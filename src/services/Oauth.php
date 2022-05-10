@@ -23,14 +23,6 @@ use \League\OAuth1\Client\Server\Twitter as TwitterProvider;
  */
 class Oauth extends Component
 {
-    // Properties
-    // =========================================================================
-
-    /**
-     * @var TokenCredentials|null
-     */
-    private $token;
-
     // Public Methods
     // =========================================================================
 
