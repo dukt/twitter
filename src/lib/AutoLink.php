@@ -68,9 +68,7 @@ class AutoLink extends \Twitter\Text\Autolink
             $beginIndex = $entity['indices'][1];
         }
 
-        $text .= mb_substr($tweet, $beginIndex, mb_strlen($tweet));
-
-        return $text;
+        return $text . mb_substr($tweet, $beginIndex, mb_strlen($tweet));
     }
 
     /**
@@ -132,9 +130,7 @@ class AutoLink extends \Twitter\Text\Autolink
             $link .= ' '.$key.'="'.$this->escapeHTML($val).'"';
         }
 
-        $link .= '>'.$text.'</a>';
-
-        return $link;
+        return $link . ('>'.$text.'</a>');
     }
 
     /**

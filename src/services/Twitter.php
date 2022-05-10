@@ -51,8 +51,6 @@ class Twitter extends Component
             }
         }
 
-        $html = $twitter->autoLink($text);
-
-        return $html;
+        return $twitter->autoLink($text);
     }
 }

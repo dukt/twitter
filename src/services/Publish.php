@@ -41,9 +41,8 @@ class Publish extends Component
         }
 
         $html = $response['html'];
-        $html = str_replace('<a class="twitter-timeline"', '<a class="twitter-grid"'.$dataAttributes, $html);
 
-        return $html;
+        return str_replace('<a class="twitter-timeline"', '<a class="twitter-grid"'.$dataAttributes, $html);
     }
 
     /**
@@ -65,9 +64,8 @@ class Publish extends Component
         }
 
         $html = $response['html'];
-        $html = str_replace('<a class="twitter-moment"', '<a class="twitter-moment"'.$dataAttributes, $html);
 
-        return $html;
+        return str_replace('<a class="twitter-moment"', '<a class="twitter-moment"'.$dataAttributes, $html);
     }
 
     /**
@@ -89,9 +87,8 @@ class Publish extends Component
         }
 
         $html = $response['html'];
-        $html = str_replace('<a class="twitter-timeline"', '<a class="twitter-timeline"'.$dataAttributes, $html);
 
-        return $html;
+        return str_replace('<a class="twitter-timeline"', '<a class="twitter-timeline"'.$dataAttributes, $html);
     }
 
     /**
@@ -113,9 +110,8 @@ class Publish extends Component
         }
 
         $html = $response['html'];
-        $html = str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"'.$dataAttributes.'>', $html);
 
-        return $html;
+        return str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"'.$dataAttributes.'>', $html);
     }
 
     /**
@@ -137,9 +133,8 @@ class Publish extends Component
         }
 
         $html = $response['html'];
-        $html = str_replace('<blockquote class="twitter-video">', '<blockquote class="twitter-video"'.$dataAttributes.'>', $html);
 
-        return $html;
+        return str_replace('<blockquote class="twitter-video">', '<blockquote class="twitter-video"'.$dataAttributes.'>', $html);
     }
 
     /**
