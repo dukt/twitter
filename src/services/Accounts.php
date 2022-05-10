@@ -66,7 +66,7 @@ class Accounts extends Component
                 ->one();
 
             if (!$accountRecord) {
-                throw new InvalidAccountException(sprintf('No account exists with the ID \'%s\'', $account->id));
+                throw new InvalidAccountException(sprintf("No account exists with the ID '%s'", $account->id));
             }
         } else {
             $accountRecord = new AccountRecord();
