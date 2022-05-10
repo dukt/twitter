@@ -18,7 +18,7 @@ use GuzzleHttp\Exception\GuzzleException;
 /**
  * Twitter Twig Extension
  */
-class Extension extends Twig_Extension
+class Extension extends \Twig\Extension\AbstractExtension
 {
     // Public Methods
     // =========================================================================
@@ -41,10 +41,10 @@ class Extension extends Twig_Extension
     public function getFilters()
     {
         return [
-            new Twig_SimpleFilter('autoLinkTweet', function ($text, array $options = []) : \Twig_Markup {
+            new \Twig\TwigFilter('autoLinkTweet', function ($text, array $options = []) : \Twig\Markup {
                 return $this->autoLinkTweet($text, $options);
             }),
-            new Twig_SimpleFilter('twitterTimeAgo', function ($date) : \Twig_Markup {
+            new \Twig\TwigFilter('twitterTimeAgo', function ($date) : \Twig\Markup {
                 return $this->timeAgo($date);
             })
         ];
@@ -58,31 +58,31 @@ class Extension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('twitterGrid', function ($url, array $options = []) : \Twig_Markup {
+            new \Twig\TwigFunction('twitterGrid', function ($url, array $options = []) : \Twig\Markup {
                 return $this->twitterGrid($url, $options);
             }),
-            new Twig_SimpleFunction('twitterTimeline', function ($url, array $options = []) : \Twig_Markup {
+            new \Twig\TwigFunction('twitterTimeline', function ($url, array $options = []) : \Twig\Markup {
                 return $this->twitterTimeline($url, $options);
             }),
-            new Twig_SimpleFunction('twitterTweet', function ($url, array $options = []) : \Twig_Markup {
+            new \Twig\TwigFunction('twitterTweet', function ($url, array $options = []) : \Twig\Markup {
                 return $this->twitterTweet($url, $options);
             }),
-            new Twig_SimpleFunction('twitterVideo', function ($url, array $options = []) : \Twig_Markup {
+            new \Twig\TwigFunction('twitterVideo', function ($url, array $options = []) : \Twig\Markup {
                 return $this->twitterVideo($url, $options);
             }),
-            new Twig_SimpleFunction('twitterMoment', function ($url, array $options = []) : \Twig_Markup {
+            new \Twig\TwigFunction('twitterMoment', function ($url, array $options = []) : \Twig\Markup {
                 return $this->twitterMoment($url, $options);
             }),
-            new Twig_SimpleFunction('twitterFollowButton', function ($username, array $options = []) : \Twig_Markup {
+            new \Twig\TwigFunction('twitterFollowButton', function ($username, array $options = []) : \Twig\Markup {
                 return $this->twitterFollowButton($username, $options);
             }),
-            new Twig_SimpleFunction('twitterMessageButton', function ($recipientId, $screenName, $text = null, array $options = []) : \Twig_Markup {
+            new \Twig\TwigFunction('twitterMessageButton', function ($recipientId, $screenName, $text = null, array $options = []) : \Twig\Markup {
                 return $this->twitterMessageButton($recipientId, $screenName, $text, $options);
             }),
-            new Twig_SimpleFunction('twitterTweetButton', function (array $options = []) : \Twig_Markup {
+            new \Twig\TwigFunction('twitterTweetButton', function (array $options = []) : \Twig\Markup {
                 return $this->twitterTweetButton($options);
             }),
-            new Twig_SimpleFunction('embedTweet', [$this, 'embedTweet']),
+            new \Twig\TwigFunction('embedTweet', [$this, 'embedTweet']),
         ];
     }
 
@@ -91,7 +91,7 @@ class Extension extends Twig_Extension
      *
      * @param       $url
      *
-     * @return \Twig_Markup
+     * @return \Twig\Markup
      * @throws GuzzleException
      */
     public function twitterGrid($url, array $options = [])
@@ -106,7 +106,7 @@ class Extension extends Twig_Extension
      *
      * @param       $url
      *
-     * @return \Twig_Markup
+     * @return \Twig\Markup
      * @throws GuzzleException
      */
     public function twitterMoment($url, array $options = [])
@@ -121,7 +121,7 @@ class Extension extends Twig_Extension
      *
      * @param       $url
      *
-     * @return \Twig_Markup
+     * @return \Twig\Markup
      * @throws GuzzleException
      */
     public function twitterTimeline($url, array $options = [])
@@ -136,7 +136,7 @@ class Extension extends Twig_Extension
      *
      * @param       $url
      *
-     * @return \Twig_Markup
+     * @return \Twig\Markup
      * @throws GuzzleException
      */
     public function twitterTweet($url, array $options = [])
@@ -151,7 +151,7 @@ class Extension extends Twig_Extension
      *
      * @param       $url
      *
-     * @return \Twig_Markup
+     * @return \Twig\Markup
      * @throws GuzzleException
      */
     public function twitterVideo($url, array $options = [])
@@ -166,7 +166,7 @@ class Extension extends Twig_Extension
      *
      * @param       $username
      *
-     * @return \Twig_Markup
+     * @return \Twig\Markup
      */
     public function twitterFollowButton($username, array $options = [])
     {
@@ -182,7 +182,7 @@ class Extension extends Twig_Extension
      * @param       $screenName
      * @param null  $text
      *
-     * @return \Twig_Markup
+     * @return \Twig\Markup
      */
     public function twitterMessageButton($recipientId, $screenName, $text = null, array $options = [])
     {
@@ -195,7 +195,7 @@ class Extension extends Twig_Extension
      * Returns the HTML of a Tweet Button.
      *
      *
-     * @return \Twig_Markup
+     * @return \Twig\Markup
      * @param mixed[] $options
      */
     public function twitterTweetButton(array $options = [])
@@ -210,7 +210,7 @@ class Extension extends Twig_Extension
      *
      * @param       $text
      *
-     * @return \Twig_Markup
+     * @return \Twig\Markup
      */
     public function autoLinkTweet(string $text, array $options = [])
     {
@@ -224,7 +224,7 @@ class Extension extends Twig_Extension
      *
      * @param       $date
      *
-     * @return \Twig_Markup
+     * @return \Twig\Markup
      */
     public function timeAgo($date)
     {

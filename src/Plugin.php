@@ -44,7 +44,7 @@ class Plugin extends \craft\base\Plugin
     /**
      * @var bool
      */
-    public $hasCpSettings = true;
+    public bool $hasCpSettings = true;
 
     /**
      * @var \dukt\twitter\Plugin The plugin instance.
@@ -116,7 +116,7 @@ class Plugin extends \craft\base\Plugin
     /**
      * @inheritdoc
      */
-    public function getSettings()
+    public function getSettings(): ?\craft\base\Model
     {
         $settings = parent::getSettings();
         $configFile = Craft::$app->getConfig()->getConfigFromFile('twitter');
@@ -148,7 +148,7 @@ class Plugin extends \craft\base\Plugin
      *
      * @return \craft\base\Model|null
      */
-    protected function createSettingsModel()
+    protected function createSettingsModel(): ?\craft\base\Model
     {
         return new Settings();
     }
@@ -159,7 +159,7 @@ class Plugin extends \craft\base\Plugin
      *
      * @return string The rendered settings HTML
      */
-    public function getSettingsResponse()
+    public function getSettingsResponse(): mixed
     {
         $url = UrlHelper::cpUrl('twitter/settings');
 
