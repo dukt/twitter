@@ -76,7 +76,7 @@ class Plugin extends \craft\base\Plugin
 
         // Events
 
-        Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES, function(RegisterUrlRulesEvent $event) {
+        Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_CP_URL_RULES, function(RegisterUrlRulesEvent $event): void {
             $rules = [
                 'twitter/settings' => 'twitter/settings/index',
                 'twitter/settings/oauth' => 'twitter/settings/oauth',
@@ -85,15 +85,15 @@ class Plugin extends \craft\base\Plugin
             $event->rules = array_merge($event->rules, $rules);
         });
 
-        Event::on(Dashboard::class, Dashboard::EVENT_REGISTER_WIDGET_TYPES, function(RegisterComponentTypesEvent $event) {
+        Event::on(Dashboard::class, Dashboard::EVENT_REGISTER_WIDGET_TYPES, function(RegisterComponentTypesEvent $event): void {
             $event->types[] = SearchWidget::class;
         });
 
-        Event::on(Fields::class, Fields::EVENT_REGISTER_FIELD_TYPES, function(RegisterComponentTypesEvent $event) {
+        Event::on(Fields::class, Fields::EVENT_REGISTER_FIELD_TYPES, function(RegisterComponentTypesEvent $event): void {
             $event->types[] = TweetField::class;
         });
 
-        Event::on(ClearCaches::class, ClearCaches::EVENT_REGISTER_CACHE_OPTIONS, function(RegisterCacheOptionsEvent $event) {
+        Event::on(ClearCaches::class, ClearCaches::EVENT_REGISTER_CACHE_OPTIONS, function(RegisterCacheOptionsEvent $event): void {
             $event->options[] = [
                 'key' => 'twitter-caches',
                 'label' => Craft::t('twitter', 'Twitter caches'),
@@ -101,7 +101,7 @@ class Plugin extends \craft\base\Plugin
             ];
         });
 
-        Event::on(CraftVariable::class, CraftVariable::EVENT_INIT, function(Event $event) {
+        Event::on(CraftVariable::class, CraftVariable::EVENT_INIT, function(Event $event): void {
             /** @var CraftVariable $variable */
             $variable = $event->sender;
             $variable->set('twitter', TwitterVariable::class);

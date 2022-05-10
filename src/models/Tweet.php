@@ -88,14 +88,13 @@ class Tweet extends Model
     /**
      * Returns the tweet's author user profile image resource url.
      *
-     * @param int $size
      *
      * @return null|string
      * @throws GuzzleException
      * @throws ImageException
      * @throws \yii\base\Exception
      */
-    public function getUserProfileImageUrl($size = 48)
+    public function getUserProfileImageUrl(int $size = 48)
     {
         return TwitterHelper::getUserProfileImageResourceUrl($this->remoteUserId, $size);
     }

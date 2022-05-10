@@ -30,21 +30,17 @@ class Api extends Component
 {
     // Public Methods
     // =========================================================================
-
     /**
      * Performs a get request on the Twitter API.
      *
-     * @param string     $uri
      * @param array|null $query
      * @param array|null $headers
-     * @param array      $options
      * @param bool|null  $enableCache
      * @param null|int   $cacheExpire
-     *
      * @return array|null
      * @throws GuzzleException
      */
-    public function get($uri, array $query = null, array $headers = null, array $options = [], $enableCache = null, $cacheExpire = null)
+    public function get(string $uri, array $query = null, array $headers = null, array $options = [], $enableCache = null, $cacheExpire = null)
     {
         // Add query to the request’s options
 
@@ -116,12 +112,12 @@ class Api extends Component
      * Returns a user by their ID.
      *
      * @param int|string $userId
-     * @param array      $query
      *
      * @return array|null
      * @throws GuzzleException
+     * @param mixed[] $query
      */
-    public function getUserById($userId, $query = [])
+    public function getUserById($userId, array $query = [])
     {
         $userId = (int)$userId;
 

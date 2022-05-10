@@ -90,12 +90,11 @@ class Extension extends Twig_Extension
      * Returns the HTML of a Timeline widget as grid.
      *
      * @param       $url
-     * @param array $options
      *
      * @return \Twig_Markup
      * @throws GuzzleException
      */
-    public function twitterGrid($url, $options = [])
+    public function twitterGrid($url, array $options = [])
     {
         $html = Plugin::getInstance()->getPublish()->grid($url, $options);
 
@@ -106,12 +105,11 @@ class Extension extends Twig_Extension
      * Returns the HTML of a Moment widget.
      *
      * @param       $url
-     * @param array $options
      *
      * @return \Twig_Markup
      * @throws GuzzleException
      */
-    public function twitterMoment($url, $options = [])
+    public function twitterMoment($url, array $options = [])
     {
         $html = Plugin::getInstance()->getPublish()->moment($url, $options);
 
@@ -122,12 +120,11 @@ class Extension extends Twig_Extension
      * Returns the HTML of a Timeline widget.
      *
      * @param       $url
-     * @param array $options
      *
      * @return \Twig_Markup
      * @throws GuzzleException
      */
-    public function twitterTimeline($url, $options = [])
+    public function twitterTimeline($url, array $options = [])
     {
         $html = Plugin::getInstance()->getPublish()->timeline($url, $options);
 
@@ -138,12 +135,11 @@ class Extension extends Twig_Extension
      * Returns the HTML of a Tweet widget.
      *
      * @param       $url
-     * @param array $options
      *
      * @return \Twig_Markup
      * @throws GuzzleException
      */
-    public function twitterTweet($url, $options = [])
+    public function twitterTweet($url, array $options = [])
     {
         $html = Plugin::getInstance()->getPublish()->tweet($url, $options);
 
@@ -154,12 +150,11 @@ class Extension extends Twig_Extension
      * Returns the HTML of a Video Tweet widget.
      *
      * @param       $url
-     * @param array $options
      *
      * @return \Twig_Markup
      * @throws GuzzleException
      */
-    public function twitterVideo($url, $options = [])
+    public function twitterVideo($url, array $options = [])
     {
         $html = Plugin::getInstance()->getPublish()->video($url, $options);
 
@@ -170,11 +165,10 @@ class Extension extends Twig_Extension
      * Returns the HTML of a Follow Button.
      *
      * @param       $username
-     * @param array $options
      *
      * @return \Twig_Markup
      */
-    public function twitterFollowButton($username, $options = [])
+    public function twitterFollowButton($username, array $options = [])
     {
         $html = Plugin::getInstance()->getPublish()->followButton($username, $options);
 
@@ -187,11 +181,10 @@ class Extension extends Twig_Extension
      * @param       $recipientId
      * @param       $screenName
      * @param null  $text
-     * @param array $options
      *
      * @return \Twig_Markup
      */
-    public function twitterMessageButton($recipientId, $screenName, $text = null, $options = [])
+    public function twitterMessageButton($recipientId, $screenName, $text = null, array $options = [])
     {
         $html = Plugin::getInstance()->getPublish()->messageButton($recipientId, $screenName, $text, $options);
 
@@ -201,11 +194,11 @@ class Extension extends Twig_Extension
     /**
      * Returns the HTML of a Tweet Button.
      *
-     * @param array $options
      *
      * @return \Twig_Markup
+     * @param mixed[] $options
      */
-    public function twitterTweetButton($options = [])
+    public function twitterTweetButton(array $options = [])
     {
         $html = Plugin::getInstance()->getPublish()->tweetButton($options);
 
@@ -216,11 +209,10 @@ class Extension extends Twig_Extension
      * Auto Link Tweet
      *
      * @param       $text
-     * @param array $options
      *
      * @return \Twig_Markup
      */
-    public function autoLinkTweet($text, $options = [])
+    public function autoLinkTweet(string $text, array $options = [])
     {
         $html = Plugin::getInstance()->getTwitter()->autoLinkTweet($text, $options);
 

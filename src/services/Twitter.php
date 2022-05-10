@@ -24,12 +24,12 @@ class Twitter extends Component
     /**
      * Returns the tweet with URLs transformed into HTML links
      *
-     * @param int   $text    The tweet's text.
+     * @param string   $text    The tweet's text.
      * @param array $options Options to pass to AutoLink.
      *
      * @return string
      */
-    public function autoLinkTweet($text, $options = [])
+    public function autoLinkTweet(string $text, array $options = [])
     {
         $twitter = AutoLink::create();
 

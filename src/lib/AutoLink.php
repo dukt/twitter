@@ -154,7 +154,7 @@ class AutoLink extends \Twitter\Text\Autolink
      *
      * @return  Autolink  Fluid method chaining.
      */
-    public function setNoOpener($v)
+    public function setNoOpener(bool $v)
     {
         $this->noopener = $v;
 

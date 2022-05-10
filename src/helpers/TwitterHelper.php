@@ -24,19 +24,15 @@ class TwitterHelper
 {
     // Public Methods
     // =========================================================================
-
     /**
      * Returns a user image from a Twitter user ID for given size. Default size is 48.
-     *
-     * @param int $remoteUserId
-     * @param int $size
      *
      * @return string|null
      * @throws GuzzleException
      * @throws \craft\errors\ImageException
      * @throws \yii\base\Exception
      */
-    public static function getUserProfileImageResourceUrl($remoteUserId, $size = 48)
+    public static function getUserProfileImageResourceUrl(int $remoteUserId, int $size = 48)
     {
         $baseDir = Craft::$app->getPath()->getRuntimePath().DIRECTORY_SEPARATOR.'twitter'.DIRECTORY_SEPARATOR.'userimages'.DIRECTORY_SEPARATOR.$remoteUserId;
         $originalDir = $baseDir.DIRECTORY_SEPARATOR.'original';
@@ -121,12 +117,11 @@ class TwitterHelper
     /**
      * Formats a duration to seconds.
      *
-     * @param string $duration
      *
      * @return int
      * @throws \Exception
      */
-    public static function durationToSeconds($duration): int
+    public static function durationToSeconds(string $duration): int
     {
         $date = new DateTime;
         $current = $date->getTimestamp();
@@ -163,7 +158,7 @@ class TwitterHelper
      * @param int $seconds The number of seconds.
      * @return string The duration.
      */
-    public static function secondsToHumanTimeDuration($seconds): string
+    public static function secondsToHumanTimeDuration(int $seconds): string
     {
         $periods = ['second', 'minute', 'hour', 'day', 'week', 'month', 'year', 'decade'];
         $lengths = ['60', '60', '24', '7', '4.35', '12', '10'];
