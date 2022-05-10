@@ -24,21 +24,19 @@ class TwitterVariable
 {
     // Public Methods
     // =========================================================================
-
     /**
      * Perform a GET request on the Twitter API.
      *
-     * @param string     $uri
      * @param array|null $query
      * @param array|null $headers
-     * @param array      $options
      * @param null|bool  $enableCache
      * @param null|int   $cacheExpire
      *
      * @return array
      * @throws GuzzleException
+     * @param mixed[] $options
      */
-    public function get($uri, array $query = null, array $headers = null, $options = [], $enableCache = null, $cacheExpire = null): array
+    public function get(string $uri, array $query = null, array $headers = null, array $options = [], $enableCache = null, $cacheExpire = null): array
     {
         try {
             return [
@@ -76,12 +74,11 @@ class TwitterVariable
     /**
      * Returns a Twitter user by its ID. Add query parameters to the API request with `query`.
      *
-     * @param int   $remoteUserId
-     * @param array $query
      *
      * @return array|null
+     * @param mixed[] $query
      */
-    public function getUserById($remoteUserId, $query = [])
+    public function getUserById(int $remoteUserId, array $query = [])
     {
         try {
             return Plugin::getInstance()->getApi()->getUserById($remoteUserId, $query);
@@ -94,14 +91,12 @@ class TwitterVariable
     /**
      * Returns a user image from a twitter user ID for given size. Default size is 48.
      *
-     * @param int $remoteUserId
-     * @param int $size
      *
      * @return string|null
      * @throws \craft\errors\ImageException
      * @throws \yii\base\Exception
      */
-    public function getUserProfileImageResourceUrl($remoteUserId, $size = 48)
+    public function getUserProfileImageResourceUrl(int $remoteUserId, int $size = 48)
     {
         try {
             return TwitterHelper::getUserProfileImageResourceUrl($remoteUserId, $size);
