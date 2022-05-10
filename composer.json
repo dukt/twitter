@@ -23,7 +23,7 @@
     "rss": "https://github.com/dukt/twitter/commits/v2.atom"
   },
   "require": {
-    "craftcms/cms": "^3.0.0",
+    "craftcms/cms": "^4.0.0",
     "league/oauth1-client": "^1.10.0",
     "guzzlehttp/oauth-subscriber": "^0.6.0",
     "nojimage/twitter-text-php": "^2.0.3"
