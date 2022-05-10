@@ -114,6 +114,7 @@ class Oauth extends Component
      */
     public function getRedirectUri()
     {
-        return UrlHelper::actionUrl('twitter/oauth/callback');
+        $url = UrlHelper::actionUrl('twitter/oauth/callback');
+        return UrlHelper::removeParam($url, 'site');;
     }
 }
