@@ -27,7 +27,7 @@ use yii\base\Event;
 
 /**
  * Twitter Plugin
- *
+ * @method Settings getSettings()
  * @author Dukt <support@dukt.net>
  * @since  3.0
  */
@@ -116,7 +116,7 @@ class Plugin extends \craft\base\Plugin
     /**
      * @inheritdoc
      */
-    public function getSettings(): ?\craft\base\Model
+/*    public function getSettings(): ?\craft\base\Model
     {
         $settings = parent::getSettings();
         $configFile = Craft::$app->getConfig()->getConfigFromFile('twitter');
@@ -138,7 +138,7 @@ class Plugin extends \craft\base\Plugin
         }
 
         return $settings;
-    }
+    }*/
 
     // Protected Methods
     // =========================================================================
@@ -146,9 +146,9 @@ class Plugin extends \craft\base\Plugin
     /**
      * Creates and returns the model used to store the plugin’s settings.
      *
-     * @return \craft\base\Model|null
+     * @return Settings|null
      */
-    protected function createSettingsModel(): ?\craft\base\Model
+    protected function createSettingsModel(): ?Settings
     {
         return new Settings();
     }

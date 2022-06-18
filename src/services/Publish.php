@@ -25,12 +25,13 @@ class Publish extends Component
     /**
      * Returns the HTML of a Timeline widget as grid.
      *
-     * @param       $url
+     * @param string $url
+     * @param array $options
      *
-     * @return string
+     * @return ?string
      * @throws GuzzleException
      */
-    public function grid($url, array $options = [])
+    public function grid(string $url, array $options = [])
     {
         $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
@@ -48,12 +49,13 @@ class Publish extends Component
     /**
      * Returns the HTML of a Moment widget.
      *
-     * @param       $url
+     * @param string $url
+     * @param array $options
      *
-     * @return string
+     * @return ?string
      * @throws GuzzleException
      */
-    public function moment($url, array $options = [])
+    public function moment(string $url, array $options = [])
     {
         $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
@@ -71,12 +73,13 @@ class Publish extends Component
     /**
      * Returns the HTML of a Timeline widget.
      *
-     * @param       $url
+     * @param string $url
+     * @param array $options
      *
-     * @return string
+     * @return ?string
      * @throws GuzzleException
      */
-    public function timeline($url, array $options = [])
+    public function timeline(string $url, array $options = [])
     {
         $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
@@ -94,12 +97,13 @@ class Publish extends Component
     /**
      * Returns the HTML of a Tweet widget.
      *
-     * @param       $url
+     * @param string $url
+     * @param array $options
      *
-     * @return string
+     * @return ?string
      * @throws GuzzleException
      */
-    public function tweet($url, array $options = [])
+    public function tweet(string $url, array $options = [])
     {
         $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
@@ -117,12 +121,13 @@ class Publish extends Component
     /**
      * Returns the HTML of a Video Tweet widget.
      *
-     * @param       $url
+     * @param string $url
+     * @param array $options
      *
-     * @return string
+     * @return ?string
      * @throws GuzzleException
      */
-    public function video($url, array $options = [])
+    public function video(string $url, array $options = [])
     {
         $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
@@ -140,11 +145,12 @@ class Publish extends Component
     /**
      * Returns the HTML of a Follow Button.
      *
-     * @param       $username
+     * @param string $username
+     * @param array $options
      *
      * @return string
      */
-    public function followButton($username, array $options = [])
+    public function followButton(string $username, array $options = [])
     {
         $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
@@ -154,13 +160,14 @@ class Publish extends Component
     /**
      * Returns the HTML of a Message Button.
      *
-     * @param       $recipientId
-     * @param       $screenName
-     * @param null  $text
+     * @param int $recipientId
+     * @param string $screenName
+     * @param string|null $text
+     * @param array $options
      *
      * @return string
      */
-    public function messageButton($recipientId, $screenName, $text = null, array $options = [])
+    public function messageButton(int $recipientId, string $screenName, string $text = null, array $options = [])
     {
         $options['screenName'] = $screenName;
 
@@ -172,9 +179,8 @@ class Publish extends Component
     /**
      * Returns the HTML of a Tweet Button.
      *
-     *
+     * @param array $options
      * @return string
-     * @param mixed[] $options
      */
     public function tweetButton(array $options = [])
     {
@@ -186,9 +192,9 @@ class Publish extends Component
     /**
      * Returns an array of options as HTML data attributes.
      *
+     * @param array $options
      *
      * @return string
-     * @param mixed[] $options
      */
     public function getOptionsAsDataAttributes(array $options)
     {
@@ -229,12 +235,13 @@ class Publish extends Component
     /**
      * Returns an oEmbed object from a Twitter URL.
      *
-     * @param       $url
+     * @param string $url
+     * @param array $query
      *
      * @return array|bool|float|int|string
-     * @throws \Exception
+     * @throws GuzzleException
      */
-    private function oEmbed($url, array $query = [])
+    private function oEmbed(string $url, array $query = [])
     {
         if (!isset($query['omit_script'])) {
             $query['omit_script'] = true;

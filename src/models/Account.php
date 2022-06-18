@@ -20,9 +20,9 @@ class Account extends Model
     // Properties
     // =========================================================================
 
-    public $id;
+    public ?int $id = null;
 
-    public $token;
+    public ?string $token = null;
 
-    public $tokenSecret;
+    public ?string $tokenSecret = null;
 }

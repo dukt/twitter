@@ -170,8 +170,8 @@ class Api extends Component
     /**
      * Saves the original user profile image for a twitter user ID
      *
-     * @param $userId
-     * @param $remoteImageUrl
+     * @param int $userId
+     * @param string $remoteImageUrl
      *
      * @return string|null
      * @throws GuzzleException
@@ -269,7 +269,7 @@ class Api extends Component
     /**
      * Returns a tweet by its ID.
      *
-     * @param            $tweetId
+     * @param int $tweetId
      * @param array|null $query
      *
      * @return Tweet|null

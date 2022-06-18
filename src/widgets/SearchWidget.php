@@ -28,12 +28,12 @@ class SearchWidget extends Widget
     // =========================================================================
 
     /**
-     * @var
+     * @var string
      */
     public $query;
 
     /**
-     * @var
+     * @var int
      */
     public $count;
 

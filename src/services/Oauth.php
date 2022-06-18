@@ -52,7 +52,7 @@ class Oauth extends Component
     {
         $account = Plugin::$plugin->getAccounts()->getAccount();
 
-        if (!$account || !$account->token || !$account->tokenSecret) {
+        if (!$account->token || !$account->tokenSecret) {
             return null;
         }
 
@@ -87,11 +87,8 @@ class Oauth extends Component
         $options = [
             'identifier' => Plugin::getInstance()->getConsumerKey(),
             'secret' => Craft::parseEnv(Plugin::getInstance()->getConsumerSecret()),
+            'callback_uri' => UrlHelper::actionUrl('twitter/oauth/callback'),
         ];
-
-        if (!isset($options['callback_uri'])) {
-            $options['callback_uri'] = UrlHelper::actionUrl('twitter/oauth/callback');
-        }
 
         return new TwitterProvider($options);
     }

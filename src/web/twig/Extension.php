@@ -89,12 +89,13 @@ class Extension extends \Twig\Extension\AbstractExtension
     /**
      * Returns the HTML of a Timeline widget as grid.
      *
-     * @param       $url
+     * @param string $url
+     * @param array $options
      *
      * @return \Twig\Markup
      * @throws GuzzleException
      */
-    public function twitterGrid($url, array $options = [])
+    public function twitterGrid(string $url, array $options = [])
     {
         $html = Plugin::getInstance()->getPublish()->grid($url, $options);
 
@@ -104,12 +105,13 @@ class Extension extends \Twig\Extension\AbstractExtension
     /**
      * Returns the HTML of a Moment widget.
      *
-     * @param       $url
+     * @param string $url
+     * @param array $options
      *
      * @return \Twig\Markup
      * @throws GuzzleException
      */
-    public function twitterMoment($url, array $options = [])
+    public function twitterMoment(string $url, array $options = [])
     {
         $html = Plugin::getInstance()->getPublish()->moment($url, $options);
 
@@ -119,12 +121,13 @@ class Extension extends \Twig\Extension\AbstractExtension
     /**
      * Returns the HTML of a Timeline widget.
      *
-     * @param       $url
+     * @param string $url
+     * @param array $options
      *
      * @return \Twig\Markup
      * @throws GuzzleException
      */
-    public function twitterTimeline($url, array $options = [])
+    public function twitterTimeline(string $url, array $options = [])
     {
         $html = Plugin::getInstance()->getPublish()->timeline($url, $options);
 
@@ -134,12 +137,13 @@ class Extension extends \Twig\Extension\AbstractExtension
     /**
      * Returns the HTML of a Tweet widget.
      *
-     * @param       $url
+     * @param string $url
+     * @param array $options
      *
      * @return \Twig\Markup
      * @throws GuzzleException
      */
-    public function twitterTweet($url, array $options = [])
+    public function twitterTweet(string $url, array $options = [])
     {
         $html = Plugin::getInstance()->getPublish()->tweet($url, $options);
 
@@ -149,12 +153,13 @@ class Extension extends \Twig\Extension\AbstractExtension
     /**
      * Returns the HTML of a Video Tweet widget.
      *
-     * @param       $url
+     * @param string $url
+     * @param array $options
      *
      * @return \Twig\Markup
      * @throws GuzzleException
      */
-    public function twitterVideo($url, array $options = [])
+    public function twitterVideo(string $url, array $options = [])
     {
         $html = Plugin::getInstance()->getPublish()->video($url, $options);
 
@@ -164,11 +169,12 @@ class Extension extends \Twig\Extension\AbstractExtension
     /**
      * Returns the HTML of a Follow Button.
      *
-     * @param       $username
+     * @param string $username
+     * @param array $options
      *
      * @return \Twig\Markup
      */
-    public function twitterFollowButton($username, array $options = [])
+    public function twitterFollowButton(string $username, array $options = [])
     {
         $html = Plugin::getInstance()->getPublish()->followButton($username, $options);
 
@@ -178,13 +184,14 @@ class Extension extends \Twig\Extension\AbstractExtension
     /**
      * Returns the HTML of a Message Button.
      *
-     * @param       $recipientId
-     * @param       $screenName
-     * @param null  $text
+     * @param int $recipientId
+     * @param string $screenName
+     * @param null $text
+     * @param array $options
      *
      * @return \Twig\Markup
      */
-    public function twitterMessageButton($recipientId, $screenName, $text = null, array $options = [])
+    public function twitterMessageButton(int $recipientId, string $screenName, $text = null, array $options = [])
     {
         $html = Plugin::getInstance()->getPublish()->messageButton($recipientId, $screenName, $text, $options);
 
@@ -208,7 +215,8 @@ class Extension extends \Twig\Extension\AbstractExtension
     /**
      * Auto Link Tweet
      *
-     * @param       $text
+     * @param string $text
+     * @param array $options
      *
      * @return \Twig\Markup
      */
@@ -222,11 +230,11 @@ class Extension extends \Twig\Extension\AbstractExtension
     /**
      * Time Ago
      *
-     * @param       $date
+     * @param \DateTime $date
      *
      * @return \Twig\Markup
      */
-    public function timeAgo($date)
+    public function timeAgo(\DateTime $date)
     {
         $html = TwitterHelper::timeAgo($date);
 

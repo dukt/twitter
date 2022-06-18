@@ -24,49 +24,49 @@ class Tweet extends Model
     // =========================================================================
 
     /**
-     * @var The date the tweet was created at.
+     * @var \DateTime The date the tweet was created at.
      */
     public $createdAt;
 
     /**
-     * @var Raw tweet data.
+     * @var array Raw tweet data.
      */
-    public $data;
+    public array $data;
 
     /**
-     * @var The tweet’s text.
+     * @var String The tweet’s text.
      */
     public $text;
 
     /**
-     * @var The tweet’s ID.
+     * @var String The tweet’s ID.
      */
     public $remoteId;
 
     /**
-     * @var The tweet’s author user ID.
+     * @var String The tweet’s author user ID.
      */
     public $remoteUserId;
 
     /**
-     * @var The author user’s username.
+     * @var string The author user’s username.
      */
-    public $username;
+    public string $username;
 
     /**
-     * @var The author user’s profile remote image secure URL.
+     * @var string The author user’s profile remote image secure URL.
      */
-    public $userProfileRemoteImageSecureUrl;
+    public string $userProfileRemoteImageSecureUrl;
 
     /**
-     * @var The author user’s profile remote image URL.
+     * @var string The author user’s profile remote image URL.
      */
-    public $userProfileRemoteImageUrl;
+    public string $userProfileRemoteImageUrl;
 
     /**
-     * @var The author user’s screen name.
+     * @var string The author user’s screen name.
      */
-    public $userScreenName;
+    public string $userScreenName;
 
     // Public Methods
     // =========================================================================

@@ -28,7 +28,7 @@ trait PluginTrait
      */
     public function getTwitter()
     {
-        /** @var Twitter $this */
+        /** @var Plugin $this */
         return $this->get('twitter');
     }
 
@@ -39,7 +39,7 @@ trait PluginTrait
      */
     public function getAccounts()
     {
-        /** @var Twitter $this */
+        /** @var Plugin $this */
         return $this->get('accounts');
     }
 
@@ -50,7 +50,7 @@ trait PluginTrait
      */
     public function getApi()
     {
-        /** @var Twitter $this */
+        /** @var Plugin $this */
         return $this->get('api');
     }
 
@@ -61,7 +61,7 @@ trait PluginTrait
      */
     public function getCache()
     {
-        /** @var Twitter $this */
+        /** @var Plugin $this */
         return $this->get('cache');
     }
 
@@ -72,7 +72,7 @@ trait PluginTrait
      */
     public function getOauth()
     {
-        /** @var Twitter $this */
+        /** @var Plugin $this */
         return $this->get('oauth');
     }
 
@@ -83,7 +83,7 @@ trait PluginTrait
      */
     public function getPublish()
     {
-        /** @var Twitter $this */
+        /** @var Plugin $this */
         return $this->get('publish');
     }
 

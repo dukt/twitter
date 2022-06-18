@@ -7,13 +7,15 @@
 
 namespace dukt\twitter\lib;
 
+use Twitter\Text\Autolink as TwitterAutoLink;
+
 /**
  * Class Auto Link
  *
  * @author Dukt <support@dukt.net>
  * @since  3.0
  */
-class AutoLink extends \Twitter\Text\Autolink
+class AutoLink extends TwitterAutoLink
 {
     // Properties
     // =========================================================================
@@ -148,7 +150,7 @@ class AutoLink extends \Twitter\Text\Autolink
      *
      * @param  bool $v The value to add to the 'target' attribute.
      *
-     * @return  Autolink  Fluid method chaining.
+     * @return  AutoLink  Fluid method chaining.
      */
     public function setNoOpener(bool $v)
     {

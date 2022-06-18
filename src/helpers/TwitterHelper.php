@@ -95,11 +95,11 @@ class TwitterHelper
     /**
      * Extract the tweet ID from a tweet URL, or simply returns the ID.
      *
-     * @param $urlOrId
+     * @param int|string $urlOrId
      *
      * @return int|null
      */
-    public static function extractTweetId($urlOrId)
+    public static function extractTweetId(int|string $urlOrId): ?int
     {
         if (preg_match('#^\d+$#', $urlOrId)) {
             // If the string is a number, return it right away
@@ -167,7 +167,7 @@ class TwitterHelper
         $lengthsCount = count($lengths);
 
         for ($j = 0; $difference >= $lengths[$j] && $j < $lengthsCount - 1; ++$j) {
-            $difference /= $lengths[$j];
+            $difference /= floatval($lengths[$j]);
         }
 
         $difference = round($difference);

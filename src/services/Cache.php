@@ -11,6 +11,7 @@ use Craft;
 use yii\base\Component;
 use dukt\twitter\helpers\TwitterHelper;
 use dukt\twitter\Plugin;
+use yii\caching\Dependency;
 
 /**
  * Cache Service
@@ -26,11 +27,11 @@ class Cache extends Component
     /**
      * Get cache
      *
-     * @param $id
+     * @param array $id
      *
      * @return mixed
      */
-    public function get($id)
+    public function get(array $id)
     {
         if (Plugin::getInstance()->getSettings()->enableCache === true) {
             $cacheKey = $this->getCacheKey($id);
@@ -42,15 +43,15 @@ class Cache extends Component
     /**
      * Set cache
      *
-     * @param      $id
-     * @param      $value
-     * @param null $expire
-     * @param null $dependency
+     * @param array $id
+     * @param mixed $value
+     * @param int $expire
+     * @param Dependency $dependency
      *
      * @return mixed
      * @throws \Exception
      */
-    public function set($id, $value, $expire = null, $dependency = null)
+    public function set(array $id, $value, $expire = null, $dependency = null)
     {
         if (Plugin::getInstance()->getSettings()->enableCache === true) {
             $cacheKey = $this->getCacheKey($id);
@@ -74,7 +75,7 @@ class Cache extends Component
      *
      * @return string
      */
-    private function getCacheKey(array $request)
+    private function getCacheKey(array $request): string
     {
         $dataSourceClassName = 'Twitter';
 

@@ -9,6 +9,13 @@ namespace dukt\twitter\records;
 
 use craft\db\ActiveRecord;
 
+/**
+ * Account record.
+ *
+ * @property int $id
+ * @property string $token
+ * @property string $tokenSecret
+ */
 class Account extends ActiveRecord
 {
     // Public Methods

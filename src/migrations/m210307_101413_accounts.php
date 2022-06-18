@@ -4,6 +4,7 @@ namespace dukt\twitter\migrations;
 
 use Craft;
 use craft\db\Migration;
+use craft\db\TableSchema;
 use dukt\twitter\Plugin;
 
 /**
@@ -16,7 +17,10 @@ class m210307_101413_accounts extends Migration
      */
     public function safeUp()
     {
-        if (Craft::$app->db->schema->getTableSchema('{{%twitter_accounts}}') !== null) {
+        /** @var TableSchema|null $tableSchema */
+        $tableSchema = Craft::$app->db->schema->getTableSchema('{{%twitter_accounts}}');
+
+        if ($tableSchema !== null) {
             return null;
         }
 

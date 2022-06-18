@@ -61,9 +61,7 @@ class Accounts extends Component
         }
 
         if ($account->id) {
-            $accountRecord = AccountRecord::find()
-                ->where(['id' => $account->id])
-                ->one();
+            $accountRecord = AccountRecord::findOne($account->id);
 
             if (!$accountRecord) {
                 throw new InvalidAccountException(sprintf("No account exists with the ID '%s'", $account->id));
