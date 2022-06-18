@@ -29,6 +29,9 @@
     "guzzlehttp/oauth-subscriber": "^0.6.0",
     "nojimage/twitter-text-php": "^2.0.3"
   },
+  "require-dev": {
+    "craftcms/phpstan": "dev-main"
+  },
   "autoload": {
     "psr-4": {
       "dukt\\twitter\\": "src/"
@@ -40,5 +43,14 @@
     "schemaVersion": "1.0.2",
     "documentationUrl": "https://dukt.net/docs/twitter/v2",
     "changelogUrl": "https://raw.githubusercontent.com/dukt/twitter/master/CHANGELOG.md"
+  },
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
+    }
+  },
+  "scripts": {
+    "phpstan": "phpstan --memory-limit=1G"
   }
 }
