@@ -27,6 +27,7 @@ use yii\base\Event;
 
 /**
  * Twitter Plugin
+ *
  * @method Settings getSettings()
  * @author Dukt <support@dukt.net>
  * @since  3.0
@@ -112,33 +113,6 @@ class Plugin extends \craft\base\Plugin
 
         Craft::$app->view->registerTwigExtension(new Extension());
     }
-
-    /**
-     * @inheritdoc
-     */
-/*    public function getSettings(): ?\craft\base\Model
-    {
-        $settings = parent::getSettings();
-        $configFile = Craft::$app->getConfig()->getConfigFromFile('twitter');
-
-        if($settings !== null) {
-            $defaultSettingsModel = new Settings();
-
-            if(!isset($configFile['cacheDuration'])) {
-                $settings->cacheDuration = $defaultSettingsModel->cacheDuration;
-            }
-
-            if(!isset($configFile['enableCache'])) {
-                $settings->enableCache = $defaultSettingsModel->enableCache;
-            }
-
-            if(!isset($configFile['searchWidgetExtraQuery'])) {
-                $settings->searchWidgetExtraQuery = $defaultSettingsModel->searchWidgetExtraQuery;
-            }
-        }
-
-        return $settings;
-    }*/
 
     // Protected Methods
     // =========================================================================
