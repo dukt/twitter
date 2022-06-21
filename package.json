@@ -1,0 +1,13 @@
+{
+  "name": "facebook",
+  "version": "0.1.0",
+  "main": "index.js",
+  "author": "Dukt <contact@dukt.net>",
+  "devDependencies": {
+    "@playwright/test": "^1.22.2",
+    "dotenv": "^16.0.1"
+  },
+  "scripts": {
+    "test": "npx playwright test"
+  }
+}
