@@ -9,6 +9,12 @@ namespace dukt\twitter\base;
 
 use Craft;
 use dukt\twitter\Plugin;
+use \dukt\twitter\services\Twitter;
+use \dukt\twitter\services\Accounts;
+use \dukt\twitter\services\Api;
+use \dukt\twitter\services\Cache;
+use \dukt\twitter\services\Oauth;
+use \dukt\twitter\services\Publish;
 
 /**
  * PluginTrait implements the common methods and properties for plugin classes.
@@ -26,7 +32,7 @@ trait PluginTrait
      *
      * @return \dukt\twitter\services\Twitter The twitter service
      */
-    public function getTwitter()
+    public function getTwitter() : Twitter
     {
         /** @var Twitter $this */
         return $this->get('twitter');
@@ -37,7 +43,7 @@ trait PluginTrait
      *
      * @return \dukt\twitter\services\Accounts The accounts service
      */
-    public function getAccounts()
+    public function getAccounts() : Accounts
     {
         /** @var Twitter $this */
         return $this->get('accounts');
@@ -48,7 +54,7 @@ trait PluginTrait
      *
      * @return \dukt\twitter\services\Api The api service
      */
-    public function getApi()
+    public function getApi() : Api
     {
         /** @var Twitter $this */
         return $this->get('api');
@@ -59,7 +65,7 @@ trait PluginTrait
      *
      * @return \dukt\twitter\services\Cache The cache service
      */
-    public function getCache()
+    public function getCache() : Cache
     {
         /** @var Twitter $this */
         return $this->get('cache');
@@ -70,7 +76,7 @@ trait PluginTrait
      *
      * @return \dukt\twitter\services\Oauth The oauth service
      */
-    public function getOauth()
+    public function getOauth() : Oauth
     {
         /** @var Twitter $this */
         return $this->get('oauth');
@@ -81,7 +87,7 @@ trait PluginTrait
      *
      * @return \dukt\twitter\services\Publish The publish service
      */
-    public function getPublish()
+    public function getPublish() : Publish
     {
         /** @var Twitter $this */
         return $this->get('publish');

@@ -12,6 +12,7 @@ use dukt\twitter\errors\InvalidAccountException;
 use dukt\twitter\Plugin;
 use yii\base\Component;
 use League\OAuth1\Client\Credentials\TokenCredentials;
+use craft\helpers\App;
 use craft\helpers\UrlHelper;
 use \League\OAuth1\Client\Server\Twitter as TwitterProvider;
 
@@ -94,7 +95,7 @@ class Oauth extends Component
     {
         $options = [
             'identifier' => Plugin::getInstance()->getConsumerKey(),
-            'secret' => Craft::parseEnv(Plugin::getInstance()->getConsumerSecret()),
+            'secret' => App::parseEnv(Plugin::getInstance()->getConsumerSecret()),
         ];
 
         if (!isset($options['callback_uri'])) {

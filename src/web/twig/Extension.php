@@ -10,15 +10,15 @@ namespace dukt\twitter\web\twig;
 use craft\helpers\Template;
 use dukt\twitter\helpers\TwitterHelper;
 use dukt\twitter\Plugin;
-use Twig_Extension;
-use Twig_SimpleFunction;
-use Twig_SimpleFilter;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Twitter Twig Extension
  */
-class Extension extends Twig_Extension
+class Extension extends AbstractExtension
 {
     // Public Methods
     // =========================================================================
@@ -41,8 +41,8 @@ class Extension extends Twig_Extension
     public function getFilters()
     {
         return [
-            new Twig_SimpleFilter('autoLinkTweet', [$this, 'autoLinkTweet']),
-            new Twig_SimpleFilter('twitterTimeAgo', [$this, 'timeAgo'])
+            new TwigFilter('autoLinkTweet', [$this, 'autoLinkTweet']),
+            new TwigFilter('twitterTimeAgo', [$this, 'timeAgo'])
         ];
     }
 
@@ -54,15 +54,15 @@ class Extension extends Twig_Extension
     public function getFunctions()
     {
         return [
-            new Twig_SimpleFunction('twitterGrid', [$this, 'twitterGrid']),
-            new Twig_SimpleFunction('twitterTimeline', [$this, 'twitterTimeline']),
-            new Twig_SimpleFunction('twitterTweet', [$this, 'twitterTweet']),
-            new Twig_SimpleFunction('twitterVideo', [$this, 'twitterVideo']),
-            new Twig_SimpleFunction('twitterMoment', [$this, 'twitterMoment']),
-            new Twig_SimpleFunction('twitterFollowButton', [$this, 'twitterFollowButton']),
-            new Twig_SimpleFunction('twitterMessageButton', [$this, 'twitterMessageButton']),
-            new Twig_SimpleFunction('twitterTweetButton', [$this, 'twitterTweetButton']),
-            new Twig_SimpleFunction('embedTweet', [$this, 'embedTweet']),
+            new TwigFunction('twitterGrid', [$this, 'twitterGrid']),
+            new TwigFunction('twitterTimeline', [$this, 'twitterTimeline']),
+            new TwigFunction('twitterTweet', [$this, 'twitterTweet']),
+            new TwigFunction('twitterVideo', [$this, 'twitterVideo']),
+            new TwigFunction('twitterMoment', [$this, 'twitterMoment']),
+            new TwigFunction('twitterFollowButton', [$this, 'twitterFollowButton']),
+            new TwigFunction('twitterMessageButton', [$this, 'twitterMessageButton']),
+            new TwigFunction('twitterTweetButton', [$this, 'twitterTweetButton']),
+            new TwigFunction('embedTweet', [$this, 'embedTweet']),
         ];
     }
 

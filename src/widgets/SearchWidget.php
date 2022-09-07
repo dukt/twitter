@@ -50,7 +50,7 @@ class SearchWidget extends Widget
     /**
      * @inheritdoc
      */
-    public static function icon()
+    public static function icon(): string
     {
         return Craft::getAlias('@dukt/twitter/icons/twitter.svg');
     }
@@ -61,7 +61,7 @@ class SearchWidget extends Widget
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules() : array
     {
         $rules = parent::rules();
         $rules[] = [['query', 'count'], 'required'];
@@ -88,7 +88,7 @@ class SearchWidget extends Widget
     /**
      * @inheritdoc
      */
-    public function getBodyHtml()
+    public function getBodyHtml(): string
     {
         $variables = [];
         $settings = $this->getSettings();
@@ -158,7 +158,7 @@ class SearchWidget extends Widget
     /**
      * @inheritdoc
      */
-    public function getSettingsHtml()
+    public function getSettingsHtml(): string
     {
         return Craft::$app->getView()->renderTemplate('twitter/_components/widgets/Search/settings', [
             'settings' => $this->getSettings()
