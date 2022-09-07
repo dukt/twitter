@@ -8,6 +8,7 @@
 namespace dukt\twitter;
 
 use Craft;
+use craft\base\Model;
 use craft\events\RegisterCacheOptionsEvent;
 use craft\events\RegisterComponentTypesEvent;
 use craft\events\RegisterUrlRulesEvent;
@@ -44,7 +45,7 @@ class Plugin extends \craft\base\Plugin
     /**
      * @var bool
      */
-    public $hasCpSettings = true;
+    public bool $hasCpSettings = true;
 
     /**
      * @var \dukt\twitter\Plugin The plugin instance.
@@ -57,7 +58,7 @@ class Plugin extends \craft\base\Plugin
     /**
      * @inheritdoc
      */
-    public function init()
+    public function init() : void
     {
         parent::init();
         self::$plugin = $this;
@@ -116,7 +117,7 @@ class Plugin extends \craft\base\Plugin
     /**
      * @inheritdoc
      */
-    public function getSettings()
+    public function getSettings() : ?Model
     {
         $settings = parent::getSettings();
         $configFile = Craft::$app->getConfig()->getConfigFromFile('twitter');
@@ -144,10 +145,8 @@ class Plugin extends \craft\base\Plugin
 
     /**
      * Creates and returns the model used to store the plugin’s settings.
-     *
-     * @return \craft\base\Model|null
      */
-    protected function createSettingsModel()
+    protected function createSettingsModel(): ?Model
     {
         return new Settings();
     }
@@ -158,7 +157,7 @@ class Plugin extends \craft\base\Plugin
      *
      * @return string The rendered settings HTML
      */
-    public function getSettingsResponse()
+    public function getSettingsResponse(): string
     {
         $url = UrlHelper::cpUrl('twitter/settings');
 
