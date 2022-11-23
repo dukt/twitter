@@ -1,0 +1,15 @@
+name: ci
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - v3-develop
+jobs:
+  ci:
+    name: ci
+    uses: dukt/.github/.github/workflows/deploy-docs-and-changelog.yml@main
+    with:
+      plugin_handle: twitter
+    secrets: inherit
+
+
