@@ -14,15 +14,15 @@ use craft\events\RegisterUrlRulesEvent;
 use craft\helpers\UrlHelper;
 use craft\services\Dashboard;
 use craft\services\Fields;
+use craft\utilities\ClearCaches;
 use craft\web\twig\variables\CraftVariable;
 use craft\web\UrlManager;
-use craft\utilities\ClearCaches;
 use dukt\twitter\base\PluginTrait;
 use dukt\twitter\fields\Tweet as TweetField;
 use dukt\twitter\models\Settings;
-use dukt\twitter\widgets\SearchWidget;
 use dukt\twitter\web\twig\Extension;
 use dukt\twitter\web\twig\variables\TwitterVariable;
+use dukt\twitter\widgets\SearchWidget;
 use yii\base\Event;
 
 /**
@@ -98,7 +98,7 @@ class Plugin extends \craft\base\Plugin
             $event->options[] = [
                 'key' => 'twitter-caches',
                 'label' => Craft::t('twitter', 'Twitter caches'),
-                'action' => Craft::$app->path->getRuntimePath().'/twitter'
+                'action' => Craft::$app->path->getRuntimePath() . '/twitter',
             ];
         });
 

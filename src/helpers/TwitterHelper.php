@@ -34,9 +34,9 @@ class TwitterHelper
      */
     public static function getUserProfileImageResourceUrl(int $remoteUserId, int $size = 48)
     {
-        $baseDir = Craft::$app->getPath()->getRuntimePath().DIRECTORY_SEPARATOR.'twitter'.DIRECTORY_SEPARATOR.'userimages'.DIRECTORY_SEPARATOR.$remoteUserId;
-        $originalDir = $baseDir.DIRECTORY_SEPARATOR.'original';
-        $dir = $baseDir.DIRECTORY_SEPARATOR.$size;
+        $baseDir = Craft::$app->getPath()->getRuntimePath() . DIRECTORY_SEPARATOR . 'twitter' . DIRECTORY_SEPARATOR . 'userimages' . DIRECTORY_SEPARATOR . $remoteUserId;
+        $originalDir = $baseDir . DIRECTORY_SEPARATOR . 'original';
+        $dir = $baseDir . DIRECTORY_SEPARATOR . $size;
         $file = null;
 
         if (is_dir($dir)) {
@@ -64,7 +64,7 @@ class TwitterHelper
 
                 $url = str_replace('_normal', '', $user['profile_image_url_https']);
                 $name = pathinfo($url, PATHINFO_BASENAME);
-                $originalPath = $originalDir.DIRECTORY_SEPARATOR.$name;
+                $originalPath = $originalDir . DIRECTORY_SEPARATOR . $name;
 
                 FileHelper::createDirectory($originalDir);
                 $client = new \GuzzleHttp\Client();
@@ -80,7 +80,7 @@ class TwitterHelper
             }
 
             // Generate the thumb
-            $path = $dir.DIRECTORY_SEPARATOR.$name;
+            $path = $dir . DIRECTORY_SEPARATOR . $name;
             FileHelper::createDirectory($dir);
             Craft::$app->getImages()->loadImage($originalPath, false, $size)
                 ->scaleToFit($size, $size)
@@ -89,7 +89,7 @@ class TwitterHelper
             $name = pathinfo($file, PATHINFO_BASENAME);
         }
 
-        return Craft::$app->getAssetManager()->getPublishedUrl($dir, true).sprintf('/%s', $name);
+        return Craft::$app->getAssetManager()->getPublishedUrl($dir, true) . sprintf('/%s', $name);
     }
 
     /**
@@ -123,7 +123,7 @@ class TwitterHelper
      */
     public static function durationToSeconds(string $duration): int
     {
-        $date = new DateTime;
+        $date = new DateTime();
         $current = $date->getTimestamp();
         $date->add(new DateInterval($duration));
 

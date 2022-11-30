@@ -11,8 +11,8 @@ use Craft;
 use dukt\twitter\errors\InvalidAccountException;
 use dukt\twitter\models\Account;
 use dukt\twitter\records\Account as AccountRecord;
-use yii\base\Component;
 use Exception;
+use yii\base\Component;
 
 /**
  * OAuth Service

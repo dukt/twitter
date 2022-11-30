@@ -42,7 +42,7 @@ class Twitter extends Component
             'noFollow' => 'setNoFollow',
             'external' => 'setExternal',
             'target' => 'setTarget',
-            'noOpener' => 'setNoOpener'
+            'noOpener' => 'setNoOpener',
         ];
 
         foreach ($options as $k => $v) {

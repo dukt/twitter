@@ -2,7 +2,6 @@
 
 namespace dukt\twitter\migrations;
 
-use Craft;
 use craft\db\Migration;
 use dukt\twitter\fields\Tweet;
 use dukt\twitter\widgets\SearchWidget;
@@ -19,12 +18,12 @@ class m180910_122732_craft3_upgrade extends Migration
     {
         // Fields
         $this->update('{{%fields}}', [
-            'type' => Tweet::class
+            'type' => Tweet::class,
         ], ['type' => 'Twitter_Tweet']);
 
         // Widgets
         $this->update('{{%widgets}}', [
-            'type' => SearchWidget::class
+            'type' => SearchWidget::class,
         ], ['type' => 'Twitter_Search']);
     }
 

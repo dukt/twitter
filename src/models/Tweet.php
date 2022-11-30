@@ -82,7 +82,7 @@ class Tweet extends Model
             return null;
         }
 
-        return 'https://twitter.com/'.$this->userScreenName.'/status/'.$this->remoteId;
+        return 'https://twitter.com/' . $this->userScreenName . '/status/' . $this->remoteId;
     }
 
     /**
@@ -106,6 +106,6 @@ class Tweet extends Model
      */
     public function getUserProfileUrl()
     {
-        return 'https://twitter.com/'.$this->userScreenName;
+        return 'https://twitter.com/' . $this->userScreenName;
     }
 }

@@ -46,7 +46,7 @@ class FieldsController extends Controller
             }
 
             $html = Craft::$app->getView()->renderTemplate('twitter/_components/tweet', [
-                'tweet' => $tweet
+                'tweet' => $tweet,
             ]);
 
             return $this->asJson([
@@ -59,11 +59,11 @@ class FieldsController extends Controller
                 return $this->asErrorJson($data['errors'][0]['message']);
             }
 
-            Craft::error('Couldn’ load tweet preview: '.$requestException->getTraceAsString(), __METHOD__);
+            Craft::error('Couldn’ load tweet preview: ' . $requestException->getTraceAsString(), __METHOD__);
 
             return $this->asErrorJson($requestException->getMessage());
         } catch (InvalidTweetException $invalidTweetException) {
-            Craft::error('Couldn’ load tweet preview: '.$invalidTweetException->getTraceAsString(), __METHOD__);
+            Craft::error('Couldn’ load tweet preview: ' . $invalidTweetException->getTraceAsString(), __METHOD__);
 
             return $this->asErrorJson($invalidTweetException->getMessage());
         }

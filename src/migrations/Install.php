@@ -77,7 +77,7 @@ class Install extends Migration
                 'tokenSecret' => $this->string(50),
                 'dateCreated' => $this->dateTime()->notNull(),
                 'dateUpdated' => $this->dateTime()->notNull(),
-                'uid' => $this->uid()
+                'uid' => $this->uid(),
             ]
         );
     }

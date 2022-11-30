@@ -8,9 +8,9 @@
 namespace dukt\twitter\services;
 
 use Craft;
-use yii\base\Component;
 use dukt\twitter\helpers\TwitterHelper;
 use dukt\twitter\Plugin;
+use yii\base\Component;
 use yii\caching\Dependency;
 
 /**
@@ -85,6 +85,6 @@ class Cache extends Component
 
         $hash = md5(serialize($request));
 
-        return substr('twitter'.$hash, 0, 32);
+        return substr('twitter' . $hash, 0, 32);
     }
 }

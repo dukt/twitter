@@ -9,16 +9,16 @@ namespace dukt\twitter\services;
 
 use Craft;
 use craft\helpers\FileHelper;
+use DateTime;
 use dukt\twitter\helpers\TwitterHelper;
 use dukt\twitter\models\Tweet;
 use dukt\twitter\Plugin;
-use League\OAuth1\Client\Credentials\TokenCredentials;
-use yii\base\Component;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Subscriber\Oauth\Oauth1;
-use DateTime;
-use GuzzleHttp\Exception\GuzzleException;
+use League\OAuth1\Client\Credentials\TokenCredentials;
+use yii\base\Component;
 
 /**
  * Api Service
@@ -70,7 +70,7 @@ class Api extends Component
 
         $client = $this->getClient();
 
-        $url = $uri.'.json';
+        $url = $uri . '.json';
 
         if ($headers) {
             $options['headers'] = $headers;
@@ -183,7 +183,7 @@ class Api extends Component
             return null;
         }
 
-        $originalFolderPath = Craft::$app->path->getRuntimePath().'/twitter/userimages/'.$userId.'/original/';
+        $originalFolderPath = Craft::$app->path->getRuntimePath() . '/twitter/userimages/' . $userId . '/original/';
 
         if (!is_dir($originalFolderPath)) {
             FileHelper::createDirectory($originalFolderPath);
@@ -199,11 +199,11 @@ class Api extends Component
 
         $remoteImageUrl = str_replace('_normal', '', $remoteImageUrl);
         $fileName = pathinfo($remoteImageUrl, PATHINFO_BASENAME);
-        $imagePath = $originalFolderPath.$fileName;
+        $imagePath = $originalFolderPath . $fileName;
 
         $client = Craft::createGuzzleClient();
         $response = $client->request('GET', $remoteImageUrl, [
-            'sink' => $imagePath
+            'sink' => $imagePath,
         ]);
 
         if (!$response->getStatusCode() != 200) {
@@ -224,7 +224,7 @@ class Api extends Component
     private function getClient()
     {
         $options = [
-            'base_uri' => 'https://api.twitter.com/1.1/'
+            'base_uri' => 'https://api.twitter.com/1.1/',
         ];
 
         $token = Plugin::getInstance()->getOauth()->getToken();
@@ -258,7 +258,7 @@ class Api extends Component
             'consumer_secret' => $oauthConsumerSecret,
             'token' => $token->getIdentifier(),
             'token_secret' => $token->getSecret(),
-            'signature_method' => 'HMAC-SHA1'
+            'signature_method' => 'HMAC-SHA1',
         ]);
 
         $stack->push($middleware);
@@ -280,13 +280,13 @@ class Api extends Component
     {
         $tweetId = (int)$tweetId;
 
-        if(!$query) {
+        if (!$query) {
             $query = [];
         }
 
         $query = array_merge($query, [
             'id' => $tweetId,
-            'tweet_mode' => 'extended'
+            'tweet_mode' => 'extended',
         ]);
 
         $data = $this->get('statuses/show', $query);

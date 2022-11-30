@@ -9,8 +9,8 @@ namespace dukt\twitter\services;
 
 use Craft;
 use dukt\twitter\Plugin;
-use yii\base\Component;
 use GuzzleHttp\Exception\GuzzleException;
+use yii\base\Component;
 
 /**
  * Publish Service
@@ -43,7 +43,7 @@ class Publish extends Component
 
         $html = $response['html'];
 
-        return str_replace('<a class="twitter-timeline"', '<a class="twitter-grid"'.$dataAttributes, $html);
+        return str_replace('<a class="twitter-timeline"', '<a class="twitter-grid"' . $dataAttributes, $html);
     }
 
     /**
@@ -67,7 +67,7 @@ class Publish extends Component
 
         $html = $response['html'];
 
-        return str_replace('<a class="twitter-moment"', '<a class="twitter-moment"'.$dataAttributes, $html);
+        return str_replace('<a class="twitter-moment"', '<a class="twitter-moment"' . $dataAttributes, $html);
     }
 
     /**
@@ -91,7 +91,7 @@ class Publish extends Component
 
         $html = $response['html'];
 
-        return str_replace('<a class="twitter-timeline"', '<a class="twitter-timeline"'.$dataAttributes, $html);
+        return str_replace('<a class="twitter-timeline"', '<a class="twitter-timeline"' . $dataAttributes, $html);
     }
 
     /**
@@ -115,7 +115,7 @@ class Publish extends Component
 
         $html = $response['html'];
 
-        return str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"'.$dataAttributes.'>', $html);
+        return str_replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet"' . $dataAttributes . '>', $html);
     }
 
     /**
@@ -139,7 +139,7 @@ class Publish extends Component
 
         $html = $response['html'];
 
-        return str_replace('<blockquote class="twitter-video">', '<blockquote class="twitter-video"'.$dataAttributes.'>', $html);
+        return str_replace('<blockquote class="twitter-video">', '<blockquote class="twitter-video"' . $dataAttributes . '>', $html);
     }
 
     /**
@@ -154,7 +154,7 @@ class Publish extends Component
     {
         $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
-        return '<a class="twitter-follow-button" href="https://twitter.com/'.$username.'"'.$dataAttributes.'>Follow @'.$username.'</a>';
+        return '<a class="twitter-follow-button" href="https://twitter.com/' . $username . '"' . $dataAttributes . '>Follow @' . $username . '</a>';
     }
 
     /**
@@ -173,7 +173,7 @@ class Publish extends Component
 
         $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
-        return '<a class="twitter-dm-button" href="https://twitter.com/messages/compose?recipient_id='.$recipientId.'&text='.rawurlencode($text).'"'.$dataAttributes.'>Message @'.$screenName.'</a>';
+        return '<a class="twitter-dm-button" href="https://twitter.com/messages/compose?recipient_id=' . $recipientId . '&text=' . rawurlencode($text) . '"' . $dataAttributes . '>Message @' . $screenName . '</a>';
     }
 
     /**
@@ -186,7 +186,7 @@ class Publish extends Component
     {
         $dataAttributes = $this->getOptionsAsDataAttributes($options);
 
-        return '<a class="twitter-share-button" href="https://twitter.com/share"'.$dataAttributes.'>Tweet</a>';
+        return '<a class="twitter-share-button" href="https://twitter.com/share"' . $dataAttributes . '>Tweet</a>';
     }
 
     /**
@@ -224,7 +224,7 @@ class Publish extends Component
         $dataAttributes = '';
 
         foreach ($options as $key => $value) {
-            $dataAttributes .= ' data-'.$key.'="'.$value.'"';
+            $dataAttributes .= ' data-' . $key . '="' . $value . '"';
         }
 
         return $dataAttributes;
@@ -250,7 +250,7 @@ class Publish extends Component
         $query['url'] = $url;
 
         $options = [
-            'query' => $query
+            'query' => $query,
         ];
 
         $oembed = Plugin::getInstance()->getCache()->get(['twitter.publish.oEmbed', $url, $options]);

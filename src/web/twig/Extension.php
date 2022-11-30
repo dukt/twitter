@@ -10,9 +10,6 @@ namespace dukt\twitter\web\twig;
 use craft\helpers\Template;
 use dukt\twitter\helpers\TwitterHelper;
 use dukt\twitter\Plugin;
-use Twig_Extension;
-use Twig_SimpleFunction;
-use Twig_SimpleFilter;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
@@ -41,12 +38,12 @@ class Extension extends \Twig\Extension\AbstractExtension
     public function getFilters()
     {
         return [
-            new \Twig\TwigFilter('autoLinkTweet', function ($text, array $options = []) : \Twig\Markup {
+            new \Twig\TwigFilter('autoLinkTweet', function($text, array $options = []): \Twig\Markup {
                 return $this->autoLinkTweet($text, $options);
             }),
-            new \Twig\TwigFilter('twitterTimeAgo', function ($date) : \Twig\Markup {
+            new \Twig\TwigFilter('twitterTimeAgo', function($date): \Twig\Markup {
                 return $this->timeAgo($date);
-            })
+            }),
         ];
     }
 
@@ -58,28 +55,28 @@ class Extension extends \Twig\Extension\AbstractExtension
     public function getFunctions()
     {
         return [
-            new \Twig\TwigFunction('twitterGrid', function ($url, array $options = []) : \Twig\Markup {
+            new \Twig\TwigFunction('twitterGrid', function($url, array $options = []): \Twig\Markup {
                 return $this->twitterGrid($url, $options);
             }),
-            new \Twig\TwigFunction('twitterTimeline', function ($url, array $options = []) : \Twig\Markup {
+            new \Twig\TwigFunction('twitterTimeline', function($url, array $options = []): \Twig\Markup {
                 return $this->twitterTimeline($url, $options);
             }),
-            new \Twig\TwigFunction('twitterTweet', function ($url, array $options = []) : \Twig\Markup {
+            new \Twig\TwigFunction('twitterTweet', function($url, array $options = []): \Twig\Markup {
                 return $this->twitterTweet($url, $options);
             }),
-            new \Twig\TwigFunction('twitterVideo', function ($url, array $options = []) : \Twig\Markup {
+            new \Twig\TwigFunction('twitterVideo', function($url, array $options = []): \Twig\Markup {
                 return $this->twitterVideo($url, $options);
             }),
-            new \Twig\TwigFunction('twitterMoment', function ($url, array $options = []) : \Twig\Markup {
+            new \Twig\TwigFunction('twitterMoment', function($url, array $options = []): \Twig\Markup {
                 return $this->twitterMoment($url, $options);
             }),
-            new \Twig\TwigFunction('twitterFollowButton', function ($username, array $options = []) : \Twig\Markup {
+            new \Twig\TwigFunction('twitterFollowButton', function($username, array $options = []): \Twig\Markup {
                 return $this->twitterFollowButton($username, $options);
             }),
-            new \Twig\TwigFunction('twitterMessageButton', function ($recipientId, $screenName, $text = null, array $options = []) : \Twig\Markup {
+            new \Twig\TwigFunction('twitterMessageButton', function($recipientId, $screenName, $text = null, array $options = []): \Twig\Markup {
                 return $this->twitterMessageButton($recipientId, $screenName, $text, $options);
             }),
-            new \Twig\TwigFunction('twitterTweetButton', function (array $options = []) : \Twig\Markup {
+            new \Twig\TwigFunction('twitterTweetButton', function(array $options = []): \Twig\Markup {
                 return $this->twitterTweetButton($options);
             }),
             new \Twig\TwigFunction('embedTweet', [$this, 'embedTweet']),

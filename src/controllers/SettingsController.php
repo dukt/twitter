@@ -10,8 +10,8 @@ namespace dukt\twitter\controllers;
 use Craft;
 use craft\web\Controller;
 use dukt\twitter\Plugin;
-use yii\web\Response;
 use Exception;
+use yii\web\Response;
 
 /**
  * Settings controller
@@ -46,7 +46,7 @@ class SettingsController extends Controller
                 $resourceOwner = $provider->getUserDetails($token);
             }
         } catch (Exception $exception) {
-            Craft::error('Couldn’t retrieve twitter account: '.$exception->getTraceAsString(), __METHOD__);
+            Craft::error('Couldn’t retrieve twitter account: ' . $exception->getTraceAsString(), __METHOD__);
             $error = $exception->getMessage();
         }
 

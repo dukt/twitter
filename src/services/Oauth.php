@@ -8,12 +8,12 @@
 namespace dukt\twitter\services;
 
 use Craft;
+use craft\helpers\UrlHelper;
 use dukt\twitter\errors\InvalidAccountException;
 use dukt\twitter\Plugin;
-use yii\base\Component;
 use League\OAuth1\Client\Credentials\TokenCredentials;
-use craft\helpers\UrlHelper;
-use \League\OAuth1\Client\Server\Twitter as TwitterProvider;
+use League\OAuth1\Client\Server\Twitter as TwitterProvider;
+use yii\base\Component;
 
 /**
  * OAuth Service
@@ -112,6 +112,7 @@ class Oauth extends Component
     public function getRedirectUri()
     {
         $url = UrlHelper::actionUrl('twitter/oauth/callback');
-        return UrlHelper::removeParam($url, 'site');;
+        return UrlHelper::removeParam($url, 'site');
+        ;
     }
 }

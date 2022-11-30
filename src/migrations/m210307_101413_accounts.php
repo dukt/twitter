@@ -27,12 +27,12 @@ class m210307_101413_accounts extends Migration
         $this->createTable(
             '{{%twitter_accounts}}',
             [
-                'id'                => $this->primaryKey(),
-                'token'             => $this->string(50),
-                'tokenSecret'       => $this->string(50),
-                'dateCreated'       => $this->dateTime()->notNull(),
-                'dateUpdated'       => $this->dateTime()->notNull(),
-                'uid'               => $this->uid()
+                'id' => $this->primaryKey(),
+                'token' => $this->string(50),
+                'tokenSecret' => $this->string(50),
+                'dateCreated' => $this->dateTime()->notNull(),
+                'dateUpdated' => $this->dateTime()->notNull(),
+                'uid' => $this->uid(),
             ]
         );
 

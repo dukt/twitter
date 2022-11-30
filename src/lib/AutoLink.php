@@ -82,14 +82,14 @@ class AutoLink extends TwitterAutoLink
 
         if (!empty($entity['list_slug'])) {
             # Replace the list and username
-            $linkText = $entity['screen_name'].$entity['list_slug'];
+            $linkText = $entity['screen_name'] . $entity['list_slug'];
             $class = $this->class_list;
-            $url = $this->url_base_list.$linkText;
+            $url = $this->url_base_list . $linkText;
         } else {
             # Replace the username
-            $linkText = '@'.$entity['screen_name'];
+            $linkText = '@' . $entity['screen_name'];
             $class = $this->class_user;
-            $url = $this->url_base_user.$linkText;
+            $url = $this->url_base_user . $linkText;
         }
 
         if (!empty($class)) {
@@ -129,10 +129,10 @@ class AutoLink extends TwitterAutoLink
 
         $link = '<a';
         foreach ($attributes as $key => $val) {
-            $link .= ' '.$key.'="'.$this->escapeHTML($val).'"';
+            $link .= ' ' . $key . '="' . $this->escapeHTML($val) . '"';
         }
 
-        return $link . ('>'.$text.'</a>');
+        return $link . ('>' . $text . '</a>');
     }
 
     /**
